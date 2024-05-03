@@ -27,6 +27,8 @@ export const SignupButtonStyled = styled.button`
 export const SignupButtonPrimaryStyled = styled.input<{ $width?: string }>`
   width: ${({ $width }) => $width || `calc(100%)`};
   border-radius: 76px;
+  font-weight: 700;
+  font-size: 18px;
   border: none;
 
   color: #fff;
@@ -34,6 +36,10 @@ export const SignupButtonPrimaryStyled = styled.input<{ $width?: string }>`
 
   min-height: 60px;
   cursor: pointer;
+`;
+
+export const LogoutButton = styled(SignupButtonPrimaryStyled)`
+  background: #b3b8bb;
 `;
 
 export const SignupButtonImage = styled.img`

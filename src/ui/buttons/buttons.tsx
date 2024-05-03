@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { SignupButtonImage, SignupButtonPrimaryStyled,SignupButtonStyled } from "./styled";
+import { LogoutButton, SignupButtonImage, SignupButtonPrimaryStyled,SignupButtonStyled } from "./styled";
 
 type SignupButtonProps = {
   icon?: string;
@@ -8,7 +8,7 @@ type SignupButtonProps = {
 };
 
 type ButtonPrimaryProps = {
-  type: "submit";
+  type: "submit" | "button";
   value: string;
 };
 
@@ -23,4 +23,8 @@ export function SignupButton({ icon, children }: SignupButtonProps) {
 
 export function SignupButtonPrimary({ type, value }: ButtonPrimaryProps) {
   return <SignupButtonPrimaryStyled type={type} value={value} />;
+}
+
+export function ButtonGrayed({ type, value }: ButtonPrimaryProps) {
+  return <LogoutButton type={type} value={value} />;
 }
