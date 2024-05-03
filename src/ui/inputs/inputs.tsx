@@ -2,19 +2,20 @@ import { ChangeEvent } from "react";
 
 import { StyledInput, StyledOption, StyledSelect } from "./styled";
 
-export function SignupInput({
+// TODO: isolate types
+export function FormInput({
   type,
   placeholder,
   width,
 }: {
-  type: string;
+  type: "text" | "password";
   placeholder: string;
   width?: string;
 }) {
   return <StyledInput type={type} placeholder={placeholder} width={width} />;
 }
 
-export function SignupSelect({
+export function FormSelect({
   placeholder,
   options,
   width,
