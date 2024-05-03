@@ -19,9 +19,21 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@api/*": ["src/api/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@constants/*": ["src/constants/*"],
+      "@types": ["src/types/index.ts"],
+      "@utils/*": ["src/utils/*"],
+      "@mocks/*": ["src/mocks/*"]
+    }
   },
-  "include": ["src"],
+  "types": ["vitest/globals"],
+  "include": ["src", "public/chartjs-chart-financial.js"],
+  "exclude": ["./cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
