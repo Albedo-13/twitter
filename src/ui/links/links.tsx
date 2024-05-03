@@ -1,23 +1,34 @@
 import { ReactNode } from "react";
 
+import { StyledPropsType } from "@/types/styled-types";
+
 import { BasicLinkDark, InlineLinkBlue } from "./styled";
+
+type LinkType = {
+  to: string;
+  children: ReactNode;
+};
 
 export function InlineLink({
   to,
   children,
-}: {
-  to: string;
-  children: ReactNode;
-}) {
-  return <InlineLinkBlue to={to}>{children}</InlineLinkBlue>;
+  ...props
+}: LinkType & StyledPropsType) {
+  return (
+    <InlineLinkBlue to={to} {...props}>
+      {children}
+    </InlineLinkBlue>
+  );
 }
 
 export function BasicLink({
   to,
   children,
-}: {
-  to: string;
-  children: ReactNode;
-}) {
-  return <BasicLinkDark to={to}>{children}</BasicLinkDark>;
+  ...props
+}: LinkType & StyledPropsType) {
+  return (
+    <BasicLinkDark to={to} {...props}>
+      {children}
+    </BasicLinkDark>
+  );
 }

@@ -1,6 +1,13 @@
 import { ChangeEvent } from "react";
 
-import { StyledInput, StyledOption, StyledSelect } from "./styled";
+import { StyledPropsType } from "@/types/styled-types";
+
+import { LogoutButton, SignupButtonPrimaryStyled, StyledInput, StyledOption, StyledSelect } from "./styled";
+
+type ButtonProps = {
+  type: "submit" | "button";
+  value: string;
+};
 
 // TODO: isolate types
 export function FormInput({
@@ -38,4 +45,20 @@ export function FormSelect({
       ))}
     </StyledSelect>
   );
+}
+
+export function SignupButtonPrimary({
+  type,
+  value,
+  ...props
+}: ButtonProps & StyledPropsType) {
+  return <SignupButtonPrimaryStyled type={type} value={value} {...props} />;
+}
+
+export function ButtonGrayed({
+  type,
+  value,
+  ...props
+}: ButtonProps & StyledPropsType) {
+  return <LogoutButton type={type} value={value} {...props} />;
 }

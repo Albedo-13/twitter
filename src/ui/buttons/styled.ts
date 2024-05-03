@@ -24,22 +24,21 @@ export const SignupButtonStyled = styled.button`
   }
 `;
 
-export const SignupButtonPrimaryStyled = styled.input<{ $width?: string }>`
-  width: ${({ $width }) => $width || `calc(100%)`};
-  border-radius: 76px;
-  font-weight: 700;
+export const EditButton = styled.button`
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 50px;
+  padding: 10px 15px;
+  width: 120px;
+  height: 44px;
+  font-weight: 600;
   font-size: 18px;
-  border: none;
+  background: transparent;
 
-  color: #fff;
-  background: #1da1f2;
+  position: absolute;
+  right: 20px;
+  top: 20px;
 
-  min-height: 60px;
   cursor: pointer;
-`;
-
-export const LogoutButton = styled(SignupButtonPrimaryStyled)`
-  background: #b3b8bb;
 `;
 
 export const SignupButtonImage = styled.img`

@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 25px;
+  padding: 10px;
 `;
 
 export const LogoWrapper = styled.div`
