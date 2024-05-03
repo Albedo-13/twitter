@@ -5,12 +5,13 @@ export const Wrapper = styled.div`
   height: calc(100vh - 50px);
 `;
 
+// TODO: clear styles & in auth page calls
 export const WrapperLeft = styled.div`
-  flex-basis: 60%;
+  /* width: 60%; */
 `;
 
 export const WrapperRight = styled.div`
-  flex-basis: 40%;
+  /* width: 40%; */
 `;
 
 export const Background = styled.img`

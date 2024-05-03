@@ -10,7 +10,7 @@ export const SignupButtonStyled = styled.button`
   border: 1px solid #e4eaed;
   border-radius: 42px;
   width: 400px;
-  height: 60px;
+  min-height: 60px;
   transition: 0.2s all;
   margin-top: 25px;
 
@@ -22,6 +22,18 @@ export const SignupButtonStyled = styled.button`
   &:hover {
     transition: 0.2s all;
   }
+`;
+
+export const SignupButtonPrimaryStyled = styled.input<{ $width?: string }>`
+  width: ${({ $width }) => $width || `calc(100%)`};
+  border-radius: 76px;
+  border: none;
+
+  color: #fff;
+  background: #1da1f2;
+
+  min-height: 60px;
+  cursor: pointer;
 `;
 
 export const SignupButtonImage = styled.img`

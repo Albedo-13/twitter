@@ -14,6 +14,8 @@ import {
   LoginText,
   PolicyText,
   Wrapper,
+  WrapperLeft,
+  WrapperRight,
 } from "./styled";
 
 export function AuthPage() {
@@ -22,26 +24,32 @@ export function AuthPage() {
       <Wrapper>
         <Background src={twitterBackground} alt="twitter background" />
         <AuthWrapper>
-          <Logo />
-          <H1>Happening now</H1>
-          <H2>Join Twitter today</H2>
-          <SignupButton icon={googleIcon}>Sign up with Google</SignupButton>
-          <SignupButton>Sign up with email</SignupButton>
-          <PolicyText>
-            By singing up you agree to the{" "}
-            <InlineLink to="#">Terms of Service</InlineLink> and{" "}
-            <InlineLink to="#">Privacy Policy</InlineLink>, including{" "}
-            <InlineLink to="#">Cookie Use</InlineLink>.
-          </PolicyText>
-          <LoginText>
-            Already have an account? <InlineLink to="#">Log in</InlineLink>
-          </LoginText>
+          <WrapperLeft>
+            <Logo />
+          </WrapperLeft>
+          <WrapperRight>
+            <H1>Happening now</H1>
+            <H2>Join Twitter today</H2>
+            <SignupButton icon={googleIcon}>Sign up with Google</SignupButton>
+            <SignupButton>Sign up with email</SignupButton>
+            <PolicyText>
+              By singing up you agree to the{" "}
+              <InlineLink to="#">Terms of Service</InlineLink> and{" "}
+              <InlineLink to="#">Privacy Policy</InlineLink>, including{" "}
+              <InlineLink to="#">Cookie Use</InlineLink>.
+            </PolicyText>
+            <LoginText>
+              Already have an account? <InlineLink to="#">Log in</InlineLink>
+            </LoginText>
+          </WrapperRight>
         </AuthWrapper>
       </Wrapper>
 
       <AuthFooterWrapper>
         {AUTH_FOOTER_LINKS.map(({ to, label }) => (
-          <BasicLink to={to}>{label}</BasicLink>
+          <BasicLink key={`${label}-${to}`} to={to}>
+            {label}
+          </BasicLink>
         ))}
       </AuthFooterWrapper>
     </>
