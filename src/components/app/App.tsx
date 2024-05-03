@@ -1,12 +1,13 @@
-import "./App.css";
+import { BrowserRouter } from "react-router-dom";
 
-function App() {
+import { AuthPage } from "@/pages/auth/auth-page";
+import { GlobalStyle } from "@/styles/global";
 
+export function App() {
   return (
-    <>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <BrowserRouter>
+      <GlobalStyle />
+      <AuthPage />
+    </BrowserRouter>
   );
 }
-
-export default App;
