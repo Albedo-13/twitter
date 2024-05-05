@@ -1,8 +1,8 @@
 import googleIcon from "@/assets/icons/google-icon.svg";
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import { Logo } from "@/components/logo/logo";
-import { AUTH_FOOTER_LINKS } from "@/constants/auth-footer-links";
-import { SignupButton } from "@/ui/buttons/buttons";
+import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
+import { Button } from "@/ui/buttons/buttons";
 import { BasicLink, InlineLink } from "@/ui/links/links";
 
 import {
@@ -30,8 +30,17 @@ export function AuthPage() {
           <WrapperRight>
             <H1>Happening now</H1>
             <H2>Join Twitter today</H2>
-            <SignupButton icon={googleIcon}>Sign up with Google</SignupButton>
-            <SignupButton>Sign up with email</SignupButton>
+            <Button
+              icon={googleIcon}
+              $variant="outlined"
+              $size="large"
+              $margin="25px 0 0 0"
+            >
+              Sign up with Google
+            </Button>
+            <Button $variant="outlined" $size="large" $margin="25px 0 0 0">
+              Sign up with email
+            </Button>
             <PolicyText>
               By singing up you agree to the{" "}
               <InlineLink to="#">Terms of Service</InlineLink> and{" "}

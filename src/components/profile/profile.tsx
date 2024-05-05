@@ -1,10 +1,11 @@
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import noBackground from "@/assets/imgs/no_background.webp";
-import { EditButtonOutlined } from "@/ui/buttons/buttons";
+import { Button } from "@/ui/buttons/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import {
   AvatarWrapper,
+  EditButtonWrapper,
   ProfileBackgroundImage,
   ProfileBody,
   ProfileBodyName,
@@ -28,7 +29,11 @@ export function Profile() {
         <AvatarWrapper>
           <Avatar src={noAvatar} $width={"150px"} />
         </AvatarWrapper>
-        <EditButtonOutlined>Edit profile</EditButtonOutlined>
+        <EditButtonWrapper>
+          <Button type="button" $variant="outlined" $size="small">
+            Edit profile
+          </Button>
+        </EditButtonWrapper>
         <ProfileBodyName>Bober</ProfileBodyName>
         <ProfileBodyTag>@bober_kurwa</ProfileBodyTag>
         <ProfileBodyStatus>React developer in Modsen | Male</ProfileBodyStatus>

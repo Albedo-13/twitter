@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const ProfileWrapper = styled.div`
-  position: relative;
   border-top: none;
 `;
 
@@ -50,8 +49,14 @@ export const ProfileBodyStatus = styled.p`
   margin-top: 15px;
 `;
 
-export const AvatarWrapper  = styled.div`
+export const AvatarWrapper = styled.div`
   position: absolute;
   top: -75px;
   left: 10px;
+`;
+
+export const EditButtonWrapper = styled.div`
+  position: absolute;
+  right: 20px;
+  top: 20px;
 `;

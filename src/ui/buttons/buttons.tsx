@@ -2,33 +2,39 @@ import { ReactNode } from "react";
 
 import { StyledPropsType } from "@/types/styled-types";
 
-import {
-  EditButton,
-  SignupButtonImage,
-  SignupButtonStyled,
-} from "./styled";
+import { Image, StyledButton } from "./styled";
 
-type SignupButtonProps = {
+type ButtonProps = {
   icon?: string;
   children: ReactNode;
+  type?: "submit" | "button" | "reset";
+  $variant: "primary" | "outlined" | "secondary";
+  $size: "small" | "medium" | "large";
+  $margin?: string;
+  onClick?: VoidFunction;
 };
 
-export function SignupButton({
+export function Button({
   icon,
   children,
+  type,
+  $variant,
+  $size,
+  $margin,
+  onClick,
   ...props
-}: SignupButtonProps & StyledPropsType) {
+}: ButtonProps & StyledPropsType) {
   return (
-    <SignupButtonStyled {...props}>
-      {icon && <SignupButtonImage src={icon} alt="button prefix image" />}
+    <StyledButton
+      type={type}
+      $variant={$variant}
+      $size={$size}
+      $margin={$margin}
+      onClick={onClick}
+      {...props}
+    >
+      {icon && <Image src={icon} alt="button icon" />}
       {children}
-    </SignupButtonStyled>
+    </StyledButton>
   );
-}
-
-export function EditButtonOutlined({
-  children,
-  ...props
-}: SignupButtonProps & StyledPropsType) {
-  return <EditButton {...props} >{children}</EditButton>;
 }

@@ -1,6 +1,6 @@
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/navigation-links";
-import { ButtonGrayed, SignupButtonPrimary } from "@/ui/inputs/inputs";
+import { Button } from "@/ui/buttons/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import { Logo } from "../logo/logo";
@@ -37,7 +37,14 @@ export function Navigation() {
           ))}
         </NavList>
       </nav>
-      <SignupButtonPrimary type="button" value={"Tweet"} $margin="25px 0 0 0" />
+      <Button
+        $variant="primary"
+        $size="medium"
+        type="button"
+        $margin="25px 0 0 0"
+      >
+        Tweet
+      </Button>
       <UserWrapper>
         <UserCard>
           <Avatar src={noAvatar} />
@@ -46,7 +53,14 @@ export function Navigation() {
             <UserTag>@bober_kurwa</UserTag>
           </UserBlock>
         </UserCard>
-        <ButtonGrayed type="button" value={"Log out"} $margin="25px 0 0 0" />
+        <Button
+          $variant="secondary"
+          $size="large"
+          type="button"
+          $margin="25px 0 0 0"
+        >
+          Log out
+        </Button>
       </UserWrapper>
     </Wrapper>
   );

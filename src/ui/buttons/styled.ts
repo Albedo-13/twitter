@@ -1,47 +1,84 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-// TODO: general button styles (cursor, sizes?, border?)
-export const SignupButtonStyled = styled.button`
-  font-weight: 500;
-  font-size: 20px;
-  color: #000;
-  background-color: transparent;
-
-  border: 1px solid #e4eaed;
-  border-radius: 42px;
-  width: 400px;
-  min-height: 60px;
-  transition: 0.2s all;
-  margin-top: 25px;
-
+const Button = css`
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: 0.2s all;
 
   &:hover {
     transition: 0.2s all;
   }
 `;
 
-export const EditButton = styled.button`
-  border: 1px solid rgba(0, 0, 0, 0.4);
-  border-radius: 50px;
-  padding: 10px 15px;
-  width: 120px;
-  height: 44px;
-  font-weight: 600;
-  font-size: 18px;
-  background: transparent;
+const primaryStyles = css`
+  color: #fff;
+  background: #1da1f2;
+  border: none;
 
-  position: absolute;
-  right: 20px;
-  top: 20px;
-
-  cursor: pointer;
+  &:disabled {
+    opacity: 0.4;
+  }
 `;
 
-export const SignupButtonImage = styled.img`
+const outlinedStyles = css`
+  border: 1px solid #e4eaed;
+  background-color: transparent;
+`;
+
+const secondaryStyles = css`
+  border: none;
+  color: #fff;
+  background-color: #b3b8bb;
+`;
+
+const smallStyles = css`
+  min-height: 44px;
+  min-width: 120px;
+
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const mediumStyles = css`
+  min-height: 55px;
+  min-width: 230px;
+  border-radius: 27px;
+
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const largeStyles = css`
+  min-height: 60px;
+  min-width: 100%;
+  border-radius: 42px;
+
+  font-size: 20px;
+  font-weight: 600;
+`;
+
+export const StyledButton = styled.button<{
+  $variant: "primary" | "outlined" | "secondary";
+  $size: "small" | "medium" | "large";
+  $margin?: string;
+}>`
+  ${Button}
+
+  ${({ $variant }) => $variant === "primary" && primaryStyles}
+  ${({ $variant }) => $variant === "outlined" && outlinedStyles}
+  ${({ $variant }) => $variant === "secondary" && secondaryStyles}
+  
+  ${({ $size }) => $size === "small" && smallStyles}
+  ${({ $size }) => $size === "medium" && mediumStyles}
+  ${({ $size }) => $size === "large" && largeStyles}
+
+  margin: ${({ $margin }) => $margin};
+`;
+
+export const Image = styled.img`
   width: 30px;
   height: 30px;
 `;

@@ -2,9 +2,10 @@ import { ChangeEvent, useState } from "react";
 
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
-import { SignupButtonPrimary } from "@/ui/buttons/buttons";
-import { FormInput, FormSelect } from "@/ui/inputs/inputs";
+import { Button } from "@/ui/buttons/buttons";
+import { Input } from "@/ui/inputs/inputs";
 import { InlineLink } from "@/ui/links/links";
+import { Select } from "@/ui/selects/selects";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
 import {
@@ -34,9 +35,9 @@ export function SignupPage() {
         <Logo />
       </LogoWrapper>
       <H1>Create an account</H1>
-      <FormInput type="text" placeholder="Name" />
-      <FormInput type="text" placeholder="Phone number" />
-      <FormInput type="text" placeholder="Email" />
+      <Input type="text" placeholder="Name" />
+      <Input type="text" placeholder="Phone number" />
+      <Input type="text" placeholder="Email" />
       <InlineLink to="#">Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
@@ -46,25 +47,27 @@ export function SignupPage() {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
       </Text>
       <SelectWrapper>
-        <FormSelect
+        <Select
           placeholder="Years"
           options={YEARS}
           onChange={handleYearChange}
         />
-        <FormSelect
+        <Select
           placeholder="Months"
           options={MONTHS}
           onChange={handleMonthChange}
           width={"200px"}
         />
-        <FormSelect
+        <Select
           placeholder="Days"
           options={getDaysFromMonth(+year, MONTHS.indexOf(month))}
           width={"200px"}
         />
       </SelectWrapper>
 
-      <SignupButtonPrimary type="submit" value="Next" />
+      <Button type="submit" $variant="primary" $size="large" $margin="25px 0 0 0">
+        Next
+      </Button>
     </FormWrapper>
   );
 }
