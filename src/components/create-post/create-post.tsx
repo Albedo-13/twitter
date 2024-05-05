@@ -8,7 +8,6 @@ import {
   CreatePostWrapper,
   FileInput,
   FileInputImage,
-  FileInputLabel,
   FileInputWrapper,
   FormWrapper,
   Textarea,
