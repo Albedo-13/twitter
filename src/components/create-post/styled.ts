@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CreatePostWrapper = styled.form`
+export const CreatePostWrapper = styled.div`
   position: relative;
   display: flex;
   gap: 15px;

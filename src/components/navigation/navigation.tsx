@@ -26,10 +26,9 @@ export function Navigation() {
       </LogoWrapper>
       <nav>
         <NavList>
-          {NAVIGATION_LINKS.map(({ label, to, icon, iconActive }) => (
+          {NAVIGATION_LINKS.map(({ label, to, icon, isEnabled }) => (
             <NavListItem key={label}>
-              <NavListItemLink to={to}>
-                {/* TODO: is item active? different src args */}
+              <NavListItemLink to={to} $isEnabled={isEnabled}>
                 <NavListItemImage src={icon} alt={label} />
                 {label}
               </NavListItemLink>

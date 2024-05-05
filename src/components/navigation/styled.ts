@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -23,16 +23,21 @@ export const NavListItem = styled.li`
   // TODO: remove
 `;
 
-export const NavListItemLink = styled(Link)`
+export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
   text-decoration: none;
   padding-left: 20px;
   font-weight: 600;
   font-size: 18px;
-  color: #000;
   padding-left: 20px;
-
   display: flex;
   align-items: center;
+
+  color: #000;
+  color: ${({ $isEnabled }) => !$isEnabled && "#b3b8bb"};
+
+  &.active {
+    color: ${({ $isEnabled }) => $isEnabled && "#1da1f2"};
+  }
 `;
 
 export const NavListItemImage = styled.img`
