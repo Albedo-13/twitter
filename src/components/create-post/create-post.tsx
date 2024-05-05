@@ -12,6 +12,7 @@ import {
   FormWrapper,
   Textarea,
 } from "./styled";
+
 export function CreatePost() {
   return (
     <CreatePostWrapper>
