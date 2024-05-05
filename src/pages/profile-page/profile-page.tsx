@@ -1,6 +1,7 @@
 import { CreatePost } from "@/components/create-post/create-post";
 import { Navigation } from "@/components/navigation/navigation";
 import { Profile } from "@/components/profile/profile";
+import { SearchSidebar } from "@/components/search-sidebar/search-sidebar";
 import { TweetsList } from "@/components/tweets-list/tweets-list";
 
 import {
@@ -13,15 +14,17 @@ import {
 export function ProfilePage() {
   return (
     <ProfileWrapper>
-      <NavigationWrapper style={{ border: "1px solid red" }}>
+      <NavigationWrapper>
         <Navigation />
       </NavigationWrapper>
-      <ContentWrapper style={{ border: "1px solid green" }}>
+      <ContentWrapper>
         <Profile />
         <CreatePost />
         <TweetsList />
       </ContentWrapper>
-      <SearchWrapper style={{ backgroundColor: "blue" }}>Search</SearchWrapper>
+      <SearchWrapper>
+        <SearchSidebar />
+      </SearchWrapper>
     </ProfileWrapper>
   );
 }

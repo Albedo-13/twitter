@@ -10,11 +10,12 @@ export const ProfileWrapper = styled.div`
 
 export const NavigationWrapper = styled.div`
   flex-basis: 20%;
-  border-right: 1px solid #d8d8d8;
 `;
 
 export const ContentWrapper = styled.div`
   flex-basis: 60%;
+  border-left: 1px solid #d8d8d8;
+  border-right: 1px solid #d8d8d8;
 `;
 
 export const SearchWrapper = styled.div`
