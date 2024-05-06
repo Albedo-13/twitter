@@ -4,6 +4,7 @@ import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons/buttons";
 
 import { Avatar } from "../avatar/avatar";
+import { EditProfile } from "../edit-profile/edit-profile";
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 import {
@@ -57,7 +58,7 @@ export function Profile() {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <div>Hello</div>
+              <EditProfile />
             </Modal>
           }
         />

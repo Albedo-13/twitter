@@ -38,7 +38,7 @@ export function SignupPage() {
       <Input type="text" placeholder="Name" />
       <Input type="text" placeholder="Phone number" />
       <Input type="text" placeholder="Email" />
-      <InlineLink to="#">Use email</InlineLink>
+      <InlineLink to="/login">Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.

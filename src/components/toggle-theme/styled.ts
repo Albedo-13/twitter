@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const StyledToggleTheme = styled.div`
-  min-height: 50px;
-  padding: 20px;
-  border-bottom: 1px solid #d8d8d8;
-  
+  min-height: ${theme.spacing.s50};
+  padding: ${theme.spacing.s20};
+  border-bottom: ${theme.border.gray};
 `;
 export const SwitchWrapper = styled.div`
- text-align: right;
- position: relative; // ?
+  text-align: right;
 `;

@@ -1,62 +1,61 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
+
 export const ProfileWrapper = styled.div`
   border-top: none;
 `;
 
 export const ProfileHeader = styled.div`
-  min-height: 50px;
-  padding: 20px;
-  border-bottom: 1px solid #d8d8d8;
+  min-height: ${theme.spacing.s50};
+  padding: ${theme.spacing.s20};
+  border-bottom: ${theme.border.gray};
 `;
 
 export const ProfileHeaderName = styled.div`
-  font-weight: 700;
-  font-size: 20px;
-  color: #000;
+  font-weight: ${theme.fontWeight.fw700};
+  font-size: ${theme.spacing.s20};
 `;
 
 export const ProfileHeaderTweets = styled.div`
-  font-weight: 400;
-  font-size: 16px;
-  color: #000;
   opacity: 0.6;
 `;
 
 export const ProfileBackgroundImage = styled.img`
-  height: 280px;
+  height: ${theme.spacing.s280};
   width: 100%;
 `;
 
 export const ProfileBody = styled.div`
-  padding: 80px 25px 50px 25px;
-  border-bottom: 1px solid #d8d8d8;
+  padding: ${theme.spacing.s80} ${theme.spacing.s25} ${theme.spacing.s50} ${theme.spacing.s25};
+  border-bottom: ${theme.border.gray};
   position: relative;
 `;
 
 export const ProfileBodyName = styled.p`
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: ${theme.fontWeight.fw700};
+  font-size: ${theme.fontSize.fs24};
 `;
 
 export const ProfileBodyTag = styled.p`
   opacity: 0.6;
-  margin-top: 5px;
+  margin-top: ${theme.spacing.s5};
 `;
 
 export const ProfileBodyStatus = styled.p`
-  font-size: 18px;
-  margin-top: 15px;
+  font-size: ${theme.fontSize.fs18};
+  margin-top: ${theme.spacing.s15};
 `;
 
 export const AvatarWrapper = styled.div`
   position: absolute;
-  top: -75px;
-  left: 10px;
+  top: -${theme.spacing.s75};
+  left: ${theme.spacing.s10};
 `;
 
 export const EditButtonWrapper = styled.div`
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: ${theme.spacing.s20};
+  top: ${theme.spacing.s20};
 `;

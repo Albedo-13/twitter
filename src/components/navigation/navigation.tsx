@@ -4,6 +4,7 @@ import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons/buttons";
 
 import { Avatar } from "../avatar/avatar";
+import { CreatePost } from "../create-post/create-post";
 import { Logo } from "../logo/logo";
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
@@ -73,7 +74,7 @@ export function Navigation() {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <div>goodbye</div>
+              <CreatePost />
             </Modal>
           }
         />

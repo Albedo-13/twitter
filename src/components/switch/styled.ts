@@ -1,17 +1,21 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const StyledSwitch = styled.label`
   position: relative;
   display: inline-block;
-  width: 50px;
-  height: 30px;
+  width: ${theme.spacing.s50};
+  height: ${theme.spacing.s30};
 
   &:hover {
     .switch-slider {
-      border: 2px solid #d8d8d8;
+      border: ${theme.border.gray};
+      border-width: 2px;
 
       &:before {
-        border: 2px solid #d8d8d8;
+        border: ${theme.border.gray};
+        border-width: 2px;
       }
     }
   }
@@ -24,7 +28,7 @@ export const SwitchInput = styled.input`
 
   &:checked + .switch-slider {
     &:before {
-      transform: translateX(20px);
+      transform: translateX(${theme.spacing.s20});
     }
   }
 `;
@@ -37,18 +41,20 @@ export const SwitchSpan = styled.span`
   right: 0;
   bottom: 0;
   background-color: transparent;
+  border: ${theme.border.gray};
+  border-width: 2px;
+  border-radius: calc(${theme.spacing.s35} - 1px);
   transition: 0.4s;
-  border: 2px solid #d8d8d8;
-  border-radius: calc(35px - 1px);
 
   &:before {
     position: absolute;
     content: "";
-    height: calc(25px + 1px);
-    width: calc(25px + 1px);
+    height: calc(${theme.spacing.s25} + 1px);
+    width: calc(${theme.spacing.s25} + 1px);
     left: -2px;
     bottom: -2px;
-    border: 2px solid #d8d8d8;
+    border: ${theme.border.gray};
+    border-width: 2px;
     transition: 0.4s;
     border-radius: 50%;
   }

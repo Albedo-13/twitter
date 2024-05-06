@@ -14,8 +14,6 @@ import {
   LoginText,
   PolicyText,
   Wrapper,
-  WrapperLeft,
-  WrapperRight,
 } from "./styled";
 
 export function AuthPage() {
@@ -24,10 +22,10 @@ export function AuthPage() {
       <Wrapper>
         <Background src={twitterBackground} alt="twitter background" />
         <AuthWrapper>
-          <WrapperLeft>
+          <div>
             <Logo />
-          </WrapperLeft>
-          <WrapperRight>
+          </div>
+          <div>
             <H1>Happening now</H1>
             <H2>Join Twitter today</H2>
             <Button
@@ -48,9 +46,9 @@ export function AuthPage() {
               <InlineLink to="#">Cookie Use</InlineLink>.
             </PolicyText>
             <LoginText>
-              Already have an account? <InlineLink to="#">Log in</InlineLink>
+              Already have an account? <InlineLink to="/login">Log in</InlineLink>
             </LoginText>
-          </WrapperRight>
+          </div>
         </AuthWrapper>
       </Wrapper>
 

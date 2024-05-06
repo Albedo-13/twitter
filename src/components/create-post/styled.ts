@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const CreatePostWrapper = styled.div`
   position: relative;
   display: flex;
-  gap: 15px;
-  padding: 20px;
-  border-bottom: 1px solid #d8d8d8;
+  gap: ${theme.spacing.s15};
+  padding: ${theme.spacing.s20};
+  border-bottom: ${theme.border.gray};
 `;
 
 export const FormWrapper = styled.form`
@@ -13,15 +15,15 @@ export const FormWrapper = styled.form`
 `;
 
 export const Textarea = styled.textarea`
-  width: calc(100% - 40px);
+  width: calc(100% - ${theme.spacing.s40});
 
   border: none;
   resize: none;
-  height: 80px;
-  font-size: 18px;
+  height: ${theme.spacing.s80};
+  font-size: ${theme.fontSize.fs18};
 
   &::placeholder {
-    font-size: 22px;
+    font-size: ${theme.fontSize.fs22};
     color: #828282;
   }
 `;
@@ -31,8 +33,8 @@ export const FileInputWrapper = styled.div`
 `;
 
 export const FileInputImage = styled.img`
-  width: 25px;
-  height: 25px;
+  width: ${theme.spacing.s25};
+  height: ${theme.spacing.s25};
   cursor: pointer;
 `;
 
@@ -42,6 +44,6 @@ export const FileInput = styled.input`
 
 export const BasementWrapper = styled.div`
   display: flex;
-  width: calc(100% - 40px);
   justify-content: space-between;
+  width: calc(100% - ${theme.spacing.s40});
 `;

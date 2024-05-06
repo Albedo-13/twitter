@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 const Button = css`
   display: flex;
   justify-content: center;
@@ -13,8 +15,8 @@ const Button = css`
 `;
 
 const primaryStyles = css`
-  color: #fff;
-  background: #1da1f2;
+  color: ${theme.color.white};
+  background: ${theme.color.accents};
   border: none;
 
   &:disabled {
@@ -23,41 +25,42 @@ const primaryStyles = css`
 `;
 
 const outlinedStyles = css`
-  border: 1px solid #e4eaed;
+  border: ${theme.border.gray};
   background-color: transparent;
 `;
 
 const secondaryStyles = css`
   border: none;
-  color: #fff;
-  background-color: #b3b8bb;
+  color: ${theme.color.white};
+  background-color: ${theme.color.secondary};
 `;
 
 const smallStyles = css`
-  min-height: 44px;
-  min-width: 120px;
+  min-height: ${theme.spacing.s45};
+  min-width: ${theme.spacing.s120};
 
-  border-radius: 50px;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: ${theme.spacing.s50};
+  font-size: ${theme.fontSize.fs18};
+  font-weight: ${theme.fontWeight.fw700};
 `;
 
 const mediumStyles = css`
-  min-height: 55px;
-  min-width: 230px;
-  border-radius: 27px;
+  min-height: ${theme.spacing.s55};
+  min-width: ${theme.spacing.s230};
+  border-radius: ${theme.spacing.s25};
 
-  font-size: 18px;
-  font-weight: 700;
+  font-size: ${theme.fontSize.fs18};
+  font-weight: ${theme.fontWeight.fw700};
 `;
 
 const largeStyles = css`
-  min-height: 60px;
-  min-width: 100%;
-  border-radius: 42px;
+  min-height: ${theme.spacing.s60};
+  border-radius: ${theme.spacing.s40};
 
-  font-size: 20px;
-  font-weight: 600;
+  font-size: ${theme.fontSize.fs20};
+  font-weight: ${theme.fontWeight.fw600};
+
+  min-width: 100%;
 `;
 
 export const StyledButton = styled.button<{
@@ -79,6 +82,6 @@ export const StyledButton = styled.button<{
 `;
 
 export const Image = styled.img`
-  width: 30px;
-  height: 30px;
+  width: ${theme.spacing.s30};
+  height: ${theme.spacing.s30};
 `;

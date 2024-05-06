@@ -1,17 +1,10 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const Wrapper = styled.div`
   display: flex;
-  height: calc(100vh - 50px);
-`;
-
-// TODO: clear styles & in auth page calls
-export const WrapperLeft = styled.div`
-  /* width: 60%; */
-`;
-
-export const WrapperRight = styled.div`
-  /* width: 40%; */
+  height: calc(100vh - ${theme.spacing.s50});
 `;
 
 export const Background = styled.img`
@@ -22,41 +15,36 @@ export const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-left: 40px;
+  margin-left: ${theme.spacing.s40};
 `;
 
 export const H1 = styled.h1`
-  font-weight: 900;
-  font-size: 84px;
-  margin-top: 57px;
-  color: #000;
+  font-weight: ${theme.fontWeight.fw900};
+  font-size: ${theme.fontSize.fs84};
+  margin-top: ${theme.spacing.s55};
 `;
 
 export const H2 = styled.h2`
-  font-weight: 900;
-  font-size: 42px;
-  margin-top: 46px;
-  color: #000;
+  font-weight: ${theme.fontWeight.fw900};
+  font-size: ${theme.fontSize.fs42};
+  margin-top: ${theme.spacing.s45};
 `;
 
 export const PolicyText = styled.p`
-  max-width: 370px;
-  font-size: 14px;
-  color: #000;
+  max-width: ${theme.spacing.s370};
+  font-size: ${theme.fontSize.fs14};
+  margin-top: ${theme.spacing.s30};
   line-height: 143%;
-  margin-top: 30px;
 `;
 
 export const LoginText = styled.p`
-  font-size: 16px;
-  color: #000;
-  margin-top: 20px;
+  margin-top: ${theme.spacing.s20};
 `;
 
 export const AuthFooterWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  height: 50px;
+  gap: ${theme.spacing.s20};
+  height: ${theme.spacing.s50};
 `;

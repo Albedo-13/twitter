@@ -13,7 +13,7 @@ export function LoginPage() {
       <Input type="text" placeholder="Phone number, email address" />
       <Input type="password" placeholder="Password" />
       <Button $variant="primary" $size="large" type="submit">Log In</Button>
-      <InlineLink to="#" $align="right">Sign up to Twitter</InlineLink>
+      <InlineLink to="/signup" $align="right">Sign up to Twitter</InlineLink>
     </FormWrapper>
   );
 }

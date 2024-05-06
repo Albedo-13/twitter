@@ -1,22 +1,24 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: ${theme.spacing.s10};
 `;
 
 export const LogoWrapper = styled.div`
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: ${theme.spacing.s20};
+  margin-left: ${theme.spacing.s20};
 `;
 
 export const NavList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  margin-top: 30px;
+  gap: ${theme.spacing.s25};
+  margin-top: ${theme.spacing.s30};
 `;
 
 export const NavListItem = styled.li`
@@ -25,10 +27,10 @@ export const NavListItem = styled.li`
 
 export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
   text-decoration: none;
-  padding-left: 20px;
-  font-weight: 600;
-  font-size: 18px;
-  padding-left: 20px;
+  padding-left: ${theme.spacing.s20};
+  font-weight: ${theme.fontWeight.fw600};
+  font-size: ${theme.fontSize.fs18};
+  padding-left: ${theme.spacing.s20};
   display: flex;
   align-items: center;
 
@@ -41,37 +43,32 @@ export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
 `;
 
 export const NavListItemImage = styled.img`
-  width: 25px;
-  height: 25px;
-  padding-right: 15px;
+  width: ${theme.spacing.s25};
+  height: ${theme.spacing.s25};
+  padding-right: ${theme.spacing.s15};
 `;
 
 export const UserWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: ${theme.spacing.s50};
 `;
 
 export const UserCard = styled.div`
   display: flex;
-  margin-left: 10px;
-  gap: 10px;
+  margin-left: ${theme.spacing.s10};
+  gap: ${theme.spacing.s10};
 `;
 
 export const UserBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: ${theme.spacing.s5};
 `;
 
 export const UserName = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  color: #000;
+  font-weight: ${theme.fontWeight.fw600};
 `;
 
 export const UserTag = styled.div`
-  font-weight: 400;
-  font-size: 16px;
-  color: #000;
   opacity: 0.6;
 `;

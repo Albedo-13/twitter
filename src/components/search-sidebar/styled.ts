@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const Wrapper = styled.div`
-  padding: 20px;
+  padding: ${theme.spacing.s20};
 `;
 
 export const SearchedTweets = styled.div`
-  margin-top: 20px;
+  margin-top: ${theme.spacing.s20};
 `;

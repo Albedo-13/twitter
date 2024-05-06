@@ -1,12 +1,14 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const Wrapper = styled.div`
   position: relative;
-  padding: 20px;
-  border-bottom: 1px solid #d8d8d8;
+  padding: ${theme.spacing.s20};
+  border-bottom: ${theme.border.gray};
 
   display: flex;
-  gap: 15px;
+  gap: ${theme.spacing.s15};
 `;
 
 export const BodyWrapper = styled.div`
@@ -15,26 +17,25 @@ export const BodyWrapper = styled.div`
 
 export const UserInfoWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: ${theme.spacing.s10};
 `;
 
 export const UserName = styled.p`
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: ${theme.fontWeight.fw700};
+  font-size: ${theme.fontSize.fs20};
 `;
 
 export const UserTag = styled.p`
-  font-weight: 400;
-  font-size: 18px;
+  font-size: ${theme.fontSize.fs18};
   opacity: 0.6;
 `;
 
 export const TweetText = styled.p`
-  font-size: 18px;
+  font-size: ${theme.fontSize.fs18};
 `;
 
 export const Image = styled.img`
+  border-radius: ${theme.spacing.s20};
+  margin: ${theme.spacing.s15} 0;
   width: 100%;
-  border-radius: 20px;
-  margin: 15px 0;
 `;

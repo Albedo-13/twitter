@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const FormWrapper = styled.form`
+  padding-top: ${theme.spacing.s60};
+  max-width: ${theme.spacing.s450};
   display: flex;
-  padding-top: 60px;
   flex-direction: column;
-  gap: 20px;
+  gap: ${theme.spacing.s20};
   height: 100vh;
-  max-width: 450px;
   margin: 0 auto;
 `;

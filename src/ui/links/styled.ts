@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+import { theme } from "@/styles/theme";
+
 export const InlineLinkBlue = styled(Link)<{ $align?: string }>`
-  color: #1e97e1;
+  color: ${theme.color.accents};
   text-decoration: none;
   text-align: ${(props) => props.$align || "left"};
 
   &:hover {
-    color: #1e97e1;
+    color: ${theme.color.accents};
     text-decoration: underline;
   }
 `;
 
 export const BasicLinkDark = styled(Link)`
-  font-size: 14px;
-  color: #000;
+  font-size: ${theme.fontSize.fs14};
+  color: ${theme.color.black};
   text-decoration: none;
 
   &:hover {

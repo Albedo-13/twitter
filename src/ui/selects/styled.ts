@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-export const StyledSelect = styled.select<{ $width?: string }>`
-  width: ${({ $width }) => $width || `calc(100% - 40px)`};
-  cursor: pointer;
-  border: 1px solid lightgray;
-  padding: 20px;
-  font-size: 18px;
+import { theme } from "@/styles/theme";
 
-  border-radius: 6px;
+export const StyledSelect = styled.select<{ $width?: string }>`
+  width: ${({ $width }) => $width || `calc(100% - ${theme.spacing.s40})`};
+  border: ${theme.border.gray};
+  padding: ${theme.spacing.s20};
+  font-size: ${theme.fontSize.fs18};
+  border-radius: ${theme.spacing.s5};
+  cursor: pointer;
   outline: none;
   appearance: none;
 
