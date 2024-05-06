@@ -21,10 +21,6 @@ export const NavList = styled.ul`
   margin-top: ${theme.spacing.s30};
 `;
 
-export const NavListItem = styled.li`
-  // TODO: remove
-`;
-
 export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
   text-decoration: none;
   padding-left: ${theme.spacing.s20};
@@ -35,17 +31,19 @@ export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
   align-items: center;
 
   color: ${({ theme }) => theme.color.text};
-  color: ${({ $isEnabled }) => !$isEnabled && "#b3b8bb"};
+  color: ${({ theme, $isEnabled }) => !$isEnabled && theme.color.secondary};
 
   &.active {
-    color: ${({ $isEnabled }) => $isEnabled && "#1da1f2"};
+    color: ${({ theme, $isEnabled }) => $isEnabled && theme.color.accents};
   }
 `;
+
 
 export const NavListItemImage = styled.img`
   width: ${theme.spacing.s25};
   height: ${theme.spacing.s25};
   padding-right: ${theme.spacing.s15};
+  filter: ${({ theme }) => theme.svgFill.primary};
 `;
 
 export const UserWrapper = styled.div`

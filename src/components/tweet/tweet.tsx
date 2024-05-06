@@ -27,8 +27,6 @@ export default function Tweet() {
           <span>100</span>
         </div>
       </BodyWrapper>
-
-      {/* <More></More> */}
     </Wrapper>
   );
 }

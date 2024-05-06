@@ -1,3 +1,5 @@
+import { Fragment } from "react/jsx-runtime";
+
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/navigation-links";
 import { useModalControls } from "@/hooks/use-modal-controls";
@@ -11,7 +13,6 @@ import { ModalPortal } from "../modal/modal-portal";
 import {
   LogoWrapper,
   NavList,
-  NavListItem,
   NavListItemImage,
   NavListItemLink,
   UserBlock,
@@ -33,14 +34,16 @@ export function Navigation() {
         </LogoWrapper>
         <nav>
           <NavList>
-            {NAVIGATION_LINKS.map(({ label, to, icon, isEnabled }) => (
-              <NavListItem key={label}>
-                <NavListItemLink to={to} $isEnabled={isEnabled}>
-                  <NavListItemImage src={icon} alt={label} />
-                  {label}
-                </NavListItemLink>
-              </NavListItem>
-            ))}
+            {NAVIGATION_LINKS.map(
+              ({ label, to, icon, isEnabled }) => (
+                <Fragment key={label}>
+                  <NavListItemLink to={to} $isEnabled={isEnabled}>
+                    <NavListItemImage src={icon} alt={label} />
+                    {label}
+                  </NavListItemLink>
+                </Fragment>
+              )
+            )}
           </NavList>
         </nav>
         <Button

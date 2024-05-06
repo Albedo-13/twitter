@@ -31,5 +31,6 @@ export const SearchIcon = styled.img`
   width: ${theme.spacing.s20};
   height: ${theme.spacing.s20};
   left: ${theme.spacing.s20};
+  filter: ${({ theme }) => theme.svgFill.primary};
   position: absolute;
 `;

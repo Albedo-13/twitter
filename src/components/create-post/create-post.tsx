@@ -18,7 +18,7 @@ export function CreatePost() {
     <CreatePostWrapper>
       <Avatar src={noAvatar} />
       <FormWrapper>
-        <Textarea placeholder="What's happening" />
+        <Textarea placeholder="What's happening?" />
         <BasementWrapper>
           <FileInputWrapper>
             <label htmlFor="file-input">

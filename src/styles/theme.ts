@@ -1,3 +1,5 @@
+import { BLUE_SVG, DARK_SVG, GRAY_SVG } from "@/constants/svg-colors";
+
 export const theme = {
   colorScheme: "light",
   color: {
@@ -8,7 +10,6 @@ export const theme = {
     black: "#000000",
     white: "#ffffff",
     searchInput: "#eff3f4",
-
     text: "#000000",
   },
   spacing: {
@@ -51,6 +52,10 @@ export const theme = {
     fw700: 700,
     fw900: 900,
   },
+  svgFill: {
+    primary: DARK_SVG,
+    active: BLUE_SVG,
+  },
   border: {
     gray: "1px solid #d8d8d8",
   },
@@ -64,15 +69,14 @@ export const theme = {
 export const themeDark: typeof theme = {
   ...theme,
   colorScheme: "dark",
+  svgFill: {
+    ...theme.svgFill,
+    primary: GRAY_SVG,
+  },
   color: {
-    primary: "red",
-    secondary: "#b3b8bb",
-    accents: "#1da1f2",
+    ...theme.color,
     placeholder: "#b3b8bb",
-    black: "#000000",
     searchInput: "#4a4a4a",
-    white: "#ffffff",
-
     text: "#ffffff",
   },
 };
