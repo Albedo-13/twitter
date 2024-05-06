@@ -6,10 +6,24 @@ import { LoginPage } from "@/pages/login-page/login-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
 
+import { Layout } from "../layout/layout";
+
 export const router = createBrowserRouter([
-  { path: "/", element: <FeedPage /> },
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <FeedPage />,
+      },
+      {
+        path: "/profile/:id",
+        element: <ProfilePage />
+      },
+    ],
+  },
   { path: "/login", element: <LoginPage /> },
   { path: "/signup", element: <SignupPage /> },
   { path: "/auth", element: <AuthPage /> },
-  { path: "/profile/:id", element: <ProfilePage /> },
 ]);

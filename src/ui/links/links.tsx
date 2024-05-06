@@ -9,7 +9,6 @@ type LinkType = {
   children: ReactNode;
 };
 
-// TODO: rework
 export function InlineLink({
   to,
   children,
