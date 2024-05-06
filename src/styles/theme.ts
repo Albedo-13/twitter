@@ -1,4 +1,5 @@
 export const theme = {
+  colorScheme: "light",
   color: {
     primary: "#2f80ed",
     secondary: "#b3b8bb",
@@ -7,6 +8,8 @@ export const theme = {
     black: "#000000",
     white: "#ffffff",
     searchInput: "#eff3f4",
+
+    text: "#000000",
   },
   spacing: {
     s5: "5px",
@@ -60,26 +63,21 @@ export const theme = {
 
 export const themeDark: typeof theme = {
   ...theme,
+  colorScheme: "dark",
   color: {
     primary: "red",
     secondary: "#b3b8bb",
     accents: "#1da1f2",
-    placeholder: "#828282",
+    placeholder: "#b3b8bb",
     black: "#000000",
-    searchInput: "#eff3f4",
+    searchInput: "#4a4a4a",
     white: "#ffffff",
+
+    text: "#ffffff",
   },
 };
 
 export const themeLight: typeof theme = {
   ...theme,
-  color: {
-    primary: "green",
-    secondary: "#b3b8bb",
-    accents: "#1da1f2",
-    placeholder: "#828282",
-    black: "#000000",
-    searchInput: "#eff3f4",
-    white: "#ffffff",
-  },
+  colorScheme: "light",
 };

@@ -8,7 +8,7 @@ export const SearchbarWrapper = styled.div`
   align-items: center;
   gap: ${theme.spacing.s20};
   position: relative;
-  background: #eff3f4;
+  background: ${({ theme }) => theme.color.searchInput};
   border-radius: ${theme.spacing.s30};
   min-height: ${theme.spacing.s55};
   width: 100%;
@@ -21,6 +21,10 @@ export const SearchText = styled.input`
   border: none;
   outline: none;
   width: 100%;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.color.placeholder};
+  }
 `;
 
 export const SearchIcon = styled.img`

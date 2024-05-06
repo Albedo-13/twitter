@@ -34,7 +34,7 @@ export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
   display: flex;
   align-items: center;
 
-  color: #000;
+  color: ${({ theme }) => theme.color.text};
   color: ${({ $isEnabled }) => !$isEnabled && "#b3b8bb"};
 
   &.active {

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const WrapperLink = styled(Link)`
-  color: ${theme.color.black};
+  color: ${({theme}) => theme.color.text};
   text-decoration: none;
 `;
 
