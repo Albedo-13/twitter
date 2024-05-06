@@ -7,10 +7,6 @@ export const Wrapper = styled.div`
   height: calc(100vh - ${theme.spacing.s50});
 `;
 
-export const Background = styled.img`
-  // TODO: empty rule
-`;
-
 export const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;

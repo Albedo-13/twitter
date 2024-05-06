@@ -8,7 +8,6 @@ import { BasicLink, InlineLink } from "@/ui/links/links";
 import {
   AuthFooterWrapper,
   AuthWrapper,
-  Background,
   H1,
   H2,
   LoginText,
@@ -20,7 +19,7 @@ export function AuthPage() {
   return (
     <>
       <Wrapper>
-        <Background src={twitterBackground} alt="twitter background" />
+        <img src={twitterBackground} alt="twitter background" />
         <AuthWrapper>
           <div>
             <Logo />

@@ -16,7 +16,7 @@ export const InlineLinkBlue = styled(Link)<{ $align?: string }>`
 
 export const BasicLinkDark = styled(Link)`
   font-size: ${theme.fontSize.fs14};
-  color: ${theme.color.text};
+  color: ${({ theme }) => theme.color.text};
   text-decoration: none;
 
   &:hover {
