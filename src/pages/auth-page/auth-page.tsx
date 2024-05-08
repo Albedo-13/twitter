@@ -2,8 +2,8 @@ import googleIcon from "@/assets/icons/google-icon.svg";
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import { Logo } from "@/components/logo/logo";
 import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
-import { Button } from "@/ui/buttons/buttons";
-import { BasicLink, InlineLink } from "@/ui/links/links";
+import { Button } from "@/ui/buttons";
+import { BasicLink, InlineLink } from "@/ui/links";
 
 import {
   AuthFooterWrapper,

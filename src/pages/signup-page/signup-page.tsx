@@ -2,10 +2,10 @@ import { ChangeEvent, useState } from "react";
 
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
-import { Button } from "@/ui/buttons/buttons";
-import { Input } from "@/ui/inputs/inputs";
-import { InlineLink } from "@/ui/links/links";
-import { Select } from "@/ui/selects/selects";
+import { Button } from "@/ui/buttons";
+import { Input } from "@/ui/inputs";
+import { InlineLink } from "@/ui/links";
+import { Select } from "@/ui/selects";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
 import {

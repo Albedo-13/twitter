@@ -63,6 +63,7 @@ export const theme = {
     l1: 1,
     l2: 10,
   },
+  opacity: 0.6,
   blur: "6px",
 };
 

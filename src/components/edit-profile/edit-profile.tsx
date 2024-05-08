@@ -1,7 +1,7 @@
 import { GENDERS } from "@/constants/modal-helpers";
-import { Button } from "@/ui/buttons/buttons";
-import { Input } from "@/ui/inputs/inputs";
-import { Select } from "@/ui/selects/selects";
+import { Button } from "@/ui/buttons";
+import { Input } from "@/ui/inputs";
+import { Select } from "@/ui/selects";
 
 import { StyledFormProfile, Text } from "./styled";
 

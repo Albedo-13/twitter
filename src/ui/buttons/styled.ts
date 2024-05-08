@@ -15,12 +15,12 @@ const Button = css`
 `;
 
 const primaryStyles = css`
-  color: ${theme.color.white};
-  background: ${theme.color.accents};
+  color: ${({ theme }) => theme.color.white};
+  background: ${({ theme }) => theme.color.accents};
   border: none;
 
   &:disabled {
-    opacity: 0.4;
+    opacity: ${theme.opacity};
   }
 `;
 
@@ -31,8 +31,8 @@ const outlinedStyles = css`
 
 const secondaryStyles = css`
   border: none;
-  color: ${theme.color.white};
-  background-color: ${theme.color.secondary};
+  color: ${({ theme }) => theme.color.white};
+  background-color: ${({ theme }) => theme.color.secondary};
 `;
 
 const smallStyles = css`
@@ -63,11 +63,13 @@ const largeStyles = css`
   min-width: 100%;
 `;
 
-export const StyledButton = styled.button<{
+type StyledButtonType = {
   $variant: "primary" | "outlined" | "secondary";
   $size: "small" | "medium" | "large";
   $margin?: string;
-}>`
+};
+
+export const StyledButton = styled.button<StyledButtonType>`
   ${Button}
 
   ${({ $variant }) => $variant === "primary" && primaryStyles}

@@ -1,7 +1,7 @@
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import noBackground from "@/assets/imgs/no_background.webp";
 import { useModalControls } from "@/hooks/use-modal-controls";
-import { Button } from "@/ui/buttons/buttons";
+import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import { EditProfile } from "../edit-profile/edit-profile";
@@ -34,7 +34,7 @@ export function Profile() {
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={noAvatar} $width={"150px"} />
+            <Avatar src={noAvatar} width={"150px"} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button

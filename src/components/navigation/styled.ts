@@ -21,7 +21,11 @@ export const NavList = styled.ul`
   margin-top: ${theme.spacing.s30};
 `;
 
-export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
+type NavListItemLinkType = {
+  $isEnabled: boolean;
+};
+
+export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
   text-decoration: none;
   padding-left: ${theme.spacing.s20};
   font-weight: ${theme.fontWeight.fw600};
@@ -37,7 +41,6 @@ export const NavListItemLink = styled(NavLink)<{ $isEnabled: boolean }>`
     color: ${({ theme, $isEnabled }) => $isEnabled && theme.color.accents};
   }
 `;
-
 
 export const NavListItemImage = styled.img`
   width: ${theme.spacing.s25};
@@ -68,5 +71,5 @@ export const UserName = styled.div`
 `;
 
 export const UserTag = styled.div`
-  opacity: 0.6;
+  opacity: ${theme.opacity};
 `;

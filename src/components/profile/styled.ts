@@ -19,7 +19,7 @@ export const ProfileHeaderName = styled.div`
 `;
 
 export const ProfileHeaderTweets = styled.div`
-  opacity: 0.6;
+  opacity: ${theme.opacity};
 `;
 
 export const ProfileBackgroundImage = styled.img`
@@ -39,7 +39,7 @@ export const ProfileBodyName = styled.p`
 `;
 
 export const ProfileBodyTag = styled.p`
-  opacity: 0.6;
+  opacity: ${theme.opacity};
   margin-top: ${theme.spacing.s5};
 `;
 

@@ -35,5 +35,5 @@ export const H2 = styled.h2`
 
 export const Text = styled.p`
   line-height: 150%;
-  opacity: 0.6;
+  opacity: ${theme.opacity};
 `;

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { StyledPropsType } from "@/types/styled-types";
+import { StyledPropsWithPrefixType } from "@/types/styled-types";
 
 import { Image, StyledButton } from "./styled";
 
@@ -23,7 +23,7 @@ export function Button({
   $margin,
   onClick,
   ...props
-}: ButtonProps & StyledPropsType) {
+}: ButtonProps & StyledPropsWithPrefixType) {
   return (
     <StyledButton
       type={type}

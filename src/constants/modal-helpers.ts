@@ -4,4 +4,7 @@ export const shouldDisableScroll = (isModalOpen: boolean) => {
   document.body.style.overflow = isModalOpen ? "hidden" : "visible";
 };
 
-export const GENDERS = ["Male", "Female"];
+export enum GENDERS {
+  "Male" = "Male",
+  "Female" = "Female",
+}

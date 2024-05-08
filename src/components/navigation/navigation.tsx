@@ -3,7 +3,7 @@ import { Fragment } from "react/jsx-runtime";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/navigation-links";
 import { useModalControls } from "@/hooks/use-modal-controls";
-import { Button } from "@/ui/buttons/buttons";
+import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import { CreatePost } from "../create-post/create-post";

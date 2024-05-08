@@ -1,6 +1,6 @@
 import addMedia from "@/assets/icons/add-media.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
-import { Button } from "@/ui/buttons/buttons";
+import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import {

@@ -27,7 +27,7 @@ export const UserName = styled.p`
 
 export const UserTag = styled.p`
   font-size: ${theme.fontSize.fs18};
-  opacity: 0.6;
+  opacity: ${theme.opacity};
 `;
 
 export const TweetText = styled.p`

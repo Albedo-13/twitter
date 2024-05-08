@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppDispatch } from "@/hooks/redux";
 import { toggleTheme } from "@/redux/slices/theme-slice";
 
 import { StyledSwitch, SwitchInput, SwitchSpan } from "./styled";
@@ -10,7 +10,6 @@ export default function Switch() {
     dispatch(toggleTheme());
   };
 
-  console.log(useAppSelector((state) => state.themeReducer.theme));
   return (
     <StyledSwitch className="switch" htmlFor="switch-theme">
       <SwitchInput

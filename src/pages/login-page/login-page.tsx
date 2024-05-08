@@ -1,7 +1,7 @@
 import { Logo } from "@/components/logo/logo";
-import { Button } from "@/ui/buttons/buttons";
-import { Input } from "@/ui/inputs/inputs";
-import { InlineLink } from "@/ui/links/links";
+import { Button } from "@/ui/buttons";
+import { Input } from "@/ui/inputs";
+import { InlineLink } from "@/ui/links";
 
 import { FormWrapper } from "./styled";
 
