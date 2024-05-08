@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
 import { auth, db } from "@/firebase";
+import { useAppDispatch } from "@/hooks/redux";
+import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
@@ -25,6 +27,7 @@ export function SignupPage() {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setYear(e.target.value);
@@ -36,15 +39,20 @@ export function SignupPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, "ivan3@gmail.com", "123456")
+    createUserWithEmailAndPassword(auth, "ivan4@gmail.com", "123456")
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.uid);
-        const docRef = addDoc(collection(db, "users"), {
+
+        const newUser = {
           uid: user.uid,
           phone: "+375291234567",
           email: "ivan4@gmail.com",
-        });
+        };
+
+        const docRef = addDoc(collection(db, "users"), newUser);
+        dispatch(setUser(newUser));
+        
         navigate("/");
       })
       .catch((error) => {

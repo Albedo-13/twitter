@@ -1,4 +1,8 @@
-import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";
@@ -6,6 +10,8 @@ import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import { Logo } from "@/components/logo/logo";
 import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
 import { auth, googleProvider } from "@/firebase";
+import { useAppDispatch } from "@/hooks/redux";
+import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { BasicLink, InlineLink } from "@/ui/links";
 
@@ -21,14 +27,28 @@ import {
 
 export function AuthPage() {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleSignupClick = () => {
     navigate("/signup");
   };
-  
 
   const handleSignupWithGoogleClick = async () => {
-    await signInWithPopup(auth, googleProvider);
+    await signInWithPopup(auth, googleProvider).then((result) => {
+      const user = result.user;
+      console.log(user);
+
+      // TODO: isolate
+      const newUser = {
+        id: user?.uid,
+        email: user?.email,
+        phone: user?.phoneNumber,
+      };
+
+      dispatch(setUser(newUser));
+    });
+
+    navigate("/");
   };
 
   return (

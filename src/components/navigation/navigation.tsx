@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/navigation-links";
 import { logOut } from "@/firebase";
+import { useAppDispatch } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
@@ -28,11 +30,14 @@ import {
 export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleLogOutClick = () => {
-    logOut();
-    navigate("/login");
-  }
+    logOut().then(() => {
+      dispatch(setUser(null));
+      navigate("/login");
+    });
+  };
 
   return (
     <>
@@ -42,16 +47,14 @@ export function Navigation() {
         </LogoWrapper>
         <nav>
           <NavList>
-            {NAVIGATION_LINKS.map(
-              ({ label, to, icon, isEnabled }) => (
-                <Fragment key={label}>
-                  <NavListItemLink to={to} $isEnabled={isEnabled}>
-                    <NavListItemImage src={icon} alt={label} />
-                    {label}
-                  </NavListItemLink>
-                </Fragment>
-              )
-            )}
+            {NAVIGATION_LINKS.map(({ label, to, icon, isEnabled }) => (
+              <Fragment key={label}>
+                <NavListItemLink to={to} $isEnabled={isEnabled}>
+                  <NavListItemImage src={icon} alt={label} />
+                  {label}
+                </NavListItemLink>
+              </Fragment>
+            ))}
           </NavList>
         </nav>
         <Button

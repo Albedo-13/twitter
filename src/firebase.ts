@@ -24,7 +24,7 @@ const firebaseConfig = {
   storageBucket: "twitter-albedo13.appspot.com",
   messagingSenderId: "1002682986279",
   appId: "1:1002682986279:web:99802710592b3b631ec302",
-  measurementId: "G-7L3MDGL668"
+  measurementId: "G-7L3MDGL668",
 };
 
 // Initialize Firebase
@@ -34,5 +34,15 @@ export const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();
 
-export const signInWithGoogle = async () => await signInWithPopup(auth, googleProvider);
+export const signInWithGoogle = async () =>
+  await signInWithPopup(auth, googleProvider);
 export const logOut = async () => await signOut(auth);
+
+// // TODO: rework
+// const getUserData = async () => {
+//   const querySnapshot = await getDocs(collection(db, "users"));
+//   console.log(querySnapshot.docs[0].data());
+//   return querySnapshot.docs[0].data();
+// };
+
+// const { name } = getUserData();

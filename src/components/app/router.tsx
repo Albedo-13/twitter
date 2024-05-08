@@ -1,29 +1,34 @@
-import { createBrowserRouter } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { AuthPage } from "@/pages/auth-page/auth-page";
-import { FeedPage } from "@/pages/feed-page/feed-page";
-import { LoginPage } from "@/pages/login-page/login-page";
-import { ProfilePage } from "@/pages/profile-page/profile-page";
-import { SignupPage } from "@/pages/signup-page/signup-page";
+import { privateRoutes, publicRoutes } from "@/constants/routes";
+import { auth } from "@/firebase";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 import { Layout } from "../layout/layout";
+
+const ProtectedRoutes = () => {
+  // TODO: базовое значение - null. Убрать .email
+  const user = useAppSelector((state) => state.userReducer.email);
+  
+  console.log("user email in storage", user);
+  return user ? <Layout /> : <Navigate to="/login" replace />;
+};
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <ProtectedRoutes />,
     children: [
-      {
-        path: "/",
-        element: <FeedPage />,
-      },
-      {
-        path: "/profile/:id",
-        element: <ProfilePage />
-      },
+      ...privateRoutes.map(({ path, element: Element }) => ({
+        path,
+        element: <Element />,
+      })),
     ],
   },
-  { path: "/login", element: <LoginPage /> },
-  { path: "/signup", element: <SignupPage /> },
-  { path: "/auth", element: <AuthPage /> },
+  ...publicRoutes.map(({ path, element: Element }) => ({
+    path,
+    element: <Element />,
+  })),
 ]);

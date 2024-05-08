@@ -12,7 +12,7 @@ import {
 
 export function Layout() {
   return (
-    <div>
+    <>
       <ProfileWrapper>
         <NavigationWrapper>
           <Navigation />
@@ -24,6 +24,6 @@ export function Layout() {
           <SearchSidebar />
         </SearchWrapper>
       </ProfileWrapper>
-    </div>
+    </>
   );
 }
