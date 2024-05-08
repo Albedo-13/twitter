@@ -5,6 +5,7 @@ import { BasicLinkDark, InlineLinkBlue } from "./styled";
 type LinkType = {
   to: string;
   children: ReactNode;
+  $align?: "left" | "right";
 };
 
 export function InlineLink({ to, children }: LinkType) {

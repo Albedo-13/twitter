@@ -9,7 +9,7 @@ type ButtonProps = {
   $variant: "primary" | "outlined" | "secondary";
   $size: "small" | "medium" | "large";
   $margin?: string;
-  onClick?: VoidFunction;
+  onClick: (e: React.FormEvent<HTMLFormElement>) => void;
 };
 
 export function Button({

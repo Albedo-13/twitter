@@ -1,7 +1,11 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
+import { auth, db } from "@/firebase";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
@@ -20,6 +24,7 @@ import {
 export function SignupPage() {
   const [year, setYear] = useState("");
   const [month, setMonth] = useState("");
+  const navigate = useNavigate();
 
   const handleYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setYear(e.target.value);
@@ -27,6 +32,25 @@ export function SignupPage() {
 
   const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setMonth(e.target.value);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, "ivan3@gmail.com", "123456")
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user.uid);
+        const docRef = addDoc(collection(db, "users"), {
+          uid: user.uid,
+          phone: "+375291234567",
+          email: "ivan4@gmail.com",
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   };
 
   return (
@@ -65,7 +89,13 @@ export function SignupPage() {
         />
       </SelectWrapper>
 
-      <Button type="submit" $variant="primary" $size="large" $margin="25px 0 0 0">
+      <Button
+        type="submit"
+        $variant="primary"
+        $size="large"
+        $margin="25px 0 0 0"
+        onClick={handleSubmit}
+      >
         Next
       </Button>
     </FormWrapper>

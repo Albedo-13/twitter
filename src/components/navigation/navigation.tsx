@@ -1,7 +1,9 @@
 import { Fragment } from "react/jsx-runtime";
+import { useNavigate } from "react-router-dom";
 
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/navigation-links";
+import { logOut } from "@/firebase";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons";
 
@@ -25,6 +27,12 @@ import {
 
 export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
+  const navigate = useNavigate();
+
+  const handleLogOutClick = () => {
+    logOut();
+    navigate("/login");
+  }
 
   return (
     <>
@@ -68,6 +76,7 @@ export function Navigation() {
             $size="large"
             type="button"
             $margin="25px 0 0 0"
+            onClick={handleLogOutClick}
           >
             Log out
           </Button>
