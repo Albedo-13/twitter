@@ -1,11 +1,13 @@
-import { StyledPropsType } from "@/types/styled-types";
-
 import { StyledAvatar } from "./styled";
 
 type AvatarProps = {
   src: string;
+  $width?: string;
 };
 
-export function Avatar({ src, ...props }: AvatarProps & StyledPropsType) {
-  return <StyledAvatar src={src} {...props} />;
+export function Avatar({
+  src,
+  $width,
+}: AvatarProps) {
+  return <StyledAvatar src={src} $width={$width} />;
 }

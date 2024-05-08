@@ -10,11 +10,11 @@ export const StyledSwitch = styled.label`
 
   &:hover {
     .switch-slider {
-      border: ${theme.border.gray};
+      border: ${({ theme }) => theme.border.gray};
       border-width: 2px;
 
       &:before {
-        border: ${theme.border.gray};
+        border: ${({ theme }) => theme.border.gray};
         border-width: 2px;
       }
     }
@@ -41,7 +41,7 @@ export const SwitchSpan = styled.span`
   right: 0;
   bottom: 0;
   background-color: transparent;
-  border: ${theme.border.gray};
+  border: ${({ theme }) => theme.border.gray};
   border-width: 2px;
   border-radius: calc(${theme.spacing.s35} - 1px);
   transition: 0.4s;
@@ -53,7 +53,7 @@ export const SwitchSpan = styled.span`
     width: calc(${theme.spacing.s25} + 1px);
     left: -2px;
     bottom: -2px;
-    border: ${theme.border.gray};
+    border: ${({ theme }) => theme.border.gray};
     border-width: 2px;
     transition: 0.4s;
     border-radius: 50%;

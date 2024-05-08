@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { theme } from "@/styles/theme";
-
 export const ProfileWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -15,8 +13,8 @@ export const NavigationWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   flex-basis: 60%;
-  border-left: ${theme.border.gray};
-  border-right: ${theme.border.gray};
+  border-left: ${({ theme }) => theme.border.gray};
+  border-right: ${({ theme }) => theme.border.gray};
 `;
 
 export const SearchWrapper = styled.div`

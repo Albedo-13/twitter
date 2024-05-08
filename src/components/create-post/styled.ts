@@ -7,7 +7,7 @@ export const CreatePostWrapper = styled.div`
   display: flex;
   gap: ${theme.spacing.s15};
   padding: ${theme.spacing.s20};
-  border-bottom: ${theme.border.gray};
+  border-bottom: ${({ theme }) => theme.border.gray};
 `;
 
 export const FormWrapper = styled.form`

@@ -18,7 +18,7 @@ export const Overlay = styled.aside`
 export const StyledModal = styled.div`
   background-color: #fff;
   max-width: ${theme.spacing.s330};
-  border: ${theme.border.gray};
+  border: ${({ theme }) => theme.border.gray};
   position: relative;
   top: 50%;
   left: 50%;

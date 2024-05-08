@@ -1,26 +1,25 @@
-import { StyledPropsType } from "@/types/styled-types";
 
 import { StyledInput } from "./styled";
 
 type InputProps = {
   type: "text" | "password";
   placeholder: string;
+  $width?: string,
+  $margin?: string,
 };
 
 export function Input({
   type,
   placeholder,
-  width,
-  margin,
-  ...props
-}: InputProps & StyledPropsType) {
+  $width,
+  $margin
+}: InputProps) {
   return (
     <StyledInput
       type={type}
       placeholder={placeholder}
-      width={width}
-      margin={margin}
-      {...props}
+      $width={$width}
+      $margin={$margin}
     />
   );
 }

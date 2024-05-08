@@ -5,7 +5,7 @@ import { theme } from "@/styles/theme";
 export const Wrapper = styled.div`
   position: relative;
   padding: ${theme.spacing.s20};
-  border-bottom: ${theme.border.gray};
+  border-bottom: ${({ theme }) => theme.border.gray};
 
   display: flex;
   gap: ${theme.spacing.s15};

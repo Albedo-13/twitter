@@ -10,7 +10,7 @@ export const ProfileWrapper = styled.div`
 export const ProfileHeader = styled.div`
   min-height: ${theme.spacing.s50};
   padding: ${theme.spacing.s20};
-  border-bottom: ${theme.border.gray};
+  border-bottom: ${({ theme }) => theme.border.gray};
 `;
 
 export const ProfileHeaderName = styled.div`
@@ -29,7 +29,7 @@ export const ProfileBackgroundImage = styled.img`
 
 export const ProfileBody = styled.div`
   padding: ${theme.spacing.s80} ${theme.spacing.s25} ${theme.spacing.s50} ${theme.spacing.s25};
-  border-bottom: ${theme.border.gray};
+  border-bottom: ${({ theme }) => theme.border.gray};
   position: relative;
 `;
 

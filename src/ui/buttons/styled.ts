@@ -25,7 +25,7 @@ const primaryStyles = css`
 `;
 
 const outlinedStyles = css`
-  border: ${theme.border.gray};
+  border: ${({ theme }) => theme.border.gray};
   background-color: transparent;
 `;
 

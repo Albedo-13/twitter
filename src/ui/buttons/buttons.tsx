@@ -1,7 +1,5 @@
 import { ReactNode } from "react";
 
-import { StyledPropsWithPrefixType } from "@/types/styled-types";
-
 import { Image, StyledButton } from "./styled";
 
 type ButtonProps = {
@@ -22,8 +20,7 @@ export function Button({
   $size,
   $margin,
   onClick,
-  ...props
-}: ButtonProps & StyledPropsWithPrefixType) {
+}: ButtonProps) {
   return (
     <StyledButton
       type={type}
@@ -31,7 +28,6 @@ export function Button({
       $size={$size}
       $margin={$margin}
       onClick={onClick}
-      {...props}
     >
       {icon && <Image src={icon} alt="button icon" />}
       {children}

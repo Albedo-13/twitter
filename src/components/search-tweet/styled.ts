@@ -23,7 +23,7 @@ export const UserText = styled.p`
   font-size: ${theme.fontSize.fs18};
   max-height: ${theme.spacing.s40};
   margin-bottom: ${theme.spacing.s15};
-  border-bottom: ${theme.border.gray};
+  border-bottom: ${({ theme }) => theme.border.gray};
   text-overflow: ellipsis;
   overflow: hidden;
 `;
