@@ -1,7 +1,5 @@
 import {
-  GoogleAuthProvider,
   signInWithPopup,
-  signInWithRedirect,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
@@ -14,7 +12,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { BasicLink, InlineLink } from "@/ui/links";
-import { getUserObj } from "@/utils/firebase/helpers";
+import { adaptUserObj } from "@/utils/firebase/helpers";
 
 import {
   AuthFooterWrapper,
@@ -39,7 +37,7 @@ export function AuthPage() {
       const user = result.user;
       console.log(user);
 
-      dispatch(setUser(getUserObj(user)));
+      dispatch(setUser(adaptUserObj(user)));
     });
 
     navigate("/");

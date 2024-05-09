@@ -8,6 +8,7 @@ import {
 } from "firebase/firestore";
 
 import { db } from "@/firebase";
+import { UserType } from "@/redux/slices/user-slice";
 
 export const queryUserEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
@@ -31,12 +32,12 @@ export const getLoginFromEmailOrPhone = (
   return user;
 };
 
-export const getUserObj = (user: DocumentData) => {
+export const adaptUserObj = (user: DocumentData | null): UserType => {
   return {
-    uid: user?.uid,
-    email: user?.email,
-    phone: user?.phone,
-    photoURL: user?.photoURL,
-    displayName: user?.displayName,
-  }
-}
+    uid: user?.uid ?? "",
+    email: user?.email ?? "",
+    phone: user?.phone ?? "",
+    photoURL: user?.photoURL ?? "",
+    displayName: user?.displayName ?? "",
+  };
+};

@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection, Timestamp } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -66,7 +66,7 @@ export function SignupPage() {
           ).toString(),
         };
 
-        const docRef = addDoc(collection(db, "users"), newUser);
+        addDoc(collection(db, "users"), newUser);
         dispatch(setUser(newUser));
 
         navigate("/");

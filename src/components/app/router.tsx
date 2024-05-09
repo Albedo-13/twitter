@@ -6,10 +6,9 @@ import { useAppSelector } from "@/hooks/redux";
 import { Layout } from "../layout/layout";
 
 const ProtectedRoutes = () => {
-  // TODO: базовое значение - null. Убрать .email
-  const user = useAppSelector((state) => state.userReducer.email);
+  const user = useAppSelector((state) => state.userReducer.uid);
   
-  console.log("user email in storage", user);
+  console.log("user email in storage", useAppSelector((state) => state.userReducer.email));
   return user ? <Layout /> : <Navigate to="/login" replace />;
 };
 

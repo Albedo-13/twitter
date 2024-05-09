@@ -8,6 +8,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
+import { adaptUserObj } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
 import { CreatePost } from "../create-post/create-post";
@@ -34,7 +35,7 @@ export function Navigation() {
 
   const handleLogOutClick = () => {
     logOut().then(() => {
-      dispatch(setUser(null));
+      dispatch(setUser(adaptUserObj(null)));
       navigate("/login");
     });
   };

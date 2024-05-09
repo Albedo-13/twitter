@@ -1,9 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export type UserType = {
+  uid: string;
+  email: string;
+  phone: string;
+  displayName: string;
+  photoURL?: string;
+  birthday?: string;
+};
+
 const initialState = {
   uid: "",
   email: "",
   phone: "",
+  photoURL: "",
   displayName: "",
   birthday: "",
 };
@@ -12,13 +22,14 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser: (_, action: { payload: any; type: string }) => ({
+    setUser: (state, action: PayloadAction<Partial<UserType> | null>) => ({
+      ...state,
       ...action.payload,
     }),
     removeUser: () => ({
       ...initialState,
     }),
-    updateUser: (state, action: PayloadAction<Partial<any>>) => ({
+    updateUser: (state, action: PayloadAction<Partial<UserType> | null>) => ({
       ...state,
       ...action.payload,
     }),

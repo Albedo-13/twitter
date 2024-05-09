@@ -10,8 +10,8 @@ import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
 import {
+  adaptUserObj,
   getLoginFromEmailOrPhone,
-  getUserObj,
   queryUserEqualByValue,
 } from "@/utils/firebase/helpers";
 
@@ -33,8 +33,6 @@ export function LoginPage() {
     setPassword(e.target.value);
   };
 
-  // TODO: переработать слайс
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -47,7 +45,7 @@ export function LoginPage() {
     );
 
     if (user) {
-      dispatch(setUser(getUserObj(user)));
+      dispatch(setUser(adaptUserObj(user)));
       await signInWithEmailAndPassword(auth, user.email, password);
       navigate("/");
     }
