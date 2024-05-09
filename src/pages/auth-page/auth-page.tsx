@@ -1,6 +1,4 @@
-import {
-  signInWithPopup,
-} from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";
@@ -35,8 +33,6 @@ export function AuthPage() {
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then((result) => {
       const user = result.user;
-      console.log(user);
-
       dispatch(setUser(adaptUserObj(user)));
     });
 

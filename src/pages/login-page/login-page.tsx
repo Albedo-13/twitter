@@ -23,7 +23,6 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  console.log(auth.currentUser);
 
   const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);

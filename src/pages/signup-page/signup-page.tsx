@@ -76,14 +76,6 @@ export function SignupPage() {
       });
   };
 
-  console.log(
-    formState.displayName,
-    formState.phone,
-    formState.email,
-    formState.year,
-    formState.month,
-    formState.day
-  );
   return (
     <FormWrapper>
       <LogoWrapper>

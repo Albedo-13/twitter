@@ -1,8 +1,6 @@
-import { collection, getDocs } from "firebase/firestore";
-
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import noBackground from "@/assets/imgs/no_background.webp";
-import { auth, db } from "@/firebase";
+import { auth } from "@/firebase";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons";
 
@@ -26,7 +24,6 @@ import {
 
 export function Profile() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  console.log(auth.currentUser); // User is signed in, see docs for a list of available properties
 
   return (
     <>

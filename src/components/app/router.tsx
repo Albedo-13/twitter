@@ -7,8 +7,6 @@ import { Layout } from "../layout/layout";
 
 const ProtectedRoutes = () => {
   const user = useAppSelector((state) => state.userReducer.uid);
-  
-  console.log("user email in storage", useAppSelector((state) => state.userReducer.email));
   return user ? <Layout /> : <Navigate to="/login" replace />;
 };
 
