@@ -1,10 +1,7 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import { privateRoutes, publicRoutes } from "@/constants/routes";
-import { auth } from "@/firebase";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useAppSelector } from "@/hooks/redux";
 
 import { Layout } from "../layout/layout";
 

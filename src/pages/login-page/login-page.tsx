@@ -23,7 +23,7 @@ export function LoginPage() {
   const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
-  console.log(auth.currentUser); // User is signed in, see docs for a list of available properties
+  console.log(auth.currentUser);
 
   const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLogin(e.target.value);
@@ -33,9 +33,7 @@ export function LoginPage() {
     setPassword(e.target.value);
   };
 
-  // 2 TODO: переработать слайс
-  // 3 TODO: обе регистрации сохраняют в стейт пользователя
-  // 4 TODO: персист стора, юзер сохраняется после перезагрузки страницы (и смены роута)
+  // TODO: переработать слайс
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,12 +60,14 @@ export function LoginPage() {
       <Input
         type="text"
         placeholder="Phone number, email address"
+        name="login"
         value={login}
         onChange={handleLoginChange}
       />
       <Input
         type="password"
         placeholder="Password"
+        name="password"
         value={password}
         onChange={handlePasswordChange}
       />

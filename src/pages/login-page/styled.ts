@@ -8,6 +8,6 @@ export const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.s20};
-  height: 100vh;
+  /* height: 100vh; */
   margin: 0 auto;
 `;

@@ -17,6 +17,10 @@ export const publicRoutes = [
     path: "/auth",
     element: AuthPage,
   },
+  {
+    path: "*",
+    element: LoginPage,
+  },
 ];
 
 export const privateRoutes = [
