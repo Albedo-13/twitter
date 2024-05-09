@@ -6,6 +6,7 @@ import { StyledInput } from "./styled";
 type InputProps = {
   type: "text" | "password";
   placeholder: string;
+  name: string,
   value?: string,
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   $width?: string,
@@ -16,6 +17,7 @@ export function Input({
   type,
   placeholder,
   value,
+  name,
   onChange,
   $width,
   $margin
@@ -25,6 +27,7 @@ export function Input({
       type={type}
       placeholder={placeholder}
       value={value}
+      name={name}
       onChange={onChange}
       $width={$width}
       $margin={$margin}

@@ -33,7 +33,7 @@ export const getLoginFromEmailOrPhone = (
 
 export const getUserObj = (user: DocumentData) => {
   return {
-    id: user?.uid,
+    uid: user?.uid,
     email: user?.email,
     phone: user?.phone,
     photoURL: user?.photoURL,

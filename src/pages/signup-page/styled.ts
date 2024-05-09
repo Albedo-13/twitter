@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;

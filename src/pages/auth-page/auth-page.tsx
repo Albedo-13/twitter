@@ -14,6 +14,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { BasicLink, InlineLink } from "@/ui/links";
+import { getUserObj } from "@/utils/firebase/helpers";
 
 import {
   AuthFooterWrapper,
@@ -24,7 +25,6 @@ import {
   PolicyText,
   Wrapper,
 } from "./styled";
-import { getUserObj } from "@/utils/firebase/helpers";
 
 export function AuthPage() {
   const navigate = useNavigate();

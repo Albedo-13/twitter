@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -24,52 +24,100 @@ import {
 } from "./styled";
 
 export function SignupPage() {
-  const [year, setYear] = useState("");
-  const [month, setMonth] = useState("");
+  const [formState, setFormState] = useState({
+    displayName: "",
+    phone: "",
+    email: "",
+    password: "",
+    year: "",
+    month: "",
+    day: "",
+  });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleYearChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setYear(e.target.value);
-  };
+  const handleFormStateChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
 
-  const handleMonthChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    setMonth(e.target.value);
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createUserWithEmailAndPassword(auth, "ivan4@gmail.com", "123456")
+
+    createUserWithEmailAndPassword(auth, formState.email, formState.password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user.uid);
 
         const newUser = {
           uid: user.uid,
-          phone: "+375291234567",
-          email: "ivan4@gmail.com",
+          phone: formState.phone,
+          email: formState.email,
+          displayName: formState.displayName,
+          birthday: new Date(
+            Number(formState.year),
+            Number(MONTHS.indexOf(formState.month)),
+            Number(formState.day)
+          ).toString(),
         };
 
         const docRef = addDoc(collection(db, "users"), newUser);
         dispatch(setUser(newUser));
-        
+
         navigate("/");
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        throw new Error(error.message);
       });
   };
 
+  console.log(
+    formState.displayName,
+    formState.phone,
+    formState.email,
+    formState.year,
+    formState.month,
+    formState.day
+  );
   return (
     <FormWrapper>
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
       <H1>Create an account</H1>
-      <Input type="text" placeholder="Name" />
-      <Input type="text" placeholder="Phone number" />
-      <Input type="text" placeholder="Email" />
+      <Input
+        type="text"
+        placeholder="Name"
+        name="displayName"
+        value={formState.displayName}
+        onChange={handleFormStateChange}
+      />
+      <Input
+        type="text"
+        placeholder="Phone number"
+        name="phone"
+        value={formState.phone}
+        onChange={handleFormStateChange}
+      />
+      <Input
+        type="text"
+        placeholder="Email"
+        name="email"
+        value={formState.email}
+        onChange={handleFormStateChange}
+      />
+      <Input
+        type="password"
+        placeholder="Password"
+        name="password"
+        value={formState.password}
+        onChange={handleFormStateChange}
+      />
       <InlineLink to="/auth">Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
@@ -81,18 +129,25 @@ export function SignupPage() {
       <SelectWrapper>
         <Select
           placeholder="Years"
+          name="year"
           options={YEARS}
-          onChange={handleYearChange}
+          onChange={handleFormStateChange}
         />
         <Select
           placeholder="Months"
+          name="month"
           options={MONTHS}
-          onChange={handleMonthChange}
+          onChange={handleFormStateChange}
           width={"200px"}
         />
         <Select
           placeholder="Days"
-          options={getDaysFromMonth(+year, MONTHS.indexOf(month))}
+          name="day"
+          options={getDaysFromMonth(
+            +formState.year,
+            MONTHS.indexOf(formState.month)
+          )}
+          onChange={handleFormStateChange}
           width={"200px"}
         />
       </SelectWrapper>

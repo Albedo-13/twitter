@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  id: "",
+  uid: "",
   email: "",
-  birthday: "",
   phone: "",
-  name: "",
+  displayName: "",
+  birthday: "",
 };
 
 export const userSlice = createSlice({
