@@ -61,7 +61,7 @@ export function Profile() {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <EditProfile />
+              <EditProfile handleModalClose={handleModalClose} />
             </Modal>
           }
         />
