@@ -24,6 +24,7 @@ import {
   PolicyText,
   Wrapper,
 } from "./styled";
+import { getUserObj } from "@/utils/firebase/helpers";
 
 export function AuthPage() {
   const navigate = useNavigate();
@@ -38,14 +39,7 @@ export function AuthPage() {
       const user = result.user;
       console.log(user);
 
-      // TODO: isolate
-      const newUser = {
-        id: user?.uid,
-        email: user?.email,
-        phone: user?.phoneNumber,
-      };
-
-      dispatch(setUser(newUser));
+      dispatch(setUser(getUserObj(user)));
     });
 
     navigate("/");

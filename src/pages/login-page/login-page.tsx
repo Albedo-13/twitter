@@ -1,15 +1,19 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Logo } from "@/components/logo/logo";
-import { auth, db } from "@/firebase";
+import { auth } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
+import {
+  getLoginFromEmailOrPhone,
+  getUserObj,
+  queryUserEqualByValue,
+} from "@/utils/firebase/helpers";
 
 import { FormWrapper } from "./styled";
 
@@ -29,65 +33,24 @@ export function LoginPage() {
     setPassword(e.target.value);
   };
 
-  // 1 TODO: REWORK
   // 2 TODO: переработать слайс
   // 3 TODO: обе регистрации сохраняют в стейт пользователя
   // 4 TODO: персист стора, юзер сохраняется после перезагрузки страницы (и смены роута)
-  const getUserByEmailOrPhone = async (login: string) => {
-    const queryByEmail = query(
-      collection(db, "users"),
-      where("email", "==", login)
-    );
-    const queryByPhone = query(
-      collection(db, "users"),
-      where("phone", "==", login)
-    );
-
-    const queryEmailSnapshot = await getDocs(queryByEmail);
-    const queryPhoneSnapshot = await getDocs(queryByPhone);
-
-    if (queryEmailSnapshot.empty && queryPhoneSnapshot.empty) {
-      return login;
-    } else if (!queryEmailSnapshot.empty) {
-      return queryEmailSnapshot.docs[0].data().email;
-    } else if (!queryPhoneSnapshot.empty) {
-      return queryPhoneSnapshot.docs[0].data().email;
-    }
-  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const userLogin = await getUserByEmailOrPhone(login);
-    await signInWithEmailAndPassword(auth, userLogin, password);
+    const queryEmailSnapshot = await queryUserEqualByValue("email", login);
+    const queryPhoneSnapshot = await queryUserEqualByValue("phone", login);
 
-    const queryByEmail = query(
-      collection(db, "users"),
-      where("email", "==", login)
-    );
-    const queryByPhone = query(
-      collection(db, "users"),
-      where("phone", "==", login)
-    );
-
-    const queryEmailSnapshot = await getDocs(queryByEmail);
-    const queryPhoneSnapshot = await getDocs(queryByPhone);
-
-    let user = queryEmailSnapshot.docs[0].data();
-    if (!user) {
-      user = queryPhoneSnapshot.docs[0].data();
-    }
-
-    await dispatch(
-      setUser({
-        id: user?.uid,
-        email: user?.email,
-        phone: user?.phone,
-      })
+    const user = getLoginFromEmailOrPhone(
+      queryEmailSnapshot,
+      queryPhoneSnapshot
     );
 
     if (user) {
-      console.log("submit finish, redirect to /", user);
+      dispatch(setUser(getUserObj(user)));
+      await signInWithEmailAndPassword(auth, user.email, password);
       navigate("/");
     }
   };
