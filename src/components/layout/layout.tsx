@@ -12,18 +12,16 @@ import {
 
 export function Layout() {
   return (
-    <>
-      <ProfileWrapper>
-        <NavigationWrapper>
-          <Navigation />
-        </NavigationWrapper>
-        <ContentWrapper>
-          <Outlet />
-        </ContentWrapper>
-        <SearchWrapper>
-          <SearchSidebar />
-        </SearchWrapper>
-      </ProfileWrapper>
-    </>
+    <ProfileWrapper>
+      <NavigationWrapper>
+        <Navigation />
+      </NavigationWrapper>
+      <ContentWrapper>
+        <Outlet />
+      </ContentWrapper>
+      <SearchWrapper>
+        <SearchSidebar />
+      </SearchWrapper>
+    </ProfileWrapper>
   );
 }

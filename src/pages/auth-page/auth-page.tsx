@@ -15,6 +15,7 @@ import { adaptUserObj } from "@/utils/firebase/helpers";
 import {
   AuthFooterWrapper,
   AuthWrapper,
+  ButtonWrapper,
   H1,
   H2,
   LoginText,
@@ -50,23 +51,26 @@ export function AuthPage() {
           <div>
             <H1>Happening now</H1>
             <H2>Join Twitter today</H2>
-            <Button
-              icon={googleIcon}
-              $variant="outlined"
-              $size="large"
-              $margin="25px 0 0 0"
-              onClick={handleSignupWithGoogleClick}
-            >
-              Sign up with Google
-            </Button>
-            <Button
-              $variant="outlined"
-              $size="large"
-              $margin="25px 0 0 0"
-              onClick={handleSignupClick}
-            >
-              Sign up with email
-            </Button>
+
+            <ButtonWrapper>
+              <Button
+                icon={googleIcon}
+                $variant="outlined"
+                $size="large"
+                onClick={handleSignupWithGoogleClick}
+              >
+                Sign up with Google
+              </Button>
+            </ButtonWrapper>
+            <ButtonWrapper>
+              <Button
+                $variant="outlined"
+                $size="large"
+                onClick={handleSignupClick}
+              >
+                Sign up with email
+              </Button>
+            </ButtonWrapper>
             <PolicyText>
               By singing up you agree to the{" "}
               <InlineLink to="#">Terms of Service</InlineLink> and{" "}

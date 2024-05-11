@@ -9,8 +9,6 @@ type InputProps = {
   name: string,
   value?: string,
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  $width?: string,
-  $margin?: string,
 };
 
 export function Input({
@@ -19,8 +17,6 @@ export function Input({
   value,
   name,
   onChange,
-  $width,
-  $margin
 }: InputProps) {
   return (
     <StyledInput
@@ -29,8 +25,6 @@ export function Input({
       value={value}
       name={name}
       onChange={onChange}
-      $width={$width}
-      $margin={$margin}
     />
   );
 }

@@ -15,11 +15,13 @@ import { Select } from "@/ui/selects";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
 import {
+  ButtonWrapper,
   FormWrapper,
   H1,
   H2,
   LogoWrapper,
   SelectWrapper,
+  SelectWrapperGrow,
   Text,
 } from "./styled";
 
@@ -47,7 +49,7 @@ export function SignupPage() {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, formState.email, formState.password)
@@ -119,18 +121,20 @@ export function SignupPage() {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
       </Text>
       <SelectWrapper>
-        <Select
-          placeholder="Years"
-          name="year"
-          options={YEARS}
-          onChange={handleFormStateChange}
-        />
+        <SelectWrapperGrow>
+          <Select
+            placeholder="Years"
+            name="year"
+            options={YEARS}
+            onChange={handleFormStateChange}
+          />
+        </SelectWrapperGrow>
+
         <Select
           placeholder="Months"
           name="month"
           options={MONTHS}
           onChange={handleFormStateChange}
-          width={"200px"}
         />
         <Select
           placeholder="Days"
@@ -140,19 +144,18 @@ export function SignupPage() {
             MONTHS.indexOf(formState.month)
           )}
           onChange={handleFormStateChange}
-          width={"200px"}
         />
       </SelectWrapper>
-
-      <Button
-        type="submit"
-        $variant="primary"
-        $size="large"
-        $margin="25px 0 0 0"
-        onClick={handleSubmit}
-      >
-        Next
-      </Button>
+      <ButtonWrapper>
+        <Button
+          type="submit"
+          $variant="primary"
+          $size="large"
+          onClick={handleSubmit}
+        >
+          Next
+        </Button>
+      </ButtonWrapper>
     </FormWrapper>
   );
 }

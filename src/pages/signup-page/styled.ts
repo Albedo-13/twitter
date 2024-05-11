@@ -12,6 +12,14 @@ export const FormWrapper = styled.form`
   margin: 0 auto;
 `;
 
+export const ButtonWrapper = styled.div`
+  margin-top: ${theme.spacing.s25};
+`;
+
+export const SelectWrapperGrow = styled.div`
+  width: 300%;
+`;
+
 export const LogoWrapper = styled.div`
   margin: 0 auto;
 `;

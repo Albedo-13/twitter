@@ -32,7 +32,7 @@ export function LoginPage() {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const queryEmailSnapshot = await queryUserEqualByValue("email", login);

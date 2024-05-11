@@ -14,6 +14,10 @@ export const AuthWrapper = styled.div`
   margin-left: ${theme.spacing.s40};
 `;
 
+export const ButtonWrapper = styled.div`
+  margin-top: ${theme.spacing.s25};
+`;
+
 export const H1 = styled.h1`
   font-weight: ${theme.fontWeight.fw900};
   font-size: ${theme.fontSize.fs84};

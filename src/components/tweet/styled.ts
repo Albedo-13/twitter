@@ -11,6 +11,11 @@ export const Wrapper = styled.div`
   gap: ${theme.spacing.s15};
 `;
 
+export const AvatarWrapper = styled.div`
+  width: ${theme.spacing.s50};
+  height: ${theme.spacing.s50};
+`;
+
 export const BodyWrapper = styled.div`
   width: 100%;
 `;

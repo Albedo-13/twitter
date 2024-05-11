@@ -35,7 +35,7 @@ export function Profile() {
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={noAvatar} $width={"150px"} />
+            <Avatar src={noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button

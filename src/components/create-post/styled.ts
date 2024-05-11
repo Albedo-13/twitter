@@ -10,6 +10,11 @@ export const CreatePostWrapper = styled.div`
   border-bottom: ${({ theme }) => theme.border.gray};
 `;
 
+export const AvatarWrapper = styled.div`
+  width: ${theme.spacing.s50};
+  height: ${theme.spacing.s50};
+`;
+
 export const FormWrapper = styled.form`
   width: 100%;
 `;

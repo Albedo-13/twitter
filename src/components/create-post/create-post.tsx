@@ -4,6 +4,7 @@ import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
 import {
+  AvatarWrapper,
   BasementWrapper,
   CreatePostWrapper,
   FileInput,
@@ -16,7 +17,9 @@ import {
 export function CreatePost() {
   return (
     <CreatePostWrapper>
-      <Avatar src={noAvatar} />
+      <AvatarWrapper>
+        <Avatar src={noAvatar} />
+      </AvatarWrapper>
       <FormWrapper>
         <Textarea placeholder="What's happening?" />
         <BasementWrapper>

@@ -16,6 +16,8 @@ import { Logo } from "../logo/logo";
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 import {
+  AvatarWrapper,
+  ButtonWrapper,
   LogoWrapper,
   NavList,
   NavListItemImage,
@@ -58,32 +60,37 @@ export function Navigation() {
             ))}
           </NavList>
         </nav>
-        <Button
-          $variant="primary"
-          $size="medium"
-          type="button"
-          $margin="25px 0 0 0"
-          onClick={handleModalShow}
-        >
-          Tweet
-        </Button>
+        <ButtonWrapper>
+          <Button
+            $variant="primary"
+            $size="medium"
+            type="button"
+            onClick={handleModalShow}
+          >
+            Tweet
+          </Button>
+        </ButtonWrapper>
+
         <UserWrapper>
           <UserCard>
-            <Avatar src={noAvatar} />
+            <AvatarWrapper>
+              <Avatar src={noAvatar} />
+            </AvatarWrapper>
             <UserBlock>
               <UserName>Bober</UserName>
               <UserTag>@bober_kurwa</UserTag>
             </UserBlock>
           </UserCard>
+        <ButtonWrapper>
           <Button
             $variant="secondary"
             $size="large"
             type="button"
-            $margin="25px 0 0 0"
             onClick={handleLogOutClick}
           >
             Log out
           </Button>
+        </ButtonWrapper>
         </UserWrapper>
       </Wrapper>
       {showModal && (

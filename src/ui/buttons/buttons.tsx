@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { FormEvent, MouseEvent, ReactNode } from "react";
 
 import { Image, StyledButton } from "./styled";
 
@@ -8,8 +8,8 @@ type ButtonProps = {
   type?: "submit" | "button" | "reset";
   $variant: "primary" | "outlined" | "secondary";
   $size: "small" | "medium" | "large";
-  $margin?: string;
-  onClick: (e: React.FormEvent<HTMLFormElement>) => void;
+  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export function Button({
@@ -18,7 +18,6 @@ export function Button({
   type,
   $variant,
   $size,
-  $margin,
   onClick,
 }: ButtonProps) {
   return (
@@ -26,7 +25,6 @@ export function Button({
       type={type}
       $variant={$variant}
       $size={$size}
-      $margin={$margin}
       onClick={onClick}
     >
       {icon && <Image src={icon} alt="button icon" />}

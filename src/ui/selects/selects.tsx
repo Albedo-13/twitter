@@ -8,24 +8,12 @@ type SelectProps = {
   placeholder: string;
   name: string;
   options: typeof GENDERS | string[] | number[];
-  width?: string;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export function Select({
-  placeholder,
-  name,
-  options,
-  width,
-  onChange,
-}: SelectProps) {
+export function Select({ placeholder, name, options, onChange }: SelectProps) {
   return (
-    <StyledSelect
-      name={name}
-      defaultValue=""
-      onChange={onChange}
-      $width={width}
-    >
+    <StyledSelect name={name} defaultValue="" onChange={onChange}>
       <StyledOption value="" disabled>
         {placeholder}
       </StyledOption>

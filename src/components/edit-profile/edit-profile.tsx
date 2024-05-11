@@ -17,6 +17,11 @@ type EditProfileProps = {
   handleModalClose: VoidFunction;
 };
 
+// TODO: Правки стилей
+// TODO: маппер
+// TODO: react hook forms
+// TODO?: добавлять изображение в окне редактирования профиля
+
 export function EditProfile({ handleModalClose }: EditProfileProps) {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userReducer);
@@ -38,7 +43,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
     });
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     const userSnapshot = await queryUserEqualByValue("uid", user.uid);
@@ -80,7 +85,6 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
       <Select
         placeholder="Gender"
         options={GENDERS}
-        width="100%"
         name="gender"
         onChange={handleFormStateChange}
       />
