@@ -1,6 +1,6 @@
 import { ChangeEvent, forwardRef, Ref } from "react";
 
-import { GENDERS } from "@/constants/modal-helpers";
+import { GENDERS } from "@/constants/genders";
 
 import { StyledOption, StyledSelect } from "./styled";
 

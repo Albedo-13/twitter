@@ -3,7 +3,7 @@ import { updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { GENDERS } from "@/constants/modal-helpers";
+import { GENDERS } from "@/constants/genders";
 import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { updateUser } from "@/redux/slices/user-slice";
@@ -66,13 +66,13 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
   return (
     <StyledFormProfile onSubmit={handleSubmit(onSubmit)}>
       <Text>Edit your profile</Text>
-      <Input type="text" {...register("displayName")} placeholder="Name" />
+      <Input {...register("displayName")} type="text" placeholder="Name" />
       {errors.displayName && <p>{errors.displayName.message}</p>}
-      <Input type="password" {...register("password")} placeholder="Password" />
+      <Input {...register("password")} type="password" placeholder="Password" />
       {errors.password && <p>{errors.password.message}</p>}
-      <Select options={GENDERS} {...register("gender")} placeholder="Gender" />
+      <Select {...register("gender")} options={GENDERS} placeholder="Gender" />
       {errors.gender && <p>{errors.gender.message}</p>}
-      <Input type="text" {...register("status")} placeholder="Status" />
+      <Input {...register("status")} type="text" placeholder="Status" />
       {errors.status && <p>{errors.status.message}</p>}
       <Button type="submit" $variant="primary" $size="large">
         Edit

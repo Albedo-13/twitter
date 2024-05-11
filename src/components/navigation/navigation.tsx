@@ -2,7 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import { useNavigate } from "react-router-dom";
 
 import noAvatar from "@/assets/imgs/no_avatar.svg";
-import { NAVIGATION_LINKS } from "@/constants/navigation-links";
+import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { logOut } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";

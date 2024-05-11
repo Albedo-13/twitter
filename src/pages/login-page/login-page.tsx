@@ -1,8 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
 import { Logo } from "@/components/logo/logo";
+import { passwordRegex } from "@/constants/regexes";
 import { auth } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -17,26 +20,36 @@ import {
 
 import { FormWrapper } from "./styled";
 
+type Data = {
+  login: string;
+  password: string;
+};
+
+const schema = z.object({
+  email: z.string().email(),
+  password: z
+    .string()
+    .regex(new RegExp(passwordRegex.regex), passwordRegex.message),
+});
+
 export function LoginPage() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      login: "",
+      password: "",
+    },
+    resolver: zodResolver(schema),
+  });
 
-  const handleLoginChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLogin(e.target.value);
-  };
-
-  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    const queryEmailSnapshot = await queryUserEqualByValue("email", login);
-    const queryPhoneSnapshot = await queryUserEqualByValue("phone", login);
+  const onSubmit: SubmitHandler<Data> = async (data) => {
+    const queryEmailSnapshot = await queryUserEqualByValue("email", data.login);
+    const queryPhoneSnapshot = await queryUserEqualByValue("phone", data.login);
 
     const user = getLoginFromEmailOrPhone(
       queryEmailSnapshot,
@@ -46,36 +59,25 @@ export function LoginPage() {
     if (user) {
       Promise.all([
         dispatch(setUser(adaptUserObj(user))),
-        await signInWithEmailAndPassword(auth, user.email, password),
+        await signInWithEmailAndPassword(auth, user.email, data.password),
       ]);
       navigate("/");
     }
   };
 
   return (
-    <FormWrapper>
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Logo />
       <h1>Log in to Twitter</h1>
       <Input
+        {...register("login")}
         type="text"
         placeholder="Phone number, email address"
-        name="login"
-        value={login}
-        onChange={handleLoginChange}
       />
-      <Input
-        type="password"
-        placeholder="Password"
-        name="password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <Button
-        $variant="primary"
-        $size="large"
-        type="submit"
-        onClick={handleSubmit}
-      >
+      {errors.login && <p>{errors.login.message}</p>}
+      <Input {...register("password")} type="password" placeholder="Password" />
+      {errors.password && <p>{errors.password.message}</p>}
+      <Button $variant="primary" $size="large" type="submit">
         Log In
       </Button>
       <InlineLink to="/signup" $align="right">

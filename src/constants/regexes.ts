@@ -3,11 +3,6 @@ export const passwordRegex = {
     message: "1 letter, 1 number, 6 characters",
 };
 
-export const emailRegex = {
-  regex: /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-  message: "Invalid email",
-}
-
 export const phoneRegex = {
   regex: /^\+375\d{9}$/,
   message: "+375xxxxxxxxxx (9 digits)",

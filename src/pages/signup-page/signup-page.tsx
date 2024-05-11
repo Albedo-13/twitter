@@ -1,6 +1,7 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-import { ChangeEvent, useState } from "react";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { Logo } from "@/components/logo/logo";
@@ -14,6 +15,7 @@ import { InlineLink } from "@/ui/links";
 import { Select } from "@/ui/selects";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
+import { schema } from "./form-schema";
 import {
   ButtonWrapper,
   FormWrapper,
@@ -25,53 +27,49 @@ import {
   Text,
 } from "./styled";
 
+type Data = {
+  displayName: string;
+  phone: string;
+  email: string;
+  password: string;
+  year: string;
+  month: string;
+  day: string;
+};
+
 export function SignupPage() {
-  const [formState, setFormState] = useState({
-    displayName: "",
-    phone: "",
-    email: "",
-    password: "",
-    year: "",
-    month: "",
-    day: "",
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<Data>({
+    resolver: zodResolver(schema),
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const handleFormStateChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
-  };
-
-  const userMapper = (key: keyof typeof formState) => formState[key];
-
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-
-    createUserWithEmailAndPassword(auth, formState.email, formState.password)
+  const onSubmit = (data: Data) => {
+    createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         const userCreds = userCredential.user;
 
         const newUser = {
           uid: userCreds.uid,
-          phone: userMapper("phone"),
-          email: userMapper("email"),
-          displayName: userMapper("displayName"),
+          phone: data.phone,
+          email: data.email,
+          displayName: data.displayName,
           birthday: new Date(
-            Number(userMapper("year")),
-            Number(MONTHS.indexOf(userMapper("month"))),
-            Number(userMapper("day"))
+            Number(data.year),
+            Number(MONTHS.indexOf(data.month)),
+            Number(data.day)
           ).toString(),
         };
 
-        addDoc(collection(db, "users"), newUser);
-        dispatch(setUser(newUser));
+        Promise.all([
+          addDoc(collection(db, "users"), newUser),
+          dispatch(setUser(newUser)),
+        ]);
 
         navigate("/");
       })
@@ -81,39 +79,19 @@ export function SignupPage() {
   };
 
   return (
-    <FormWrapper>
+    <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
       <H1>Create an account</H1>
-      <Input
-        type="text"
-        placeholder="Name"
-        name="displayName"
-        value={formState.displayName}
-        onChange={handleFormStateChange}
-      />
-      <Input
-        type="text"
-        placeholder="Phone number"
-        name="phone"
-        value={formState.phone}
-        onChange={handleFormStateChange}
-      />
-      <Input
-        type="text"
-        placeholder="Email"
-        name="email"
-        value={formState.email}
-        onChange={handleFormStateChange}
-      />
-      <Input
-        type="password"
-        placeholder="Password"
-        name="password"
-        value={formState.password}
-        onChange={handleFormStateChange}
-      />
+      <Input {...register("displayName")} type="text" placeholder="Name" />
+      {errors.displayName && <p>{errors.displayName.message}</p>}
+      <Input {...register("phone")} type="text" placeholder="Phone number" />
+      {errors.phone && <p>{errors.phone.message}</p>}
+      <Input {...register("email")} type="text" placeholder="Email" />
+      {errors.email && <p>{errors.email.message}</p>}
+      <Input {...register("password")} type="password" placeholder="Password" />
+      {errors.password && <p>{errors.password.message}</p>}
       <InlineLink to="/auth">Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
@@ -124,37 +102,24 @@ export function SignupPage() {
       </Text>
       <SelectWrapper>
         <SelectWrapperGrow>
-          <Select
-            placeholder="Years"
-            name="year"
-            options={YEARS}
-            onChange={handleFormStateChange}
-          />
+          <Select {...register("year")} placeholder="Years" options={YEARS} />
         </SelectWrapperGrow>
 
+        <Select {...register("month")} placeholder="Months" options={MONTHS} />
         <Select
-          placeholder="Months"
-          name="month"
-          options={MONTHS}
-          onChange={handleFormStateChange}
-        />
-        <Select
+          {...register("day")}
           placeholder="Days"
-          name="day"
           options={getDaysFromMonth(
-            +formState.year,
-            MONTHS.indexOf(formState.month)
+            +watch("year"),
+            MONTHS.indexOf(watch("month"))
           )}
-          onChange={handleFormStateChange}
         />
       </SelectWrapper>
+      {errors.year && <p>{errors.year.message}</p>}
+      {errors.month && <p>{errors.month.message}</p>}
+      {errors.day && <p>{errors.day.message}</p>}
       <ButtonWrapper>
-        <Button
-          type="submit"
-          $variant="primary"
-          $size="large"
-          onClick={handleSubmit}
-        >
+        <Button type="submit" $variant="primary" $size="large">
           Next
         </Button>
       </ButtonWrapper>
