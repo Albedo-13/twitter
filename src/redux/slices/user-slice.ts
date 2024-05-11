@@ -7,6 +7,8 @@ export type UserType = {
   displayName: string;
   photoURL?: string;
   birthday?: string;
+  gender?: string;
+  status?: string;
 };
 
 const initialState = {

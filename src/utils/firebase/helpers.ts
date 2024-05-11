@@ -39,5 +39,8 @@ export const adaptUserObj = (user: DocumentData | null): UserType => {
     phone: user?.phone ?? "",
     photoURL: user?.photoURL ?? "",
     displayName: user?.displayName ?? "",
+    birthday: user?.birthday ?? "",
+    gender: user?.gender ?? "",
+    status: user?.status ?? "",
   };
 };

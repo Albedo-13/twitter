@@ -44,8 +44,10 @@ export function LoginPage() {
     );
 
     if (user) {
-      dispatch(setUser(adaptUserObj(user)));
-      await signInWithEmailAndPassword(auth, user.email, password);
+      Promise.all([
+        dispatch(setUser(adaptUserObj(user))),
+        await signInWithEmailAndPassword(auth, user.email, password),
+      ]);
       navigate("/");
     }
   };

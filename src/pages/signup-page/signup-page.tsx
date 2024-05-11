@@ -49,22 +49,24 @@ export function SignupPage() {
     });
   };
 
+  const userMapper = (key: keyof typeof formState) => formState[key];
+
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
     createUserWithEmailAndPassword(auth, formState.email, formState.password)
       .then((userCredential) => {
-        const user = userCredential.user;
+        const userCreds = userCredential.user;
 
         const newUser = {
-          uid: user.uid,
-          phone: formState.phone,
-          email: formState.email,
-          displayName: formState.displayName,
+          uid: userCreds.uid,
+          phone: userMapper("phone"),
+          email: userMapper("email"),
+          displayName: userMapper("displayName"),
           birthday: new Date(
-            Number(formState.year),
-            Number(MONTHS.indexOf(formState.month)),
-            Number(formState.day)
+            Number(userMapper("year")),
+            Number(MONTHS.indexOf(userMapper("month"))),
+            Number(userMapper("day"))
           ).toString(),
         };
 
