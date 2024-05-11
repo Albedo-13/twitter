@@ -81,16 +81,16 @@ export function Navigation() {
               <UserTag>@bober_kurwa</UserTag>
             </UserBlock>
           </UserCard>
-        <ButtonWrapper>
-          <Button
-            $variant="secondary"
-            $size="large"
-            type="button"
-            onClick={handleLogOutClick}
-          >
-            Log out
-          </Button>
-        </ButtonWrapper>
+          <ButtonWrapper>
+            <Button
+              $variant="secondary"
+              $size="large"
+              type="button"
+              onClick={handleLogOutClick}
+            >
+              Log out
+            </Button>
+          </ButtonWrapper>
         </UserWrapper>
       </Wrapper>
       {showModal && (

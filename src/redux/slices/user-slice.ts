@@ -4,8 +4,8 @@ export type UserType = {
   uid: string;
   email: string;
   phone: string;
-  displayName: string;
   photoURL?: string;
+  displayName: string;
   birthday?: string;
   gender?: string;
   status?: string;

@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, forwardRef, Ref } from "react";
 
 import { GENDERS } from "@/constants/modal-helpers";
 
@@ -11,26 +11,32 @@ type SelectProps = {
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export function Select({ placeholder, name, options, onChange }: SelectProps) {
-  return (
-    <StyledSelect name={name} defaultValue="" onChange={onChange}>
-      <StyledOption value="" disabled>
-        {placeholder}
-      </StyledOption>
-      {Array.isArray(options)
-        ? options.map((option) => (
-            <StyledOption key={option.toString()} value={option}>
-              {option}
-            </StyledOption>
-          ))
-        : Object.keys(options).map((option: string) => (
-            <StyledOption
-              key={option}
-              value={options[option as keyof typeof options]}
-            >
-              {option}
-            </StyledOption>
-          ))}
-    </StyledSelect>
-  );
-}
+export const Select = forwardRef(
+  (
+    // TODO: remove name
+    { placeholder, name, options, onChange }: SelectProps,
+    ref: Ref<HTMLSelectElement>
+  ) => {
+    return (
+      <StyledSelect name={name} defaultValue="" onChange={onChange} ref={ref}>
+        <StyledOption value="" disabled>
+          {placeholder}
+        </StyledOption>
+        {Array.isArray(options)
+          ? options.map((option) => (
+              <StyledOption key={option.toString()} value={option}>
+                {option}
+              </StyledOption>
+            ))
+          : Object.keys(options).map((option: string) => (
+              <StyledOption
+                key={option}
+                value={options[option as keyof typeof options]}
+              >
+                {option}
+              </StyledOption>
+            ))}
+      </StyledSelect>
+    );
+  }
+);

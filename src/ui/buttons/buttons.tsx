@@ -1,4 +1,4 @@
-import { FormEvent, MouseEvent, ReactNode } from "react";
+import { MouseEvent, ReactNode } from "react";
 
 import { Image, StyledButton } from "./styled";
 
@@ -9,7 +9,6 @@ type ButtonProps = {
   $variant: "primary" | "outlined" | "secondary";
   $size: "small" | "medium" | "large";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
-  onSubmit?: (e: FormEvent<HTMLFormElement>) => Promise<void>;
 };
 
 export function Button({
