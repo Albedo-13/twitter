@@ -1,29 +1,45 @@
-import { createBrowserRouter } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { AuthPage } from "@/pages/auth-page/auth-page";
-import { FeedPage } from "@/pages/feed-page/feed-page";
-import { LoginPage } from "@/pages/login-page/login-page";
-import { ProfilePage } from "@/pages/profile-page/profile-page";
-import { SignupPage } from "@/pages/signup-page/signup-page";
+import { privateRoutes, publicRoutes } from "@/constants/routes";
+import { auth } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
 
 import { Layout } from "../layout/layout";
+
+const ProtectedRoutes = () => {
+  const userId = useAppSelector((state) => state.userReducer.uid);
+  const [isUserAuthed, setIsUserAuthed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(
+    () =>
+      onAuthStateChanged(auth, (user) => {
+        setIsUserAuthed(!!user);
+        setIsLoading(false);
+      }),
+    []
+  );
+
+  return userId
+    ? isUserAuthed && !isLoading && <Layout />
+    : <Navigate to="/login" replace />;
+};
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <ProtectedRoutes />,
     children: [
-      {
-        path: "/",
-        element: <FeedPage />,
-      },
-      {
-        path: "/profile/:id",
-        element: <ProfilePage />
-      },
+      ...privateRoutes.map(({ path, element: Element }) => ({
+        path,
+        element: <Element />,
+      })),
     ],
   },
-  { path: "/login", element: <LoginPage /> },
-  { path: "/signup", element: <SignupPage /> },
-  { path: "/auth", element: <AuthPage /> },
+  ...publicRoutes.map(({ path, element: Element }) => ({
+    path,
+    element: <Element />,
+  })),
 ]);

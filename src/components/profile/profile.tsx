@@ -1,5 +1,6 @@
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import noBackground from "@/assets/imgs/no_background.webp";
+import { auth } from "@/firebase";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons";
 
@@ -34,20 +35,22 @@ export function Profile() {
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={noAvatar} $width={"150px"} />
+            <Avatar src={noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button
               type="button"
-              $variant="outlined"
-              $size="small"
+              variant="outlined"
+              size="small"
               onClick={handleModalShow}
             >
               Edit profile
             </Button>
           </EditButtonWrapper>
-          <ProfileBodyName>Bober</ProfileBodyName>
-          <ProfileBodyTag>@bober_kurwa</ProfileBodyTag>
+          <ProfileBodyName>Bober {auth.currentUser?.phoneNumber}</ProfileBodyName>
+          <ProfileBodyTag>
+            @bober_kurwa {auth.currentUser?.email}
+          </ProfileBodyTag>
           <ProfileBodyStatus>
             React developer in Modsen | Male
           </ProfileBodyStatus>
@@ -58,7 +61,7 @@ export function Profile() {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <EditProfile />
+              <EditProfile handleModalClose={handleModalClose} />
             </Modal>
           }
         />

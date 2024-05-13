@@ -1,25 +1,26 @@
+import { ChangeEvent, forwardRef } from "react";
 
 import { StyledInput } from "./styled";
 
 type InputProps = {
   type: "text" | "password";
   placeholder: string;
-  $width?: string,
-  $margin?: string,
+  name: string;
+  value?: string;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-export function Input({
-  type,
-  placeholder,
-  $width,
-  $margin
-}: InputProps) {
-  return (
-    <StyledInput
-      type={type}
-      placeholder={placeholder}
-      $width={$width}
-      $margin={$margin}
-    />
-  );
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ type, placeholder, value, name, onChange }, ref) => {
+    return (
+      <StyledInput
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        name={name}
+        onChange={onChange}
+        ref={ref}
+      />
+    );
+  }
+);

@@ -3,13 +3,24 @@ import noAvatar from "@/assets/imgs/no_avatar.svg";
 import nobackground from "@/assets/imgs/no_background.webp";
 
 import { Avatar } from "../avatar/avatar";
-import { BodyWrapper, Image, TweetText, UserInfoWrapper, UserName, UserTag, Wrapper } from "./styled";
+import {
+  AvatarWrapper,
+  BodyWrapper,
+  Image,
+  TweetText,
+  UserInfoWrapper,
+  UserName,
+  UserTag,
+  Wrapper,
+} from "./styled";
 
 export default function Tweet() {
   const image = true;
   return (
     <Wrapper>
-      <Avatar src={noAvatar} />
+      <AvatarWrapper>
+        <Avatar src={noAvatar} />
+      </AvatarWrapper>
       <BodyWrapper>
         <UserInfoWrapper>
           <UserName>Bober</UserName>

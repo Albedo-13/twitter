@@ -9,9 +9,23 @@ export const Wrapper = styled.div`
   padding: ${theme.spacing.s10};
 `;
 
+export const AvatarWrapper = styled.div`
+  width: ${theme.spacing.s50};
+  height: ${theme.spacing.s50};
+`;
+
 export const LogoWrapper = styled.div`
   margin-top: ${theme.spacing.s20};
   margin-left: ${theme.spacing.s20};
+`;
+
+export const ButtonWrapper = styled.div`
+  width: 100%;
+  margin-top: ${theme.spacing.s25};
+
+  & > * {
+    width: 100%;
+  }
 `;
 
 export const NavList = styled.ul`

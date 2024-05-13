@@ -2,12 +2,8 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
-type StyledSelect = {
-  $width?: string;
-};
-
-export const StyledSelect = styled.select<StyledSelect>`
-  width: ${({ $width }) => $width || `calc(100% - ${theme.spacing.s40})`};
+export const StyledSelect = styled.select`
+  width: 100%;
   border: ${({ theme }) => theme.border.gray};
   padding: ${theme.spacing.s20};
   font-size: ${theme.fontSize.fs18};

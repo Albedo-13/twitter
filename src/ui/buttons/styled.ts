@@ -66,7 +66,6 @@ const largeStyles = css`
 type StyledButtonType = {
   $variant: "primary" | "outlined" | "secondary";
   $size: "small" | "medium" | "large";
-  $margin?: string;
 };
 
 export const StyledButton = styled.button<StyledButtonType>`
@@ -79,8 +78,6 @@ export const StyledButton = styled.button<StyledButtonType>`
   ${({ $size }) => $size === "small" && smallStyles}
   ${({ $size }) => $size === "medium" && mediumStyles}
   ${({ $size }) => $size === "large" && largeStyles}
-
-  margin: ${({ $margin }) => $margin};
 `;
 
 export const Image = styled.img`

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled.form`
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -10,6 +10,14 @@ export const FormWrapper = styled.div`
   max-width: ${theme.spacing.s750};
   height: 100vh;
   margin: 0 auto;
+`;
+
+export const ButtonWrapper = styled.div`
+  margin-top: ${theme.spacing.s25};
+`;
+
+export const SelectWrapperGrow = styled.div`
+  width: 300%;
 `;
 
 export const LogoWrapper = styled.div`

@@ -50,6 +50,8 @@ export const ProfileBodyStatus = styled.p`
 
 export const AvatarWrapper = styled.div`
   position: absolute;
+  width: ${theme.spacing.s150};
+  height: ${theme.spacing.s150};
   top: -${theme.spacing.s75};
   left: ${theme.spacing.s10};
 `;
