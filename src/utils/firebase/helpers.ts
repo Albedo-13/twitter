@@ -6,9 +6,13 @@ import {
   QuerySnapshot,
   where,
 } from "firebase/firestore";
+import { ref, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
+
+export type FileType = Blob | Uint8Array | ArrayBuffer | null;
 
 export const queryUserEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
@@ -43,4 +47,14 @@ export const adaptUserObj = (user: DocumentData | null): UserType => {
     gender: user?.gender ?? "",
     status: user?.status ?? "",
   };
+};
+
+export const uploadImage = async (file: FileType) => {
+  if (file === null) return;
+
+  const imageName = `posts/${uuidv4()}`;
+  const imageRef = ref(storage, imageName);
+  await uploadBytes(imageRef, file);
+
+  return imageName;
 };

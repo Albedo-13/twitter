@@ -29,7 +29,7 @@ export const privateRoutes = [
     element: FeedPage,
   },
   {
-    path: "/profile/:id",
+    path: "/profile",
     element: ProfilePage,
   },
 ];

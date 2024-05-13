@@ -3,6 +3,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth, signOut } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 import { getBuildEnv } from "@/utils/get-env";
 
@@ -18,6 +19,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 export const analytics = getAnalytics(app);
 export const db = getFirestore(app);
 export const googleProvider = new GoogleAuthProvider();

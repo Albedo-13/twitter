@@ -1,12 +1,29 @@
+import { collection, DocumentData, getDocs } from "firebase/firestore";
+import { useEffect, useState } from "react";
+
+import { db } from "@/firebase";
+
 import Tweet from "../tweet/tweet";
 
 export function TweetsList() {
+  const [posts, setPosts] = useState<DocumentData[]>([]);
+
+  const getPosts = async () => {
+    const querySnapshot = await getDocs(collection(db, "posts"));
+    const posts = querySnapshot.docs.map((doc) => doc.data());
+    setPosts(posts);
+  };
+
+  useEffect(() => {
+    getPosts();
+  }, []);
+
+  console.log(posts);
   return (
-    <div>
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-    </div>
+    <>
+      {posts.map((post) => (
+        <Tweet key={post.authorUid} post={post} />
+      ))}
+    </>
   );
 }
