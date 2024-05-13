@@ -59,6 +59,7 @@ export function SignupPage() {
           uid: userCreds.uid,
           phone: data.phone,
           email: data.email,
+          photoURL: userCreds.photoURL || "",
           displayName: data.displayName,
           birthday: new Date(
             Number(data.year),
@@ -74,6 +75,7 @@ export function SignupPage() {
 
         navigate("/");
       })
+
       .catch((error) => {
         throw new Error(error.message);
       });

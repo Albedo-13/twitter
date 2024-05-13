@@ -1,12 +1,9 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { z } from "zod";
 
 import { FormError } from "@/components/errors/form-error";
 import { Logo } from "@/components/logo/logo";
-import { passwordRegex } from "@/constants/regexes";
 import { auth } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -26,13 +23,6 @@ type Data = {
   password: string;
 };
 
-const schema = z.object({
-  email: z.string().email(),
-  password: z
-    .string()
-    .regex(new RegExp(passwordRegex.regex), passwordRegex.message),
-});
-
 export function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -45,10 +35,9 @@ export function LoginPage() {
       login: "",
       password: "",
     },
-    resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<Data> = async (data) => {
+  const onSubmit = async (data: Data) => {
     const queryEmailSnapshot = await queryUserEqualByValue("email", data.login);
     const queryPhoneSnapshot = await queryUserEqualByValue("phone", data.login);
 
@@ -56,6 +45,7 @@ export function LoginPage() {
       queryEmailSnapshot,
       queryPhoneSnapshot
     );
+    console.log(user);
 
     if (user) {
       Promise.all([
