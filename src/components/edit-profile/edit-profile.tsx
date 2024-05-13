@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
 
 import { GENDERS } from "@/constants/genders";
 import { auth, db } from "@/firebase";
@@ -12,7 +12,8 @@ import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
-import FormError from "../form-error/form-error";
+import ErrorsSummary from "../errors/errors-summary";
+import { FormError } from "../errors/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
 
@@ -75,7 +76,8 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
       <FormError inputFor={errors.gender} />
       <Input {...register("status")} type="text" placeholder="Status" />
       <FormError inputFor={errors.status} />
-      <Button type="submit" $variant="primary" $size="large">
+      <ErrorsSummary errors={errors as FieldErrors} />
+      <Button type="submit" variant="primary" size="large">
         Edit
       </Button>
     </StyledFormProfile>

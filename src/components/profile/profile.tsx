@@ -40,8 +40,8 @@ export function Profile() {
           <EditButtonWrapper>
             <Button
               type="button"
-              $variant="outlined"
-              $size="small"
+              variant="outlined"
+              size="small"
               onClick={handleModalShow}
             >
               Edit profile

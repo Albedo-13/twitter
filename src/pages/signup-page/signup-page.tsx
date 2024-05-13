@@ -4,7 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-import FormError from "@/components/form-error/form-error";
+import { FormError } from "@/components/errors/form-error";
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
 import { auth, db } from "@/firebase";

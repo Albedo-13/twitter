@@ -11,6 +11,7 @@ export const theme = {
     white: "#ffffff",
     searchInput: "#eff3f4",
     text: "#000000",
+    error: "#f5222d",
   },
   spacing: {
     s5: "5px",

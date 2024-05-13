@@ -4,7 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
-import FormError from "@/components/form-error/form-error";
+import { FormError } from "@/components/errors/form-error";
 import { Logo } from "@/components/logo/logo";
 import { passwordRegex } from "@/constants/regexes";
 import { auth } from "@/firebase";
