@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { BasicLink, InlineLink } from "@/ui/links";
-import { adaptUserObj } from "@/utils/firebase/helpers";
+import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import {
   AuthFooterWrapper,
@@ -33,7 +33,7 @@ export function AuthPage() {
   };
 
   const handleSignupWithGoogleClick = async () => {
-    await signInWithPopup(auth, googleProvider).then((userCredential) => {
+    await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
 
       const newUser = {
@@ -44,10 +44,12 @@ export function AuthPage() {
         displayName: user.displayName,
       };
 
-      Promise.all([
-        addDoc(collection(db, "users"), newUser),
-        dispatch(setUser(adaptUserObj(user))),
-      ]);
+      const queryUserSnapshot = await queryUserEqualByValue("uid", user.uid);
+
+      if (queryUserSnapshot.empty) {
+        await addDoc(collection(db, "users"), newUser);
+      }
+      dispatch(setUser(adaptUserObj(user)));
     });
 
     navigate("/");

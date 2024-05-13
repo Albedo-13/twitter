@@ -1,6 +1,6 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { addDoc, collection } from "firebase/firestore";
-import { ChangeEvent, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
 import addMedia from "@/assets/icons/add-media.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
@@ -10,6 +10,8 @@ import { Button } from "@/ui/buttons";
 import { uploadImage } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
+import ErrorsSummary from "../errors/errors-summary";
+import { schema } from "./form-schema";
 import {
   AvatarWrapper,
   BasementWrapper,
@@ -20,8 +22,6 @@ import {
   FormWrapper,
   Textarea,
 } from "./styled";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { schema } from "./form-schema";
 
 type Data = {
   content: string;
@@ -45,15 +45,6 @@ export function CreatePost() {
     resolver: zodResolver(schema),
   });
 
-  // TODO: type any can be fixed with react hook form
-  // TODO: reset form on submit
-
-  // TODO: only self-made posts on profile
-  // TODO: sort by createdAt
-  // TODO: delete post (only self made post)
-  // TODO: active refresh on docs update
-  // TODO: likes (total count; if me in liked)
-  // TODO: likes dark theme
   const onSubmit = async (data: Data) => {
     const imageName = data.image ? await uploadImage(data.image[0]) : null;
     console.log("imageName", imageName);
@@ -97,6 +88,7 @@ export function CreatePost() {
             Tweet
           </Button>
         </BasementWrapper>
+        <ErrorsSummary errors={errors as FieldErrors} />
       </FormWrapper>
     </CreatePostWrapper>
   );
