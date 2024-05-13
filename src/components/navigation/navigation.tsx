@@ -62,8 +62,8 @@ export function Navigation() {
         </nav>
         <ButtonWrapper>
           <Button
-            $variant="primary"
-            $size="medium"
+            variant="primary"
+            size="medium"
             type="button"
             onClick={handleModalShow}
           >
@@ -83,8 +83,8 @@ export function Navigation() {
           </UserCard>
           <ButtonWrapper>
             <Button
-              $variant="secondary"
-              $size="large"
+              variant="secondary"
+              size="large"
               type="button"
               onClick={handleLogOutClick}
             >

@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 
+import FormError from "@/components/form-error/form-error";
 import { Logo } from "@/components/logo/logo";
 import { passwordRegex } from "@/constants/regexes";
 import { auth } from "@/firebase";
@@ -74,13 +75,13 @@ export function LoginPage() {
         type="text"
         placeholder="Phone number, email address"
       />
-      {errors.login && <p>{errors.login.message}</p>}
+      <FormError inputFor={errors.login} />
       <Input {...register("password")} type="password" placeholder="Password" />
-      {errors.password && <p>{errors.password.message}</p>}
-      <Button $variant="primary" $size="large" type="submit">
+      <FormError inputFor={errors.password} />
+      <Button variant="primary" size="large" type="submit">
         Log In
       </Button>
-      <InlineLink to="/signup" $align="right">
+      <InlineLink to="/signup" align="right">
         Sign up to Twitter
       </InlineLink>
     </FormWrapper>

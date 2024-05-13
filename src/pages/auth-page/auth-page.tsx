@@ -55,8 +55,8 @@ export function AuthPage() {
             <ButtonWrapper>
               <Button
                 icon={googleIcon}
-                $variant="outlined"
-                $size="large"
+                variant="outlined"
+                size="large"
                 onClick={handleSignupWithGoogleClick}
               >
                 Sign up with Google
@@ -64,8 +64,8 @@ export function AuthPage() {
             </ButtonWrapper>
             <ButtonWrapper>
               <Button
-                $variant="outlined"
-                $size="large"
+                variant="outlined"
+                size="large"
                 onClick={handleSignupClick}
               >
                 Sign up with email

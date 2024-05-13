@@ -13,7 +13,6 @@ type SelectProps = {
 
 export const Select = forwardRef(
   (
-    // TODO: remove name
     { placeholder, name, options, onChange }: SelectProps,
     ref: Ref<HTMLSelectElement>
   ) => {

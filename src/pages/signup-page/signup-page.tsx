@@ -4,6 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import FormError from "@/components/form-error/form-error";
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
 import { auth, db } from "@/firebase";
@@ -85,13 +86,13 @@ export function SignupPage() {
       </LogoWrapper>
       <H1>Create an account</H1>
       <Input {...register("displayName")} type="text" placeholder="Name" />
-      {errors.displayName && <p>{errors.displayName.message}</p>}
+      <FormError inputFor={errors.displayName} />
       <Input {...register("phone")} type="text" placeholder="Phone number" />
-      {errors.phone && <p>{errors.phone.message}</p>}
+      <FormError inputFor={errors.phone} />
       <Input {...register("email")} type="text" placeholder="Email" />
-      {errors.email && <p>{errors.email.message}</p>}
+      <FormError inputFor={errors.email} />
       <Input {...register("password")} type="password" placeholder="Password" />
-      {errors.password && <p>{errors.password.message}</p>}
+      <FormError inputFor={errors.password} />
       <InlineLink to="/auth">Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
@@ -115,11 +116,11 @@ export function SignupPage() {
           )}
         />
       </SelectWrapper>
-      {errors.year && <p>{errors.year.message}</p>}
-      {errors.month && <p>{errors.month.message}</p>}
-      {errors.day && <p>{errors.day.message}</p>}
+      <FormError inputFor={errors.year} />
+      <FormError inputFor={errors.month} />
+      <FormError inputFor={errors.day} />
       <ButtonWrapper>
-        <Button type="submit" $variant="primary" $size="large">
+        <Button type="submit" variant="primary" size="large">
           Next
         </Button>
       </ButtonWrapper>

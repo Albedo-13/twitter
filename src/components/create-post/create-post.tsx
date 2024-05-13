@@ -33,7 +33,7 @@ export function CreatePost() {
               accept="image/png, image/jpeg"
             />
           </FileInputWrapper>
-          <Button $variant="primary" $size="small" type="submit">
+          <Button variant="primary" size="small" type="submit">
             Tweet
           </Button>
         </BasementWrapper>

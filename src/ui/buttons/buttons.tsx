@@ -6,8 +6,8 @@ type ButtonProps = {
   icon?: string;
   children: ReactNode;
   type?: "submit" | "button" | "reset";
-  $variant: "primary" | "outlined" | "secondary";
-  $size: "small" | "medium" | "large";
+  variant: "primary" | "outlined" | "secondary";
+  size: "small" | "medium" | "large";
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -15,15 +15,15 @@ export function Button({
   icon,
   children,
   type,
-  $variant,
-  $size,
+  variant,
+  size,
   onClick,
 }: ButtonProps) {
   return (
     <StyledButton
       type={type}
-      $variant={$variant}
-      $size={$size}
+      $variant={variant}
+      $size={size}
       onClick={onClick}
     >
       {icon && <Image src={icon} alt="button icon" />}

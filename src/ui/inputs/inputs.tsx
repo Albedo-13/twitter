@@ -5,7 +5,6 @@ import { StyledInput } from "./styled";
 type InputProps = {
   type: "text" | "password";
   placeholder: string;
-  // TODO: remove name
   name: string;
   value?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;

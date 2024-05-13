@@ -12,6 +12,7 @@ import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
+import FormError from "../form-error/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
 
@@ -67,13 +68,13 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
     <StyledFormProfile onSubmit={handleSubmit(onSubmit)}>
       <Text>Edit your profile</Text>
       <Input {...register("displayName")} type="text" placeholder="Name" />
-      {errors.displayName && <p>{errors.displayName.message}</p>}
+      <FormError inputFor={errors.displayName} />
       <Input {...register("password")} type="password" placeholder="Password" />
-      {errors.password && <p>{errors.password.message}</p>}
+      <FormError inputFor={errors.password} />
       <Select {...register("gender")} options={GENDERS} placeholder="Gender" />
-      {errors.gender && <p>{errors.gender.message}</p>}
+      <FormError inputFor={errors.gender} />
       <Input {...register("status")} type="text" placeholder="Status" />
-      {errors.status && <p>{errors.status.message}</p>}
+      <FormError inputFor={errors.status} />
       <Button type="submit" $variant="primary" $size="large">
         Edit
       </Button>
