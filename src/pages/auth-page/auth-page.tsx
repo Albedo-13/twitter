@@ -44,8 +44,10 @@ export function AuthPage() {
         displayName: user.displayName,
       };
 
-      addDoc(collection(db, "users"), newUser);
-      dispatch(setUser(adaptUserObj(user)));
+      Promise.all([
+        addDoc(collection(db, "users"), newUser),
+        dispatch(setUser(adaptUserObj(user))),
+      ]);
     });
 
     navigate("/");

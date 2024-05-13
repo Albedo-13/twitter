@@ -19,14 +19,21 @@ import {
   Wrapper,
 } from "./styled";
 
-export default function Tweet({ post }: { post: DocumentData }) {
+type TweetProps = {
+  post: DocumentData;
+};
+
+export default function Tweet({ post }: TweetProps) {
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
 
   const getImageUrl = async () => {
-    return await getDownloadURL(ref(storage, post.image)).then((url) =>
-      setImgUrl(url)
-    );
+    try {
+      const url = await getDownloadURL(ref(storage, post?.image));
+      setImgUrl(url);
+    } catch (error) {
+      setImgUrl(undefined);
+    }
   };
 
   const getUserPhotoByUid = async (userId: string) => {

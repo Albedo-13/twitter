@@ -38,6 +38,7 @@ export function CreatePost() {
 
   // TODO: reset form on submit
   // TODO: image is optionate
+  // TODO: only self-made posts on profile
   // TODO: type any can be fixed with react hook form
   // TODO: sort by createdAt
   // TODO: active refresh on docs update
@@ -49,7 +50,7 @@ export function CreatePost() {
 
     const newPost = {
       content: content,
-      image: imageName,
+      image: imageName || null,
       displayName: user?.displayName,
       authorUid: user?.uid,
       email: user?.email,
@@ -64,7 +65,7 @@ export function CreatePost() {
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
-        <Avatar src={noAvatar} />
+        <Avatar src={user.photoURL ? user.photoURL : noAvatar} />
       </AvatarWrapper>
       <FormWrapper>
         <Textarea

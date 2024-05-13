@@ -22,7 +22,10 @@ export function TweetsList() {
   return (
     <>
       {posts.map((post) => (
-        <Tweet key={post.authorUid} post={post} />
+        <Tweet
+          key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
+          post={post}
+        />
       ))}
     </>
   );

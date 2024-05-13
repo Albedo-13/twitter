@@ -24,7 +24,7 @@ const ProtectedRoutes = () => {
 
   return userId
     ? isUserAuthed && !isLoading && <Layout />
-    : <Navigate to="/login" replace />;
+    : <Navigate to="/auth" replace />;
 };
 
 export const router = createBrowserRouter([

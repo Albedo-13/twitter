@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { logOut } from "@/firebase";
-import { useAppDispatch } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
@@ -34,11 +34,12 @@ export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userReducer);
 
   const handleLogOutClick = () => {
     logOut().then(() => {
       dispatch(setUser(adaptUserObj(null)));
-      navigate("/login");
+      navigate("/auth");
     });
   };
 
@@ -74,11 +75,11 @@ export function Navigation() {
         <UserWrapper>
           <UserCard>
             <AvatarWrapper>
-              <Avatar src={noAvatar} />
+              <Avatar src={user.photoURL ? user.photoURL : noAvatar} />
             </AvatarWrapper>
             <UserBlock>
-              <UserName>Bober</UserName>
-              <UserTag>@bober_kurwa</UserTag>
+              <UserName>{user.displayName}</UserName>
+              <UserTag>{user.email}</UserTag>
             </UserBlock>
           </UserCard>
           <ButtonWrapper>
