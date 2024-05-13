@@ -36,13 +36,14 @@ export function CreatePost() {
     }
   };
 
-  // TODO: reset form on submit
-  // TODO: image is optionate
-  // TODO: only self-made posts on profile
   // TODO: type any can be fixed with react hook form
+  // TODO: reset form on submit
+
+  // TODO: only self-made posts on profile
   // TODO: sort by createdAt
   // TODO: active refresh on docs update
   // TODO: likes (total count; if me in liked)
+  // TODO: likes dark theme
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const imageName = await uploadImage(imageUpload);
