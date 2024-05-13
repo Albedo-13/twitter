@@ -1,3 +1,4 @@
+import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import {
   collection,
   DocumentData,
@@ -9,7 +10,7 @@ import {
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
-import { db, storage } from "@/firebase";
+import { auth, db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
 
 export type FileType = Blob | Uint8Array | ArrayBuffer | null;
@@ -57,4 +58,14 @@ export const uploadImage = async (file: FileType) => {
   await uploadBytes(imageRef, file);
 
   return imageName;
+};
+
+export const reauthUser = async (password: string) => {
+  if (auth.currentUser) {
+    const credential = EmailAuthProvider.credential(
+      auth.currentUser.email!,
+      password
+    );
+    await reauthenticateWithCredential(auth.currentUser, credential);
+  }
 };

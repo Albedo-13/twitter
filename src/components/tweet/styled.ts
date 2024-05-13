@@ -42,5 +42,6 @@ export const TweetText = styled.p`
 export const Image = styled.img`
   border-radius: ${theme.spacing.s20};
   margin: ${theme.spacing.s15} 0;
-  width: 100%;
+  max-height: ${theme.spacing.s330};
+  width: auto;
 `;
