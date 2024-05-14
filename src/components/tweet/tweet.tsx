@@ -17,6 +17,9 @@ import {
   BodyWrapper,
   DeleteIcon,
   Image,
+  LikeCount,
+  LikeIcon,
+  LikeWrapper,
   TweetText,
   UserInfoWrapper,
   UserName,
@@ -72,26 +75,24 @@ export default function Tweet({ userUid, post }: TweetProps) {
         (uid: string) => uid !== userUid
       );
 
-      debouncedDatabaseLikeChange(newLikes, newLikedByUsers);
+      databaseLikeChange(newLikes, newLikedByUsers);
     } else if (userUid && !post.likedByUsers.includes(userUid)) {
       const newLikes = post.likes + 1;
       const newLikedByUsers = [...post.likedByUsers, userUid];
-      debouncedDatabaseLikeChange(newLikes, newLikedByUsers);
+      databaseLikeChange(newLikes, newLikedByUsers);
     }
   };
 
-  const databaseLikeChange = (
-    newLikes: number,
-    newLikedByUsers: DocumentData[string]
-  ) => {
-    const postRef = doc(db, "posts", post.uid);
-    updateDoc(postRef, {
-      likes: newLikes,
-      likedByUsers: newLikedByUsers,
-    });
-  };
-
-  const debouncedDatabaseLikeChange = debounce(databaseLikeChange, 500);
+  const databaseLikeChange = debounce(
+    (newLikes: number, newLikedByUsers: DocumentData[string]) => {
+      const postRef = doc(db, "posts", post.uid);
+      updateDoc(postRef, {
+        likes: newLikes,
+        likedByUsers: newLikedByUsers,
+      });
+    },
+    500
+  );
 
   return (
     <Wrapper>
@@ -105,13 +106,15 @@ export default function Tweet({ userUid, post }: TweetProps) {
         </UserInfoWrapper>
         <TweetText>{post.content}</TweetText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-        <div onClick={handleLikeClick}>
-          <img
+        <LikeWrapper>
+          <LikeIcon
             src={post.likedByUsers.includes(userUid) ? liked : notLiked}
             alt="like post"
+            data-isliked={post.likedByUsers.includes(userUid)}
+            onClick={handleLikeClick}
           />
-          <span>{post.likes}</span>
-        </div>
+          <LikeCount>{post.likes}</LikeCount>
+        </LikeWrapper>
       </BodyWrapper>
       {userUid === post.authorUid && (
         <DeleteIcon

@@ -41,7 +41,7 @@ export const TweetText = styled.p`
 
 export const Image = styled.img`
   border-radius: ${theme.spacing.s20};
-  margin: ${theme.spacing.s15} 0;
+  margin-top: ${theme.spacing.s15};
   max-height: ${theme.spacing.s330};
   width: auto;
 `;
@@ -53,4 +53,23 @@ export const DeleteIcon = styled.img`
   filter: ${({ theme }) => theme.svgFill.primary};
   position: absolute;
   cursor: pointer;
+  user-select: none;
+`;
+
+export const LikeWrapper = styled.div`
+  margin-top: ${theme.spacing.s10};
+  gap: ${theme.spacing.s5};
+  user-select: none;
+`;
+
+export const LikeIcon = styled.img`
+  cursor: pointer;
+  &[data-isliked="false"] {
+    filter: ${({ theme }) => theme.svgFill.primary};
+  }
+`;
+
+export const LikeCount = styled.span`
+  font-size: ${theme.fontSize.fs20};
+  padding-left: ${theme.spacing.s10};
 `;
