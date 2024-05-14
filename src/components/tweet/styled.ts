@@ -45,3 +45,12 @@ export const Image = styled.img`
   max-height: ${theme.spacing.s330};
   width: auto;
 `;
+
+export const DeleteIcon = styled.img`
+  width: ${theme.spacing.s20};
+  height: ${theme.spacing.s20};
+  right: ${theme.spacing.s20};
+  filter: ${({ theme }) => theme.svgFill.primary};
+  position: absolute;
+  cursor: pointer;
+`;

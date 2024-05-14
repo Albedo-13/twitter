@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { addDoc, collection } from "firebase/firestore";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
@@ -49,7 +50,10 @@ export function CreatePost() {
     const imageName = data.image ? await uploadImage(data.image[0]) : null;
     console.log("imageName", imageName);
 
+    const postId = uuidv4();
+
     const newPost = {
+      uid: postId,
       content: data.content,
       image: imageName || null,
       displayName: user?.displayName,
@@ -60,7 +64,7 @@ export function CreatePost() {
       likedByUsers: [],
     };
 
-    await addDoc(collection(db, "posts"), newPost);
+    await setDoc(doc(db, "posts", postId), newPost);
 
     reset();
   };
