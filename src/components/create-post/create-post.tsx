@@ -65,8 +65,6 @@ export function CreatePost() {
     reset();
   };
 
-  // TODO: only self-made posts on profile (useNavigation?)
-  // TODO: sort by createdAt
   // TODO: delete post (only self made post)
   // TODO: active refresh on docs update
   // TODO: likes (total count; if me in liked)
