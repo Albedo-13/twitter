@@ -1,11 +1,14 @@
-import { deleteDoc, doc, DocumentData } from "firebase/firestore";
+import debounce from "debounce";
+import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 
+import liked from "@/assets/icons/liked.svg";
 import notLiked from "@/assets/icons/not_liked.svg";
 import trashCan from "@/assets/icons/trash-can.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { db, storage } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
@@ -27,6 +30,7 @@ type TweetProps = {
 };
 
 export default function Tweet({ userUid, post }: TweetProps) {
+  const user = useAppSelector((state) => state.userReducer);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
 
@@ -59,9 +63,35 @@ export default function Tweet({ userUid, post }: TweetProps) {
     deleteDoc(doc(db, "posts", post.uid));
   };
 
-  const handleLikeClick = () => {
+  const handleLikeClick = async () => {
     console.log("handleLikeClick");
+    const userUid = user.uid;
+    if (userUid && post.likedByUsers.includes(userUid)) {
+      const newLikes = post.likes - 1;
+      const newLikedByUsers = post.likedByUsers.filter(
+        (uid: string) => uid !== userUid
+      );
+
+      debouncedDatabaseLikeChange(newLikes, newLikedByUsers);
+    } else if (userUid && !post.likedByUsers.includes(userUid)) {
+      const newLikes = post.likes + 1;
+      const newLikedByUsers = [...post.likedByUsers, userUid];
+      debouncedDatabaseLikeChange(newLikes, newLikedByUsers);
+    }
   };
+
+  const databaseLikeChange = (
+    newLikes: number,
+    newLikedByUsers: DocumentData[string]
+  ) => {
+    const postRef = doc(db, "posts", post.uid);
+    updateDoc(postRef, {
+      likes: newLikes,
+      likedByUsers: newLikedByUsers,
+    });
+  };
+
+  const debouncedDatabaseLikeChange = debounce(databaseLikeChange, 500);
 
   return (
     <Wrapper>
@@ -76,7 +106,10 @@ export default function Tweet({ userUid, post }: TweetProps) {
         <TweetText>{post.content}</TweetText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
         <div onClick={handleLikeClick}>
-          <img src={notLiked} alt="" />
+          <img
+            src={post.likedByUsers.includes(userUid) ? liked : notLiked}
+            alt="like post"
+          />
           <span>{post.likes}</span>
         </div>
       </BodyWrapper>

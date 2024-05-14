@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
-import { useEffect } from "react";
+import { doc, setDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -70,8 +69,16 @@ export function CreatePost() {
     reset();
   };
 
-  // TODO: likes (total count; if me in liked)
   // TODO: likes dark theme
+
+  // TODO: В случае того, если аккаунта не существует, оповестить об этом пользователя.
+  // TODO: Если занята почта или телефон, то показать ошибку.
+  // TODO: В поле ввода Search Input можно ввести название tweet и в списке должен 
+  // появиться tweet, при нажатии на который он открывается в новом окне.
+  // TODO: В поиске Search Twitter происходит список пользователей Twitter
+  // (поиск должен происходить на стороне firebase и возможность у твитов поставить лайк).
+  // TODO: мобильная адаптация
+  // TODO: тесты
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
