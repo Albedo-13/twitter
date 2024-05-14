@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, onSnapshot, setDoc } from "firebase/firestore";
+import { useEffect } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -69,8 +70,6 @@ export function CreatePost() {
     reset();
   };
 
-  // TODO: delete post (only self made post)
-  // TODO: active refresh on docs update
   // TODO: likes (total count; if me in liked)
   // TODO: likes dark theme
   return (
