@@ -31,7 +31,6 @@ type Data = {
 
 export function CreatePost() {
   const user = useAppSelector((state) => state.userReducer);
-  console.log("user", user);
 
   const {
     register,
@@ -48,8 +47,6 @@ export function CreatePost() {
 
   const onSubmit = async (data: Data) => {
     const imageName = data.image ? await uploadImage(data.image[0]) : null;
-    console.log("imageName", imageName);
-
     const postId = uuidv4();
 
     const newPost = {
@@ -69,14 +66,6 @@ export function CreatePost() {
     reset();
   };
 
-  // TODO: В случае того, если аккаунта не существует, оповестить об этом пользователя.
-  // TODO: Если занята почта или телефон, то показать ошибку.
-  // TODO: В поле ввода Search Input можно ввести название tweet и в списке должен
-  // появиться tweet, при нажатии на который он открывается в новом окне.
-  // TODO: В поиске Search Twitter происходит список пользователей Twitter
-  // (поиск должен происходить на стороне firebase и возможность у твитов поставить лайк).
-  // TODO: мобильная адаптация
-  // TODO: тесты
   return (
     <CreatePostWrapper>
       <AvatarWrapper>

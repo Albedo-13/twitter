@@ -45,7 +45,6 @@ export function LoginPage() {
       queryEmailSnapshot,
       queryPhoneSnapshot
     );
-    console.log(user);
 
     if (user) {
       Promise.all([

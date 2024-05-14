@@ -67,7 +67,6 @@ export default function Tweet({ userUid, post }: TweetProps) {
   };
 
   const handleLikeClick = async () => {
-    console.log("handleLikeClick");
     const userUid = user.uid;
     if (userUid && post.likedByUsers.includes(userUid)) {
       const newLikes = post.likes - 1;

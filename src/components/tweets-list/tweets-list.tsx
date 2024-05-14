@@ -1,4 +1,11 @@
-import { collection, DocumentData, getDocs, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -13,20 +20,20 @@ export function TweetsList() {
   const location = useLocation();
 
   const getPosts = async () => {
-    const querySnapshot = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc")));
+    const querySnapshot = await getDocs(
+      query(collection(db, "posts"), orderBy("createdAt", "desc"))
+    );
     const posts = querySnapshot.docs.map((doc) => doc.data());
     setPosts(posts);
   };
 
   useEffect(() => {
     const q = collection(db, "posts");
-    onSnapshot(q, (snapshot) => {
-      console.log("snapshot", snapshot);
+    onSnapshot(q, () => {
       getPosts();
     });
   }, []);
 
-  console.log(posts);
   return (
     <>
       {posts
