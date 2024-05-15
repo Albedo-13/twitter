@@ -11,12 +11,13 @@ import { useLocation } from "react-router-dom";
 
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 import Tweet from "../tweet/tweet";
 
 export function TweetsList() {
   const [posts, setPosts] = useState<DocumentData[]>([]);
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
   const location = useLocation();
 
   const getPosts = async () => {

@@ -9,6 +9,7 @@ import trashCan from "@/assets/icons/trash-can.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { db, storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
@@ -33,7 +34,7 @@ type TweetProps = {
 };
 
 export default function Tweet({ userUid, post }: TweetProps) {
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
 
@@ -96,7 +97,7 @@ export default function Tweet({ userUid, post }: TweetProps) {
   return (
     <Wrapper>
       <AvatarWrapper>
-        <Avatar src={photoUrl ? photoUrl : noAvatar} />
+        <Avatar src={photoUrl || noAvatar} />
       </AvatarWrapper>
       <BodyWrapper>
         <UserInfoWrapper>

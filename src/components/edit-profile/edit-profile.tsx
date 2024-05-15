@@ -9,6 +9,7 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { GENDERS } from "@/constants/genders";
 import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { updateUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
@@ -33,7 +34,7 @@ type Data = {
 
 export function EditProfile({ handleModalClose }: EditProfileProps) {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
   const {
     register,
     handleSubmit,

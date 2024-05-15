@@ -7,6 +7,7 @@ import addMedia from "@/assets/icons/add-media.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 import { uploadImage } from "@/utils/firebase/helpers";
 
@@ -30,7 +31,7 @@ type Data = {
 };
 
 export function CreatePost() {
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
 
   const {
     register,
@@ -45,14 +46,18 @@ export function CreatePost() {
     resolver: zodResolver(schema),
   });
 
+  const getUploadedImageName = async (images: FileList | null) => {
+    return images ? await uploadImage(images[0]) : null;
+  };
+
   const onSubmit = async (data: Data) => {
-    const imageName = data.image ? await uploadImage(data.image[0]) : null;
+    const imageName = await getUploadedImageName(data.image);
     const postId = uuidv4();
 
     const newPost = {
       uid: postId,
       content: data.content,
-      image: imageName || null,
+      image: imageName,
       displayName: user?.displayName,
       authorUid: user?.uid,
       email: user?.email,
@@ -69,7 +74,7 @@ export function CreatePost() {
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
-        <Avatar src={user.photoURL ? user.photoURL : noAvatar} />
+        <Avatar src={user.photoURL || noAvatar} />
       </AvatarWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />

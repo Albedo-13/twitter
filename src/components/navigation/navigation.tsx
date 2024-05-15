@@ -6,6 +6,7 @@ import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { logOut } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { adaptUserObj } from "@/utils/firebase/helpers";
@@ -34,7 +35,7 @@ export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
 
   const handleLogOutClick = () => {
     logOut().then(() => {
@@ -75,7 +76,7 @@ export function Navigation() {
         <UserWrapper>
           <UserCard>
             <AvatarWrapper>
-              <Avatar src={user.photoURL ? user.photoURL : noAvatar} />
+              <Avatar src={user.photoURL || noAvatar} />
             </AvatarWrapper>
             <UserBlock>
               <UserName>{user.displayName}</UserName>

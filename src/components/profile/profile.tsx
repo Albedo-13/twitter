@@ -3,6 +3,7 @@ import noBackground from "@/assets/imgs/no_background.webp";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
@@ -25,7 +26,7 @@ import {
 
 export function Profile() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
 
   return (
     <>
@@ -37,7 +38,7 @@ export function Profile() {
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={user.photoURL ? user.photoURL : noAvatar} />
+            <Avatar src={user.photoURL || noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button
