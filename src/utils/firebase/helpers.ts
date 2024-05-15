@@ -50,10 +50,10 @@ export const adaptUserObj = (user: DocumentData | null): UserType => {
   };
 };
 
-export const uploadImage = async (file: FileType) => {
+export const uploadFile = async (folder: string, file: FileType | null) => {
   if (file === null) return;
 
-  const imageName = `posts/${uuidv4()}`;
+  const imageName = `${folder}/${uuidv4()}`;
   const imageRef = ref(storage, imageName);
   await uploadBytes(imageRef, file);
 
