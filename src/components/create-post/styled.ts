@@ -21,7 +21,6 @@ export const FormWrapper = styled.form`
 
 export const Textarea = styled.textarea`
   width: calc(100% - ${theme.spacing.s40});
-
   border: none;
   resize: none;
   height: ${theme.spacing.s80};

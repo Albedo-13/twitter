@@ -1,4 +1,4 @@
-export const authErrorsHandler = (
+export const loginErrorsHandler = (
   error: string,
   setter: (value: React.SetStateAction<string>) => void
 ) => {
@@ -11,6 +11,12 @@ export const authErrorsHandler = (
       break;
     case "auth/missing-password":
       setter("Missing password. Please try again");
+      break;
+    case "auth/email-already-in-use":
+      setter("This email is already registered. Please try again");
+      break;
+    case "phone-in-use":
+      setter("This phone is already registered. Please try again");
       break;
     default:
       setter("Ooops, something went wrong... Please try again");

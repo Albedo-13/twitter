@@ -1,8 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  updatePassword,
-  updateProfile,
-} from "firebase/auth";
+import { updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
 
@@ -50,7 +47,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
   });
 
   const onSubmit = async (data: Data) => {
-    reauthUser(data.password);
+    await reauthUser(data.password);
     const userSnapshot = await queryUserEqualByValue("uid", user.uid);
     const userRef = doc(db, "users", userSnapshot.docs[0].id);
 

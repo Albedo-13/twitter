@@ -37,6 +37,7 @@ export const UserTag = styled.p`
 
 export const TweetText = styled.p`
   font-size: ${theme.fontSize.fs18};
+  margin-top: ${theme.spacing.s5};
 `;
 
 export const Image = styled.img`
