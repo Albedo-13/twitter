@@ -1,7 +1,9 @@
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import noBackground from "@/assets/imgs/no_background.webp";
 import { auth } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 
 import { Avatar } from "../avatar/avatar";
@@ -24,18 +26,19 @@ import {
 
 export function Profile() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
+  const user = useAppSelector(getUserSelector);
 
   return (
     <>
       <ProfileWrapper>
         <ProfileHeader>
-          <ProfileHeaderName>Bober</ProfileHeaderName>
+          <ProfileHeaderName>{user.displayName}</ProfileHeaderName>
           <ProfileHeaderTweets>1,070 Tweets</ProfileHeaderTweets>
         </ProfileHeader>
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={noAvatar} />
+            <Avatar src={user.photoURL || noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button
@@ -47,13 +50,9 @@ export function Profile() {
               Edit profile
             </Button>
           </EditButtonWrapper>
-          <ProfileBodyName>Bober {auth.currentUser?.phoneNumber}</ProfileBodyName>
-          <ProfileBodyTag>
-            @bober_kurwa {auth.currentUser?.email}
-          </ProfileBodyTag>
-          <ProfileBodyStatus>
-            React developer in Modsen | Male
-          </ProfileBodyStatus>
+          <ProfileBodyName>{user.displayName}</ProfileBodyName>
+          <ProfileBodyTag>{auth.currentUser?.email}</ProfileBodyTag>
+          <ProfileBodyStatus>{user.status}</ProfileBodyStatus>
         </ProfileBody>
       </ProfileWrapper>
 

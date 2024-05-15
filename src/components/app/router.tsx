@@ -5,11 +5,12 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "@/constants/routes";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { getUserIdSelector } from "@/redux/selectors/user-selectors";
 
 import { Layout } from "../layout/layout";
 
 const ProtectedRoutes = () => {
-  const userId = useAppSelector((state) => state.userReducer.uid);
+  const userId = useAppSelector(getUserIdSelector);
   const [isUserAuthed, setIsUserAuthed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +25,7 @@ const ProtectedRoutes = () => {
 
   return userId
     ? isUserAuthed && !isLoading && <Layout />
-    : <Navigate to="/login" replace />;
+    : <Navigate to="/auth" replace />;
 };
 
 export const router = createBrowserRouter([

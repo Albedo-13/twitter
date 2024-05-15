@@ -37,7 +37,7 @@ export const NAVIGATION_LINKS = [
   },
   {
     label: "Profile",
-    to: "/profile/1",
+    to: "/profile",
     icon: "/nav-icons/profile_outline.svg",
     isEnabled: true,
   },

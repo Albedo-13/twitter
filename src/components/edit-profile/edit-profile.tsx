@@ -1,16 +1,20 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updatePassword, updateProfile } from "firebase/auth";
+import {
+  updatePassword,
+  updateProfile,
+} from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
-import { FieldErrors, SubmitHandler, useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 
 import { GENDERS } from "@/constants/genders";
 import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { updateUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
-import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { queryUserEqualByValue, reauthUser } from "@/utils/firebase/helpers";
 
 import ErrorsSummary from "../errors/errors-summary";
 import { FormError } from "../errors/form-error";
@@ -30,7 +34,7 @@ type Data = {
 
 export function EditProfile({ handleModalClose }: EditProfileProps) {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userReducer);
+  const user = useAppSelector(getUserSelector);
   const {
     register,
     handleSubmit,
@@ -45,7 +49,8 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<Data> = async (data) => {
+  const onSubmit = async (data: Data) => {
+    reauthUser(data.password);
     const userSnapshot = await queryUserEqualByValue("uid", user.uid);
     const userRef = doc(db, "users", userSnapshot.docs[0].id);
 

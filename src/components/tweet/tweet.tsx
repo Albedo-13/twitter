@@ -1,12 +1,26 @@
+import debounce from "debounce";
+import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
+import { deleteObject, getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from "react";
+
+import liked from "@/assets/icons/liked.svg";
 import notLiked from "@/assets/icons/not_liked.svg";
+import trashCan from "@/assets/icons/trash-can.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
-import nobackground from "@/assets/imgs/no_background.webp";
+import { db, storage } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
 import {
   AvatarWrapper,
   BodyWrapper,
+  DeleteIcon,
   Image,
+  LikeCount,
+  LikeIcon,
+  LikeWrapper,
   TweetText,
   UserInfoWrapper,
   UserName,
@@ -14,30 +28,101 @@ import {
   Wrapper,
 } from "./styled";
 
-export default function Tweet() {
-  const image = true;
+type TweetProps = {
+  userUid: string;
+  post: DocumentData;
+};
+
+export default function Tweet({ userUid, post }: TweetProps) {
+  const user = useAppSelector(getUserSelector);
+  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+
+  const getImageUrl = async () => {
+    try {
+      const url = await getDownloadURL(ref(storage, post?.image));
+      setImgUrl(url);
+    } catch (error) {
+      setImgUrl(undefined);
+    }
+  };
+
+  const getUserPhotoByUid = async (userId: string) => {
+    const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
+    if (!queryUserSnapshot.empty) {
+      return queryUserSnapshot.docs[0].data().photoURL;
+    }
+  };
+
+  useEffect(() => {
+    getImageUrl();
+    getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
+  }, []);
+
+  const handleDeleteClick = () => {
+    if (post.image) {
+      const desertRef = ref(storage, post.image);
+      deleteObject(desertRef);
+    }
+    deleteDoc(doc(db, "posts", post.uid));
+  };
+
+  const handleLikeClick = async () => {
+    const userUid = user.uid;
+    if (userUid && post.likedByUsers.includes(userUid)) {
+      const newLikes = post.likes - 1;
+      const newLikedByUsers = post.likedByUsers.filter(
+        (uid: string) => uid !== userUid
+      );
+
+      databaseLikeChange(newLikes, newLikedByUsers);
+    } else if (userUid && !post.likedByUsers.includes(userUid)) {
+      const newLikes = post.likes + 1;
+      const newLikedByUsers = [...post.likedByUsers, userUid];
+      databaseLikeChange(newLikes, newLikedByUsers);
+    }
+  };
+
+  const databaseLikeChange = debounce(
+    (newLikes: number, newLikedByUsers: DocumentData[string]) => {
+      const postRef = doc(db, "posts", post.uid);
+      updateDoc(postRef, {
+        likes: newLikes,
+        likedByUsers: newLikedByUsers,
+      });
+    },
+    500
+  );
+
   return (
     <Wrapper>
       <AvatarWrapper>
-        <Avatar src={noAvatar} />
+        <Avatar src={photoUrl || noAvatar} />
       </AvatarWrapper>
       <BodyWrapper>
         <UserInfoWrapper>
-          <UserName>Bober</UserName>
-          <UserTag>@bober_kurwa</UserTag>
+          <UserName>{post.displayName}</UserName>
+          <UserTag>{post.email}</UserTag>
         </UserInfoWrapper>
-        <TweetText>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque, ab
-          rem hic dolorum sapiente soluta? Voluptatem, harum incidunt nulla
-          repellendus, ea eaque quos a aperiam culpa accusamus voluptate
-          quisquam voluptatum.
-        </TweetText>
-        {image && <Image src={nobackground} alt="tweet image" />}
-        <div>
-          <img src={notLiked} alt="" />
-          <span>100</span>
-        </div>
+        <TweetText>{post.content}</TweetText>
+        {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+        <LikeWrapper>
+          <LikeIcon
+            src={post.likedByUsers.includes(userUid) ? liked : notLiked}
+            alt="like post"
+            data-isliked={post.likedByUsers.includes(userUid)}
+            onClick={handleLikeClick}
+          />
+          <LikeCount>{post.likes}</LikeCount>
+        </LikeWrapper>
       </BodyWrapper>
+      {userUid === post.authorUid && (
+        <DeleteIcon
+          onClick={handleDeleteClick}
+          src={trashCan}
+          alt="delete icon"
+        />
+      )}
     </Wrapper>
   );
 }
