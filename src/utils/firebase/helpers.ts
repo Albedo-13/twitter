@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { auth, db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
+import debounce from "debounce";
 
 export type FileType = Blob | Uint8Array | ArrayBuffer | null;
 
@@ -69,3 +70,10 @@ export const reauthUser = async (password: string) => {
     await reauthenticateWithCredential(auth.currentUser, credential);
   }
 };
+
+export const debouncedSearchUser = debounce(async (searchText: string) => {
+  const querySnapshot = await queryUserEqualByValue("displayName", searchText);
+  const list = querySnapshot.docs.map((doc) => doc.data());
+  console.log("fetched:", list);
+  return list;
+}, 1000);
