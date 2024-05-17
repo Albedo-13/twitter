@@ -71,9 +71,9 @@ export const reauthUser = async (password: string) => {
   }
 };
 
-export const debouncedSearchUser = debounce(async (searchText: string) => {
+export const searchUser = async (searchText: string) => {
   const querySnapshot = await queryUserEqualByValue("displayName", searchText);
   const list = querySnapshot.docs.map((doc) => doc.data());
   console.log("fetched:", list);
   return list;
-}, 1000);
+};
