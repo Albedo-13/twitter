@@ -12,13 +12,19 @@ import { v4 as uuidv4 } from "uuid";
 
 import { auth, db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
-import debounce from "debounce";
 
 export type FileType = Blob | Uint8Array | ArrayBuffer | null;
 
 export const queryUserEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
     query(collection(db, "users"), where(field, "==", value))
+  );
+  return querySnapshot;
+};
+
+export const queryPostsEqualByValue = async (field: string, value: string) => {
+  const querySnapshot = await getDocs(
+    query(collection(db, "posts"), where(field, "==", value))
   );
   return querySnapshot;
 };
@@ -71,9 +77,20 @@ export const reauthUser = async (password: string) => {
   }
 };
 
-export const searchUser = async (searchText: string) => {
+// TODO: сайд-эффект при смене роута
+
+// TODO: cover code with this two methods
+// TODO: collapse methods
+export const searchUsers = async (searchText: string) => {
   const querySnapshot = await queryUserEqualByValue("displayName", searchText);
-  const list = querySnapshot.docs.map((doc) => doc.data());
+  const list = querySnapshot.docs.map((doc) => doc.data()).slice(0, 10); // TODO: constants
+  console.log("fetched:", list);
+  return list;
+};
+
+export const searchPostsByUser = async (searchText: string) => {
+  const querySnapshot = await queryPostsEqualByValue("displayName", searchText);
+  const list = querySnapshot.docs.map((doc) => doc.data()).slice(0, 10); // TODO: constants
   console.log("fetched:", list);
   return list;
 };

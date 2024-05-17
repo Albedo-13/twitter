@@ -21,7 +21,7 @@ export const UserTag = styled.p`
 
 export const UserText = styled.p`
   font-size: ${theme.fontSize.fs18};
-  max-height: ${theme.spacing.s40};
+  max-height: ${theme.spacing.s150};
   margin-bottom: ${theme.spacing.s15};
   border-bottom: ${({ theme }) => theme.border.gray};
   text-overflow: ellipsis;

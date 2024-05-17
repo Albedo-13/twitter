@@ -20,7 +20,6 @@ import {
   ProfileBodyTag,
   ProfileHeader,
   ProfileHeaderName,
-  ProfileHeaderTweets,
   ProfileWrapper,
 } from "./styled";
 
@@ -33,7 +32,6 @@ export function Profile() {
       <ProfileWrapper>
         <ProfileHeader>
           <ProfileHeaderName>{user.displayName}</ProfileHeaderName>
-          <ProfileHeaderTweets>1,070 Tweets</ProfileHeaderTweets>
         </ProfileHeader>
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
