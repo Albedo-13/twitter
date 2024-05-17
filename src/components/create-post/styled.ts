@@ -17,6 +17,7 @@ export const AvatarWrapper = styled.div`
 
 export const FormWrapper = styled.form`
   width: 100%;
+  position: relative;
 `;
 
 export const Textarea = styled.textarea`
@@ -50,4 +51,10 @@ export const BasementWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: calc(100% - ${theme.spacing.s40});
+`;
+
+export const ErrorWrapper = styled.div`
+  position: absolute;
+  bottom: ${theme.spacing.s25};
+  left: ${theme.spacing.s50};
 `;

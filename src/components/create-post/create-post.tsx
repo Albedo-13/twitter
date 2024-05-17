@@ -18,6 +18,7 @@ import {
   AvatarWrapper,
   BasementWrapper,
   CreatePostWrapper,
+  ErrorWrapper,
   FileInput,
   FileInputImage,
   FileInputWrapper,
@@ -94,7 +95,9 @@ export function CreatePost() {
             Tweet
           </Button>
         </BasementWrapper>
-        <ErrorsSummary errors={errors as FieldErrors} />
+        <ErrorWrapper>
+          <ErrorsSummary errors={errors as FieldErrors} />
+        </ErrorWrapper>
       </FormWrapper>
     </CreatePostWrapper>
   );
