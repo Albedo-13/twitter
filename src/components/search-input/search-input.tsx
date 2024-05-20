@@ -3,8 +3,6 @@ import { ChangeEvent } from "react";
 
 import { SearchbarWrapper, SearchIcon, SearchText } from "./styled";
 
-// TODO: перенести firebase на другой аккаунт
-
 type SearchSidebarProps = {
   placeholder: string;
   value: string;

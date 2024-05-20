@@ -26,13 +26,13 @@ export function TweetsList() {
       query(collection(db, "posts"), orderBy("createdAt", "desc"))
     );
     const posts = querySnapshot.docs.map((doc) => doc.data());
-    setPosts(posts);
+    return posts;
   };
 
   useEffect(() => {
     const q = collection(db, "posts");
     onSnapshot(q, () => {
-      getPosts();
+      getPosts().then((posts) => setPosts(posts));
     });
   }, []);
 
@@ -40,7 +40,9 @@ export function TweetsList() {
     <>
       {posts
         .filter((post) =>
-          location.pathname === ROUTES.PROFILE ? post.authorUid === user.uid : true
+          location.pathname === ROUTES.PROFILE
+            ? post.authorUid === user.uid
+            : true
         )
         .map((post) => (
           <Tweet

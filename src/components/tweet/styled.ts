@@ -64,10 +64,10 @@ export const LikeWrapper = styled.div`
   user-select: none;
   position: absolute;
   padding: ${theme.spacing.s10};
+  cursor: pointer;
 `;
 
 export const LikeIcon = styled.img`
-  cursor: pointer;
   &[data-isliked="false"] {
     filter: ${({ theme }) => theme.svgFill.primary};
   }

@@ -2,7 +2,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
-import { privateRoutes, publicRoutes,ROUTES } from "@/constants/routes";
+import { privateRoutes, publicRoutes, ROUTES } from "@/constants/routes";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserIdSelector } from "@/redux/selectors/user-selectors";
@@ -32,7 +32,7 @@ const ProtectedRoutes = () => {
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.HOME,
+    path: "/",
     element: <ProtectedRoutes />,
     children: [
       ...privateRoutes.map(({ path, element: Element }) => ({

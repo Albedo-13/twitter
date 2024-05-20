@@ -2,7 +2,7 @@ import debounce from "debounce";
 import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import liked from "@/assets/icons/liked.svg";
 import notLiked from "@/assets/icons/not_liked.svg";
@@ -41,13 +41,14 @@ export function Tweet({ userUid, post }: TweetProps) {
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const getImageUrl = async () => {
     try {
       const url = await getDownloadURL(ref(storage, post?.image));
-      setImgUrl(url);
+      return url;
     } catch (error) {
-      setImgUrl(undefined);
+      return undefined;
     }
   };
 
@@ -59,7 +60,9 @@ export function Tweet({ userUid, post }: TweetProps) {
   };
 
   useEffect(() => {
-    getImageUrl();
+    getImageUrl()
+      .then((url) => setImgUrl(url))
+      .catch(() => setImgUrl(undefined));
     getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
   }, []);
 
@@ -67,10 +70,12 @@ export function Tweet({ userUid, post }: TweetProps) {
     e.stopPropagation();
     if (post.image) {
       const desertRef = ref(storage, post.image);
-      deleteObject(desertRef);
+      await deleteObject(desertRef);
     }
     await deleteDoc(doc(db, "posts", post.uid));
-    navigate(ROUTES.HOME);
+    if (location.pathname.includes(ROUTES.POST)) {
+      navigate(ROUTES.HOME);
+    }
   };
 
   const handleLikeClick = async (e: SyntheticEvent) => {
@@ -117,12 +122,11 @@ export function Tweet({ userUid, post }: TweetProps) {
         </UserInfoWrapper>
         <TweetText>{post.content}</TweetText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-        <LikeWrapper>
+        <LikeWrapper onClick={handleLikeClick}>
           <LikeIcon
             src={post.likedByUsers.includes(userUid) ? liked : notLiked}
             alt="like post"
             data-isliked={post.likedByUsers.includes(userUid)}
-            onClick={handleLikeClick}
           />
           <LikeCount>{post.likes}</LikeCount>
         </LikeWrapper>

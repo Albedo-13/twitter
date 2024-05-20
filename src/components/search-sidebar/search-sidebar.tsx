@@ -82,8 +82,6 @@ export function SearchSidebar() {
                 key={item.uid}
                 name={item.displayName}
                 email={item.email}
-                content={item.content}
-                link={`post/${item.uid}`}
               />
             )),
           }[pathname]
