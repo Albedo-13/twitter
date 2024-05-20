@@ -11,7 +11,7 @@ import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
-import { loginErrorsHandler } from "@/utils/firebase/auth-errors-handler";
+import { authErrorsHandler } from "@/utils/firebase/auth-errors-handler";
 import {
   adaptUserObj,
   getLoginFromEmailOrPhone,
@@ -54,7 +54,7 @@ export function LoginPage() {
         navigate("/");
       } catch (error) {
         if (error instanceof FirebaseError) {
-          loginErrorsHandler(error.code, setError);
+          setError(authErrorsHandler(error.code));
         }
       }
     } else {

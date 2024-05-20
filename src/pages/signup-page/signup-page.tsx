@@ -17,7 +17,7 @@ import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
 import { Select } from "@/ui/selects";
-import { loginErrorsHandler } from "@/utils/firebase/auth-errors-handler";
+import { authErrorsHandler } from "@/utils/firebase/auth-errors-handler";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
@@ -95,9 +95,9 @@ export function SignupPage() {
       });
     } catch (error) {
       if (error instanceof FirebaseError) {
-        loginErrorsHandler(error.code, setError);
+        setError(authErrorsHandler(error.code));
       } else if (error instanceof Error && error.message === "phone-in-use") {
-        loginErrorsHandler("phone-in-use", setError);
+        setError(authErrorsHandler("phone-in-use"));
       }
     }
   };
