@@ -1,5 +1,7 @@
 import { BLUE_SVG, DARK_SVG, GRAY_SVG } from "@/constants/svg-colors";
 
+import { device } from "./media";
+
 export const theme = {
   colorScheme: "light",
   color: {
@@ -68,6 +70,7 @@ export const theme = {
   },
   opacity: 0.6,
   blur: "6px",
+  device
 };
 
 export const themeDark: typeof theme = {

@@ -21,7 +21,9 @@ import {
   H1,
   H2,
   LoginText,
+  LogoWrapper,
   PolicyText,
+  TwitterBackground,
   Wrapper,
 } from "./styled";
 
@@ -59,11 +61,11 @@ export function AuthPage() {
   return (
     <>
       <Wrapper>
-        <img src={twitterBackground} alt="twitter background" />
+        <TwitterBackground src={twitterBackground} alt="twitter background" />
         <AuthWrapper>
-          <div>
+          <LogoWrapper>
             <Logo />
-          </div>
+          </LogoWrapper>
           <div>
             <H1>Happening now</H1>
             <H2>Join Twitter today</H2>

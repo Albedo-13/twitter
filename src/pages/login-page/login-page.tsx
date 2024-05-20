@@ -19,7 +19,7 @@ import {
   queryUserEqualByValue,
 } from "@/utils/firebase/helpers";
 
-import { FormWrapper } from "./styled";
+import { FormWrapper, H1, LogoWrapper } from "./styled";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -65,8 +65,10 @@ export function LoginPage() {
 
   return (
     <FormWrapper>
-      <Logo />
-      <h1>Log in to Twitter</h1>
+      <LogoWrapper>
+        <Logo />
+      </LogoWrapper>
+      <H1>Log in to Twitter</H1>
       <Input
         name="login"
         type="text"

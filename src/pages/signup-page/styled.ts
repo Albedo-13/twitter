@@ -8,16 +8,17 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   gap: ${theme.spacing.s20};
   max-width: ${theme.spacing.s750};
-  height: 100vh;
-  margin: 0 auto;
+  margin: ${theme.spacing.s20} auto 0;
+
+  @media ${theme.device.md} {
+    gap: ${theme.spacing.s10};
+    padding: 0 ${theme.spacing.s20};
+  }
 `;
 
 export const ButtonWrapper = styled.div`
   margin-top: ${theme.spacing.s25};
-`;
-
-export const SelectWrapperGrow = styled.div`
-  width: 300%;
+  padding-bottom: ${theme.spacing.s20};
 `;
 
 export const LogoWrapper = styled.div`
@@ -28,12 +29,29 @@ export const SelectWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: ${theme.spacing.s20};
+
+  @media ${theme.device.sm} {
+    flex-direction: column;
+  }
+`;
+
+export const SelectWrapperGrow = styled.div`
+  width: 300%;
+
+  @media ${theme.device.sm} {
+    width: auto;
+  }
 `;
 
 export const H1 = styled.h1`
   font-weight: ${theme.fontWeight.fw700};
   font-size: ${theme.fontSize.fs30};
   margin-top: ${theme.spacing.s45};
+
+  @media ${theme.device.md} {
+    margin-top: ${theme.spacing.s10};
+    text-align: center;
+  }
 `;
 
 export const H2 = styled.h2`
