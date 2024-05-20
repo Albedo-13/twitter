@@ -3,6 +3,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
+import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { searchPostsByUser, searchUsers } from "@/utils/firebase/helpers";
 
 import { SearchInput } from "../search-input/search-input";
@@ -28,7 +29,7 @@ export function SearchSidebar() {
   const [list, setList] = useState<DocumentData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
-  const [debouncedSearchText] = useDebounce(searchText, 500);
+  const [debouncedSearchText] = useDebounce(searchText, DEBOUNCE_DELAY_MS);
 
   const { pathname } = useLocation();
   const { search, placeholder } =
@@ -55,7 +56,8 @@ export function SearchSidebar() {
       />
 
       <SearchedTweets>
-        {isLoading ? (
+        {isLoading && searchText ? (
+          // TODO: loader
           <p>seaching...</p>
         ) : (
           {
@@ -72,6 +74,7 @@ export function SearchSidebar() {
                 name={item.displayName}
                 email={item.email}
                 content={item.content}
+                link={`post/${item.uid}`}
               />
             )),
             "*": list.map((item) => (
@@ -80,6 +83,7 @@ export function SearchSidebar() {
                 name={item.displayName}
                 email={item.email}
                 content={item.content}
+                link={`post/${item.uid}`}
               />
             )),
           }[pathname]

@@ -8,6 +8,7 @@ import liked from "@/assets/icons/liked.svg";
 import notLiked from "@/assets/icons/not_liked.svg";
 import trashCan from "@/assets/icons/trash-can.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
+import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db, storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -93,7 +94,7 @@ export function Tweet({ userUid, post }: TweetProps) {
         likedByUsers: newLikedByUsers,
       });
     },
-    500
+    DEBOUNCE_DELAY_MS
   );
 
   const handleOpenPost = () => {
