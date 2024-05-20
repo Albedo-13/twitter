@@ -110,7 +110,7 @@ export function Tweet({ userUid, post }: TweetProps) {
       <AvatarWrapper>
         <Avatar src={photoUrl || noAvatar} />
       </AvatarWrapper>
-      <BodyWrapper onDoubleClick={handleOpenPost}>
+      <BodyWrapper onClick={handleOpenPost}>
         <UserInfoWrapper>
           <UserName>{post.displayName}</UserName>
           <UserTag>{post.email}</UserTag>
