@@ -28,6 +28,7 @@ export const theme = {
     s60: "60px",
     s75: "75px",
     s80: "80px",
+    s100: "100px",
     s120: "120px",
     s150: "150px",
     s230: "230px",

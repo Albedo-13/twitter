@@ -14,6 +14,7 @@ import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { Loader } from "@/loader/loader";
 
 export function PostPage() {
   const [post, setPost] = useState<DocumentData | null>(null);
@@ -36,11 +37,10 @@ export function PostPage() {
     getPostByUid().catch(() => navigate(ROUTES.HOME));
   }, []);
 
-  // TODO: loader
   return (
     <>
       <ToggleTheme />
-      {post ? <Tweet userUid={user.uid} post={post} /> : <p>loading...</p>}
+      {post ? <Tweet userUid={user.uid} post={post} /> : <Loader />}
     </>
   );
 }

@@ -1,7 +1,13 @@
 import { UserName, UserTag, UserText, WrapperLink } from "./styled";
 
-// TODO: any type
-export function SearchTweet({ name, email, content, link = "#" }: any) {
+type SearchTweetProps = {
+  name: string;
+  email: string;
+  content?: string;
+  link?: string;
+};
+
+export function SearchTweet({ name, email, content, link = "#" }: SearchTweetProps) {
   return (
     <WrapperLink to={link}>
       <UserName>{name}</UserName>

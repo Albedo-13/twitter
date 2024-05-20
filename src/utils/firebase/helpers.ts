@@ -80,14 +80,16 @@ export const reauthUser = async (password: string) => {
 
 export const searchUsers = async (searchText: string) => {
   const querySnapshot = await queryUserEqualByValue("displayName", searchText);
-  const list = querySnapshot.docs.map((doc) => doc.data()).slice(0, SEARCH_ITEMS_COUNT);
-  console.log("fetched:", list);
+  const list = querySnapshot.docs
+    .map((doc) => doc.data())
+    .slice(0, SEARCH_ITEMS_COUNT);
   return list;
 };
 
 export const searchPostsByUser = async (searchText: string) => {
   const querySnapshot = await queryPostsEqualByValue("displayName", searchText);
-  const list = querySnapshot.docs.map((doc) => doc.data()).slice(0, SEARCH_ITEMS_COUNT);
-  console.log("fetched:", list);
+  const list = querySnapshot.docs
+    .map((doc) => doc.data())
+    .slice(0, SEARCH_ITEMS_COUNT);
   return list;
 };

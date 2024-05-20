@@ -1,18 +1,21 @@
 import search from "@assets/icons/search.svg";
+import { ChangeEvent } from "react";
 
 import { SearchbarWrapper, SearchIcon, SearchText } from "./styled";
 
-// TODO: any type
-// TODO: routes to enum
 // TODO: перенести firebase на другой аккаунт
-// TODO: консоль логи
+
+type SearchSidebarProps = {
+  placeholder: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
 
 export function SearchInput({
   placeholder,
   value,
   onChange,
-}: any) {
-
+}: SearchSidebarProps) {
   return (
     <SearchbarWrapper>
       <SearchIcon src={search} />

@@ -72,9 +72,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
       dispatch(updateUser(data));
       handleModalClose();
     } catch (error) {
-      console.log("error catched");
       if (error instanceof FirebaseError) {
-        console.log("error instanceof FirebaseError");
         navigate(ROUTES.PROFILE);
       }
     }

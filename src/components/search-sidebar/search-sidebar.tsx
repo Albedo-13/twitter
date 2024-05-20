@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
+import { Loader } from "@/loader/loader";
 import { searchPostsByUser, searchUsers } from "@/utils/firebase/helpers";
 
 import { SearchInput } from "../search-input/search-input";
@@ -57,8 +58,7 @@ export function SearchSidebar() {
 
       <SearchedTweets>
         {isLoading && searchText ? (
-          // TODO: loader
-          <p>seaching...</p>
+          <Loader />
         ) : (
           {
             "/": list.map((item) => (
