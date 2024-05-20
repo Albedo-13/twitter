@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const ProfileWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   max-width: 1520px;
@@ -12,12 +13,25 @@ export const ProfileWrapper = styled.div`
 export const NavigationWrapper = styled.div`
   flex-basis: 20%;
   padding: ${theme.spacing.s10};
+
+  @media ${theme.device.lg} {
+    flex-basis: 0;
+  }
+
+  @media ${theme.device.sm} {
+    position: absolute;
+    transform: translate(-50%, 50%);
+  }
 `;
 
 export const ContentWrapper = styled.div`
   flex-basis: 60%;
   border-left: ${({ theme }) => theme.border.gray};
   border-right: ${({ theme }) => theme.border.gray};
+
+  @media ${theme.device.md} {
+    flex-basis: 80%;
+  }
 `;
 
 export const SearchWrapper = styled.div`
@@ -25,7 +39,13 @@ export const SearchWrapper = styled.div`
   padding: ${theme.spacing.s20};
 
   @media ${theme.device.lg} {
-    flex-basis: 10%;
+    flex-basis: 0;
+    padding: ${theme.spacing.s10};
+  }
+
+  @media ${theme.device.sm} {
+    position: absolute;
+    transform: translate(50%, 50%);
   }
 `;
 
@@ -44,5 +64,18 @@ export const SearchMobileWrapper = styled.div`
 
   @media ${theme.device.lg} {
     display: block;
+  }
+`;
+
+export const NavigationMobileWrapper = styled.div`
+  display: none;
+  @media ${theme.device.md} {
+    display: block;
+  }
+`;
+
+export const NavigationDesktopWrapper = styled.div`
+  @media ${theme.device.md} {
+    display: none;
   }
 `;

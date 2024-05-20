@@ -10,6 +10,11 @@ export const Wrapper = styled.div`
   display: flex;
   gap: ${theme.spacing.s15};
   cursor: default;
+
+  @media ${theme.device.sm} {
+    padding: ${theme.spacing.s10} ${theme.spacing.s5};
+  gap: ${theme.spacing.s5};
+  }
 `;
 
 export const AvatarWrapper = styled.div`
@@ -52,6 +57,7 @@ export const Image = styled.img`
   margin-top: ${theme.spacing.s15};
   max-height: ${theme.spacing.s330};
   width: auto;
+  max-width: 100%;
 `;
 
 export const DeleteIcon = styled.img`

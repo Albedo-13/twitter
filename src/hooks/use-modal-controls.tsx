@@ -14,7 +14,6 @@ export function useModalControls() {
   };
 
   shouldDisableScroll(showModal);
-
   return {
     showModal,
     handleModalShow,

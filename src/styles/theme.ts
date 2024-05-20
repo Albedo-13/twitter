@@ -13,6 +13,7 @@ export const theme = {
     white: "#ffffff",
     searchInput: "#eff3f4",
     text: "#000000",
+    background: "#ffffff",
     error: "#f5222d",
   },
   spacing: {
@@ -70,7 +71,7 @@ export const theme = {
   },
   opacity: 0.6,
   blur: "6px",
-  device
+  device,
 };
 
 export const themeDark: typeof theme = {
@@ -85,6 +86,7 @@ export const themeDark: typeof theme = {
     placeholder: "#b3b8bb",
     searchInput: "#4a4a4a",
     text: "#ffffff",
+    background: "#171717",
   },
 };
 
