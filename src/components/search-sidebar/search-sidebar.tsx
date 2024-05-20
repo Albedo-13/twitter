@@ -31,7 +31,6 @@ export function SearchSidebar() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [debouncedSearchText] = useDebounce(searchText, DEBOUNCE_DELAY_MS);
-
   const { pathname } = useLocation();
   const { search, placeholder } =
     searchOptions[pathname as keyof typeof searchOptions] ?? searchOptions["*"];
@@ -55,7 +54,6 @@ export function SearchSidebar() {
         onChange={handleSearchTextChange}
         placeholder={placeholder}
       />
-
       <SearchedTweets>
         {isLoading && searchText ? (
           <Loader />

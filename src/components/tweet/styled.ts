@@ -25,6 +25,11 @@ export const BodyWrapper = styled.div`
 export const UserInfoWrapper = styled.div`
   display: flex;
   gap: ${theme.spacing.s10};
+
+  @media ${theme.device.lg} {
+    flex-direction: column;
+    gap: 0;
+  }
 `;
 
 export const UserName = styled.p`

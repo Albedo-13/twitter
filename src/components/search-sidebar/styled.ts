@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const Wrapper = styled.div`
-  padding: ${theme.spacing.s20};
+  // TODO: useless
 `;
 
 export const SearchedTweets = styled.div`

@@ -7,7 +7,7 @@ type ButtonProps = {
   children: ReactNode;
   type?: "submit" | "button" | "reset";
   variant: "primary" | "outlined" | "secondary";
-  size: "small" | "medium" | "large";
+  size: "extra-small" | "small" | "medium" | "large";
   onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void;
 };
 
