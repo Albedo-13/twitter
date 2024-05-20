@@ -62,12 +62,13 @@ export function Tweet({ userUid, post }: TweetProps) {
     getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
   }, []);
 
-  const handleDeleteClick = () => {
+  const handleDeleteClick = async () => {
     if (post.image) {
       const desertRef = ref(storage, post.image);
       deleteObject(desertRef);
     }
-    deleteDoc(doc(db, "posts", post.uid));
+    await deleteDoc(doc(db, "posts", post.uid));
+    navigate("/");
   };
 
   const handleLikeClick = async () => {
