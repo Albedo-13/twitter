@@ -30,7 +30,7 @@ export const publicRoutes = [
   },
   {
     path: ROUTES.ALL,
-    element: LoginPage,
+    element: AuthPage,
   },
 ];
 

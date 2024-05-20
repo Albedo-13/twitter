@@ -19,8 +19,7 @@ export const AvatarWrapper = styled.div`
 
 export const BodyWrapper = styled.div`
   width: 100%;
-  position: relative;
-  padding-bottom: ${theme.spacing.s25};
+  margin-bottom: ${theme.spacing.s25};
 `;
 
 export const UserInfoWrapper = styled.div`
@@ -61,10 +60,10 @@ export const DeleteIcon = styled.img`
 `;
 
 export const LikeWrapper = styled.div`
-  margin-top: ${theme.spacing.s10};
   gap: ${theme.spacing.s5};
   user-select: none;
   position: absolute;
+  padding: ${theme.spacing.s10};
 `;
 
 export const LikeIcon = styled.img`

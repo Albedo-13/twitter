@@ -1,7 +1,7 @@
 import debounce from "debounce";
 import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import liked from "@/assets/icons/liked.svg";
@@ -63,7 +63,8 @@ export function Tweet({ userUid, post }: TweetProps) {
     getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
   }, []);
 
-  const handleDeleteClick = async () => {
+  const handleDeleteClick = async (e: SyntheticEvent) => {
+    e.stopPropagation();
     if (post.image) {
       const desertRef = ref(storage, post.image);
       deleteObject(desertRef);
@@ -72,7 +73,8 @@ export function Tweet({ userUid, post }: TweetProps) {
     navigate(ROUTES.HOME);
   };
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (e: SyntheticEvent) => {
+    e.stopPropagation();
     const userUid = user.uid;
     if (userUid && post.likedByUsers.includes(userUid)) {
       const newLikes = post.likes - 1;
@@ -104,11 +106,11 @@ export function Tweet({ userUid, post }: TweetProps) {
   };
 
   return (
-    <Wrapper onClick={handleOpenPost}>
+    <Wrapper>
       <AvatarWrapper>
         <Avatar src={photoUrl || noAvatar} />
       </AvatarWrapper>
-      <BodyWrapper>
+      <BodyWrapper onDoubleClick={handleOpenPost}>
         <UserInfoWrapper>
           <UserName>{post.displayName}</UserName>
           <UserTag>{post.email}</UserTag>

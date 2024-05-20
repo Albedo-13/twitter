@@ -2,6 +2,7 @@ import {
   collection,
   DocumentData,
   getDocs,
+  onSnapshot,
   query,
   where,
 } from "firebase/firestore";
@@ -13,8 +14,8 @@ import { Tweet } from "@/components/tweet/tweet";
 import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
-import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Loader } from "@/loader/loader";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 export function PostPage() {
   const [post, setPost] = useState<DocumentData | null>(null);
@@ -34,7 +35,10 @@ export function PostPage() {
   };
 
   useEffect(() => {
-    getPostByUid().catch(() => navigate(ROUTES.HOME));
+    const q = collection(db, "posts");
+    onSnapshot(q, () => {
+      getPostByUid().catch(() => navigate(ROUTES.HOME));
+    });
   }, []);
 
   return (
