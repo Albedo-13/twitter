@@ -15,7 +15,7 @@ import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
 import { queryUserEqualByValue, reauthUser } from "@/utils/firebase/helpers";
 
-import ErrorsSummary from "../errors/errors-summary";
+import { ErrorsSummary } from "../errors/errors-summary";
 import { FormError } from "../errors/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";

@@ -12,7 +12,7 @@ import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
-import ErrorsSummary from "../errors/errors-summary";
+import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 import {
   AvatarWrapper,

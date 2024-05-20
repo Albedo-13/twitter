@@ -18,6 +18,10 @@ const searchOptions = {
     search: searchPostsByUser,
     placeholder: "Search tweets",
   },
+  "*": {
+    search: searchUsers,
+    placeholder: "Search users",
+  },
 };
 
 export function SearchSidebar() {
@@ -28,7 +32,7 @@ export function SearchSidebar() {
 
   const { pathname } = useLocation();
   const { search, placeholder } =
-    searchOptions[pathname as keyof typeof searchOptions];
+    searchOptions[pathname as keyof typeof searchOptions] ?? searchOptions["*"];
 
   const handleSearchTextChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -63,6 +67,14 @@ export function SearchSidebar() {
               />
             )),
             "/profile": list.map((item) => (
+              <SearchTweet
+                key={item.uid}
+                name={item.displayName}
+                email={item.email}
+                content={item.content}
+              />
+            )),
+            "*": list.map((item) => (
               <SearchTweet
                 key={item.uid}
                 name={item.displayName}

@@ -13,7 +13,7 @@ import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 
-import Tweet from "../tweet/tweet";
+import { Tweet } from "../tweet/tweet";
 
 export function TweetsList() {
   const [posts, setPosts] = useState<DocumentData[]>([]);

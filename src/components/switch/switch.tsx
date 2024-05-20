@@ -3,7 +3,7 @@ import { toggleTheme } from "@/redux/slices/theme-slice";
 
 import { StyledSwitch, SwitchInput, SwitchSpan } from "./styled";
 
-export default function Switch() {
+export function Switch() {
   const dispatch = useAppDispatch();
 
   const handleThemeChange = () => {

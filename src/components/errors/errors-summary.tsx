@@ -2,7 +2,7 @@ import { FieldErrors } from "react-hook-form";
 
 import { StyledError } from "./styled";
 
-export default function ErrorsSummary({ errors }: FieldErrors) {
+export function ErrorsSummary({ errors }: FieldErrors) {
   return (
     <>
       {errors && (

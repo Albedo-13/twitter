@@ -1,8 +1,18 @@
 import { AuthPage } from "@/pages/auth-page/auth-page";
 import { FeedPage } from "@/pages/feed-page/feed-page";
 import { LoginPage } from "@/pages/login-page/login-page";
+import { PostPage } from "@/pages/post-page/post-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
+
+// TODO:
+// enum ROUTES {
+//   SIGNUP = "/signup",
+//   LOGIN = "/login",
+//   AUTH = "/auth",
+//   FEED = "feed",
+//   PROFILE = "profile",
+// }
 
 export const publicRoutes = [
   {
@@ -31,5 +41,9 @@ export const privateRoutes = [
   {
     path: "/profile",
     element: ProfilePage,
+  },
+  {
+    path: "/post/:id",
+    element: PostPage,
   },
 ];

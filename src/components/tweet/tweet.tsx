@@ -2,6 +2,7 @@ import debounce from "debounce";
 import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
 import { deleteObject, getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import liked from "@/assets/icons/liked.svg";
 import notLiked from "@/assets/icons/not_liked.svg";
@@ -33,10 +34,11 @@ type TweetProps = {
   post: DocumentData;
 };
 
-export default function Tweet({ userUid, post }: TweetProps) {
+export function Tweet({ userUid, post }: TweetProps) {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
 
   const getImageUrl = async () => {
     try {
@@ -94,8 +96,12 @@ export default function Tweet({ userUid, post }: TweetProps) {
     500
   );
 
+  const handleOpenPost = () => {
+    navigate("/post/" + post.uid);
+  };
+
   return (
-    <Wrapper>
+    <Wrapper onClick={handleOpenPost}>
       <AvatarWrapper>
         <Avatar src={photoUrl || noAvatar} />
       </AvatarWrapper>

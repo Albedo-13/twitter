@@ -4,7 +4,6 @@ import { SearchbarWrapper, SearchIcon, SearchText } from "./styled";
 
 // TODO: any type
 // TODO: routes to enum
-// TODO: подрузка постов
 // TODO: перенести firebase на другой аккаунт
 // TODO: консоль логи
 
