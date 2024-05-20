@@ -22,6 +22,7 @@ const searchOptions = {
 
 export function SearchSidebar() {
   const [list, setList] = useState<DocumentData[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [debouncedSearchText] = useDebounce(searchText, 500);
 
@@ -34,8 +35,10 @@ export function SearchSidebar() {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     search(debouncedSearchText).then((searchResults) => {
       setList(searchResults || []);
+      setIsLoading(false);
     });
   }, [debouncedSearchText, pathname]);
 
@@ -46,8 +49,11 @@ export function SearchSidebar() {
         onChange={handleSearchTextChange}
         placeholder={placeholder}
       />
+
       <SearchedTweets>
-        {
+        {isLoading ? (
+          <p>seaching...</p>
+        ) : (
           {
             "/": list.map((item) => (
               <SearchTweet
@@ -65,7 +71,7 @@ export function SearchSidebar() {
               />
             )),
           }[pathname]
-        }
+        )}
       </SearchedTweets>
     </Wrapper>
   );
