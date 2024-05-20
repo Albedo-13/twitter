@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 import { AuthFirebaseError } from "@/components/errors/auth-error";
 import { Logo } from "@/components/logo/logo";
+import { ROUTES } from "@/constants/routes";
 import { auth } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -51,7 +52,7 @@ export function LoginPage() {
       try {
         await signInWithEmailAndPassword(auth, user.email, password);
         dispatch(setUser(adaptUserObj(user)));
-        navigate("/");
+        navigate(ROUTES.HOME);
       } catch (error) {
         if (error instanceof FirebaseError) {
           setError(authErrorsHandler(error.code));
@@ -84,7 +85,7 @@ export function LoginPage() {
       <Button variant="primary" size="large" type="button" onClick={onSubmit}>
         Log In
       </Button>
-      <InlineLink to="/signup" align="right">
+      <InlineLink to={ROUTES.SIGNUP} align="right">
         Sign up to Twitter
       </InlineLink>
     </FormWrapper>

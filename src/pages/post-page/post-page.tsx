@@ -10,6 +10,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { ToggleTheme } from "@/components/toggle-theme/toggle-theme";
 import { Tweet } from "@/components/tweet/tweet";
+import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -32,7 +33,7 @@ export function PostPage() {
   };
 
   useEffect(() => {
-    getPostByUid().catch(() => navigate("/"));
+    getPostByUid().catch(() => navigate(ROUTES.HOME));
   }, []);
 
   // TODO: loader

@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -39,7 +40,7 @@ export function TweetsList() {
     <>
       {posts
         .filter((post) =>
-          location.pathname === "/profile" ? post.authorUid === user.uid : true
+          location.pathname === ROUTES.PROFILE ? post.authorUid === user.uid : true
         )
         .map((post) => (
           <Tweet

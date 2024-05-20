@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
   display: flex;
   gap: ${theme.spacing.s15};
-  cursor: pointer;
+  cursor: default;
 `;
 
 export const AvatarWrapper = styled.div`

@@ -10,6 +10,7 @@ import { AuthFirebaseError } from "@/components/errors/auth-error";
 import { FormError } from "@/components/errors/form-error";
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
+import { ROUTES } from "@/constants/routes";
 import { auth, db } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -91,7 +92,7 @@ export function SignupPage() {
           dispatch(setUser(newUser)),
         ]);
 
-        navigate("/");
+        navigate(ROUTES.HOME);
       });
     } catch (error) {
       if (error instanceof FirebaseError) {
@@ -116,7 +117,7 @@ export function SignupPage() {
       <FormError inputFor={errors.email} />
       <Input {...register("password")} type="password" placeholder="Password" />
       <FormError inputFor={errors.password} />
-      <InlineLink to="/auth">Use email</InlineLink>
+      <InlineLink to={ROUTES.AUTH}>Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.

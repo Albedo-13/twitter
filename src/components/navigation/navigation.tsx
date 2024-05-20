@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { NAVIGATION_LINKS } from "@/constants/nav-links";
+import { ROUTES } from "@/constants/routes";
 import { logOut } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
@@ -40,7 +41,7 @@ export function Navigation() {
   const handleLogOutClick = () => {
     logOut().then(() => {
       dispatch(setUser(adaptUserObj(null)));
-      navigate("/auth");
+      navigate(ROUTES.AUTH);
     });
   };
 

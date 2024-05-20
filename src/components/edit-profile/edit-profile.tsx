@@ -6,6 +6,7 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 import { GENDERS } from "@/constants/genders";
+import { ROUTES } from "@/constants/routes";
 import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -74,7 +75,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
       console.log("error catched");
       if (error instanceof FirebaseError) {
         console.log("error instanceof FirebaseError");
-        navigate("/profile");
+        navigate(ROUTES.PROFILE);
       }
     }
   };

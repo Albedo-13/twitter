@@ -9,6 +9,7 @@ import notLiked from "@/assets/icons/not_liked.svg";
 import trashCan from "@/assets/icons/trash-can.svg";
 import noAvatar from "@/assets/imgs/no_avatar.svg";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
+import { ROUTES } from "@/constants/routes";
 import { db, storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -68,7 +69,7 @@ export function Tweet({ userUid, post }: TweetProps) {
       deleteObject(desertRef);
     }
     await deleteDoc(doc(db, "posts", post.uid));
-    navigate("/");
+    navigate(ROUTES.HOME);
   };
 
   const handleLikeClick = async () => {
@@ -99,7 +100,7 @@ export function Tweet({ userUid, post }: TweetProps) {
   );
 
   const handleOpenPost = () => {
-    navigate("/post/" + post.uid);
+    navigate(`${ROUTES.POST}/${post.uid}`);
   };
 
   return (
