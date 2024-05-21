@@ -96,7 +96,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
         placeholder="New password"
       />
       <FormError inputFor={errors.newPassword} />
-      <Select {...register("gender")} options={GENDERS} placeholder="Gender" />
+      <Select {...register("gender")} options={GENDERS} />
       <FormError inputFor={errors.gender} />
       <Input {...register("status")} type="text" placeholder="Status" />
       <FormError inputFor={errors.status} />
