@@ -10,7 +10,7 @@ import { ROUTES } from "@/constants/routes";
 import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-import { updateUser } from "@/redux/slices/user-slice";
+import { removeUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
@@ -54,10 +54,12 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
 
   const onSubmit = async (data: Data) => {
     try {
+      navigate(ROUTES.LOGIN);
       await reauthUser(data.currentPassword);
       const userSnapshot = await queryUserEqualByValue("uid", user.uid);
       const userRef = doc(db, "users", userSnapshot.docs[0].id);
 
+      dispatch(removeUser());
       updateDoc(userRef, {
         displayName: data.displayName,
         gender: data.gender,
@@ -69,7 +71,6 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
       data.newPassword &&
         data.currentPassword &&
         updatePassword(auth.currentUser!, data.newPassword);
-      dispatch(updateUser(data));
       handleModalClose();
     } catch (error) {
       if (error instanceof FirebaseError) {
