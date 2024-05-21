@@ -7,8 +7,8 @@ export function ErrorsSummary({ errors }: FieldErrors) {
     <>
       {errors && (
         <ul>
-          {Object.entries(errors).map(([key, error], index) => (
-            <StyledError key={`${index}-${key}-${error.message}`}>
+          {Object.entries(errors).map(([key, error]) => (
+            <StyledError key={`${key}-${error.message}`}>
               - {error.message}
             </StyledError>
           ))}

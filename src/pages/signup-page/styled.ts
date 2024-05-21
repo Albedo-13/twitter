@@ -35,14 +35,6 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const SelectWrapperGrow = styled.div`
-  width: 300%;
-
-  @media ${theme.device.sm} {
-    width: auto;
-  }
-`;
-
 export const H1 = styled.h1`
   font-weight: ${theme.fontWeight.fw700};
   font-size: ${theme.fontSize.fs30};

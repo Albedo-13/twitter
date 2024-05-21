@@ -9,7 +9,7 @@ import { searchPostsByUser, searchUsers } from "@/utils/firebase/helpers";
 
 import { SearchInput } from "../search-input/search-input";
 import { SearchTweet } from "../search-tweet/search-tweet";
-import { SearchedTweets, Wrapper } from "./styled";
+import { SearchedTweets } from "./styled";
 
 const searchOptions = {
   "/": {
@@ -48,7 +48,7 @@ export function SearchSidebar() {
   }, [debouncedSearchText, pathname]);
 
   return (
-    <Wrapper>
+    <>
       <SearchInput
         value={searchText}
         onChange={handleSearchTextChange}
@@ -85,6 +85,6 @@ export function SearchSidebar() {
           }[pathname]
         )}
       </SearchedTweets>
-    </Wrapper>
+    </>
   );
 }

@@ -30,7 +30,6 @@ import {
   H2,
   LogoWrapper,
   SelectWrapper,
-  SelectWrapperGrow,
   Text,
 } from "./styled";
 
@@ -126,10 +125,7 @@ export function SignupPage() {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
       </Text>
       <SelectWrapper>
-        <SelectWrapperGrow>
-          <Select {...register("year")} placeholder="Years" options={YEARS} />
-        </SelectWrapperGrow>
-
+        <Select {...register("year")} placeholder="Years" options={YEARS} />
         <Select {...register("month")} placeholder="Months" options={MONTHS} />
         <Select
           {...register("day")}
