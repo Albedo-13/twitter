@@ -5,22 +5,24 @@ import { GENDERS } from "@/constants/genders";
 import { StyledOption, StyledSelect } from "./styled";
 
 type SelectProps = {
-  placeholder: string;
   name: string;
   options: typeof GENDERS | string[] | number[];
+  placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export const Select = forwardRef(
   (
-    { placeholder, name, options, onChange }: SelectProps,
+    { name, options, placeholder, onChange }: SelectProps,
     ref: Ref<HTMLSelectElement>
   ) => {
     return (
       <StyledSelect name={name} defaultValue="" onChange={onChange} ref={ref}>
-        <StyledOption value="" disabled>
-          {placeholder}
-        </StyledOption>
+        {placeholder && (
+          <StyledOption value="" disabled>
+            {placeholder}
+          </StyledOption>
+        )}
         {Array.isArray(options)
           ? options.map((option) => (
               <StyledOption key={option.toString()} value={option}>
