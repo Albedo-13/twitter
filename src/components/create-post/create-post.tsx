@@ -88,7 +88,7 @@ export function CreatePost() {
               {...register("image")}
               type="file"
               id="file-input"
-              accept="image/png, image/jpeg"
+              accept="image/*"
             />
           </FileInputWrapper>
           <Button variant="primary" size="small" type="submit">
