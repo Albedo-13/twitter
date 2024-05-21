@@ -68,13 +68,13 @@ export const uploadFile = async (folder: string, file: FileType | null) => {
   return imageName;
 };
 
-export const reauthUser = async (password: string) => {
+export const reauthUser = async (password = "") => {
   if (auth.currentUser) {
     const credential = EmailAuthProvider.credential(
       auth.currentUser.email!,
       password
     );
-    await reauthenticateWithCredential(auth.currentUser, credential);
+    password && await reauthenticateWithCredential(auth.currentUser, credential);
   }
 };
 
