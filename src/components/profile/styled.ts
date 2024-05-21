@@ -18,10 +18,6 @@ export const ProfileHeaderName = styled.div`
   font-size: ${theme.spacing.s20};
 `;
 
-export const ProfileHeaderTweets = styled.div`
-  opacity: ${theme.opacity};
-`;
-
 export const ProfileBackgroundImage = styled.img`
   height: ${theme.spacing.s280};
   width: 100%;

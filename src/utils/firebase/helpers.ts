@@ -10,6 +10,7 @@ import {
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
+import { SEARCH_ITEMS_COUNT } from "@/constants/constants";
 import { auth, db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
 
@@ -18,6 +19,13 @@ export type FileType = Blob | Uint8Array | ArrayBuffer | null;
 export const queryUserEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
     query(collection(db, "users"), where(field, "==", value))
+  );
+  return querySnapshot;
+};
+
+export const queryPostsEqualByValue = async (field: string, value: string) => {
+  const querySnapshot = await getDocs(
+    query(collection(db, "posts"), where(field, "==", value))
   );
   return querySnapshot;
 };
@@ -50,10 +58,10 @@ export const adaptUserObj = (user: DocumentData | null): UserType => {
   };
 };
 
-export const uploadImage = async (file: FileType) => {
+export const uploadFile = async (folder: string, file: FileType | null) => {
   if (file === null) return;
 
-  const imageName = `posts/${uuidv4()}`;
+  const imageName = `${folder}/${uuidv4()}`;
   const imageRef = ref(storage, imageName);
   await uploadBytes(imageRef, file);
 
@@ -68,4 +76,20 @@ export const reauthUser = async (password: string) => {
     );
     await reauthenticateWithCredential(auth.currentUser, credential);
   }
+};
+
+export const searchUsers = async (searchText: string) => {
+  const querySnapshot = await queryUserEqualByValue("displayName", searchText);
+  const list = querySnapshot.docs
+    .map((doc) => doc.data())
+    .slice(0, SEARCH_ITEMS_COUNT);
+  return list;
+};
+
+export const searchPostsByUser = async (searchText: string) => {
+  const querySnapshot = await queryPostsEqualByValue("displayName", searchText);
+  const list = querySnapshot.docs
+    .map((doc) => doc.data())
+    .slice(0, SEARCH_ITEMS_COUNT);
+  return list;
 };

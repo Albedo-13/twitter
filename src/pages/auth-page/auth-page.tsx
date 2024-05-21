@@ -6,6 +6,7 @@ import googleIcon from "@/assets/icons/google-icon.svg";
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import { Logo } from "@/components/logo/logo";
 import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
+import { ROUTES } from "@/constants/routes";
 import { auth, db, googleProvider } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -20,7 +21,9 @@ import {
   H1,
   H2,
   LoginText,
+  LogoWrapper,
   PolicyText,
+  TwitterBackground,
   Wrapper,
 } from "./styled";
 
@@ -29,7 +32,7 @@ export function AuthPage() {
   const dispatch = useAppDispatch();
 
   const handleSignupClick = () => {
-    navigate("/signup");
+    navigate(ROUTES.SIGNUP);
   };
 
   const handleSignupWithGoogleClick = async () => {
@@ -52,17 +55,17 @@ export function AuthPage() {
       dispatch(setUser(adaptUserObj(user)));
     });
 
-    navigate("/");
+    navigate(ROUTES.HOME);
   };
 
   return (
     <>
       <Wrapper>
-        <img src={twitterBackground} alt="twitter background" />
+        <TwitterBackground src={twitterBackground} alt="twitter background" />
         <AuthWrapper>
-          <div>
+          <LogoWrapper>
             <Logo />
-          </div>
+          </LogoWrapper>
           <div>
             <H1>Happening now</H1>
             <H2>Join Twitter today</H2>
@@ -94,7 +97,7 @@ export function AuthPage() {
             </PolicyText>
             <LoginText>
               Already have an account?{" "}
-              <InlineLink to="/login">Log in</InlineLink>
+              <InlineLink to={ROUTES.LOGIN}>Log in</InlineLink>
             </LoginText>
           </div>
         </AuthWrapper>

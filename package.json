@@ -1,7 +1,7 @@
 {
   "name": "twitter",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -24,6 +24,7 @@
     "react-router-dom": "^6.23.0",
     "redux-persist": "^6.0.0",
     "styled-components": "^6.1.9",
+    "use-debounce": "^10.0.0",
     "uuid": "^9.0.1",
     "zod": "^3.23.8"
   },

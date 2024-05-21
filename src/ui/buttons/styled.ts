@@ -35,6 +35,15 @@ const secondaryStyles = css`
   background-color: ${({ theme }) => theme.color.secondary};
 `;
 
+const extraSmallStyles = css`
+  min-height: ${theme.spacing.s45};
+  min-width: ${theme.spacing.s45};
+
+  border-radius: ${theme.spacing.s50};
+  font-size: ${theme.fontSize.fs18};
+  font-weight: ${theme.fontWeight.fw700};
+`;
+
 const smallStyles = css`
   min-height: ${theme.spacing.s45};
   min-width: ${theme.spacing.s120};
@@ -65,7 +74,7 @@ const largeStyles = css`
 
 type StyledButtonType = {
   $variant: "primary" | "outlined" | "secondary";
-  $size: "small" | "medium" | "large";
+  $size: "extra-small" | "small" | "medium" | "large";
 };
 
 export const StyledButton = styled.button<StyledButtonType>`
@@ -75,6 +84,7 @@ export const StyledButton = styled.button<StyledButtonType>`
   ${({ $variant }) => $variant === "outlined" && outlinedStyles}
   ${({ $variant }) => $variant === "secondary" && secondaryStyles}
   
+  ${({ $size }) => $size === "extra-small" && extraSmallStyles}
   ${({ $size }) => $size === "small" && smallStyles}
   ${({ $size }) => $size === "medium" && mediumStyles}
   ${({ $size }) => $size === "large" && largeStyles}

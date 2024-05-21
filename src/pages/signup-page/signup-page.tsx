@@ -1,12 +1,16 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import { AuthFirebaseError } from "@/components/errors/auth-error";
 import { FormError } from "@/components/errors/form-error";
 import { Logo } from "@/components/logo/logo";
 import { MONTHS, YEARS } from "@/constants/dates";
+import { ROUTES } from "@/constants/routes";
 import { auth, db } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
@@ -14,6 +18,8 @@ import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
 import { Select } from "@/ui/selects";
+import { authErrorsHandler } from "@/utils/firebase/auth-errors-handler";
+import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
 import { schema } from "./form-schema";
@@ -24,7 +30,6 @@ import {
   H2,
   LogoWrapper,
   SelectWrapper,
-  SelectWrapperGrow,
   Text,
 } from "./styled";
 
@@ -47,12 +52,25 @@ export function SignupPage() {
   } = useForm<Data>({
     resolver: zodResolver(schema),
   });
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const onSubmit = (data: Data) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
+  const onSubmit = async (data: Data) => {
+    try {
+      const queryPhoneSnapshot = await queryUserEqualByValue(
+        "phone",
+        data.phone
+      );
+      if (queryPhoneSnapshot?.docs[0]?.data()) {
+        throw new Error("phone-in-use");
+      }
+
+      await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      ).then((userCredential) => {
         const userCreds = userCredential.user;
 
         const newUser = {
@@ -73,12 +91,15 @@ export function SignupPage() {
           dispatch(setUser(newUser)),
         ]);
 
-        navigate("/");
-      })
-
-      .catch((error) => {
-        throw new Error(error.message);
+        navigate(ROUTES.HOME);
       });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        setError(authErrorsHandler(error.code));
+      } else if (error instanceof Error && error.message === "phone-in-use") {
+        setError(authErrorsHandler("phone-in-use"));
+      }
+    }
   };
 
   return (
@@ -95,7 +116,7 @@ export function SignupPage() {
       <FormError inputFor={errors.email} />
       <Input {...register("password")} type="password" placeholder="Password" />
       <FormError inputFor={errors.password} />
-      <InlineLink to="/auth">Use email</InlineLink>
+      <InlineLink to={ROUTES.AUTH}>Use email</InlineLink>
       <H2>Date of birth</H2>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.
@@ -104,10 +125,7 @@ export function SignupPage() {
         dignissim eget tellus. Nibh mi massa in molestie a sit. Elit congue.
       </Text>
       <SelectWrapper>
-        <SelectWrapperGrow>
-          <Select {...register("year")} placeholder="Years" options={YEARS} />
-        </SelectWrapperGrow>
-
+        <Select {...register("year")} placeholder="Years" options={YEARS} />
         <Select {...register("month")} placeholder="Months" options={MONTHS} />
         <Select
           {...register("day")}
@@ -121,6 +139,7 @@ export function SignupPage() {
       <FormError inputFor={errors.year} />
       <FormError inputFor={errors.month} />
       <FormError inputFor={errors.day} />
+      <AuthFirebaseError errorText={error} />
       <ButtonWrapper>
         <Button type="submit" variant="primary" size="large">
           Next

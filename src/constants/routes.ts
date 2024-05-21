@@ -1,35 +1,50 @@
 import { AuthPage } from "@/pages/auth-page/auth-page";
 import { FeedPage } from "@/pages/feed-page/feed-page";
 import { LoginPage } from "@/pages/login-page/login-page";
+import { PostPage } from "@/pages/post-page/post-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
 
+export enum ROUTES {
+  HOME = "/",
+  SIGNUP = "/signup",
+  LOGIN = "/login",
+  AUTH = "/auth",
+  PROFILE = "/profile",
+  POST = "/post",
+  ALL = "*",
+}
+
 export const publicRoutes = [
   {
-    path: "/signup",
+    path: ROUTES.SIGNUP,
     element: SignupPage,
   },
   {
-    path: "/login",
+    path: ROUTES.LOGIN,
     element: LoginPage,
   },
   {
-    path: "/auth",
+    path: ROUTES.AUTH,
     element: AuthPage,
   },
   {
-    path: "*",
-    element: LoginPage,
+    path: ROUTES.ALL,
+    element: AuthPage,
   },
 ];
 
 export const privateRoutes = [
   {
-    path: "/",
+    path: ROUTES.HOME,
     element: FeedPage,
   },
   {
-    path: "/profile",
+    path: ROUTES.PROFILE,
     element: ProfilePage,
+  },
+  {
+    path: ROUTES.POST + "/:id",
+    element: PostPage,
   },
 ];

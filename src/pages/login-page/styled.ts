@@ -9,4 +9,21 @@ export const FormWrapper = styled.form`
   flex-direction: column;
   gap: ${theme.spacing.s20};
   margin: 0 auto;
+
+  @media ${theme.device.md} {
+    padding: 0 ${theme.spacing.s20};
+    margin-top: ${theme.spacing.s20};
+  }
+`;
+
+export const H1 = styled.h1`
+  @media ${theme.device.md} {
+    text-align: center;
+  }
+`;
+
+export const LogoWrapper = styled.div`
+  @media ${theme.device.md} {
+    text-align: center;
+  }
 `;

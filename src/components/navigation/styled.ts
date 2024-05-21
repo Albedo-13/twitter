@@ -6,7 +6,6 @@ import { theme } from "@/styles/theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: ${theme.spacing.s10};
 `;
 
 export const AvatarWrapper = styled.div`
@@ -17,6 +16,11 @@ export const AvatarWrapper = styled.div`
 export const LogoWrapper = styled.div`
   margin-top: ${theme.spacing.s20};
   margin-left: ${theme.spacing.s20};
+
+  @media ${theme.device.md} {
+    margin: ${theme.spacing.s10} 0 0 0;
+    text-align: center;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -26,6 +30,10 @@ export const ButtonWrapper = styled.div`
   & > * {
     width: 100%;
   }
+
+  @media ${theme.device.md} {
+    margin-top: ${theme.spacing.s10};
+  }
 `;
 
 export const NavList = styled.ul`
@@ -33,6 +41,11 @@ export const NavList = styled.ul`
   flex-direction: column;
   gap: ${theme.spacing.s25};
   margin-top: ${theme.spacing.s30};
+
+  @media ${theme.device.md} {
+    gap: ${theme.spacing.s10};
+    margin-top: ${theme.spacing.s5};
+  }
 `;
 
 type NavListItemLinkType = {
@@ -65,12 +78,20 @@ export const NavListItemImage = styled.img`
 
 export const UserWrapper = styled.div`
   margin-top: ${theme.spacing.s50};
+
+  @media ${theme.device.md} {
+    margin-top: 0;
+  }
 `;
 
 export const UserCard = styled.div`
   display: flex;
   margin-left: ${theme.spacing.s10};
   gap: ${theme.spacing.s10};
+
+  @media ${theme.device.md} {
+    display: none;
+  }
 `;
 
 export const UserBlock = styled.div`

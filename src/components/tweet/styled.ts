@@ -9,6 +9,12 @@ export const Wrapper = styled.div`
 
   display: flex;
   gap: ${theme.spacing.s15};
+  cursor: default;
+
+  @media ${theme.device.sm} {
+    padding: ${theme.spacing.s10} ${theme.spacing.s5};
+  gap: ${theme.spacing.s5};
+  }
 `;
 
 export const AvatarWrapper = styled.div`
@@ -18,11 +24,17 @@ export const AvatarWrapper = styled.div`
 
 export const BodyWrapper = styled.div`
   width: 100%;
+  margin-bottom: ${theme.spacing.s25};
 `;
 
 export const UserInfoWrapper = styled.div`
   display: flex;
   gap: ${theme.spacing.s10};
+
+  @media ${theme.device.lg} {
+    flex-direction: column;
+    gap: 0;
+  }
 `;
 
 export const UserName = styled.p`
@@ -37,6 +49,7 @@ export const UserTag = styled.p`
 
 export const TweetText = styled.p`
   font-size: ${theme.fontSize.fs18};
+  margin-top: ${theme.spacing.s5};
 `;
 
 export const Image = styled.img`
@@ -44,6 +57,7 @@ export const Image = styled.img`
   margin-top: ${theme.spacing.s15};
   max-height: ${theme.spacing.s330};
   width: auto;
+  max-width: 100%;
 `;
 
 export const DeleteIcon = styled.img`
@@ -57,13 +71,14 @@ export const DeleteIcon = styled.img`
 `;
 
 export const LikeWrapper = styled.div`
-  margin-top: ${theme.spacing.s10};
   gap: ${theme.spacing.s5};
   user-select: none;
+  position: absolute;
+  padding: ${theme.spacing.s10};
+  cursor: pointer;
 `;
 
 export const LikeIcon = styled.img`
-  cursor: pointer;
   &[data-isliked="false"] {
     filter: ${({ theme }) => theme.svgFill.primary};
   }

@@ -2,13 +2,15 @@ import { FieldErrors } from "react-hook-form";
 
 import { StyledError } from "./styled";
 
-export default function ErrorsSummary({ errors }: FieldErrors) {
+export function ErrorsSummary({ errors }: FieldErrors) {
   return (
     <>
       {errors && (
         <ul>
-          {Object.keys(errors).map((key, index) => (
-            <StyledError key={index}>- {(errors as any)[key].message}</StyledError>
+          {Object.entries(errors).map(([key, error]) => (
+            <StyledError key={`${key}-${error.message}`}>
+              - {error.message}
+            </StyledError>
           ))}
         </ul>
       )}

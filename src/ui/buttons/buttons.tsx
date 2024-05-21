@@ -1,4 +1,4 @@
-import { MouseEvent, ReactNode } from "react";
+import { ReactNode, SyntheticEvent } from "react";
 
 import { Image, StyledButton } from "./styled";
 
@@ -7,8 +7,8 @@ type ButtonProps = {
   children: ReactNode;
   type?: "submit" | "button" | "reset";
   variant: "primary" | "outlined" | "secondary";
-  size: "small" | "medium" | "large";
-  onClick?: (e: MouseEvent<HTMLButtonElement>) => void;
+  size: "extra-small" | "small" | "medium" | "large";
+  onClick?: (e: SyntheticEvent<HTMLButtonElement>) => void;
 };
 
 export function Button({
@@ -20,12 +20,7 @@ export function Button({
   onClick,
 }: ButtonProps) {
   return (
-    <StyledButton
-      type={type}
-      $variant={variant}
-      $size={size}
-      onClick={onClick}
-    >
+    <StyledButton type={type} $variant={variant} $size={size} onClick={onClick}>
       {icon && <Image src={icon} alt="button icon" />}
       {children}
     </StyledButton>

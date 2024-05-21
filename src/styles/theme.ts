@@ -1,5 +1,7 @@
 import { BLUE_SVG, DARK_SVG, GRAY_SVG } from "@/constants/svg-colors";
 
+import { device } from "./media";
+
 export const theme = {
   colorScheme: "light",
   color: {
@@ -11,6 +13,7 @@ export const theme = {
     white: "#ffffff",
     searchInput: "#eff3f4",
     text: "#000000",
+    background: "#ffffff",
     error: "#f5222d",
   },
   spacing: {
@@ -28,6 +31,7 @@ export const theme = {
     s60: "60px",
     s75: "75px",
     s80: "80px",
+    s100: "100px",
     s120: "120px",
     s150: "150px",
     s230: "230px",
@@ -67,6 +71,7 @@ export const theme = {
   },
   opacity: 0.6,
   blur: "6px",
+  device,
 };
 
 export const themeDark: typeof theme = {
@@ -81,6 +86,7 @@ export const themeDark: typeof theme = {
     placeholder: "#b3b8bb",
     searchInput: "#4a4a4a",
     text: "#ffffff",
+    background: "#171717",
   },
 };
 

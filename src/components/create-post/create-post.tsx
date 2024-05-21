@@ -9,15 +9,16 @@ import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
-import { uploadImage } from "@/utils/firebase/helpers";
+import { uploadFile } from "@/utils/firebase/helpers";
 
 import { Avatar } from "../avatar/avatar";
-import ErrorsSummary from "../errors/errors-summary";
+import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 import {
   AvatarWrapper,
   BasementWrapper,
   CreatePostWrapper,
+  ErrorWrapper,
   FileInput,
   FileInputImage,
   FileInputWrapper,
@@ -47,7 +48,7 @@ export function CreatePost() {
   });
 
   const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadImage(images[0]) : null;
+    return images ? await uploadFile("posts", images[0]) : null;
   };
 
   const onSubmit = async (data: Data) => {
@@ -94,7 +95,9 @@ export function CreatePost() {
             Tweet
           </Button>
         </BasementWrapper>
-        <ErrorsSummary errors={errors as FieldErrors} />
+        <ErrorWrapper>
+          <ErrorsSummary errors={errors as FieldErrors} />
+        </ErrorWrapper>
       </FormWrapper>
     </CreatePostWrapper>
   );
