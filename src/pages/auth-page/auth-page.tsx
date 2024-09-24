@@ -1,5 +1,7 @@
 import { signInWithPopup } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
+// TODO насрал убери
+//@ts-ignore
 import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";

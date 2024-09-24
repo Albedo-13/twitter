@@ -6,13 +6,13 @@ import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
 
 export enum ROUTES {
-  HOME = "/",
   SIGNUP = "/signup",
   LOGIN = "/login",
   AUTH = "/auth",
+  ALL = "*",
+  HOME = "/",
   PROFILE = "/profile",
   POST = "/post",
-  ALL = "*",
 }
 
 export const publicRoutes = [
