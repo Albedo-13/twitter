@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
-export const ProfileWrapper = styled.div`
+export const ProfileWrapper = styled.main`
   position: relative;
   display: flex;
   justify-content: center;
@@ -10,8 +10,21 @@ export const ProfileWrapper = styled.div`
   margin: 0 auto;
 `;
 
-export const NavigationWrapper = styled.div`
-  flex-basis: 20%;
+export const GridInterface = styled.div`
+  display: grid;
+  height: 100vh;
+  width: 100%;
+  grid-template-areas:
+    /* "header header header" */
+    "aside-left main-section aside-right";
+    /* "footer footer footer"; */
+  /* grid-template-rows: var(--header-height) 1fr;  */
+  grid-template-columns: 1fr 2fr 1fr; 
+  transition: 0.2s all;
+`;
+
+export const NavigationWrapper = styled.aside`
+  grid-area: aside-left;
   padding: ${theme.spacing.s10};
 
   @media ${theme.device.lg} {
@@ -24,8 +37,9 @@ export const NavigationWrapper = styled.div`
   }
 `;
 
-export const ContentWrapper = styled.div`
-  flex-basis: 60%;
+export const ContentWrapper = styled.section`
+  grid-area: main-section;
+
   border-left: ${({ theme }) => theme.border.gray};
   border-right: ${({ theme }) => theme.border.gray};
 
@@ -35,7 +49,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  flex-basis: 20%;
+  grid-area: aside-right;
   padding: ${theme.spacing.s20};
 
   @media ${theme.device.lg} {
