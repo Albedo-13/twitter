@@ -10,19 +10,6 @@ export const ProfileWrapper = styled.main`
   margin: 0 auto;
 `;
 
-export const GridInterface = styled.div`
-  display: grid;
-  height: 100vh;
-  width: 100%;
-  grid-template-areas:
-    /* "header header header" */
-    "aside-left main-section aside-right";
-    /* "footer footer footer"; */
-  /* grid-template-rows: var(--header-height) 1fr;  */
-  grid-template-columns: 1fr 2fr 1fr; 
-  transition: 0.2s all;
-`;
-
 export const NavigationWrapper = styled.aside`
   grid-area: aside-left;
   padding: ${theme.spacing.s10};
@@ -48,7 +35,7 @@ export const ContentWrapper = styled.section`
   }
 `;
 
-export const SearchWrapper = styled.div`
+export const SearchWrapper = styled.aside`
   grid-area: aside-right;
   padding: ${theme.spacing.s20};
 

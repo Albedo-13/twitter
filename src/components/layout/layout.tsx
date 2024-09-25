@@ -13,34 +13,33 @@ import {
   ProfileWrapper,
   SearchDesktopWrapper,
   SearchMobileWrapper,
-  SearchWrapper,
-  GridInterface,
+  SearchWrapper
 } from "./styled";
 
 export function Layout() {
   return (
     <ProfileWrapper>
-      <GridInterface>
-        <NavigationWrapper>
-          <NavigationMobileWrapper>
-            <MobileNavigation />
-          </NavigationMobileWrapper>
-          <NavigationDesktopWrapper>
-            <Navigation />
-          </NavigationDesktopWrapper>
-        </NavigationWrapper>
-        <ContentWrapper>
-          <Outlet />
-        </ContentWrapper>
-        <SearchWrapper>
-          <SearchMobileWrapper>
-            <MobileSearchSidebar />
-          </SearchMobileWrapper>
-          <SearchDesktopWrapper>
-            <SearchSidebar />
-          </SearchDesktopWrapper>
-        </SearchWrapper>
-      </GridInterface>
+        <div className="gridInterface">
+          <NavigationWrapper>
+            <NavigationMobileWrapper>
+              <MobileNavigation />
+            </NavigationMobileWrapper>
+            <NavigationDesktopWrapper>
+              <Navigation />
+            </NavigationDesktopWrapper>
+          </NavigationWrapper>
+          <ContentWrapper>
+            <Outlet />
+          </ContentWrapper>
+          <SearchWrapper>
+            <SearchMobileWrapper>
+              <MobileSearchSidebar />
+            </SearchMobileWrapper>
+            <SearchDesktopWrapper>
+              <SearchSidebar />
+            </SearchDesktopWrapper>
+          </SearchWrapper>
+        </div>
     </ProfileWrapper>
   );
 }
