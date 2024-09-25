@@ -2,6 +2,14 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
+export const FileInputPreviewImage = styled.img`
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-width: 100%;
+  max-height: 200px
+  /* height: 100px; */
+`;
+
 export const CreatePostWrapper = styled.div`
   position: relative;
   display: flex;
@@ -21,8 +29,8 @@ export const FormWrapper = styled.form`
 `;
 
 export const Textarea = styled.textarea`
-  width: calc(100% - ${theme.spacing.s40});
-  border: none;
+  width: 100%;
+  /* border: none; */
   resize: none;
   height: ${theme.spacing.s80};
   font-size: ${theme.fontSize.fs18};
@@ -50,7 +58,7 @@ export const FileInput = styled.input`
 export const BasementWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  width: calc(100% - ${theme.spacing.s40});
+  width: 100%;
 `;
 
 export const ErrorWrapper = styled.div`

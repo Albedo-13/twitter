@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
@@ -24,6 +25,7 @@ import {
   FileInputWrapper,
   FormWrapper,
   Textarea,
+  FileInputPreviewImage,
 } from "./styled";
 
 type Data = {
@@ -33,6 +35,8 @@ type Data = {
 
 export function CreatePost() {
   const user = useAppSelector(getUserSelector);
+
+  const [previewImage, setPreviewImage] = useState<string>();
 
   const {
     register,
@@ -70,6 +74,23 @@ export function CreatePost() {
     await setDoc(doc(db, "posts", postId), newPost);
 
     reset();
+    setPreviewImage("");
+  };
+
+  const handleFileInputChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function ({ target }) {
+        if (target) {
+          setPreviewImage(target.result as string);
+        } else {
+          console.error("Bug perhaps, i dunno");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+    register("image").onChange(event)
   };
 
   return (
@@ -79,6 +100,7 @@ export function CreatePost() {
       </AvatarWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />
+        <FileInputPreviewImage src={previewImage} />
         <BasementWrapper>
           <FileInputWrapper>
             <label htmlFor="file-input">
@@ -89,6 +111,7 @@ export function CreatePost() {
               type="file"
               id="file-input"
               accept="image/*"
+              onChange={handleFileInputChange}
             />
           </FileInputWrapper>
           <Button variant="primary" size="small" type="submit">
