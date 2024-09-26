@@ -5,7 +5,7 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";

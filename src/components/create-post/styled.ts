@@ -19,8 +19,8 @@ export const CreatePostWrapper = styled.div`
 `;
 
 export const AvatarWrapper = styled.div`
-  width: ${theme.spacing.s50};
-  height: ${theme.spacing.s50};
+  width: var(--avatar-image-size);
+  height: var(--avatar-image-size);
 `;
 
 export const FormWrapper = styled.form`

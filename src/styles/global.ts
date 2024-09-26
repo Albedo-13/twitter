@@ -4,6 +4,7 @@ export const GlobalStyle = createGlobalStyle`
   :root{
     --header-height: 0px;
     --footer-height: 50px;
+    --avatar-image-size: 50px;
   }
 
   * {
@@ -38,4 +39,5 @@ export const GlobalStyle = createGlobalStyle`
     grid-template-columns: 1fr 2fr 1fr; 
     transition: 0.2s all;
   }
+
 `;

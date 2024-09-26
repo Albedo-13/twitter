@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
 
   @media ${theme.device.sm} {
     padding: ${theme.spacing.s10} ${theme.spacing.s5};
-  gap: ${theme.spacing.s5};
+    gap: ${theme.spacing.s5};
   }
 `;
 
@@ -24,7 +24,7 @@ export const AvatarWrapper = styled.div`
 
 export const BodyWrapper = styled.div`
   width: 100%;
-  margin-bottom: ${theme.spacing.s25};
+  /* margin-bottom: ${theme.spacing.s25}; */
 `;
 
 export const UserInfoWrapper = styled.div`
@@ -71,20 +71,46 @@ export const DeleteIcon = styled.img`
 `;
 
 export const LikeWrapper = styled.div`
-  gap: ${theme.spacing.s5};
-  user-select: none;
-  position: absolute;
-  padding: ${theme.spacing.s10};
+  display: flex;
+  cursor: pointer;
+  margin-top: 15px;
+  gap: 10px;
+`;
+
+export const LikeButton = styled.label`
+  width: 20px;
+  height: 20px;
   cursor: pointer;
 `;
 
-export const LikeIcon = styled.img`
-  &[data-isliked="false"] {
-    filter: ${({ theme }) => theme.svgFill.primary};
+export const LikeSVGOuter = styled.svg`
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  &.liked{
+    color: red;
+  }
+  &.not_liked{
+    color: black;
+  }
+`;
+
+export const LikeSVGInner = styled.svg`
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  &.liked{
+    color: red;
+  }
+  &.not_liked{
+    color: transparent;
   }
 `;
 
 export const LikeCount = styled.span`
-  font-size: ${theme.fontSize.fs20};
-  padding-left: ${theme.spacing.s10};
+  font-size: 20px;
+  user-select: none;
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
 `;
