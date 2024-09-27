@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 // import liked from "@/assets/icons/liked.svg";
 // import notLiked from "@/assets/icons/not_liked.svg";
 import trashCan from "@/assets/icons/trash-can.svg";
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { ROUTES } from "@/constants/routes";
 import { db, storage } from "@/firebase";
@@ -32,6 +32,7 @@ import {
   UserInfoWrapper,
   UserName,
   UserTag,
+  UserTime,
   Wrapper,
 } from "./styled";
 import { TimeoutId } from "node_modules/@reduxjs/toolkit/dist/query/core/buildMiddleware/types";
@@ -47,6 +48,7 @@ export function Tweet({ post }: TweetProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  console.log(post);
   const getImageUrl = async () => {
     try {
       const url = await getDownloadURL(ref(storage, post?.image));
@@ -86,6 +88,14 @@ export function Tweet({ post }: TweetProps) {
     navigate(`${ROUTES.POST}/${post.uid}`);
   };
 
+  const convertTime = (timestamp: number) => {
+    const { locale } = Intl.DateTimeFormat().resolvedOptions();
+    const moment = new Date(timestamp * 1000);
+    const date = moment.toLocaleDateString(locale);
+    const time = moment.toLocaleTimeString(locale);
+    return `${time} - ${date}`;
+  };
+
   return (
     <Wrapper>
       <AvatarWrapper>
@@ -94,7 +104,8 @@ export function Tweet({ post }: TweetProps) {
       <BodyWrapper onClick={handleOpenPost}>
         <UserInfoWrapper>
           <UserName>{post.displayName}</UserName>
-          <UserTag>{post.email}</UserTag>
+          {/* <UserTag>{post.email}</UserTag> */}
+          <UserTime title={convertTime(post.createdAt.seconds)}>TUTVREMYAPOTOM</UserTime>
         </UserInfoWrapper>
         <TweetText>{post.content}</TweetText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}

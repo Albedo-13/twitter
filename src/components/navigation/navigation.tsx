@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import { useNavigate } from "react-router-dom";
 
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { ROUTES } from "@/constants/routes";
 import { logOut } from "@/firebase";

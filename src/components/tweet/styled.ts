@@ -20,6 +20,10 @@ export const Wrapper = styled.div`
 export const AvatarWrapper = styled.div`
   width: ${theme.spacing.s50};
   height: ${theme.spacing.s50};
+  user-select: none;
+  -webkit-user-select: none; 
+  -moz-user-select: none; 
+  -ms-user-select: none; 
 `;
 
 export const BodyWrapper = styled.div`
@@ -30,7 +34,7 @@ export const BodyWrapper = styled.div`
 export const UserInfoWrapper = styled.div`
   display: flex;
   gap: ${theme.spacing.s10};
-
+  align-items: center;
   @media ${theme.device.lg} {
     flex-direction: column;
     gap: 0;
@@ -43,6 +47,11 @@ export const UserName = styled.p`
 `;
 
 export const UserTag = styled.p`
+  font-size: ${theme.fontSize.fs18};
+  opacity: ${theme.opacity};
+`;
+
+export const UserTime = styled.p`
   font-size: ${theme.fontSize.fs18};
   opacity: ${theme.opacity};
 `;

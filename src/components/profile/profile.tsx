@@ -1,4 +1,4 @@
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import noBackground from "@/assets/imgs/no_background.webp";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
