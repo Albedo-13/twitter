@@ -51,7 +51,7 @@ export const UserTag = styled.p`
   opacity: ${theme.opacity};
 `;
 
-export const UserTime = styled.p`
+export const UserTime = styled.time`
   font-size: ${theme.fontSize.fs18};
   opacity: ${theme.opacity};
 `;
