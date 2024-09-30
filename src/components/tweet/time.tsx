@@ -34,8 +34,9 @@ const Time = ({ timestamp }: { timestamp: number }) => {
     if (startDate.getFullYear() !== endDate.getFullYear()) {
       const day = startDate.getDay();
       const monthText = translateMonth(startDate.getMonth());
+      const year = startDate.getFullYear();
 
-      return `${monthText} asd${day}`;
+      return `${monthText} ${day}, ${year}`;
     }
     if (differenceInSeconds > 86400) {
       const day = startDate.getDay();
