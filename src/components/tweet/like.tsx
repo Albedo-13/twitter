@@ -48,7 +48,6 @@ const Like = ({ post, user }: LikeProps) => {
   const increment = (event: SyntheticEvent) => {
     event.stopPropagation();
     let newCount = likeData.count! + (likeData.liked ? -1 : 1);
-
     setLikeData((prev) => {
       return {
         ...prev,
@@ -56,7 +55,7 @@ const Like = ({ post, user }: LikeProps) => {
         liked: !prev.liked,
       };
     });
-
+    
     if (timer) clearTimeout(timer);
 
     const newTimer = setTimeout(() => {
