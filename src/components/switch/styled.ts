@@ -1,20 +1,18 @@
 import styled from "styled-components";
 
-import { theme } from "@/styles/theme";
-
 export const StyledSwitch = styled.label`
   position: relative;
   display: inline-block;
-  width: ${theme.spacing.s50};
-  height: ${theme.spacing.s30};
+  width:  50px;
+  height:  30px;
 
   &:hover {
     .switch-slider {
-      border: ${({ theme }) => theme.border.gray};
+      border: var(--border-gray);
       border-width: 2px;
 
       &:before {
-        border: ${({ theme }) => theme.border.gray};
+        border: var(--border-gray);
         border-width: 2px;
       }
     }
@@ -28,7 +26,7 @@ export const SwitchInput = styled.input`
 
   &:checked + .switch-slider {
     &:before {
-      transform: translateX(${theme.spacing.s20});
+      transform: translateX(20px);
     }
   }
 `;
@@ -41,19 +39,19 @@ export const SwitchSpan = styled.span`
   right: 0;
   bottom: 0;
   background-color: transparent;
-  border: ${({ theme }) => theme.border.gray};
+  border: var(--border-gray);
   border-width: 2px;
-  border-radius: calc(${theme.spacing.s35} - 1px);
+  border-radius: 34px;
   transition: 0.4s;
 
   &:before {
     position: absolute;
     content: "";
-    height: calc(${theme.spacing.s25} + 1px);
-    width: calc(${theme.spacing.s25} + 1px);
+    height: 26px;
+    width: 26px;
     left: -2px;
     bottom: -2px;
-    border: ${({ theme }) => theme.border.gray};
+    border: var(--border-gray);
     border-width: 2px;
     transition: 0.4s;
     border-radius: 50%;

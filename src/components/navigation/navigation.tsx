@@ -26,6 +26,7 @@ import {
   NavListItemLink,
   UserBlock,
   UserCard,
+  UserCardContainer,
   UserName,
   UserTag,
   UserWrapper,
@@ -75,19 +76,21 @@ export function Navigation() {
         </ButtonWrapper>
 
         <UserWrapper>
-          <UserCard>
-            <AvatarWrapper>
-              <Avatar src={user.photoURL || noAvatar} />
-            </AvatarWrapper>
-            <UserBlock>
-              <UserName>{user.displayName}</UserName>
-              <UserTag>{user.email}</UserTag>
-            </UserBlock>
-          </UserCard>
+          <UserCardContainer>
+            <UserCard>
+              <AvatarWrapper>
+                <Avatar src={user.photoURL || noAvatar} />
+              </AvatarWrapper>
+              <UserBlock>
+                <UserName>{user.displayName}</UserName>
+                <UserTag>{user.email}</UserTag>
+              </UserBlock>
+            </UserCard>
+          </UserCardContainer>
           <ButtonWrapper>
             <Button
               variant="secondary"
-              size="large"
+              size="medium"
               type="button"
               onClick={handleLogOutClick}
             >

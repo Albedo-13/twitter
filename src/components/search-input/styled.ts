@@ -1,36 +1,34 @@
 import styled from "styled-components";
 
-import { theme } from "@/styles/theme";
-
 export const SearchbarWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${theme.spacing.s20};
+  gap:  20px;
   position: relative;
-  background: ${({ theme }) => theme.color.searchInput};
-  border-radius: ${theme.spacing.s30};
-  min-height: ${theme.spacing.s55};
+  background: var(--search-input-color);
+  border-radius:  30px;
+  min-height:  55px;
   width: 100%;
 `;
 
 export const SearchText = styled.input`
-  font-size: ${theme.fontSize.fs18};
-  padding-left: ${theme.spacing.s50};
+  font-size:  18px;
+  padding-left:  50px;
   background-color: transparent;
   border: none;
   outline: none;
   width: 100%;
 
   &::placeholder {
-    color: ${({ theme }) => theme.color.placeholder};
+    color: var(--placeholder-color);
   }
 `;
 
 export const SearchIcon = styled.img`
-  width: ${theme.spacing.s20};
-  height: ${theme.spacing.s20};
-  left: ${theme.spacing.s20};
+  width:  20px;
+  height:  20px;
+  left:  20px;
   filter: ${({ theme }) => theme.svgFill.primary};
   position: absolute;
 `;

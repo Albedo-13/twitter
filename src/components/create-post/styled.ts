@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { theme } from "@/styles/theme";
-
 export const FileInputPreviewImage = styled.img`
   margin-top: 10px;
   margin-bottom: 10px;
@@ -13,9 +11,12 @@ export const FileInputPreviewImage = styled.img`
 export const CreatePostWrapper = styled.div`
   position: relative;
   display: flex;
-  gap: ${theme.spacing.s15};
-  padding: ${theme.spacing.s20};
-  border-bottom: ${({ theme }) => theme.border.gray};
+  gap:  15px;
+  padding:  20px;
+  border-bottom: var(--border-gray);
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
 `;
 
 export const AvatarWrapper = styled.div`
@@ -24,19 +25,24 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const FormWrapper = styled.form`
-  width: 100%;
+  flex-grow: 1;
   position: relative;
 `;
 
 export const Textarea = styled.textarea`
   width: 100%;
-  /* border: none; */
+  border: none;
   resize: none;
-  height: ${theme.spacing.s80};
-  font-size: ${theme.fontSize.fs18};
+  height: 100px;
+  font-size:  18px;
+  margin-bottom: 10px;
+  &:focus{
+    outline: none;
+    border-bottom: 1px solid black;
+  }
 
   &::placeholder {
-    font-size: ${theme.fontSize.fs22};
+    font-size:  22px;
     color: #828282;
   }
 `;
@@ -46,8 +52,8 @@ export const FileInputWrapper = styled.div`
 `;
 
 export const FileInputImage = styled.img`
-  width: ${theme.spacing.s25};
-  height: ${theme.spacing.s25};
+  width: 25px;
+  height: 25px;
   cursor: pointer;
 `;
 
@@ -58,11 +64,12 @@ export const FileInput = styled.input`
 export const BasementWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 `;
 
 export const ErrorWrapper = styled.div`
   position: absolute;
-  bottom: ${theme.spacing.s25};
-  left: ${theme.spacing.s50};
+  bottom:  25px;
+  left:  50px;
 `;

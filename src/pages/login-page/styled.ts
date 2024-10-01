@@ -3,16 +3,16 @@ import styled from "styled-components";
 import { theme } from "@/styles/theme";
 
 export const FormWrapper = styled.form`
-  padding-top: ${theme.spacing.s60};
-  max-width: ${theme.spacing.s450};
+  padding-top:  60px;
+  max-width:  450px;
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.s20};
+  gap:  20px;
   margin: 0 auto;
 
   @media ${theme.device.md} {
-    padding: 0 ${theme.spacing.s20};
-    margin-top: ${theme.spacing.s20};
+    padding: 0  20px;
+    margin-top:  20px;
   }
 `;
 

@@ -9,12 +9,12 @@ export const Wrapper = styled.section`
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.88);
   display: flex;
-  height: calc(100vh - ${theme.spacing.s50});
+  height: calc(100vh -  50px);
   justify-content: center;
   /* height: auto; */
   
   @media ${theme.device.xs} {
-    padding: 0 ${theme.spacing.s20};
+    padding: 0  20px;
   }
 `;
 
@@ -25,17 +25,17 @@ export const AuthFooterWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: ${theme.spacing.s20};
-  height: ${theme.spacing.s50};
+  gap:  20px;
+  height:  50px;
 
   @media ${theme.device.xl} {
-    padding: 0 ${theme.spacing.s20};
+    padding: 0  20px;
   }
 
   @media ${theme.device.lg} {
-    padding-top: ${theme.spacing.s10};
+    padding-top:  10px;
     flex-wrap: wrap;
-    margin-top: ${theme.spacing.s50};
+    margin-top:  50px;
   }
 `;
 
@@ -52,14 +52,14 @@ export const Background = styled.div`
 export const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: ${theme.spacing.s20};
+  margin-top:  20px;
 `;
 
 export const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* margin-left: ${theme.spacing.s40}; */
+  /* margin-left:  40px; */
 
   @media ${theme.device.lg} {
     margin: 0;
@@ -67,41 +67,41 @@ export const AuthWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-  margin-top: ${theme.spacing.s25};
+  margin-top:  25px;
 `;
 
 export const H1 = styled.h1`
-  font-weight: ${theme.fontWeight.fw900};
-  font-size: ${theme.fontSize.fs84};
-  margin-top: ${theme.spacing.s55};
+  font-weight: 900;
+  font-size: 84px;
+  margin-top: 55px;
   text-align: center;
 
   @media ${theme.device.xl} {
-    font-size: ${theme.fontSize.fs42};
-    margin-top: ${theme.spacing.s20};
+    font-size: 42px;
+    margin-top: 20px;
   }
 `;
 
 export const H2 = styled.h2`
-  font-weight: ${theme.fontWeight.fw900};
-  font-size: ${theme.fontSize.fs42};
-  margin-top: ${theme.spacing.s45};
+  font-weight: 900;
+  font-size: 42px;
+  margin-top: 45px;
   text-align: center;
 
   @media ${theme.device.xl} {
-    font-size: ${theme.fontSize.fs30};
-    margin-top: ${theme.spacing.s20};
+    font-size:  30px;
+    margin-top:  20px;
   }
 `;
 
 export const PolicyText = styled.p`
-  max-width: ${theme.spacing.s370};
-  font-size: ${theme.fontSize.fs14};
-  margin-top: ${theme.spacing.s30};
+  max-width:  370px;
+  font-size:  14px;
+  margin-top:  30px;
   line-height: 143%;
 `;
 
 export const LoginText = styled.p`
-  margin-top: ${theme.spacing.s20};
+  margin-top:  20px;
 `;
 

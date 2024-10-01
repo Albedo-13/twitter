@@ -1,16 +1,14 @@
 import styled from "styled-components";
 
-import { theme } from "@/styles/theme";
-
 export const StyledFormProfile = styled.form`
   & > * {
-    margin-top: ${theme.spacing.s15};
+    margin-top:  15px;
   }
 `;
 
 export const Text = styled.p`
-  font-size: ${theme.fontSize.fs20};
-  font-weight: ${theme.fontWeight.fw500};
+  font-size:  20px;
+  font-weight: 500;
   text-transform: uppercase;
   text-align: center;
 `;

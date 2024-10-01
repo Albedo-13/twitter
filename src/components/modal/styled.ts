@@ -16,22 +16,22 @@ export const Overlay = styled.aside`
 `;
 
 export const StyledModal = styled.div`
-  background-color: ${({ theme }) => theme.color.background};
-  max-width: ${theme.spacing.s330};
-  border: ${({ theme }) => theme.border.gray};
+  background-color: var(--bg-primary-color);
+  max-width:  330px;
+  border: var(--border-gray);
   position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: ${theme.spacing.s20};
-  border-radius: ${theme.spacing.s10};
+  padding:  20px;
+  border-radius:  10px;
 `;
 
 export const ModalClose = styled.div`
   position: absolute;
   top: 0px;
-  right: calc(${theme.spacing.s5} + 2px);
-  font-size: ${theme.fontSize.fs30};
+  right: 7px;
+  font-size:  30px;
   cursor: pointer;
   transition: 0.3s;
 

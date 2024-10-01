@@ -15,8 +15,8 @@ const Button = css`
 `;
 
 const primaryStyles = css`
-  color: ${({ theme }) => theme.color.white};
-  background: ${({ theme }) => theme.color.accents};
+  color: var(--light-color);
+  background: var(--accents-color);
   border: none;
 
   &:disabled {
@@ -25,49 +25,53 @@ const primaryStyles = css`
 `;
 
 const outlinedStyles = css`
-  border: ${({ theme }) => theme.border.gray};
+  border: var(--border-gray);
   background-color: transparent;
 `;
 
 const secondaryStyles = css`
   border: none;
-  color: ${({ theme }) => theme.color.white};
-  background-color: ${({ theme }) => theme.color.secondary};
+  color: var(--light-color);
+  background-color: var(--secondary-color);
 `;
 
 const extraSmallStyles = css`
-  min-height: ${theme.spacing.s45};
-  min-width: ${theme.spacing.s45};
+  min-height:  45px;
+  min-width:  45px;
 
-  border-radius: ${theme.spacing.s50};
-  font-size: ${theme.fontSize.fs18};
-  font-weight: ${theme.fontWeight.fw700};
+  border-radius:  50px;
+  font-size:  18px;
+  font-weight:  700;
 `;
 
 const smallStyles = css`
-  min-height: ${theme.spacing.s45};
-  min-width: ${theme.spacing.s120};
+  min-height: 40px;
+  min-width:  120px;
 
-  border-radius: ${theme.spacing.s50};
-  font-size: ${theme.fontSize.fs18};
-  font-weight: ${theme.fontWeight.fw700};
+  border-radius:  50px;
+  font-size:  18px;
+  font-weight:  700;
 `;
 
 const mediumStyles = css`
-  min-height: ${theme.spacing.s55};
-  min-width: ${theme.spacing.s230};
-  border-radius: ${theme.spacing.s25};
+  min-height: 50px;
+  /* min-width: 150px; */
+  border-radius:  25px;
 
-  font-size: ${theme.fontSize.fs18};
-  font-weight: ${theme.fontWeight.fw700};
+  font-size:  18px;
+  font-weight:  700;
+  @media ${theme.device.md} {
+    font-size: 15px;
+    min-height: 40px;
+  }
 `;
 
 const largeStyles = css`
-  min-height: ${theme.spacing.s60};
-  border-radius: ${theme.spacing.s40};
+  min-height: 60px;
+  border-radius: 40px;
 
-  font-size: ${theme.fontSize.fs20};
-  font-weight: ${theme.fontWeight.fw600};
+  font-size: 20px;
+  font-weight: 600;
 
   min-width: 100%;
 `;
@@ -91,6 +95,6 @@ export const StyledButton = styled.button<StyledButtonType>`
 `;
 
 export const Image = styled.img`
-  width: ${theme.spacing.s30};
-  height: ${theme.spacing.s30};
+  width:  30px;
+  height:  30px;
 `;

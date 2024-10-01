@@ -4,22 +4,25 @@ import { theme } from "@/styles/theme";
 
 export const Wrapper = styled.div`
   position: relative;
-  padding: ${theme.spacing.s20};
-  border-bottom: ${({ theme }) => theme.border.gray};
+  padding:  20px;
+  border-bottom: var(--border-gray);
 
   display: flex;
-  gap: ${theme.spacing.s15};
+  gap:  15px;
   cursor: default;
 
-  @media ${theme.device.sm} {
-    padding: ${theme.spacing.s10} ${theme.spacing.s5};
-    gap: ${theme.spacing.s5};
+  /* @media ${theme.device.sm} {
+    padding:  10}  5px;
+    gap:  5px;
+  } */
+  ::-webkit-scrollbar {
+    width: 5px;
   }
 `;
 
 export const AvatarWrapper = styled.div`
-  width: ${theme.spacing.s50};
-  height: ${theme.spacing.s50};
+  width:  50px;
+  height:  50px;
   user-select: none;
   -webkit-user-select: none; 
   -moz-user-select: none; 
@@ -27,50 +30,47 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const BodyWrapper = styled.div`
-  width: 100%;
-  max-width: 768px; 
-  /* margin-bottom: ${theme.spacing.s25}; */
+  width: 0;
+  flex-grow: 1;
 `;
 
 export const UserInfoWrapper = styled.div`
   display: flex;
-  gap: ${theme.spacing.s10};
+  gap:  10px;
   align-items: center;
 `;
 
 export const UserName = styled.p`
-  font-weight: ${theme.fontWeight.fw700};
-  font-size: ${theme.fontSize.fs20};
+  font-weight:  700;
+  font-size:  20px;
 `;
 
 export const UserTag = styled.p`
-  font-size: ${theme.fontSize.fs18};
+  font-size:  18px;
   opacity: ${theme.opacity};
 `;
 
 export const UserTime = styled.time`
-  font-size: ${theme.fontSize.fs18};
+  font-size:  18px;
   opacity: ${theme.opacity};
 `;
 
 export const TweetText = styled.p`
-  font-size: ${theme.fontSize.fs18};
-  margin-top: ${theme.spacing.s5};
-  width: 100%; 
+  font-size:  18px;
+  margin-top:  5px;
+  width: calc(100% - 24px); 
   overflow-wrap: break-word;
   max-height: 300px;
   overflow-y: auto;
 `;
 
 export const Image = styled.img`
-  border-radius: ${theme.spacing.s20};
-  margin-top: ${theme.spacing.s15};
-  max-height: ${theme.spacing.s330};
+  border-radius:  20px;
+  margin-top:  15px;
+  max-height:  330px;
   width: auto;
   max-width: 100%;
 `;
-
-
 
 export const LikeWrapper = styled.div`
   display: flex;
@@ -118,15 +118,14 @@ export const LikeCount = styled.span`
 `;
 
 export const Icon = styled.img`
-  /* width: ${theme.spacing.s20};
-  height: ${theme.spacing.s20};
-  right: ${theme.spacing.s20};
+  /* width:  20px;
+  height:  20px;
+  right:  20px;
   filter: ${({ theme }) => theme.svgFill.primary};
   position: absolute;
   cursor: pointer;
   user-select: none; */
   height: 100%;
-  
 `;
 
 export const MoreWrapper = styled.ul`

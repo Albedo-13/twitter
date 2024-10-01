@@ -6,19 +6,19 @@ type InlineLinkBlueType = {
 };
 
 export const InlineLinkBlue = styled(Link)<InlineLinkBlueType>`
-  color: ${({ theme }) => theme.color.accents};
+  color: var(--accents-color);
   text-decoration: none;
   text-align: ${(props) => props.$align || "left"};
 
   &:hover {
-    color: ${({ theme }) => theme.color.accents};
+    color: var(--accents-color);
     text-decoration: underline;
   }
 `;
 
 export const BasicLinkDark = styled(Link)`
-  font-size: ${({ theme }) => theme.fontSize.fs14};
-  color: ${({ theme }) => theme.color.text};
+  font-size: 14px;
+  color: var(--text-primary-color);
   text-decoration: none;
 
   &:hover {

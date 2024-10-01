@@ -9,42 +9,46 @@ export const Wrapper = styled.div`
 `;
 
 export const AvatarWrapper = styled.div`
-  width: ${theme.spacing.s50};
-  height: ${theme.spacing.s50};
+  width:  var(--avatar-image-size);
+  height:  var(--avatar-image-size);
 `;
 
 export const LogoWrapper = styled.div`
-  margin-top: ${theme.spacing.s20};
-  margin-left: ${theme.spacing.s20};
+  margin-top:  20px;
+  margin-left:  20px;
 
   @media ${theme.device.md} {
-    margin: ${theme.spacing.s10} 0 0 0;
+    margin: 10px 0 0 15px;
+    /* text-align: center; */
+  }
+  @media ${theme.device.sm} {
+    margin:  10px 0 0 0;
     text-align: center;
   }
 `;
 
 export const ButtonWrapper = styled.div`
   width: 100%;
-  margin-top: ${theme.spacing.s25};
+  margin-top:  25px;
 
   & > * {
     width: 100%;
   }
 
   @media ${theme.device.md} {
-    margin-top: ${theme.spacing.s10};
+    margin-top:  10px;
   }
 `;
 
 export const NavList = styled.ul`
   display: flex;
   flex-direction: column;
-  gap: ${theme.spacing.s25};
-  margin-top: ${theme.spacing.s30};
+  gap:  25px;
+  margin-top:  30px;
 
   @media ${theme.device.md} {
-    gap: ${theme.spacing.s10};
-    margin-top: ${theme.spacing.s5};
+    /* gap: 15px; */
+    margin: 15px 0;
   }
 `;
 
@@ -52,57 +56,70 @@ type NavListItemLinkType = {
   $isEnabled: boolean;
 };
 
-export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
+export const NavListItemLink = styled(NavLink) <NavListItemLinkType>`
   text-decoration: none;
-  padding-left: ${theme.spacing.s20};
-  font-weight: ${theme.fontWeight.fw600};
-  font-size: ${theme.fontSize.fs18};
-  padding-left: ${theme.spacing.s20};
+  padding-left: 20px;
+  font-weight: 600;
+  font-size: 18px;
+  padding-left: 20px;
   display: flex;
   align-items: center;
 
-  color: ${({ theme }) => theme.color.text};
-  color: ${({ theme, $isEnabled }) => !$isEnabled && theme.color.secondary};
-
+  color: var(--text-primary-color);
   &.active {
-    color: ${({ theme, $isEnabled }) => $isEnabled && theme.color.accents};
+    color: ${({ $isEnabled }) => $isEnabled ? "var(--accents-color)" : "var(--secondary-color)"};
+  }
+  @media ${theme.device.md} {
+    font-size: 0;
   }
 `;
 
 export const NavListItemImage = styled.img`
-  width: ${theme.spacing.s25};
-  height: ${theme.spacing.s25};
-  padding-right: ${theme.spacing.s15};
+  /* box-sizing: content-box; */
+  width: 25px;
+  height: 25px;
+  margin-right:  15px;
   filter: ${({ theme }) => theme.svgFill.primary};
+  @media ${theme.device.md} {
+    width: 35px;
+    height: 35px;
+    margin: 0;
+  }
 `;
 
 export const UserWrapper = styled.div`
-  margin-top: ${theme.spacing.s50};
+  margin-top:  50px;
 
-  @media ${theme.device.md} {
+  @media ${theme.device.lg} {
     margin-top: 0;
   }
 `;
 
 export const UserCard = styled.div`
   display: flex;
-  margin-left: ${theme.spacing.s10};
-  gap: ${theme.spacing.s10};
+  box-sizing: content-box;
+  gap: 10px;
 
-  @media ${theme.device.md} {
+  @media ${theme.device.lg} {
     display: none;
   }
 `;
 
+export const UserCardContainer = styled.div`
+  width: 100%;
+  margin-left:  10px;
+`;
+
 export const UserBlock = styled.div`
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: ${theme.spacing.s5};
+  gap:  5px;
 `;
 
 export const UserName = styled.div`
-  font-weight: ${theme.fontWeight.fw600};
+  font-weight: 600;
 `;
 
 export const UserTag = styled.div`

@@ -12,7 +12,7 @@ export const ProfileWrapper = styled.main`
 
 export const NavigationWrapper = styled.aside`
   grid-area: aside-left;
-  padding: ${theme.spacing.s10};
+  padding: 10px;
 
   @media ${theme.device.lg} {
     flex-basis: 0;
@@ -27,21 +27,21 @@ export const NavigationWrapper = styled.aside`
 export const ContentWrapper = styled.section`
   grid-area: main-section;
 
-  border-left: ${({ theme }) => theme.border.gray};
-  border-right: ${({ theme }) => theme.border.gray};
+  border-left: var(--border-gray);
+  border-right: var(--border-gray);
 
-  @media ${theme.device.md} {
+  @media ${theme.device.sm} {
     flex-basis: 80%;
   }
 `;
 
 export const SearchWrapper = styled.aside`
   grid-area: aside-right;
-  padding: ${theme.spacing.s20};
+  padding: 20px;
 
   @media ${theme.device.lg} {
     flex-basis: 0;
-    padding: ${theme.spacing.s10};
+    padding: 10px;
   }
 
   @media ${theme.device.sm} {
@@ -70,13 +70,13 @@ export const SearchMobileWrapper = styled.div`
 
 export const NavigationMobileWrapper = styled.div`
   display: none;
-  @media ${theme.device.md} {
+  @media ${theme.device.sm} {
     display: block;
   }
 `;
 
 export const NavigationDesktopWrapper = styled.div`
-  @media ${theme.device.md} {
+  @media ${theme.device.sm} {
     display: none;
   }
 `;
