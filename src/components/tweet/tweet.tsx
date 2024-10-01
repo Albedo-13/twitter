@@ -62,22 +62,23 @@ export function Tweet({ post }: TweetProps) {
   };
 
   return (
-    <Wrapper>
-      <AvatarWrapper>
-        <Avatar src={photoUrl || noAvatar} />
-      </AvatarWrapper>
-      <BodyWrapper>
-        <UserInfoWrapper>
-          <UserName>{post.displayName}</UserName>
-          <Time timestamp={post.createdAt.seconds} />
-          {/* <UserTag>{post.email}</UserTag> */}
-          <More post={post} user={user} />
-        </UserInfoWrapper>
-        <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
-        {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-        <Like post={post} user={user} />
-      </BodyWrapper>
-      
-    </Wrapper>
+    <>
+      <Wrapper>
+        <AvatarWrapper>
+          <Avatar src={photoUrl || noAvatar} />
+        </AvatarWrapper>
+        <BodyWrapper>
+          <UserInfoWrapper>
+            <UserName>{post.displayName}</UserName>
+            <Time timestamp={post.createdAt.seconds} />
+            {/* <UserTag>{post.email}</UserTag> */}
+            <More post={post} user={user} />
+          </UserInfoWrapper>
+          <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
+          {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+          <Like post={post} user={user} />
+        </BodyWrapper>
+      </Wrapper>
+    </>
   );
 }

@@ -161,3 +161,26 @@ export const MoreWrapperItem = styled.li`
   width: 24px; 
   height: 24px;
 `;
+
+export const ConfirmationText = styled.p`
+  text-align: center;
+  font-size: 18px;
+`;
+export const ConfirmationMainText = styled.p`
+  margin-top: 15px;
+  text-align: center;
+  font-size: 22px;
+`;
+
+export const ConfirmationButtonsWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const ConfirmationButton = styled.button`
+  margin-top: 10px;
+  font-size: 20px;
+  width: 100px;
+`;
