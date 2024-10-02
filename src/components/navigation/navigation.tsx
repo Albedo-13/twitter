@@ -22,7 +22,7 @@ import {
   ButtonWrapper,
   LogoWrapper,
   NavList,
-  NavListItemImage,
+  NavListItemImageWrapper,
   NavListItemLink,
   UserBlock,
   UserCard,
@@ -54,10 +54,22 @@ export function Navigation() {
         </LogoWrapper>
         <nav>
           <NavList>
-            {NAVIGATION_LINKS.map(({ label, to, icon, isEnabled }) => (
+            {NAVIGATION_LINKS.map(({ label, to, svgCode, isEnabled }) => (
               <Fragment key={label}>
-                <NavListItemLink to={to} $isEnabled={isEnabled}>
-                  <NavListItemImage src={icon} alt={label} />
+                <NavListItemLink
+                  to={to}
+                  $isEnabled={isEnabled}
+                  onClick={
+                    isEnabled
+                      ? () => {}
+                      : (event) => {
+                          event.preventDefault();
+                        }
+                  }
+                >
+                  <NavListItemImageWrapper title={label}>
+                    {svgCode}
+                  </NavListItemImageWrapper>
                   {label}
                 </NavListItemLink>
               </Fragment>

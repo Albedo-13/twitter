@@ -8,14 +8,14 @@ const Button = css`
   align-items: center;
   cursor: pointer;
   transition: 0.2s all;
-
+  
   &:hover {
     transition: 0.2s all;
   }
 `;
 
 const primaryStyles = css`
-  color: var(--light-color);
+  color: white;
   background: var(--accents-color);
   border: none;
 
@@ -31,7 +31,7 @@ const outlinedStyles = css`
 
 const secondaryStyles = css`
   border: none;
-  color: var(--light-color);
+  color: white;
   background-color: var(--secondary-color);
 `;
 

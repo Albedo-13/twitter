@@ -4,11 +4,11 @@ import { theme } from "@/styles/theme";
 
 export const Wrapper = styled.div`
   position: relative;
-  padding:  20px;
+  padding: 20px;
   border-bottom: var(--border-gray);
 
   display: flex;
-  gap:  15px;
+  gap: 15px;
   cursor: default;
 
   /* @media ${theme.device.sm} {
@@ -21,12 +21,12 @@ export const Wrapper = styled.div`
 `;
 
 export const AvatarWrapper = styled.div`
-  width:  50px;
-  height:  50px;
+  width: 50px;
+  height: 50px;
   user-select: none;
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 `;
 
 export const BodyWrapper = styled.div`
@@ -36,40 +36,46 @@ export const BodyWrapper = styled.div`
 
 export const UserInfoWrapper = styled.div`
   display: flex;
-  gap:  10px;
+  gap: 10px;
   align-items: center;
 `;
 
 export const UserName = styled.p`
-  font-weight:  700;
-  font-size:  20px;
+  font-weight: 700;
+  font-size: 20px;
 `;
 
 export const UserTag = styled.p`
-  font-size:  18px;
+  font-size: 18px;
   opacity: ${theme.opacity};
 `;
 
 export const UserTime = styled.time`
-  font-size:  18px;
+  font-size: 18px;
   opacity: ${theme.opacity};
 `;
 
 export const TweetText = styled.p`
-  font-size:  18px;
-  margin-top:  5px;
-  width: calc(100% - 24px); 
+  font-size: 18px;
+  margin-top: 5px;
+  width: calc(100% - 24px);
   overflow-wrap: break-word;
   max-height: 300px;
   overflow-y: auto;
 `;
 
 export const Image = styled.img`
-  border-radius:  20px;
-  margin-top:  15px;
-  max-height:  330px;
+  border-radius: 20px;
+  margin-top: 15px;
+  max-height: 330px;
   width: auto;
   max-width: 100%;
+`;
+
+export const LikeButton = styled.label`
+  width: var(--like-size);
+  height: var(--like-size);
+  cursor: pointer;
 `;
 
 export const LikeWrapper = styled.div`
@@ -77,60 +83,81 @@ export const LikeWrapper = styled.div`
   cursor: pointer;
   margin-top: 15px;
   gap: 10px;
-`;
-
-export const LikeButton = styled.label`
-  width: 20px;
-  height: 20px;
-  cursor: pointer;
+  &:hover {
+    svg.liked {
+      g,
+      path {
+        transition: 0.15s all;
+        color: var(--like-hover-liked);
+      }
+    }
+    svg.not_liked {
+      g,
+      path {
+        transition: 0.15s all;
+        color: var(--like-hover-not-liked);
+      }
+    }
+  }
 `;
 
 export const LikeSVGOuter = styled.svg`
   position: absolute;
-  height: 20px;
-  width: 20px;
-  &.liked{
-    color: red;
+  height: var(--like-size);
+  width: var(--like-size);
+  &.liked {
+    g,
+    path {
+      color: var(--like-outer-liked);
+    }
   }
-  &.not_liked{
-    color: black;
+  &.not_liked {
+    g,
+    path {
+      color: var(--like-outer-not-liked);
+    }
   }
 `;
 
 export const LikeSVGInner = styled.svg`
   position: absolute;
-  height: 20px;
-  width: 20px;
-  &.liked{
-    color: red;
+  height: var(--like-size);
+  width: var(--like-size);
+  &.liked {
+    g,
+    path {
+      color: var(--like-inner-liked);
+    }
   }
-  &.not_liked{
-    color: transparent;
+  &.not_liked {
+    g,
+    path {
+      color: var(--like-inner-not-liked);
+    }
   }
 `;
 
 export const LikeCount = styled.span`
   font-size: 20px;
   user-select: none;
-  -webkit-user-select: none; 
-  -moz-user-select: none; 
-  -ms-user-select: none; 
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 `;
 
-export const Icon = styled.img`
-  /* width:  20px;
-  height:  20px;
-  right:  20px;
-  filter: ${({ theme }) => theme.svgFill.primary};
-  position: absolute;
+export const SVGIcon = styled.svg`
   cursor: pointer;
-  user-select: none; */
+  user-select: none;
   height: 100%;
+  g,
+  path {
+    color: var(--text-primary-color);
+  }
 `;
 
 export const MoreWrapper = styled.ul`
   margin-left: auto;
-  display:flex;
+  display: flex;
   flex-direction: row-reverse;
   gap: 3px;
   width: 24px;
@@ -138,26 +165,26 @@ export const MoreWrapper = styled.ul`
 
   li {
     transition: 0.2s all;
-    scale: 0.0;
+    scale: 0;
   }
 
-  li:first-child{
+  li:first-child {
     scale: 1;
   }
 
-  &.opened{
+  &.opened {
     width: initial;
     li {
       scale: 1;
     }
-    li:first-child{
+    li:first-child {
       transform: rotate(90deg);
     }
   }
 `;
 
 export const MoreWrapperItem = styled.li`
-  width: 24px; 
+  width: 24px;
   height: 24px;
 `;
 

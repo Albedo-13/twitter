@@ -4,15 +4,15 @@ export const FileInputPreviewImage = styled.img`
   margin-top: 10px;
   margin-bottom: 10px;
   max-width: 100%;
-  max-height: 200px
+  max-height: 200px;
   /* height: 100px; */
 `;
 
 export const CreatePostWrapper = styled.div`
   position: relative;
   display: flex;
-  gap:  15px;
-  padding:  20px;
+  gap: 15px;
+  padding: 20px;
   border-bottom: var(--border-gray);
   ::-webkit-scrollbar {
     width: 5px;
@@ -34,15 +34,17 @@ export const Textarea = styled.textarea`
   border: none;
   resize: none;
   height: 100px;
-  font-size:  18px;
+  font-size: 18px;
   margin-bottom: 10px;
-  &:focus{
+  background-color: var(--bg-primary-color);
+  transition: var(--theme-change-time);
+  &:focus {
     outline: none;
     border-bottom: 1px solid black;
   }
 
   &::placeholder {
-    font-size:  22px;
+    font-size: 22px;
     color: #828282;
   }
 `;
@@ -70,6 +72,6 @@ export const BasementWrapper = styled.div`
 
 export const ErrorWrapper = styled.div`
   position: absolute;
-  bottom:  25px;
-  left:  50px;
+  bottom: 25px;
+  left: 50px;
 `;

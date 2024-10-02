@@ -1,5 +1,3 @@
-import trashCan from "@/assets/icons/trash-can.svg";
-import expand from "@/assets/icons/expand.svg";
 import { deleteDoc, doc, DocumentData } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { SyntheticEvent, useState } from "react";
@@ -7,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { db, storage } from "@/firebase";
 import { ROUTES } from "@/constants/routes";
 
-import { MoreWrapper, MoreWrapperItem, Icon } from "./styled";
+import { MoreWrapper, MoreWrapperItem, SVGIcon } from "./styled";
 import { useModalControls } from "@/hooks/use-modal-controls";
 
 import { Modal } from "../modal/modal";
@@ -44,17 +42,35 @@ const More = ({ post, user }: MoreProps) => {
     <>
       <MoreWrapper className={opened ? "opened" : ""}>
         <MoreWrapperItem>
-          <Icon
+          <SVGIcon
+            viewBox="0 0 24 24"
             onClick={() => {
               setOpened((prev) => !prev);
             }}
-            src={expand}
-            alt="more"
-          />
+          >
+            <g>
+              <path
+                d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"
+                fill="currentColor"
+              ></path>
+            </g>
+          </SVGIcon>
         </MoreWrapperItem>
         {user.uid === post.authorUid && (
           <MoreWrapperItem>
-            <Icon onClick={handleModalShow} src={trashCan} alt="delete" />
+            <SVGIcon viewBox="0 0 41.336 41.336" onClick={handleModalShow}>
+              <g>
+                <path
+                  d="M36.335,5.668h-8.167V1.5c0-0.828-0.672-1.5-1.5-1.5h-12c-0.828,0-1.5,0.672-1.5,1.5v4.168H5.001c-1.104,0-2,0.896-2,2
+		s0.896,2,2,2h2.001v29.168c0,1.381,1.119,2.5,2.5,2.5h22.332c1.381,0,2.5-1.119,2.5-2.5V9.668h2.001c1.104,0,2-0.896,2-2
+		S37.438,5.668,36.335,5.668z M14.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5
+		s1.5,0.672,1.5,1.5V35.67z M22.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21c0-0.828,0.672-1.5,1.5-1.5
+		s1.5,0.672,1.5,1.5V35.67z M25.168,5.668h-9V3h9V5.668z M30.168,35.67c0,0.828-0.672,1.5-1.5,1.5s-1.5-0.672-1.5-1.5v-21
+		c0-0.828,0.672-1.5,1.5-1.5s1.5,0.672,1.5,1.5V35.67z"
+                  fill="currentColor"
+                />
+              </g>
+            </SVGIcon>
           </MoreWrapperItem>
         )}
       </MoreWrapper>
@@ -62,7 +78,10 @@ const More = ({ post, user }: MoreProps) => {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <DeleteConfirmation handleModalClose={handleModalClose} handleDeleteClick={handleDeleteClick}/>
+              <DeleteConfirmation
+                handleModalClose={handleModalClose}
+                handleDeleteClick={handleDeleteClick}
+              />
             </Modal>
           }
         />

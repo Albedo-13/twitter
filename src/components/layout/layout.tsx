@@ -13,12 +13,14 @@ import {
   ProfileWrapper,
   SearchDesktopWrapper,
   SearchMobileWrapper,
-  SearchWrapper
+  SearchWrapper,
+  Background,
 } from "./styled";
 
 export function Layout() {
   return (
-    <ProfileWrapper>
+    <>
+      <ProfileWrapper>
         <div className="gridInterface">
           <NavigationWrapper>
             <NavigationMobileWrapper>
@@ -40,6 +42,8 @@ export function Layout() {
             </SearchDesktopWrapper>
           </SearchWrapper>
         </div>
-    </ProfileWrapper>
+      </ProfileWrapper>
+      <Background />
+    </>
   );
 }

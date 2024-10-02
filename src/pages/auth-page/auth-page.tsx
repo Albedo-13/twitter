@@ -16,6 +16,7 @@ import { BasicLink, InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import {
+  ProfileWrapper,
   AuthFooterWrapper,
   AuthWrapper,
   ButtonWrapper,
@@ -60,7 +61,7 @@ export function AuthPage() {
   };
 
   return (
-    <>
+    <ProfileWrapper>
       <div className="gridInterface">
         <Wrapper>
           {/* <TwitterBackground src={twitterBackground} alt="twitter background" /> */}
@@ -114,6 +115,6 @@ export function AuthPage() {
         </AuthFooterWrapper>
         <Background />
       </div>
-    </>
+    </ProfileWrapper>
   );
 }

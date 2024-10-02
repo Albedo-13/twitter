@@ -80,3 +80,15 @@ export const NavigationDesktopWrapper = styled.div`
     display: none;
   }
 `;
+
+export const Background = styled.div`
+  transition: var(--theme-change-time);
+  background: var(--bg-primary-color) center center / cover no-repeat;
+  /* filter: blur(8px); */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -666;
+`;
