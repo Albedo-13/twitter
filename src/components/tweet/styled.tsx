@@ -168,8 +168,14 @@ export const MoreWrapper = styled.ul`
     scale: 0;
   }
 
-  li:first-child {
+  li:nth-child(1) {
+    margin-left: 10px;
     scale: 1;
+  }
+
+  li:nth-child(2) {
+    position: absolute;
+    opacity: 0;
   }
 
   &.opened {
@@ -177,8 +183,12 @@ export const MoreWrapper = styled.ul`
     li {
       scale: 1;
     }
-    li:first-child {
+    li:nth-child(1) {
       transform: rotate(90deg);
+      opacity: 0;
+    }
+    li:nth-child(2) {
+      opacity: 1;
     }
   }
 `;
