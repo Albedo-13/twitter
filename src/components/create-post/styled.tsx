@@ -9,6 +9,7 @@ export const FileInputPreviewImage = styled.img`
 `;
 
 export const CreatePostWrapper = styled.div`
+  background-color: var(--bg-primary-color);
   position: relative;
   display: flex;
   gap: 15px;

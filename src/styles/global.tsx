@@ -41,7 +41,7 @@ export const GlobalStyle = createGlobalStyle`
     --error-color: #f5222d;
   }
 
-  #root {
+  :root {
     &.dark {
       --like-outer-not-liked: #ffffff;
       --link-hover-bg: rgba(255, 255, 255, 0.1);
@@ -62,6 +62,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   #root {
+    overflow-y: scroll;
     /* background-color: var(--bg-primary-color); */
   }
   
@@ -106,6 +107,7 @@ export const GlobalStyle = createGlobalStyle`
 
   .gridInterface{
     display: grid;
+    position: relative;
     height: 100vh;
     /* width: 100%; */
     grid-template-areas:

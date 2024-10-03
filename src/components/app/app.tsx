@@ -14,7 +14,7 @@ export function App() {
   const theme = useAppSelector(getThemeSelector);
 
   useEffect(() => {
-    document.querySelector("#root")!.className = theme.toString();
+    document.querySelector(":root")!.className = theme.toString();
   }, [theme]);
 
   return (

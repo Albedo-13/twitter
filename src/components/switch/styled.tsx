@@ -23,7 +23,7 @@ export const SwitchInput = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
-
+  
   &:checked + .switch-slider {
     &:before {
       transform: translateX(20px);
@@ -33,6 +33,7 @@ export const SwitchInput = styled.input`
 
 export const SwitchSpan = styled.span`
   position: absolute;
+  
   cursor: pointer;
   top: 0;
   left: 0;
@@ -55,5 +56,6 @@ export const SwitchSpan = styled.span`
     border-width: 2px;
     transition: 0.4s;
     border-radius: 50%;
+    background-color: var(--search-input-color);
   }
 `;

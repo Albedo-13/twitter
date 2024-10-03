@@ -71,7 +71,15 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
 
   &.active {
     font-weight: 700;
-    /* font-size: 20px; */
+
+    svg {
+      &.inner > g > path {
+        color: var(--text-primary-color);
+      }
+      &.outer > g > path {
+        color: transparent;
+      }
+    }
   }
 
   &:hover {

@@ -12,8 +12,13 @@ export const ProfileWrapper = styled.main`
 
 export const NavigationWrapper = styled.aside`
   grid-area: aside-left;
+  position: fixed;
   padding: 10px;
-
+  height: 100vh;
+  overflow-y: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   @media ${theme.device.lg} {
     flex-basis: 0;
   }
@@ -37,6 +42,7 @@ export const ContentWrapper = styled.section`
 
 export const SearchWrapper = styled.aside`
   grid-area: aside-right;
+  position: fixed;
   padding: 20px;
 
   @media ${theme.device.lg} {
