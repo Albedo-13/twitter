@@ -15,7 +15,7 @@ export function App() {
 
   useEffect(() => {
     document.querySelector(":root")!.className = theme.toString();
-  }, [theme]);
+  }, []);
 
   return (
     <ThemeProvider theme={themeBase}>

@@ -32,7 +32,9 @@ export function TweetsList() {
   useEffect(() => {
     const q = collection(db, "posts");
     onSnapshot(q, () => {
-      getPosts().then((posts) => setPosts(posts));
+      getPosts().then((posts) => {
+        setPosts(posts);
+      });
     });
   }, []);
 

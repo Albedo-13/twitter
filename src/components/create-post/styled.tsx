@@ -21,6 +21,7 @@ export const CreatePostWrapper = styled.div`
 `;
 
 export const AvatarWrapper = styled.div`
+  flex-shrink: 0;
   width: var(--avatar-image-size);
   height: var(--avatar-image-size);
 `;
@@ -40,8 +41,9 @@ export const Textarea = styled.textarea`
   background-color: var(--bg-primary-color);
   transition: var(--theme-change-time);
   &:focus {
+    transition: 0s all;
     outline: none;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid var(--accents-color);
   }
 
   &::placeholder {

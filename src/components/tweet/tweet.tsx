@@ -28,10 +28,19 @@ type TweetProps = {
   post: DocumentData;
 };
 
+type UserDataType = {
+  photoURL: string | null;
+  displayName: string | null;
+};
+
 export function Tweet({ post }: TweetProps) {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
-  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  // const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  const [userData, setUserData] = useState<UserDataType>({
+    photoURL: null,
+    displayName: null,
+  });
   const navigate = useNavigate();
 
   const getImageUrl = async () => {
@@ -43,10 +52,11 @@ export function Tweet({ post }: TweetProps) {
     }
   };
 
-  const getUserPhotoByUid = async (userId: string) => {
+  const getAdditionalUserDataByUid = async (userId: string) => {
     const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
     if (!queryUserSnapshot.empty) {
-      return queryUserSnapshot.docs[0].data().photoURL;
+      const { photoURL, displayName } = queryUserSnapshot.docs[0].data();
+      return { photoURL, displayName };
     }
   };
 
@@ -54,7 +64,9 @@ export function Tweet({ post }: TweetProps) {
     getImageUrl()
       .then((url) => setImgUrl(url))
       .catch(() => setImgUrl(undefined));
-    getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
+    getAdditionalUserDataByUid(post.authorUid).then((data) =>
+      setUserData(data as UserDataType)
+    );
   }, []);
 
   const handleOpenPost = () => {
@@ -65,11 +77,11 @@ export function Tweet({ post }: TweetProps) {
     <>
       <Wrapper>
         <AvatarWrapper>
-          <Avatar src={photoUrl || noAvatar} />
+          <Avatar src={userData.photoURL || noAvatar} />
         </AvatarWrapper>
         <BodyWrapper>
           <UserInfoWrapper>
-            <UserName>{post.displayName}</UserName>
+            <UserName>{userData.displayName}</UserName>
             <Time timestamp={post.createdAt.seconds} />
             {/* <UserTag>{post.email}</UserTag> */}
             <More post={post} user={user} />
