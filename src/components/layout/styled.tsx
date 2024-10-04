@@ -13,8 +13,9 @@ export const ProfileWrapper = styled.main`
 export const NavigationWrapper = styled.aside`
   grid-area: aside-left;
   position: fixed;
-  padding: 10px;
+  
   height: 100vh;
+  width: var(--aside-left-width);
   overflow-y: auto;
   &::-webkit-scrollbar{
     display: none;
@@ -88,7 +89,6 @@ export const NavigationDesktopWrapper = styled.div`
 `;
 
 export const Background = styled.div`
-  transition: var(--theme-change-time);
   background: var(--bg-primary-color) center center / cover no-repeat;
   /* filter: blur(8px); */
   position: fixed;

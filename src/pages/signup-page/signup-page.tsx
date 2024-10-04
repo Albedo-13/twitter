@@ -31,6 +31,7 @@ import {
   LogoWrapper,
   SelectWrapper,
   Text,
+  Background,
 } from "./styled";
 
 type Data = {
@@ -146,6 +147,7 @@ export function SignupPage() {
           Next
         </Button>
       </ButtonWrapper>
+      <Background/>
     </FormWrapper>
   );
 }

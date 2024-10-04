@@ -39,7 +39,6 @@ export const Textarea = styled.textarea`
   font-size: 18px;
   margin-bottom: 10px;
   background-color: var(--bg-primary-color);
-  transition: var(--theme-change-time);
   &:focus {
     transition: 0s all;
     outline: none;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
+import xBackground from "@/assets/imgs/back-x.webp";
 import { theme } from "@/styles/theme";
 
 export const ProfileWrapper = styled.main`
@@ -15,7 +16,7 @@ export const Wrapper = styled.section`
   overflow-y: auto;
   position: relative;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.88);
+  background-color: rgba(var(--bg-primary-rgb), 0.88);
   display: flex;
   height: calc(100vh - 50px);
   justify-content: center;
@@ -29,6 +30,7 @@ export const Wrapper = styled.section`
 export const AuthFooterWrapper = styled.div`
   /* border-radius: 5%;
   background-color: rgba(155,155,155,0.69); */
+  color: black;
   grid-area: footer;
   display: flex;
   justify-content: center;
@@ -47,10 +49,24 @@ export const AuthFooterWrapper = styled.div`
   }
 `;
 
-export const Background = styled.div`
-  background: url(${twitterBackground}) center center / cover no-repeat;
-  filter: blur(8px);
-  background-color: aqua;
+type BackgroundProps = {
+  bgname: string;
+};
+
+export const Background = styled.div<BackgroundProps>`
+  /* background: url(${twitterBackground}) center center / cover no-repeat; */
+  background: ${({ bgname }) => {
+    switch (bgname) {
+      case "light":
+        return `url(${twitterBackground}) center center / cover no-repeat`;
+      case "dark":
+        return `url(${xBackground}) center center / cover no-repeat`;
+      default:
+        return "pink";
+    }
+  }};
+  filter: blur(8px) brightness(80%);
+  transform: scale(1.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -69,10 +85,12 @@ export const AuthWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0 50px;
   /* margin-left:  40px; */
 
   @media ${theme.device.lg} {
     margin: 0;
+    padding: 0 20px;
   }
 `;
 

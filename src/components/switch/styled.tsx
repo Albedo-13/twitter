@@ -56,6 +56,6 @@ export const SwitchSpan = styled.span`
     border-width: 2px;
     transition: 0.4s;
     border-radius: 50%;
-    background-color: var(--search-input-color);
+    background-color: var(--secondary-color);
   }
 `;

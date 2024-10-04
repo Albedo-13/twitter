@@ -6,9 +6,13 @@ import { theme } from "@/styles/theme";
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  max-width: 100%;
+  height: 100vh;
+  padding: 10px;
 `;
 
 export const AvatarWrapper = styled.div`
+  flex-shrink: 0;
   width: var(--avatar-image-size);
   height: var(--avatar-image-size);
 `;
@@ -66,7 +70,7 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
   transition: 0.2s all;
 
   color: ${({ $isEnabled }) =>
-    $isEnabled ? "var(--text-primary-color)" : "var(--secondary-color)"};
+    $isEnabled ? "var(--text-primary-color)" : "var(--text-secondary-color)"};
   font-weight: ${({ $isEnabled }) => ($isEnabled ? "300" : "100")};
 
   &.active {
@@ -121,10 +125,11 @@ export const NavListItemImageWrapper = styled.div`
 `;
 // filter: ${({ theme }) => theme.svgFill.primary};
 export const UserWrapper = styled.div`
-  margin-top: 50px;
-
+  margin-top: auto;
+  padding-top: 25px;
+  margin-bottom: 20px;
   @media ${theme.device.lg} {
-    margin-top: 0;
+    padding-top: 15px;
   }
 `;
 
@@ -132,15 +137,15 @@ export const UserCard = styled.div`
   display: flex;
   box-sizing: content-box;
   gap: 10px;
-
-  @media ${theme.device.lg} {
-    display: none;
+  transition: 0.2s all;
+  border-radius: 50px;
+  &:hover {
+    background-color: var(--link-hover-bg);
   }
-`;
-
-export const UserCardContainer = styled.div`
-  width: 100%;
-  margin-left: 10px;
+  @media ${theme.device.md} {
+    padding: 5px 15px;
+    justify-content: center;
+  }
 `;
 
 export const UserBlock = styled.div`
@@ -148,13 +153,50 @@ export const UserBlock = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100px;
   gap: 5px;
+  overflow: hidden;
+  @media ${theme.device.md} {
+    display: none;
+  }
 `;
 
 export const UserName = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-weight: 600;
 `;
 
 export const UserTag = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   opacity: ${theme.opacity};
+`;
+
+export const PopupContainer = styled.div`
+  background-color: var(--bg-primary-color);
+  border: 1px var(--secondary-color) solid;
+  box-shadow: 0px 2px 20px 1px var(--secondary-color);
+  padding: 10px 0px;
+  border-radius: 15px;
+  overflow: hidden;
+  max-width: 250px;
+`;
+
+export const LogOutButton = styled.button`
+  transition: 0.2s all;
+  font-size: 18px;
+  font-weight: 700;
+  width: 220px;
+  background-color: transparent;
+  border: 0;
+  text-align: left;
+  padding: 10px 0 10px 10px;
+  outline: none;
+  color: var(--text-primary-color);
+  &:hover {
+    background-color: var(--secondary-color);
+  }
 `;

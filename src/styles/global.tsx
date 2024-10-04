@@ -4,7 +4,7 @@ import { theme } from "@/styles/theme";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
-    --theme-change-time: 0.35s all;
+    /* --theme-change-time: 0.35s all; */
     --avatar-image-size: 50px;
     --header-height: 0px;
     --footer-height: 50px;
@@ -17,10 +17,9 @@ export const GlobalStyle = createGlobalStyle`
     --scrollbar-color: rgba(20, 20, 20, 1);
     --scrollbar-bg-color: rgba(180, 180, 180, 1);
     --border-gray: 1px solid #d8d8d8;
-    --search-input-color: #eff3f4;
-    --placeholder-color: #828282;
     --link-hover-bg: rgba(0, 0, 0, 0.1);
-
+    /* --bg-primary- */
+    
     --like-size: 20px;
     --like-inner-liked: #ff0000;
     --like-inner-not-liked: transparent;
@@ -32,12 +31,14 @@ export const GlobalStyle = createGlobalStyle`
     --dark-color: #000;
     --light-color: #fff;
     --primary-color:#2f80ed;
+    --secondary-color: #eff3f4;
     --accents-color: #1da1f2;
-    --secondary-color: #b3b8bb;
 
     --text-primary-color: #000000;
+    --text-secondary-color: #828282;
     --bg-primary-color: #fff;
-    
+    --bg-primary-rgb: 255, 255, 255;
+
     --error-color: #f5222d;
   }
 
@@ -45,19 +46,18 @@ export const GlobalStyle = createGlobalStyle`
     &.dark {
       --like-outer-not-liked: #ffffff;
       --link-hover-bg: rgba(255, 255, 255, 0.1);
-      --search-input-color: rgb(32, 35, 39);
-      --placeholder-color: #d5d5d5;
       --border-gray: 1px solid rgba(46,50,54,255);
 
       --dark-color: #c4b4b4;
       --light-color: #191515;
       --primary-color: #2f80ed;
-      --accents-color: #1da1f2;
-      --secondary-color: #898d8f;
+      --secondary-color: rgb(32, 35, 39);
+      --accents-color: #187cbf;
 
       --text-primary-color: #ffffff;
+      --text-secondary-color: #898d8f;
       --bg-primary-color: #000000;
-
+      --bg-primary-rgb: 0, 0, 0;
     }
   }
 
@@ -73,7 +73,8 @@ export const GlobalStyle = createGlobalStyle`
     color: var(--text-primary-color);
 
     //ебанёт? не должно
-    transition: var(--theme-change-time);
+    //ебануло
+    /* transition: var(--theme-change-time); */
   }
 
   ::-webkit-scrollbar {

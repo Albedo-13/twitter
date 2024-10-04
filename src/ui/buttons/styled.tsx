@@ -8,7 +8,7 @@ const Button = css`
   align-items: center;
   cursor: pointer;
   transition: 0.2s all;
-  
+
   &:hover {
     transition: 0.2s all;
   }
@@ -18,6 +18,9 @@ const primaryStyles = css`
   color: white;
   background: var(--accents-color);
   border: none;
+  &:hover {
+    background: var(--primary-color);
+  }
 
   &:disabled {
     opacity: ${theme.opacity};
@@ -31,35 +34,35 @@ const outlinedStyles = css`
 
 const secondaryStyles = css`
   border: none;
-  color: white;
+  color: var(--text-secondary-color);
   background-color: var(--secondary-color);
 `;
 
 const extraSmallStyles = css`
-  min-height:  45px;
-  min-width:  45px;
+  min-height: 45px;
+  min-width: 45px;
 
-  border-radius:  50px;
-  font-size:  18px;
-  font-weight:  700;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const smallStyles = css`
   min-height: 40px;
-  min-width:  120px;
+  min-width: 120px;
 
-  border-radius:  50px;
-  font-size:  18px;
-  font-weight:  700;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
 `;
 
 const mediumStyles = css`
   min-height: 50px;
   /* min-width: 150px; */
-  border-radius:  25px;
+  border-radius: 25px;
 
-  font-size:  18px;
-  font-weight:  700;
+  font-size: 18px;
+  font-weight: 700;
   @media ${theme.device.md} {
     font-size: 15px;
     min-height: 40px;
@@ -95,6 +98,6 @@ export const StyledButton = styled.button<StyledButtonType>`
 `;
 
 export const Image = styled.img`
-  width:  30px;
-  height:  30px;
+  width: 30px;
+  height: 30px;
 `;

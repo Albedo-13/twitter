@@ -14,6 +14,8 @@ import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { BasicLink, InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { useAppSelector } from "@/hooks/redux";
+import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 
 import {
   ProfileWrapper,
@@ -32,6 +34,7 @@ import {
 export function AuthPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const theme = useAppSelector(getThemeSelector);
 
   const handleSignupClick = () => {
     navigate(ROUTES.SIGNUP);
@@ -113,7 +116,7 @@ export function AuthPage() {
             </BasicLink>
           ))}
         </AuthFooterWrapper>
-        <Background />
+        <Background bgname={theme}/>
       </div>
     </ProfileWrapper>
   );

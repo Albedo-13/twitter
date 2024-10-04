@@ -4,6 +4,9 @@ export const LogoContainer = styled.div`
   width: 50px;
   height: 50px;
   position: relative;
+  svg{
+    transition: 0.5s all;
+  }
   svg.twitter > path {
     color: var(--accents-color);
   }

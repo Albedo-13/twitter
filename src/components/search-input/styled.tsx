@@ -6,11 +6,10 @@ export const SearchbarWrapper = styled.div`
   align-items: center;
   gap: 20px;
   position: relative;
-  background: var(--search-input-color);
+  background: var(--secondary-color);
   border-radius: 30px;
   min-height: 55px;
   width: 100%;
-  transition: var(--theme-change-time);
 `;
 
 export const SearchText = styled.input`
@@ -22,7 +21,7 @@ export const SearchText = styled.input`
   width: 100%;
 
   &::placeholder {
-    color: var(--placeholder-color);
+    color: var(--text-secondary-color);
   }
 `;
 
