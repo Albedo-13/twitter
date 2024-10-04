@@ -23,6 +23,13 @@ export const queryUserEqualByValue = async (field: string, value: string) => {
   return querySnapshot;
 };
 
+export const queryUserByName = async (value: string) => {
+  const querySnapshot = await getDocs(
+    query(collection(db, "users"), where("displayName", ">=", value), where("displayName", "<=", value + '\uf8ff'))
+  );
+  return querySnapshot;
+};
+
 export const queryPostsEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
     query(collection(db, "posts"), where(field, "==", value))
@@ -79,7 +86,7 @@ export const reauthUser = async (password = "") => {
 };
 
 export const searchUsers = async (searchText: string) => {
-  const querySnapshot = await queryUserEqualByValue("displayName", searchText);
+  const querySnapshot = await queryUserByName(searchText);
   const list = querySnapshot.docs
     .map((doc) => doc.data())
     .slice(0, SEARCH_ITEMS_COUNT);
@@ -87,7 +94,7 @@ export const searchUsers = async (searchText: string) => {
 };
 
 export const searchPostsByUser = async (searchText: string) => {
-  const querySnapshot = await queryPostsEqualByValue("displayName", searchText);
+  const querySnapshot = await queryUserByName(searchText);
   const list = querySnapshot.docs
     .map((doc) => doc.data())
     .slice(0, SEARCH_ITEMS_COUNT);

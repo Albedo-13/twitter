@@ -43,9 +43,12 @@ export const ContentWrapper = styled.section`
 
 export const SearchWrapper = styled.aside`
   grid-area: aside-right;
+  height: 100vh;
   position: fixed;
-  padding: 20px;
-
+  overflow-y: auto;
+  &::-webkit-scrollbar{
+    display: none;
+  }
   @media ${theme.device.lg} {
     flex-basis: 0;
     padding: 10px;
@@ -58,6 +61,9 @@ export const SearchWrapper = styled.aside`
 `;
 
 export const SearchDesktopWrapper = styled.div`
+  max-width: var(--aside-right-width);
+  overflow: hidden;
+  padding: 20px;
   @media ${theme.device.lg} {
     display: none;
   }
