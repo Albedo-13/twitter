@@ -123,28 +123,23 @@ export const GlobalStyle = createGlobalStyle`
 
   :root{
     @media ${theme.device.xl} {
-      /* background-color:red; */
     }
     @media ${theme.device.lg} {
-      /* background-color:yellow; */
       --aside-left-width: 200px;
       --main-section-width: 570px;
       --aside-right-width: 70px;
     }
     @media ${theme.device.md} {
-      /* background-color:green; */
       --aside-left-width: 85px;
       --main-section-width: 445px;
       --aside-right-width: 60px;
     }
     @media ${theme.device.sm} {
-      background-color:blue;
       --aside-left-width: 0px;
+      --main-section-width: 100vw;
       --aside-right-width: 0px;
     }
     @media ${theme.device.xs} {
-      background-color:violet;
     }
   }
-
 `;

@@ -7,8 +7,11 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding: 10px;
+  @media ${theme.device.md} {
+    padding-top: 0;
+  }
 `;
 
 export const AvatarWrapper = styled.div`
@@ -18,7 +21,7 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  margin-top: 20px;
+  /* margin-top: 20px; */
   margin-left: 20px;
 
   @media ${theme.device.md} {
@@ -108,6 +111,11 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
 
   @media ${theme.device.md} {
     font-size: 0;
+  }
+
+  @media ${theme.device.sm} {
+    font-size: 16px;
+    gap: 10px;
   }
 `;
 
@@ -199,4 +207,26 @@ export const LogOutButton = styled.button`
   &:hover {
     background-color: var(--secondary-color);
   }
+`;
+
+export const Burger = styled.button`
+  transition: 0.2s all;
+  font-size: 18px;
+  font-weight: 700;
+  width: 25px;
+  height: 25px;
+  background-color: transparent;
+  border: 0;
+  /* text-align: left;  */
+  /* padding: 10px 0 10px 10px; */
+  /* outline: none; */
+  color: var(--text-primary-color);
+  /* &:hover {
+    background-color: var(--secondary-color);
+  } */
+`;
+
+export const SVGBurger = styled.svg`
+  width: 25px;
+  height: 25px;
 `;

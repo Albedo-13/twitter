@@ -79,14 +79,12 @@ export const SearchMobileWrapper = styled.div`
   @media ${theme.device.lg} {
     display: block;
   }
-`;
 
-export const NavigationMobileWrapper = styled.div`
-  display: none;
   @media ${theme.device.sm} {
-    display: block;
+    display: none;
   }
 `;
+
 
 export const NavigationDesktopWrapper = styled.div`
   @media ${theme.device.sm} {

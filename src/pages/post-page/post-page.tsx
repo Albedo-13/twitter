@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { ToggleTheme } from "@/components/toggle-theme/toggle-theme";
+import { Header } from "@/components/header/header";
 import { Tweet } from "@/components/tweet/tweet";
 import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
@@ -40,7 +40,7 @@ export function PostPage() {
 
   return (
     <>
-      <ToggleTheme />
+      <Header />
       {post ? <Tweet post={post} /> : <Loader />}
     </>
   );

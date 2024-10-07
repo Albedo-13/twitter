@@ -3,12 +3,10 @@ import { Outlet } from "react-router-dom";
 import { Navigation } from "@/components/navigation/navigation";
 import { SearchSidebar } from "@/components/search-sidebar/search-sidebar";
 
-import MobileNavigation from "../navigation/mobile-navigation";
 import { MobileSearchSidebar } from "../search-sidebar/mobile-search-sidebar";
 import {
   ContentWrapper,
   NavigationDesktopWrapper,
-  NavigationMobileWrapper,
   NavigationWrapper,
   ProfileWrapper,
   SearchDesktopWrapper,
@@ -23,9 +21,9 @@ export function Layout() {
       <ProfileWrapper>
         <div className="gridInterface">
           <NavigationWrapper>
-            <NavigationMobileWrapper>
+            {/* <NavigationMobileWrapper>
               <MobileNavigation />
-            </NavigationMobileWrapper>
+            </NavigationMobileWrapper> */}
             <NavigationDesktopWrapper>
               <Navigation />
             </NavigationDesktopWrapper>

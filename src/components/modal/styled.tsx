@@ -12,7 +12,7 @@ export const Overlay = styled.aside`
   z-index: ${theme.layers.l2};
   
   height: 100vh;
-  overflow-y: hidden;
+  overflow-y: auto;
 `;
 
 export const StyledModal = styled.div`
@@ -23,7 +23,8 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding:  20px;
+  /* padding:  20px; */
+  /* height: 200vh; */
   border-radius:  10px;
 `;
 
