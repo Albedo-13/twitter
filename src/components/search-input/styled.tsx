@@ -25,10 +25,9 @@ export const SearchText = styled.input`
   }
 `;
 
-export const SearchIcon = styled.img`
+export const SearchIcon = styled.svg`
   width: 20px;
   height: 20px;
   left: 20px;
-  filter: ${({ theme }) => theme.svgFill.primary};
   position: absolute;
 `;

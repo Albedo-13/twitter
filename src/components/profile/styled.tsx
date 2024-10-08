@@ -6,17 +6,6 @@ export const ProfileWrapper = styled.div`
   border-top: none;
 `;
 
-export const ProfileHeader = styled.div`
-  min-height:  50px;
-  padding:  20px;
-  border-bottom: var(--border-gray);
-`;
-
-export const ProfileHeaderName = styled.div`
-  font-weight: 700;
-  font-size: 20px;
-`;
-
 export const ProfileBackgroundImage = styled.img`
   object-fit: cover;
   height: 280px;

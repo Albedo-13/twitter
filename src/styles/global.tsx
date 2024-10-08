@@ -56,7 +56,7 @@ export const GlobalStyle = createGlobalStyle`
       --link-hover-bg: rgba(255, 255, 255, 0.1);
       --border-gray: 1px solid rgba(46,50,54,255);
 
-      --dark-color: #c4b4b4;
+      --dark-color: #b4c4b9;
       --light-color: #191515;
       --primary-color: #2f80ed;
       --secondary-color: rgb(32, 35, 39);

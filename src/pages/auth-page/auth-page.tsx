@@ -6,20 +6,21 @@ import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";
 import { Logo } from "@/components/logo/logo";
-import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
+// import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
 import { ROUTES } from "@/constants/routes";
 import { auth, db, googleProvider } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
-import { BasicLink, InlineLink } from "@/ui/links";
+// import { BasicLink } from "@/ui/links";
+import { InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 import { useAppSelector } from "@/hooks/redux";
 import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 
 import {
   ProfileWrapper,
-  AuthFooterWrapper,
+  // AuthFooterWrapper,
   AuthWrapper,
   ButtonWrapper,
   H1,
@@ -92,7 +93,7 @@ export function AuthPage() {
                   size="large"
                   onClick={handleSignupClick}
                 >
-                  Sign up with email
+                  Sign up with Email
                 </Button>
               </ButtonWrapper>
               <PolicyText>
@@ -109,14 +110,14 @@ export function AuthPage() {
           </AuthWrapper>
         </Wrapper>
 
-        <AuthFooterWrapper>
+        {/* <AuthFooterWrapper>
           {AUTH_FOOTER_LINKS.map(({ to, label }) => (
             <BasicLink key={`${label}-${to}`} to={to}>
               {label}
             </BasicLink>
           ))}
-        </AuthFooterWrapper>
-        <Background bgname={theme}/>
+        </AuthFooterWrapper> */}
+        <Background bgname={theme} />
       </div>
     </ProfileWrapper>
   );

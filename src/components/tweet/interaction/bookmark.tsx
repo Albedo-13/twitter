@@ -82,7 +82,7 @@ const Bookmark = ({ post, user }: BoomarkProps) => {
 
   return (
     <>
-      <InteractionWrapper onClick={increment}>
+      <InteractionWrapper onClick={increment} className="bookmark">
         <InteractionButton />
         <InteractionSVGInner
           viewBox="0 0 18 21"

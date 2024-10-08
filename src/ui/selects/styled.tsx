@@ -9,8 +9,10 @@ export const StyledSelect = styled.select`
   cursor: pointer;
   outline: none;
   appearance: none;
-
+  color: var(--light-color);
   transition: all 0.2s linear;
 `;
 
-export const StyledOption = styled.option``;
+export const StyledOption = styled.option`
+  color: var(--light-color);
+`;

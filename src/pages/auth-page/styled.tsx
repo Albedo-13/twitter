@@ -18,7 +18,7 @@ export const Wrapper = styled.section`
   border-radius: 20px;
   background-color: rgba(var(--bg-primary-rgb), 0.88);
   display: flex;
-  height: calc(100vh - 50px);
+  height: calc(100vh);
   justify-content: center;
   /* height: auto; */
 

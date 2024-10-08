@@ -11,8 +11,8 @@ const DeleteConfirmation = ({handleModalClose, handleDeleteClick}: any) => {
       <ConfirmationText>You are about to delete this post</ConfirmationText>
       <ConfirmationMainText>Are you sure?</ConfirmationMainText>
       <ConfirmationButtonsWrapper>
-        <ConfirmationButton onClick={handleDeleteClick}>Yes</ConfirmationButton>
-        <ConfirmationButton onClick={handleModalClose}>No</ConfirmationButton>
+        <ConfirmationButton onClick={handleDeleteClick} className="yes">Yes</ConfirmationButton>
+        <ConfirmationButton onClick={handleModalClose} className="no">No</ConfirmationButton>
       </ConfirmationButtonsWrapper>
     </>
   );

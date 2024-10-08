@@ -8,7 +8,7 @@ const Button = css`
   align-items: center;
   cursor: pointer;
   transition: 0.2s all;
-
+  gap: 10px;
   &:hover {
     transition: 0.2s all;
   }

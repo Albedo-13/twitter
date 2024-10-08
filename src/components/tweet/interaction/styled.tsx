@@ -7,6 +7,9 @@ export const InteractionWrapper = styled.div`
   &.like {
     flex-grow: 1;
   }
+  &.bookmark {
+    padding: 0 2px 0 20px;
+  }
   &:hover {
     svg > g > path {
       transition: 0.15s all;

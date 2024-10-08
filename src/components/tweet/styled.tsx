@@ -133,6 +133,7 @@ export const ConfirmationMainText = styled.p`
   margin-top: 15px;
   text-align: center;
   font-size: 22px;
+  font-weight: 700;
 `;
 
 export const ConfirmationButtonsWrapper = styled.div`
@@ -143,9 +144,26 @@ export const ConfirmationButtonsWrapper = styled.div`
 `;
 
 export const ConfirmationButton = styled.button`
-  margin-top: 10px;
+  margin-top: 20px;
   font-size: 20px;
   width: 100px;
+  border: 0;
+  border-radius: 20px;
+  transition: 0.15s all;
+
+  &.yes {
+    background-color: var(--secondary-color);
+    &:hover {
+      background-color: var(--error-color);
+    }
+  }
+
+  &.no {
+    background-color: var(--primary-color);
+    &:hover {
+      background-color: var(--accents-color);
+    }
+  }
 `;
 
 export const InteractionContainer = styled.div`

@@ -5,7 +5,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
-
+import { Header } from "@/components/header/header";
 import { Avatar } from "../avatar/avatar";
 import { EditProfile } from "../edit-profile/edit-profile";
 import { Modal } from "../modal/modal";
@@ -18,8 +18,6 @@ import {
   ProfileBodyName,
   ProfileBodyStatus,
   ProfileBodyTag,
-  ProfileHeader,
-  ProfileHeaderName,
   ProfileWrapper,
 } from "./styled";
 
@@ -30,9 +28,7 @@ export function Profile() {
   return (
     <>
       <ProfileWrapper>
-        <ProfileHeader>
-          <ProfileHeaderName>{user.displayName}</ProfileHeaderName>
-        </ProfileHeader>
+        <Header title={user.displayName} />
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>

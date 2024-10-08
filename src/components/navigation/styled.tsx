@@ -28,10 +28,10 @@ export const LogoWrapper = styled.div`
     margin: 10px 0 0 15px;
     /* text-align: center; */
   }
-  @media ${theme.device.sm} {
+  /* @media ${theme.device.sm} {
     margin: 10px 0 0 0;
     text-align: center;
-  }
+  } */
 `;
 
 export const ButtonWrapper = styled.div`

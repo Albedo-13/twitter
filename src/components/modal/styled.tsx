@@ -10,7 +10,6 @@ export const Overlay = styled.aside`
   bottom: 0;
   backdrop-filter: blur(${theme.blur});
   z-index: ${theme.layers.l2};
-  
   height: 100vh;
   overflow-y: auto;
 `;
@@ -23,9 +22,12 @@ export const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* padding:  20px; */
-  /* height: 200vh; */
+  padding:  20px;
   border-radius:  10px;
+  &.modal_top{
+    top: 0;
+    transform: translate(-50%, 0);
+  }
 `;
 
 export const ModalClose = styled.div`
