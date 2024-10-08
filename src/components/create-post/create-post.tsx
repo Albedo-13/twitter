@@ -67,6 +67,7 @@ export function CreatePost() {
       createdAt: new Date(),
       likes: 0,
       likedByUsers: [],
+      bookmarkedByUsers: [],
     };
 
     await setDoc(doc(db, "posts", postId), newPost);

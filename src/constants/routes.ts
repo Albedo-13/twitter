@@ -4,6 +4,7 @@ import { LoginPage } from "@/pages/login-page/login-page";
 import { PostPage } from "@/pages/post-page/post-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
+import { BookmarksPage } from "@/pages/bookmarks-page/bookmarks-page";
 
 export enum ROUTES {
   SIGNUP = "/signup",
@@ -13,6 +14,7 @@ export enum ROUTES {
   HOME = "/",
   PROFILE = "/profile",
   POST = "/post",
+  BOOKMARKS = "/bookmarks",
 }
 
 export const publicRoutes = [
@@ -46,5 +48,9 @@ export const privateRoutes = [
   {
     path: ROUTES.POST + "/:id",
     element: PostPage,
+  },
+  {
+    path: ROUTES.BOOKMARKS,
+    element: BookmarksPage,
   },
 ];

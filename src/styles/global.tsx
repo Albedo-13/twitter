@@ -28,6 +28,13 @@ export const GlobalStyle = createGlobalStyle`
     --like-hover-liked: #f674744e;
     --like-hover-not-liked: #f96969;
 
+    --bookmark-inner-liked: #ffd500;
+    --bookmark-inner-not-liked: transparent;
+    --bookmark-outer-liked: #ffd500;
+    --bookmark-outer-not-liked: #000;
+    --bookmark-hover-liked: #cbc513;
+    --bookmark-hover-not-liked: #eedb48;
+
     --dark-color: #000;
     --light-color: #fff;
     --primary-color:#2f80ed;
@@ -45,6 +52,7 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     &.dark {
       --like-outer-not-liked: #ffffff;
+      --bookmark-outer-not-liked: #ffffff;
       --link-hover-bg: rgba(255, 255, 255, 0.1);
       --border-gray: 1px solid rgba(46,50,54,255);
 
@@ -138,8 +146,16 @@ export const GlobalStyle = createGlobalStyle`
       --aside-left-width: 0px;
       --main-section-width: 100vw;
       --aside-right-width: 0px;
+
+      --scrollbar-basic-width: 0px;
     }
     @media ${theme.device.xs} {
+    }
+  }
+
+  #root{
+    @media ${theme.device.sm} {
+      overflow-x: hidden;
     }
   }
 `;

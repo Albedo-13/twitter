@@ -46,6 +46,11 @@ export function TweetsList() {
             ? post.authorUid === user.uid
             : true
         )
+        .filter((post) => {
+          return location.pathname === ROUTES.BOOKMARKS
+            ? post.bookmarkedByUsers.includes(user.uid)
+            : true;
+        })
         .map((post) => (
           <Tweet
             key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}

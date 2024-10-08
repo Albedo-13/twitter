@@ -72,79 +72,6 @@ export const Image = styled.img`
   max-width: 100%;
 `;
 
-export const LikeButton = styled.label`
-  width: var(--like-size);
-  height: var(--like-size);
-  cursor: pointer;
-`;
-
-export const LikeWrapper = styled.div`
-  display: flex;
-  cursor: pointer;
-  margin-top: 15px;
-  gap: 10px;
-  &:hover {
-    svg.liked {
-      g,
-      path {
-        transition: 0.15s all;
-        color: var(--like-hover-liked);
-      }
-    }
-    svg.not_liked {
-      g,
-      path {
-        transition: 0.15s all;
-        color: var(--like-hover-not-liked);
-      }
-    }
-  }
-`;
-
-export const LikeSVGOuter = styled.svg`
-  position: absolute;
-  height: var(--like-size);
-  width: var(--like-size);
-  &.liked {
-    g,
-    path {
-      color: var(--like-outer-liked);
-    }
-  }
-  &.not_liked {
-    g,
-    path {
-      color: var(--like-outer-not-liked);
-    }
-  }
-`;
-
-export const LikeSVGInner = styled.svg`
-  position: absolute;
-  height: var(--like-size);
-  width: var(--like-size);
-  &.liked {
-    g,
-    path {
-      color: var(--like-inner-liked);
-    }
-  }
-  &.not_liked {
-    g,
-    path {
-      color: var(--like-inner-not-liked);
-    }
-  }
-`;
-
-export const LikeCount = styled.span`
-  font-size: 20px;
-  user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-`;
-
 export const SVGIcon = styled.svg`
   cursor: pointer;
   user-select: none;
@@ -219,4 +146,12 @@ export const ConfirmationButton = styled.button`
   margin-top: 10px;
   font-size: 20px;
   width: 100px;
+`;
+
+export const InteractionContainer = styled.div`
+  display: flex;
+  margin-top: 15px;
+  align-items: flex-end;
+  justify-content: flex-start;
+  font-size: 20px;
 `;

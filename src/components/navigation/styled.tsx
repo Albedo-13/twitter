@@ -85,6 +85,7 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
       }
       &.outer > g > path {
         color: transparent;
+      
       }
     }
   }

@@ -18,10 +18,12 @@ import {
   UserInfoWrapper,
   UserName,
   Wrapper,
+  InteractionContainer,
 } from "./styled";
 
 import Time from "./time";
-import Like from "./like";
+import Like from "./interaction/like";
+import Bookmark from "./interaction/bookmark";
 import More from "./more";
 
 type TweetProps = {
@@ -88,7 +90,10 @@ export function Tweet({ post }: TweetProps) {
           </UserInfoWrapper>
           <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
           {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-          <Like post={post} user={user} />
+          <InteractionContainer>
+            <Like post={post} user={user} />
+            <Bookmark post={post} user={user} />
+          </InteractionContainer>
         </BodyWrapper>
       </Wrapper>
     </>

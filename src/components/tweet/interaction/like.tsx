@@ -3,11 +3,11 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
 import {
-  LikeCount,
-  LikeSVGOuter,
-  LikeSVGInner,
-  LikeButton,
-  LikeWrapper,
+  InteractionCount,
+  InteractionSVGOuter,
+  InteractionSVGInner,
+  InteractionButton,
+  InteractionWrapper,
 } from "./styled";
 
 type LikeProps = {
@@ -89,10 +89,10 @@ const Like = ({ post, user }: LikeProps) => {
 
   return (
     <>
-      <LikeWrapper onClick={increment}>
-        <LikeButton />
+      <InteractionWrapper onClick={increment} className="like">
+        <InteractionButton />
 
-        <LikeSVGInner
+        <InteractionSVGInner
           viewBox="0 0 24 24"
           aria-hidden="true"
           className={likeData.liked ? "liked" : "not_liked"}
@@ -103,8 +103,8 @@ const Like = ({ post, user }: LikeProps) => {
               fill="currentColor"
             ></path>
           </g>
-        </LikeSVGInner>
-        <LikeSVGOuter
+        </InteractionSVGInner>
+        <InteractionSVGOuter
           viewBox="0 0 24 24"
           aria-hidden="true"
           className={likeData.liked ? "liked" : "not_liked"}
@@ -115,9 +115,9 @@ const Like = ({ post, user }: LikeProps) => {
               fill="currentColor"
             ></path>
           </g>
-        </LikeSVGOuter>
-        <LikeCount>{likeData.count}</LikeCount>
-      </LikeWrapper>
+        </InteractionSVGOuter>
+        <InteractionCount>{likeData.count}</InteractionCount>
+      </InteractionWrapper>
     </>
   );
 };
