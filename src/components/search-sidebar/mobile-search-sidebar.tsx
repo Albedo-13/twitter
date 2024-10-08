@@ -1,7 +1,7 @@
-import search from "@assets/icons/search.svg";
+// import search from "@assets/icons/search.svg";
 
 import { useModalControls } from "@/hooks/use-modal-controls";
-import { Button } from "@/ui/buttons";
+// import { Button } from "@/ui/buttons";
 
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
