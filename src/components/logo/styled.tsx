@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
-export const LogoContainer = styled.div`
+import { Link } from "react-router-dom";
+
+export const LogoContainer = styled(Link)`
+  display: block;
   width: 50px;
   height: 50px;
   position: relative;
-  svg{
+  svg {
     transition: 0.5s all;
   }
   svg.twitter > path {
