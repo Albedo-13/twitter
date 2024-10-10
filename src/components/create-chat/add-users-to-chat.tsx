@@ -1,14 +1,14 @@
 import { DocumentData } from "firebase/firestore";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { Loader } from "@/loader/loader";
 import { searchUsers } from "@/utils/firebase/helpers";
-
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { SearchInput } from "../search-input/search-input";
-import { SearchTweet } from "../search-tweet/search-tweet";
 import { SearchedTweets } from "./styled";
 import {
   UserName,
@@ -20,24 +20,24 @@ import {
 } from "./styled";
 
 import no_avatar from "@/assets/imgs/no_avatar.png";
-import checkmark from "@/assets/imgs/checkmark.png";
 
 import { Avatar } from "../avatar/avatar";
 
+type AddUsersToChatProps = {
+  handleCollectChildData: Function;
+  activeChilds: string[];
+};
+
 export function AddUsersToChat({
   handleCollectChildData,
-}: {
-  handleCollectChildData: Function;
-}) {
+  activeChilds,
+}: AddUsersToChatProps) {
+  const user = useAppSelector(getUserSelector);
   const [list, setList] = useState<DocumentData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [debouncedSearchText] = useDebounce(searchText, DEBOUNCE_DELAY_MS);
   const { pathname } = useLocation();
-
-  // const [selectedUsers, setSelectedUsers] = useState<{}>({});
-
-  // const addSelectedUser = (id: string) => setSelectedUsers(prev => ({...prev, id}))
 
   const handleSearchTextChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -46,7 +46,10 @@ export function AddUsersToChat({
   useEffect(() => {
     setIsLoading(true);
     searchUsers(debouncedSearchText).then((searchResults) => {
-      setList(searchResults || []);
+      const filteredWithoutSelf = searchResults.filter(
+        (elem) => elem.uid !== user.uid
+      );
+      setList(filteredWithoutSelf || []);
       setIsLoading(false);
     });
   }, [debouncedSearchText, pathname]);
@@ -62,16 +65,19 @@ export function AddUsersToChat({
         {isLoading && searchText ? (
           <Loader />
         ) : (
-          list.map((item) => (
-            <SearchUsers
-              key={item.uid}
-              uid={item.uid}
-              handleCollectChildData={handleCollectChildData}
-              name={item.displayName}
-              email={item.email}
-              photoURL={item.photoURL ? item.photoURL : no_avatar}
-            />
-          ))
+          list.map((item) => {
+            return (
+              <SearchUsers
+                key={item.uid}
+                isActive={activeChilds.includes(item.uid)}
+                uid={item.uid}
+                handleCollectChildData={handleCollectChildData}
+                name={item.displayName}
+                email={item.email}
+                photoURL={item.photoURL ? item.photoURL : no_avatar}
+              />
+            );
+          })
         )}
       </SearchedTweets>
     </>
@@ -80,6 +86,7 @@ export function AddUsersToChat({
 
 type SearchUsersProps = {
   handleCollectChildData: Function;
+  isActive: boolean;
   uid: string;
   name: string;
   email: string;
@@ -89,13 +96,14 @@ type SearchUsersProps = {
 
 function SearchUsers({
   handleCollectChildData,
+  isActive,
   uid,
   name,
   email,
   content,
   photoURL,
 }: SearchUsersProps) {
-  const [selected, setSelected] = useState<boolean>(false);
+  const [selected, setSelected] = useState<boolean>(isActive);
 
   const handleSelect = () => {
     handleCollectChildData(uid, !selected);

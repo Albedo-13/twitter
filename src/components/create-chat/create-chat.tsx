@@ -1,17 +1,6 @@
-import { useState, useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { doc, setDoc } from "firebase/firestore";
-import { FieldErrors, useForm } from "react-hook-form";
-import { v4 as uuidv4 } from "uuid";
-
-import { db } from "@/firebase";
-import { useAppSelector } from "@/hooks/redux";
-import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { useEffect } from "react";
 import { Button } from "@/ui/buttons";
-import { uploadFile } from "@/utils/firebase/helpers";
-
 import { useModalControls } from "@/hooks/use-modal-controls";
-
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 
@@ -24,17 +13,16 @@ import {
   CreateChatHeaderButton,
 } from "./styled";
 
-type Data = {
-  content: string;
-  image: FileList | null;
-};
+// type Data = {
+//   content: string;
+//   image: FileList | null;
+// };
 //не забыть убирать Independed если есть хоть 1 диалог
 export function CreateChat({
   type = "independed",
 }: {
   type?: "header" | "independed";
 }) {
-  // const user = useAppSelector(getUserSelector);
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
   useEffect(() => {
@@ -67,7 +55,11 @@ export function CreateChat({
       }
       {showModal && (
         <ModalPortal
-          children={<Modal onClose={handleModalClose}><CreateChatModal /></Modal>}
+          children={
+            <Modal onClose={handleModalClose}>
+              <CreateChatModal handleModalClose={handleModalClose}/>
+            </Modal>
+          }
         />
       )}
     </>

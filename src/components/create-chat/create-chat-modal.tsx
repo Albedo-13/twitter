@@ -5,14 +5,12 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
-import noAvatar from "@/assets/imgs/no_avatar.png";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
 import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 
@@ -28,7 +26,7 @@ import {
   ButtonWrapper,
   FileInputLabel,
 } from "./styled";
-import { redirect } from "react-router-dom";
+
 import { AddUsersToChat } from "@/components/create-chat/add-users-to-chat";
 
 type Data = {
@@ -40,10 +38,14 @@ type ChildData = {
   [key: string]: boolean;
 };
 
-//высрал говно, хранить selected в детеяи не стоит, храни на этом уровне и дриль и при 
+//высрал говно, хранить selected в детеяи не стоит, храни на этом уровне и дриль и при
 //рендере дзеця смотри есть ли true / false | undefined понял? понял, харош
 
-export function CreateChatModal() {
+type CreateChatModalProps = {
+  handleModalClose: Function;
+};
+
+export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
   const user = useAppSelector(getUserSelector);
   const [currentPage, setCurrentPage] = useState<1 | 2>(1);
   const [previewImage, setPreviewImage] = useState<string>("");
@@ -77,31 +79,28 @@ export function CreateChatModal() {
   });
 
   const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile("posts", images[0]) : null;
+    return images ? await uploadFile("chats", images[0]) : null;
   };
 
   const onSubmit = async (data: Data) => {
-    console.log(data);
-    console.log(childData.current);
-
     const membersData = convertCollectedChildData(childData.current);
+    const membersDataWithSelf = [...membersData, user.uid];
     const imageName = await getUploadedImageName(data.image);
     const chatId = uuidv4();
 
     const newChat = {
       uid: chatId,
-      members: membersData,
+      members: membersDataWithSelf,
       image: imageName,
       name: data.name,
+      createdAt: new Date(),
     };
 
     await setDoc(doc(db, "chats", chatId), newChat);
-
     reset();
     setPreviewImage("");
+    handleModalClose();
   };
-
-  const convertAndGetUsersData = () => {};
 
   const handleFileInputChange = (event: any) => {
     const file = event.target.files[0];
@@ -154,11 +153,7 @@ export function CreateChatModal() {
                     <NameInput
                       {...register("name")}
                       placeholder="Group name"
-                      // onChange={async (e) => {
-                      //   const value = e.target.value;
-                      //   console.log(value)
-                      //   await trigger('nfasdame'); // выполняем валидацию
-                      // }}
+                      autoComplete="off"
                     />
                   </InformationWrapper>
                   <ButtonWrapper>
@@ -181,6 +176,7 @@ export function CreateChatModal() {
                 <>
                   <AddUsersToChat
                     handleCollectChildData={handleCollectChildData}
+                    activeChilds={convertCollectedChildData(childData.current)}
                   />
                   <ButtonWrapper>
                     <Button variant="primary" size="small" type="submit">
