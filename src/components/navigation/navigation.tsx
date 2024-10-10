@@ -1,7 +1,8 @@
 import { Fragment } from "react/jsx-runtime";
 import { useNavigate } from "react-router-dom";
+import Popup from "reactjs-popup";
 
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { ROUTES } from "@/constants/routes";
 import { logOut } from "@/firebase";
@@ -11,7 +12,6 @@ import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { adaptUserObj } from "@/utils/firebase/helpers";
-
 import { Avatar } from "../avatar/avatar";
 import { CreatePost } from "../create-post/create-post";
 import { Logo } from "../logo/logo";
@@ -22,7 +22,7 @@ import {
   ButtonWrapper,
   LogoWrapper,
   NavList,
-  NavListItemImage,
+  NavListItemImageWrapper,
   NavListItemLink,
   UserBlock,
   UserCard,
@@ -30,6 +30,8 @@ import {
   UserTag,
   UserWrapper,
   Wrapper,
+  PopupContainer,
+  LogOutButton,
 } from "./styled";
 
 export function Navigation() {
@@ -53,10 +55,22 @@ export function Navigation() {
         </LogoWrapper>
         <nav>
           <NavList>
-            {NAVIGATION_LINKS.map(({ label, to, icon, isEnabled }) => (
+            {NAVIGATION_LINKS.map(({ label, to, svgCode, isEnabled }) => (
               <Fragment key={label}>
-                <NavListItemLink to={to} $isEnabled={isEnabled}>
-                  <NavListItemImage src={icon} alt={label} />
+                <NavListItemLink
+                  to={to}
+                  $isEnabled={isEnabled}
+                  onClick={
+                    isEnabled
+                      ? () => {}
+                      : (event) => {
+                          event.preventDefault();
+                        }
+                  }
+                >
+                  <NavListItemImageWrapper title={label}>
+                    {svgCode}
+                  </NavListItemImageWrapper>
                   {label}
                 </NavListItemLink>
               </Fragment>
@@ -75,25 +89,27 @@ export function Navigation() {
         </ButtonWrapper>
 
         <UserWrapper>
-          <UserCard>
-            <AvatarWrapper>
-              <Avatar src={user.photoURL || noAvatar} />
-            </AvatarWrapper>
-            <UserBlock>
-              <UserName>{user.displayName}</UserName>
-              <UserTag>{user.email}</UserTag>
-            </UserBlock>
-          </UserCard>
-          <ButtonWrapper>
-            <Button
-              variant="secondary"
-              size="large"
-              type="button"
-              onClick={handleLogOutClick}
-            >
-              Log out
-            </Button>
-          </ButtonWrapper>
+          <Popup
+            className="menu-popup"
+            trigger={
+              <UserCard>
+                <AvatarWrapper>
+                  <Avatar src={user.photoURL || noAvatar} />
+                </AvatarWrapper>
+                <UserBlock>
+                  <UserName>{user.displayName}</UserName>
+                  <UserTag>{user.email}</UserTag>
+                </UserBlock>
+              </UserCard>
+            }
+            position={["top center", "bottom center"]}
+            arrow={true}
+            offsetY={10}
+          >
+            <PopupContainer>
+              <LogOutButton onClick={handleLogOutClick}>Log out</LogOutButton>
+            </PopupContainer>
+          </Popup>
         </UserWrapper>
       </Wrapper>
       {showModal && (

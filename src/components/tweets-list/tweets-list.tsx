@@ -32,7 +32,9 @@ export function TweetsList() {
   useEffect(() => {
     const q = collection(db, "posts");
     onSnapshot(q, () => {
-      getPosts().then((posts) => setPosts(posts));
+      getPosts().then((posts) => {
+        setPosts(posts);
+      });
     });
   }, []);
 
@@ -44,10 +46,14 @@ export function TweetsList() {
             ? post.authorUid === user.uid
             : true
         )
+        .filter((post) => {
+          return location.pathname === ROUTES.BOOKMARKS
+            ? post.bookmarkedByUsers.includes(user.uid)
+            : true;
+        })
         .map((post) => (
           <Tweet
             key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-            userUid={user.uid}
             post={post}
           />
         ))}

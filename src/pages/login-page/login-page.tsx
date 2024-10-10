@@ -19,7 +19,7 @@ import {
   queryUserEqualByValue,
 } from "@/utils/firebase/helpers";
 
-import { FormWrapper, H1, LogoWrapper } from "./styled";
+import { FormWrapper, H1, LogoWrapper, Background } from "./styled";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -90,6 +90,7 @@ export function LoginPage() {
       <InlineLink to={ROUTES.SIGNUP} align="right">
         Sign up to Twitter
       </InlineLink>
+      <Background />
     </FormWrapper>
   );
 }

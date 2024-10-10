@@ -1,16 +1,10 @@
-import debounce from "debounce";
-import { deleteDoc, doc, DocumentData, updateDoc } from "firebase/firestore";
-import { deleteObject, getDownloadURL, ref } from "firebase/storage";
-import { SyntheticEvent, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-
-import liked from "@/assets/icons/liked.svg";
-import notLiked from "@/assets/icons/not_liked.svg";
-import trashCan from "@/assets/icons/trash-can.svg";
-import noAvatar from "@/assets/imgs/no_avatar.svg";
-import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
+import { DocumentData } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { ROUTES } from "@/constants/routes";
-import { db, storage } from "@/firebase";
+import { storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
@@ -19,29 +13,37 @@ import { Avatar } from "../avatar/avatar";
 import {
   AvatarWrapper,
   BodyWrapper,
-  DeleteIcon,
   Image,
-  LikeCount,
-  LikeIcon,
-  LikeWrapper,
   TweetText,
   UserInfoWrapper,
   UserName,
-  UserTag,
   Wrapper,
+  InteractionContainer,
 } from "./styled";
 
+import Time from "./time";
+import Like from "./interaction/like";
+import Bookmark from "./interaction/bookmark";
+import More from "./more";
+
 type TweetProps = {
-  userUid: string;
   post: DocumentData;
 };
 
-export function Tweet({ userUid, post }: TweetProps) {
+type UserDataType = {
+  photoURL: string | null;
+  displayName: string | null;
+};
+
+export function Tweet({ post }: TweetProps) {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
-  const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  // const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
+  const [userData, setUserData] = useState<UserDataType>({
+    photoURL: null,
+    displayName: null,
+  });
   const navigate = useNavigate();
-  const location = useLocation();
 
   const getImageUrl = async () => {
     try {
@@ -52,10 +54,11 @@ export function Tweet({ userUid, post }: TweetProps) {
     }
   };
 
-  const getUserPhotoByUid = async (userId: string) => {
+  const getAdditionalUserDataByUid = async (userId: string) => {
     const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
     if (!queryUserSnapshot.empty) {
-      return queryUserSnapshot.docs[0].data().photoURL;
+      const { photoURL, displayName } = queryUserSnapshot.docs[0].data();
+      return { photoURL, displayName };
     }
   };
 
@@ -63,81 +66,36 @@ export function Tweet({ userUid, post }: TweetProps) {
     getImageUrl()
       .then((url) => setImgUrl(url))
       .catch(() => setImgUrl(undefined));
-    getUserPhotoByUid(post.authorUid).then((url) => setPhotoUrl(url));
+    getAdditionalUserDataByUid(post.authorUid).then((data) =>
+      setUserData(data as UserDataType)
+    );
   }, []);
-
-  const handleDeleteClick = async (e: SyntheticEvent) => {
-    e.stopPropagation();
-    if (post.image) {
-      const desertRef = ref(storage, post.image);
-      await deleteObject(desertRef);
-    }
-    await deleteDoc(doc(db, "posts", post.uid));
-    if (location.pathname.includes(ROUTES.POST)) {
-      navigate(ROUTES.HOME);
-    }
-  };
-
-  const handleLikeClick = async (e: SyntheticEvent) => {
-    e.stopPropagation();
-    const userUid = user.uid;
-    if (userUid && post.likedByUsers.includes(userUid)) {
-      const newLikes = post.likes - 1;
-      const newLikedByUsers = post.likedByUsers.filter(
-        (uid: string) => uid !== userUid
-      );
-
-      databaseLikeChange(newLikes, newLikedByUsers);
-    } else if (userUid && !post.likedByUsers.includes(userUid)) {
-      const newLikes = post.likes + 1;
-      const newLikedByUsers = [...post.likedByUsers, userUid];
-      databaseLikeChange(newLikes, newLikedByUsers);
-    }
-  };
-
-  const databaseLikeChange = debounce(
-    (newLikes: number, newLikedByUsers: DocumentData[string]) => {
-      const postRef = doc(db, "posts", post.uid);
-      updateDoc(postRef, {
-        likes: newLikes,
-        likedByUsers: newLikedByUsers,
-      });
-    },
-    DEBOUNCE_DELAY_MS
-  );
 
   const handleOpenPost = () => {
     navigate(`${ROUTES.POST}/${post.uid}`);
   };
 
   return (
-    <Wrapper>
-      <AvatarWrapper>
-        <Avatar src={photoUrl || noAvatar} />
-      </AvatarWrapper>
-      <BodyWrapper onClick={handleOpenPost}>
-        <UserInfoWrapper>
-          <UserName>{post.displayName}</UserName>
-          <UserTag>{post.email}</UserTag>
-        </UserInfoWrapper>
-        <TweetText>{post.content}</TweetText>
-        {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-        <LikeWrapper onClick={handleLikeClick}>
-          <LikeIcon
-            src={post.likedByUsers.includes(userUid) ? liked : notLiked}
-            alt="like post"
-            data-isliked={post.likedByUsers.includes(userUid)}
-          />
-          <LikeCount>{post.likes}</LikeCount>
-        </LikeWrapper>
-      </BodyWrapper>
-      {userUid === post.authorUid && (
-        <DeleteIcon
-          onClick={handleDeleteClick}
-          src={trashCan}
-          alt="delete icon"
-        />
-      )}
-    </Wrapper>
+    <>
+      <Wrapper>
+        <AvatarWrapper>
+          <Avatar src={userData.photoURL || noAvatar} />
+        </AvatarWrapper>
+        <BodyWrapper>
+          <UserInfoWrapper>
+            <UserName>{userData.displayName}</UserName>
+            <Time timestamp={post.createdAt.seconds} />
+            {/* <UserTag>{post.email}</UserTag> */}
+            <More post={post} user={user} />
+          </UserInfoWrapper>
+          <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
+          {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+          <InteractionContainer>
+            <Like post={post} user={user} />
+            <Bookmark post={post} user={user} />
+          </InteractionContainer>
+        </BodyWrapper>
+      </Wrapper>
+    </>
   );
 }

@@ -21,6 +21,9 @@ import { FormError } from "../errors/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 type EditProfileProps = {
   handleModalClose: VoidFunction;
 };
@@ -72,7 +75,9 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
         data.currentPassword &&
         updatePassword(auth.currentUser!, data.newPassword);
       handleModalClose();
+      toast.success("Succesfully changed!");
     } catch (error) {
+      toast.error("Something went wrong...");
       if (error instanceof FirebaseError) {
         navigate(ROUTES.PROFILE);
       }
