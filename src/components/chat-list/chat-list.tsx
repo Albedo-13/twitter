@@ -4,7 +4,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "@/firebase";
 
 import noAvatar from "@/assets/imgs/no_avatar.png";
-import { ChatsContainer, ChatWrapper, UserName, UserTag,  AvatarWrapper } from "./styled";
+import { ChatsContainer, ChatWrapper, ChatName, ChatTag, ChatInfoWrapper,  AvatarWrapper } from "./styled";
 
 type ChatsData = {
   image: string | null;
@@ -51,11 +51,10 @@ const Chat = ({ image, members, name }: ChatsData) => {
       <AvatarWrapper>
         <Avatar src={imgUrl || noAvatar} />
       </AvatarWrapper>
-      <div>
-        <UserName>{name}</UserName>
-        <UserTag>{members.length} members</UserTag>
-        {/* <UserText>{content}</UserText> */}
-      </div>
+      <ChatInfoWrapper>
+        <ChatName>{name}</ChatName>
+        <ChatTag>{members.length} members</ChatTag>
+      </ChatInfoWrapper>
     </ChatWrapper>
   );
 };

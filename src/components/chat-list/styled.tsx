@@ -41,7 +41,7 @@ export const AvatarWrapper = styled.div`
   position: relative;
 `;
 
-export const UserName = styled.p`
+export const ChatName = styled.p`
   font-weight: 600;
   font-size: 18px;
   margin-top: 15px;
@@ -50,7 +50,7 @@ export const UserName = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const UserTag = styled.p`
+export const ChatTag = styled.p`
   font-size: 18px;
   opacity: ${theme.opacity};
   white-space: nowrap;
@@ -69,3 +69,5 @@ export const UserText = styled.p`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
+export const ChatInfoWrapper = styled.div``;
