@@ -31,7 +31,7 @@ export function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme={theme.toString()}
       />
     </ThemeProvider>
   );

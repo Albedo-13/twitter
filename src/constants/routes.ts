@@ -3,6 +3,7 @@ import { LoginPage } from "@/pages/login-page/login-page";
 import { AuthPage } from "@/pages/auth-page/auth-page";
 import { FeedPage } from "@/pages/feed-page/feed-page";
 import { MessagesPage } from "@/pages/messages-page/messages-page";
+import { ChatPage } from "@/pages/chat-page/chat-page";
 import { BookmarksPage } from "@/pages/bookmarks-page/bookmarks-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { PostPage } from "@/pages/post-page/post-page";
@@ -14,6 +15,7 @@ export enum ROUTES {
   ALL = "*",
   HOME = "/",
   MESSAGES = "/messages",
+  CHAT = "/messages",
   BOOKMARKS = "/bookmarks",
   PROFILE = "/profile",
   POST = "/post",
@@ -46,6 +48,10 @@ export const privateRoutes = [
   {
     path: ROUTES.MESSAGES,
     element: MessagesPage,
+  },
+  {
+    path: ROUTES.CHAT + "/:id",
+    element: ChatPage,
   },
   {
     path: ROUTES.BOOKMARKS,

@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
 
+import { Link } from "react-router-dom";
+
 export const ChatsContainer = styled.div`
   padding: 10px;
   display: flex;
@@ -9,7 +11,7 @@ export const ChatsContainer = styled.div`
   gap: 10px;
 `;
 
-export const ChatWrapper = styled.div`
+export const ChatWrapper = styled(Link)`
   color: var(--text-primary-color);
   text-decoration: none;
   white-space: nowrap;

@@ -4,7 +4,18 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "@/firebase";
 
 import noAvatar from "@/assets/imgs/no_avatar.png";
-import { ChatsContainer, ChatWrapper, ChatName, ChatTag, ChatInfoWrapper,  AvatarWrapper } from "./styled";
+
+
+import { ROUTES } from "@/constants/routes";
+
+import {
+  ChatsContainer,
+  ChatWrapper,
+  ChatName,
+  ChatTag,
+  ChatInfoWrapper,
+  AvatarWrapper,
+} from "./styled";
 
 type ChatsData = {
   image: string | null;
@@ -13,11 +24,11 @@ type ChatsData = {
   uid: string;
 };
 
-type ChatListProps = {
+type ChatsListProps = {
   chats: ChatsData[];
 };
 
-export const ChatList = ({ chats }: ChatListProps) => {
+export const ChatsList = ({ chats }: ChatsListProps) => {
   return (
     <ChatsContainer>
       {chats.map((data, i) => (
@@ -27,7 +38,7 @@ export const ChatList = ({ chats }: ChatListProps) => {
   );
 };
 
-const Chat = ({ image, members, name }: ChatsData) => {
+const Chat = ({ image, members, name, uid }: ChatsData) => {
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
 
   const getImageUrl = async () => {
@@ -47,7 +58,7 @@ const Chat = ({ image, members, name }: ChatsData) => {
   }, []);
 
   return (
-    <ChatWrapper>
+    <ChatWrapper to={`${ROUTES.CHAT}/${uid}`}>
       <AvatarWrapper>
         <Avatar src={imgUrl || noAvatar} />
       </AvatarWrapper>

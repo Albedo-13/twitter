@@ -7,7 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     /* --theme-change-time: 0.35s all; */
     --avatar-image-size: 50px;
     --header-height: 0px;
-    --footer-height: 50px;
+    --footer-height: 0px;
 
     --aside-left-width: 260px;
     --main-section-width: 600px;

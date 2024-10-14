@@ -1,6 +1,6 @@
 import { Header } from "@/components/header/header";
 import { CreateChat } from "@/components/create-chat/create-chat";
-import { ChatList } from "@/components/chat-list/chat-list";
+import { ChatsList } from "@/components/chats-list/chats-list";
 
 import {
   collection,
@@ -52,7 +52,7 @@ export function MessagesPage() {
       {chats === null ? (
         <></>
       ) : chats.length > 0 ? (
-        <ChatList chats={chats} />
+        <ChatsList chats={chats} />
       ) : (
         <CreateChat type="independed" />
       )}
