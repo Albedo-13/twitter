@@ -17,11 +17,12 @@ export const Members = styled.div`
 `
 
 export const MessagesListWrapper = styled.div`
-  flex-grow: 1;
+height: 100%;
 `;
 
 export const MessageInput = styled.div`
   flex-shrink: 0;
-  background-color: var(--secondary-color);
+  border-top: var(--border-gray);
+  /* background-color: var(--secondary-color); */
   min-height: 56px;
 `;
