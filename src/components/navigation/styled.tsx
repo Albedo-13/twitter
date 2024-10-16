@@ -67,11 +67,12 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
 
   font-size: 18px;
   padding: 15px 0 15px 20px;
-  display: flex;
   align-items: center;
   border-radius: 50px;
   transition: 0.2s all;
 
+  /* display: flex; */
+  display: ${({ $isEnabled }) => ($isEnabled ? "flex" : "none")};
   color: ${({ $isEnabled }) =>
     $isEnabled ? "var(--text-primary-color)" : "var(--text-secondary-color)"};
   font-weight: ${({ $isEnabled }) => ($isEnabled ? "300" : "100")};
@@ -85,7 +86,6 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
       }
       &.outer > g > path {
         color: transparent;
-      
       }
     }
   }

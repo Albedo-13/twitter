@@ -17,8 +17,6 @@ type ChatsData = {
 };
 
 export function Chat({ members }: ChatsData) {
-
-  
   return (
     <ChatWrapper>
       <Members>{members.length} members</Members>

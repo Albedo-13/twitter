@@ -32,7 +32,11 @@ export function MessagesPage() {
         where("members", "array-contains", user.uid)
       )
     );
-    if (!querySnapshot.docs.length) return;
+
+    if (!querySnapshot.docs.length) {
+      setChats([]);
+      return;
+    }
 
     let convertedData: any = [];
     querySnapshot.forEach((e) => convertedData.push(e.data()));

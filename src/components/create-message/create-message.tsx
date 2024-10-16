@@ -44,8 +44,18 @@ export function CreateMessage() {
     reset();
   };
 
+  const handleKeyDown = ({ key, shiftKey }: any) => {
+    console.log("temp");
+    if (!shiftKey && key === "Enter") {
+      handleSubmit(sendMessageDataToDB)();
+    }
+  };
+
   return (
-    <CreateMessageWrapper onSubmit={handleSubmit(sendMessageDataToDB)}>
+    <CreateMessageWrapper
+      onSubmit={handleSubmit(sendMessageDataToDB)}
+      onKeyDown={handleKeyDown}
+    >
       <Input
         {...register("text")}
         className={errors.text ? "error" : ""}

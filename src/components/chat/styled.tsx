@@ -14,14 +14,15 @@ export const Members = styled.div`
   position: absolute;
   top: -20px;
   color: var(--text-secondary-color);
-`
+`;
 
-export const MessagesListWrapper = styled.div`
-height: 100%;
+export const MessagesListWrapper = styled.main`
+  height: 100%;
 `;
 
 export const MessageInput = styled.div`
   flex-shrink: 0;
+  /* margin-top: 10px; */
   border-top: var(--border-gray);
   /* background-color: var(--secondary-color); */
   min-height: 56px;

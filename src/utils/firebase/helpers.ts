@@ -88,7 +88,7 @@ export const reauthUser = async (password = "") => {
 export const searchUsers = async (searchText: string) => {
   const querySnapshot = await queryUserByName(searchText);
   const list = querySnapshot.docs
-    .map((doc) => doc.data())
-    .slice(0, SEARCH_ITEMS_COUNT);
+    .map((doc) => doc.data());
+    // .slice(0, SEARCH_ITEMS_COUNT);
   return list;
 };

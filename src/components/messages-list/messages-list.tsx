@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "@/firebase";
 import {
   collection,
@@ -11,7 +11,7 @@ import {
 import { useParams } from "react-router-dom";
 import { Message } from "@/components/message/message";
 
-import { ScrollWindow, MessagesListWrapper } from "./styled";
+import { MessagesListContainer, ScrollWindow } from "./styled";
 
 type MessageData = {
   authorUid: string;
@@ -23,7 +23,7 @@ type MessageData = {
 export const MessagesList = () => {
   const { id } = useParams();
   const [messages, setMessages] = useState<MessageData[] | null>(null);
-  // const scrollElem = useRef<any>();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const getMessages = async () => {
     const querySnapshot = await getDocs(
@@ -32,38 +32,34 @@ export const MessagesList = () => {
         orderBy("createdAt", "asc")
       )
     );
-    if (!querySnapshot.docs[0]) throw new Error("no post by this id");
+    if (!querySnapshot.docs[0]) return [];
     const messages = querySnapshot.docs.map((doc) => doc.data());
     return messages;
   };
-  // container.scrollTop = container.scrollHeight;
+
   useEffect(() => {
-    const q = collection(db, "posts");
+    const q = collection(db, "chats", id!, "messages");
     onSnapshot(q, () => {
       getMessages().then((data: any) => {
         setMessages(data);
-        // scrollElem.current.scrollTop = e.currentTarget.scrollHeight;
-        // onClick={(e: any) => {
-        //   e.currentTarget
-        // }}
-        // container.scrollTop = container.scrollHeight;
-        // messagesListElem.current.scrollTop = messagesListElem.current.scrollHeight;
       });
     });
-    // container.scrollTop = container.scrollHeight;
   }, []);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView();
+  }, [messages]);
+
   return (
-    <ScrollWindow
-    // ref={scrollElem}
-    >
-      <MessagesListWrapper>
+    <ScrollWindow>
+      <MessagesListContainer>
         {messages === null
-          ? "Loading..."
+          ? ""
           : messages.map((data: MessageData, i) => {
               return <Message key={i} {...data} />;
             })}
-      </MessagesListWrapper>
+        <div ref={messagesEndRef} />
+      </MessagesListContainer>
     </ScrollWindow>
   );
 };
