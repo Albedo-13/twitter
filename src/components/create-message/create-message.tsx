@@ -1,23 +1,38 @@
-import { CreateMessageWrapper, Input, Send, SendSVG } from "./styled";
 import { db } from "@/firebase";
 import { setDoc, doc } from "firebase/firestore";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { v4 as uuidv4 } from "uuid";
-
+import addMedia from "@/assets/icons/add-media.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { schema } from "./form-schema";
+import { useState } from "react";
+import { uploadFile } from "@/utils/firebase/helpers";
+
+import {
+  CreateMessageWrapper,
+  Input,
+  Send,
+  SendSVG,
+  FileInputWrapper,
+  FileInputImage,
+  FileInput,
+  InputWrapper,
+  FileInputPreviewImage,
+} from "./styled";
 
 type Data = {
   text: string;
-  // image: FileList | null;
+  image: FileList | null;
 };
 
 export function CreateMessage() {
   const { id } = useParams();
   const user = useAppSelector(getUserSelector);
+
+  const [previewImage, setPreviewImage] = useState<string>();
 
   const {
     register,
@@ -28,20 +43,29 @@ export function CreateMessage() {
   } = useForm<Data>({
     defaultValues: {
       text: "",
+      image: null,
     },
     resolver: zodResolver(schema),
   });
 
+  const getUploadedImageName = async (images: FileList | null) => {
+    return images ? await uploadFile(`chats/${id}`, images[0]) : null;
+  };
+
   const sendMessageDataToDB = async (formData: Data) => {
     const messageId = uuidv4();
+    const imageName = await getUploadedImageName(formData.image);
     const newMessage = {
       uid: messageId,
       authorUid: user.uid,
       text: formData.text,
+      image: imageName,
       createdAt: new Date(),
     };
     await setDoc(doc(db, "chats", id!, "messages", messageId), newMessage);
+    
     reset();
+    setPreviewImage("");
   };
 
   const handleKeyDown = ({ key, shiftKey }: any) => {
@@ -51,23 +75,55 @@ export function CreateMessage() {
     }
   };
 
+  const handleFileInputChange = (event: any) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function ({ target }) {
+        if (target) {
+          setPreviewImage(target.result as string);
+        } else {
+          console.error("Bug perhaps, i dunno");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+    register("image").onChange(event);
+  };
+
   return (
     <CreateMessageWrapper
       onSubmit={handleSubmit(sendMessageDataToDB)}
       onKeyDown={handleKeyDown}
     >
-      <Input
-        {...register("text")}
-        className={errors.text ? "error" : ""}
-        onInput={({ target }: any) => {
-          //i dont know why, but this kinda works
-          target.style.height = `0px`;
-          target.style.height = `${target.scrollHeight}px`;
-        }}
-        placeholder="Write a message...."
-        onBlur={() => clearErrors()}
-        disabled={isSubmitting}
-      ></Input>
+      <FileInputWrapper>
+        <label htmlFor="file-input">
+          <FileInputImage src={addMedia} alt="upload file" />
+        </label>
+        <FileInput
+          {...register("image")}
+          type="file"
+          id="file-input"
+          accept="image/*"
+          onChange={handleFileInputChange}
+        />
+      </FileInputWrapper>
+      <InputWrapper>
+        <FileInputPreviewImage src={previewImage} />
+        <Input
+          {...register("text")}
+          className={errors.text ? "error" : ""}
+          onInput={({ target }: any) => {
+            //i dont know why, but this kinda works
+            target.style.height = `0px`;
+            target.style.height = `${target.scrollHeight}px`;
+          }}
+          placeholder="Write a message...."
+          onBlur={() => clearErrors()}
+          disabled={isSubmitting}
+        ></Input>
+      </InputWrapper>
+
       <Send disabled={isSubmitting}>
         <SendSVG viewBox="0 0 512.001 512.001">
           <path

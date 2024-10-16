@@ -60,3 +60,40 @@ export const SendSVG = styled.svg`
   height: 100%;
   width: 100%;
 `;
+
+export const FileInputWrapper = styled.div`
+  cursor: pointer;
+`;
+
+export const FileInputImage = styled.img`
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+`;
+
+export const FileInput = styled.input`
+  display: none;
+`;
+
+export const FileInputPreviewImage = styled.img`
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
+  border-radius: 20px;
+
+  max-width: 100%;
+  max-height: 150px;
+  /* width: 100%; */
+  height: auto;
+
+  object-fit: contain;
+  /* height: 100px; */
+`;
+
+export const InputWrapper = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  /* background-color: var(--secondary-color); */
+  border-radius: 10px;
+`;

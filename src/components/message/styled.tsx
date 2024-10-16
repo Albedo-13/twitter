@@ -9,6 +9,14 @@ export const AvatarWrapper = styled.div`
   -ms-user-select: none;
 `;
 
+export const Image = styled.img`
+  border-radius: 20px;
+  margin-top: 15px;
+  max-height: 330px;
+  width: auto;
+  max-width: 100%;
+`;
+
 export const MessageText = styled.p`
   margin-top: 5px;
   width: 100%;
