@@ -24,10 +24,11 @@ type LikeData = {
 };
 
 const Like = ({ post }: LikeProps) => {
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
+
   const [likeData, setLikeData] = useState<LikeData>({
     count: null,
     liked: null,
@@ -38,10 +39,10 @@ const Like = ({ post }: LikeProps) => {
       return {
         ...prev,
         count: post.likes,
-        liked: post.likedByUsers.includes(user.uid),
+        liked: post.likedByUsers.includes(uid),
       };
     });
-  }, [post.likedByUsers, post.likes, user.uid]);
+  }, [post.likedByUsers, post.likes, uid]);
 
   useEffect(() => {
     return () => {
@@ -53,7 +54,9 @@ const Like = ({ post }: LikeProps) => {
 
   const increment = (event: SyntheticEvent) => {
     event.stopPropagation();
-    const newCount = likeData.count! + (likeData.liked ? -1 : 1);
+    const { count, liked } = likeData;
+    const newCount = count! + (liked ? -1 : 1);
+
     setLikeData((prev) => {
       return {
         ...prev,
@@ -65,24 +68,24 @@ const Like = ({ post }: LikeProps) => {
     if (timer) clearTimeout(timer);
 
     const newTimer = setTimeout(() => {
-      sendToServer(newCount, !likeData.liked);
+      sendToServer(newCount, !liked);
     }, LIKE_DEBOUNCE_DELAY_MS);
 
     setTimer(newTimer);
   };
 
   const sendToServer = async (likesCount: number, isLiked: boolean) => {
-    const wasLikedBefore = post.likedByUsers.includes(user.uid);
+    const wasLikedBefore = post.likedByUsers.includes(uid);
 
-    if (user.uid && wasLikedBefore !== isLiked) {
+    if (uid && wasLikedBefore !== isLiked) {
       let newLikedByUsers: string[] = [];
 
       if (wasLikedBefore) {
         newLikedByUsers = post.likedByUsers.filter(
-          (uid: string) => uid !== user.uid
+          (authorUid: string) => authorUid !== uid
         );
       } else {
-        newLikedByUsers = [...post.likedByUsers, user.uid];
+        newLikedByUsers = [...post.likedByUsers, uid];
       }
 
       const postRef = doc(db, "posts", post.uid);

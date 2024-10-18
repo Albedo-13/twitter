@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { ChangeEvent } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -34,7 +35,7 @@ type Data = {
 };
 
 export function CreatePost() {
-  const user = useAppSelector(getUserSelector);
+  const { photoURL, uid } = useAppSelector(getUserSelector);
 
   const [previewImage, setPreviewImage] = useState<string>();
 
@@ -63,7 +64,7 @@ export function CreatePost() {
       uid: postId,
       content: data.content,
       image: imageName,
-      authorUid: user?.uid,
+      authorUid: uid,
       createdAt: new Date(),
       likes: 0,
       likedByUsers: [],
@@ -76,10 +77,9 @@ export function CreatePost() {
     setPreviewImage("");
   };
 
-  const handleFileInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+
     if (file) {
       const reader = new FileReader();
       reader.onload = function ({ target }) {
@@ -97,7 +97,7 @@ export function CreatePost() {
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
-        <Avatar src={user.photoURL || noAvatar} />
+        <Avatar src={photoURL || noAvatar} />
       </AvatarWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />

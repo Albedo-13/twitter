@@ -1,10 +1,11 @@
 import { SyntheticEvent } from "react";
 
 import {
-  ConfirmationButton,
   ConfirmationButtonsWrapper,
   ConfirmationMainText,
   ConfirmationText,
+  NoButton,
+  YesButton,
 } from "./styled";
 
 type DeleteConfirmationProps = {
@@ -21,12 +22,8 @@ const DeleteConfirmation = ({
       <ConfirmationText>You are about to delete this post</ConfirmationText>
       <ConfirmationMainText>Are you sure?</ConfirmationMainText>
       <ConfirmationButtonsWrapper>
-        <ConfirmationButton onClick={handleDeleteClick} className="yes">
-          Yes
-        </ConfirmationButton>
-        <ConfirmationButton onClick={handleModalClose} className="no">
-          No
-        </ConfirmationButton>
+        <YesButton onClick={handleDeleteClick}>Yes</YesButton>
+        <NoButton onClick={handleModalClose}>No</NoButton>
       </ConfirmationButtonsWrapper>
     </>
   );

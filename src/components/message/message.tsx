@@ -35,8 +35,8 @@ type UserDataType = {
 };
 
 export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
-  const user = useAppSelector(getUserSelector);
-  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+  const { uid } = useAppSelector(getUserSelector);
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserDataType>({
     photoURL: null,
     displayName: null,
@@ -53,23 +53,24 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
   useEffect(() => {
     const getImageUrl = async () => {
       try {
-        if (image === null) return;
+        if (image === null) return null;
         const url = await getDownloadURL(ref(storage, image));
         return url;
       } catch (error) {
-        return undefined;
+        console.error(error);
+        return null;
       }
     };
     getImageUrl()
       .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(undefined));
+      .catch(() => setImgUrl(null));
     getAdditionalUserDataByAuthorUid(authorUid).then((data) =>
       setUserData(data as UserDataType)
     );
   }, [authorUid, image]);
 
   return (
-    <MessageWrapper className={user.uid === authorUid ? "messageByUser" : ""}>
+    <MessageWrapper className={uid === authorUid ? "messageByUser" : ""}>
       <AvatarWrapper>
         <Avatar src={userData.photoURL || noAvatar} />
       </AvatarWrapper>

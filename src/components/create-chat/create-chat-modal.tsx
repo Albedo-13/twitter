@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
 import { useRef, useState } from "react";
+import { ChangeEvent } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -41,7 +42,7 @@ type CreateChatModalProps = {
 };
 
 export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const [currentPage, setCurrentPage] = useState<1 | 2>(1);
   const [previewImage, setPreviewImage] = useState<string>("");
 
@@ -79,7 +80,7 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
 
   const onSubmit = async (data: Data) => {
     const membersData = convertCollectedChildData(childData.current);
-    const membersDataWithSelf = [...membersData, user.uid];
+    const membersDataWithSelf = [...membersData, uid];
     const imageName = await getUploadedImageName(data.image);
     const chatId = uuidv4();
 
@@ -97,9 +98,7 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
     handleModalClose();
   };
 
-  const handleFileInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();

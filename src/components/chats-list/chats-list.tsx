@@ -37,21 +37,22 @@ export const ChatsList = ({ chats }: ChatsListProps) => {
 };
 
 const Chat = ({ image, members, name, uid }: ChatsData) => {
-  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
 
   useEffect(() => {
     const getImageUrl = async () => {
       try {
-        if (image === null) return;
+        if (image === null) return null;
         const url = await getDownloadURL(ref(storage, image));
         return url;
       } catch (error) {
-        return undefined;
+        console.error(error);
+        return null;
       }
     };
     getImageUrl()
       .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(undefined));
+      .catch(() => setImgUrl(null));
   }, [image]);
 
   return (

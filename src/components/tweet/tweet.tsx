@@ -34,7 +34,7 @@ type UserDataType = {
 };
 
 export function Tweet({ post }: TweetProps) {
-  const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
+  const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserDataType>({
     photoURL: null,
     displayName: null,
@@ -47,7 +47,7 @@ export function Tweet({ post }: TweetProps) {
         const url = await getDownloadURL(ref(storage, post?.image));
         return url;
       } catch (error) {
-        return undefined;
+        return null;
       }
     };
 
@@ -61,7 +61,7 @@ export function Tweet({ post }: TweetProps) {
 
     getImageUrl()
       .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(undefined));
+      .catch(() => setImgUrl(null));
     getAdditionalUserDataByUid(post.authorUid).then((data) =>
       setUserData(data as UserDataType)
     );

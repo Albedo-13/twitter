@@ -39,16 +39,16 @@ export function AuthPage() {
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
-
+      const { uid, phoneNumber, email, photoURL, displayName } = user;
       const newUser = {
-        uid: user.uid,
-        phone: user.phoneNumber || "",
-        email: user.email,
-        photoURL: user.photoURL || "",
-        displayName: user.displayName,
+        uid: uid,
+        phone: phoneNumber || "",
+        email: email,
+        photoURL: photoURL || "",
+        displayName: displayName,
       };
 
-      const queryUserSnapshot = await queryUserEqualByValue("uid", user.uid);
+      const queryUserSnapshot = await queryUserEqualByValue("uid", uid);
 
       if (queryUserSnapshot.empty) {
         await addDoc(collection(db, "users"), newUser);
@@ -90,13 +90,13 @@ export function AuthPage() {
                 </Button>
               </ButtonWrapper>
               <PolicyText>
-                By singing up you agree to the{" "}
-                <InlineLink to="#">Terms of Service</InlineLink> and{" "}
-                <InlineLink to="#">Privacy Policy</InlineLink>, including{" "}
+                By singing up you agree to the
+                <InlineLink to="#">Terms of Service</InlineLink> and
+                <InlineLink to="#">Privacy Policy</InlineLink>, including
                 <InlineLink to="#">Cookie Use</InlineLink>.
               </PolicyText>
               <LoginText>
-                Already have an account?{" "}
+                Already have an account?
                 <InlineLink to={ROUTES.LOGIN}>Log in</InlineLink>
               </LoginText>
             </div>

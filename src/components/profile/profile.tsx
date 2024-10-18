@@ -24,16 +24,16 @@ import {
 
 export function Profile() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  const user = useAppSelector(getUserSelector);
+  const { photoURL, displayName, status } = useAppSelector(getUserSelector);
 
   return (
     <>
       <ProfileWrapper>
-        <Header title={user.displayName} />
+        <Header title={displayName} />
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={user.photoURL || noAvatar} />
+            <Avatar src={photoURL || noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button
@@ -45,9 +45,9 @@ export function Profile() {
               Edit profile
             </Button>
           </EditButtonWrapper>
-          <ProfileBodyName>{user.displayName}</ProfileBodyName>
+          <ProfileBodyName>{displayName}</ProfileBodyName>
           <ProfileBodyTag>{auth.currentUser?.email}</ProfileBodyTag>
-          <ProfileBodyStatus>{user.status}</ProfileBodyStatus>
+          <ProfileBodyStatus>{status}</ProfileBodyStatus>
         </ProfileBody>
       </ProfileWrapper>
 

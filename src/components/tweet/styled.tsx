@@ -38,21 +38,21 @@ export const UserInfoWrapper = styled.div`
 
 export const UserName = styled.p`
   font-weight: 700;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 export const UserTag = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   opacity: ${theme.opacity};
 `;
 
 export const UserTime = styled.time`
-  font-size: 18px;
+  font-size: 16px;
   opacity: ${theme.opacity};
 `;
 
 export const TweetText = styled.p`
-  font-size: 18px;
+  font-size: 16px;
   margin-top: 5px;
   width: calc(100% - 24px);
   overflow-wrap: break-word;
@@ -139,7 +139,7 @@ export const ConfirmationButtonsWrapper = styled.div`
   width: 100%;
 `;
 
-export const ConfirmationButton = styled.button`
+export const YesButton = styled.button`
   margin-top: 20px;
   font-size: 20px;
   width: 100px;
@@ -147,18 +147,23 @@ export const ConfirmationButton = styled.button`
   border-radius: 20px;
   transition: 0.15s all;
 
-  &.yes {
-    background-color: var(--secondary-color);
-    &:hover {
-      background-color: var(--error-color);
-    }
+  background-color: var(--secondary-color);
+  &:hover {
+    background-color: var(--error-color);
   }
+`;
 
-  &.no {
-    background-color: var(--primary-color);
-    &:hover {
-      background-color: var(--accents-color);
-    }
+export const NoButton = styled.button`
+  margin-top: 20px;
+  font-size: 20px;
+  width: 100px;
+  border: 0;
+  border-radius: 20px;
+  transition: 0.15s all;
+
+  background-color: var(--primary-color);
+  &:hover {
+    background-color: var(--accents-color);
   }
 `;
 

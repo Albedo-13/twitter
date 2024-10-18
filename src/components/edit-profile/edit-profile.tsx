@@ -39,16 +39,16 @@ type Data = {
 export function EditProfile({ handleModalClose }: EditProfileProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(getUserSelector);
+  const { displayName, gender, status, uid } = useAppSelector(getUserSelector);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Data>({
     defaultValues: {
-      displayName: user.displayName,
-      gender: user.gender,
-      status: user.status,
+      displayName: displayName,
+      gender: gender,
+      status: status,
       currentPassword: "",
       newPassword: "",
     },
@@ -59,7 +59,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
     try {
       navigate(ROUTES.LOGIN);
       await reauthUser(data.currentPassword);
-      const userSnapshot = await queryUserEqualByValue("uid", user.uid);
+      const userSnapshot = await queryUserEqualByValue("uid", uid);
       const userRef = doc(db, "users", userSnapshot.docs[0].id);
 
       dispatch(removeUser());

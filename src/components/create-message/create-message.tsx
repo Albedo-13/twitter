@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { doc,setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useState } from "react";
+import { ChangeEvent, KeyboardEvent } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
@@ -31,7 +32,7 @@ type Data = {
 
 export function CreateMessage() {
   const { id } = useParams();
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
 
   const [previewImage, setPreviewImage] = useState<string>();
 
@@ -58,7 +59,7 @@ export function CreateMessage() {
     const imageName = await getUploadedImageName(formData.image);
     const newMessage = {
       uid: messageId,
-      authorUid: user.uid,
+      authorUid: uid,
       text: formData.text,
       image: imageName,
       createdAt: new Date(),
@@ -69,18 +70,13 @@ export function CreateMessage() {
     setPreviewImage("");
   };
 
-  const handleKeyDown = ({
-    key,
-    shiftKey,
-  }: React.KeyboardEvent<HTMLFormElement>) => {
+  const handleKeyDown = ({ key, shiftKey }: KeyboardEvent<HTMLFormElement>) => {
     if (!shiftKey && key === "Enter") {
       handleSubmit(sendMessageDataToDB)();
     }
   };
 
-  const handleFileInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -118,7 +114,7 @@ export function CreateMessage() {
         <Input
           {...register("text")}
           className={errors.text ? "error" : ""}
-          onInput={({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
+          onInput={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
             //i dont know why, but this kinda works
             target.style.height = `0px`;
             target.style.height = `${target.scrollHeight}px`;

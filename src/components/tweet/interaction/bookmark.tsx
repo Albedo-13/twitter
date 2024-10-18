@@ -22,7 +22,7 @@ type BoomarkData = {
 };
 
 const Bookmark = ({ post }: BoomarkProps) => {
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
@@ -34,10 +34,10 @@ const Bookmark = ({ post }: BoomarkProps) => {
     setBookmarkData((prev) => {
       return {
         ...prev,
-        bookmarked: post.bookmarkedByUsers.includes(user.uid),
+        bookmarked: post.bookmarkedByUsers.includes(uid),
       };
     });
-  }, [post.bookmarkedByUsers, user.uid]);
+  }, [post.bookmarkedByUsers, uid]);
 
   useEffect(() => {
     return () => {
@@ -66,17 +66,17 @@ const Bookmark = ({ post }: BoomarkProps) => {
   };
 
   const sendToServer = async (isBookmarked: boolean) => {
-    const wasBookmarkedBefore = post.bookmarkedByUsers.includes(user.uid);
+    const wasBookmarkedBefore = post.bookmarkedByUsers.includes(uid);
 
-    if (user.uid && wasBookmarkedBefore !== isBookmarked) {
+    if (uid && wasBookmarkedBefore !== isBookmarked) {
       let newBookmarkedByUsers: string[] = [];
 
       if (wasBookmarkedBefore) {
         newBookmarkedByUsers = post.bookmarkedByUsers.filter(
-          (uid: string) => uid !== user.uid
+          (uid: string) => uid !== uid
         );
       } else {
-        newBookmarkedByUsers = [...post.bookmarkedByUsers, user.uid];
+        newBookmarkedByUsers = [...post.bookmarkedByUsers, uid];
       }
 
       const postRef = doc(db, "posts", post.uid);

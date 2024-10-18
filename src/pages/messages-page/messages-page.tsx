@@ -22,7 +22,7 @@ type ChatsData = {
 };
 
 export function MessagesPage() {
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const [chats, setChats] = useState<ChatsData[] | null>(null);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export function MessagesPage() {
         const querySnapshot = await getDocs(
           query(
             collection(db, "chats"),
-            where("members", "array-contains", user.uid)
+            where("members", "array-contains", uid)
           )
         );
 
@@ -47,7 +47,7 @@ export function MessagesPage() {
       };
       getPostByUid();
     });
-  }, [user.uid]);
+  }, [uid]);
 
   return (
     <>

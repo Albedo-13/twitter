@@ -30,7 +30,7 @@ type validReasons = "chatDoesNotExist" | "userNotInChat";
 
 export function ChatPage() {
   const { id } = useParams();
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const [chat, setChat] = useState<ChatsData | null>(null);
   const navigate = useNavigate();
 
@@ -59,7 +59,7 @@ export function ChatPage() {
 
       const chatData: ChatsData = querySnapshot.docs[0].data() as ChatsData;
 
-      if (!chatData.members.includes(user.uid)) {
+      if (!chatData.members.includes(uid)) {
         purge("userNotInChat");
         return;
       }
@@ -71,12 +71,12 @@ export function ChatPage() {
     onSnapshot(q, () => {
       getChatByUid();
     });
-  }, [id, user.uid, navigate]);
+  }, [id, uid, navigate]);
 
   return (
     <ChatWrapper>
       <Header title={chat ? `${chat.name}` : ""} />
-      {chat === null ? <></> : <Chat {...chat} />}
+      {chat === null ? null : <Chat {...chat} />}
     </ChatWrapper>
   );
 }

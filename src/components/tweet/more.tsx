@@ -19,7 +19,7 @@ type MoreProps = {
 };
 
 const More = ({ post }: MoreProps) => {
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
   const location = useLocation();
@@ -72,7 +72,7 @@ const More = ({ post }: MoreProps) => {
             </g>
           </SVGIcon>
         </MoreWrapperItem>
-        {user.uid === post.authorUid && (
+        {uid === post.authorUid && (
           <MoreWrapperItem>
             <SVGIcon viewBox="0 0 41.336 41.336" onClick={handleModalShow}>
               <g>

@@ -40,7 +40,7 @@ export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector(getUserSelector);
+  const { photoURL, displayName, email } = useAppSelector(getUserSelector);
 
   const handleLogOutClick = () => {
     logOut().then(() => {
@@ -96,11 +96,11 @@ export function Navigation() {
             trigger={
               <UserCard>
                 <AvatarWrapper>
-                  <Avatar src={user.photoURL || noAvatar} />
+                  <Avatar src={photoURL || noAvatar} />
                 </AvatarWrapper>
                 <UserBlock>
-                  <UserName>{user.displayName}</UserName>
-                  <UserTag>{user.email}</UserTag>
+                  <UserName>{displayName}</UserName>
+                  <UserTag>{email}</UserTag>
                 </UserBlock>
               </UserCard>
             }
