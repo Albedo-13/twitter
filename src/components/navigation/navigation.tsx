@@ -12,6 +12,7 @@ import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { adaptUserObj } from "@/utils/firebase/helpers";
+
 import { Avatar } from "../avatar/avatar";
 import { CreatePost } from "../create-post/create-post";
 import { Logo } from "../logo/logo";
@@ -19,20 +20,20 @@ import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 import {
   AvatarWrapper,
-  ButtonWrapper,
   ButtonForSmolScreen,
+  ButtonWrapper,
+  LogOutButton,
   LogoWrapper,
   NavList,
   NavListItemImageWrapper,
   NavListItemLink,
+  PopupContainer,
   UserBlock,
   UserCard,
   UserName,
   UserTag,
   UserWrapper,
   Wrapper,
-  PopupContainer,
-  LogOutButton,
 } from "./styled";
 
 export function Navigation() {

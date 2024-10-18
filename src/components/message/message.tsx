@@ -1,22 +1,24 @@
 import { Timestamp } from "firebase/firestore";
-import { useState, useEffect } from "react";
-import { Avatar } from "@/components/avatar/avatar";
-import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useState } from "react";
+
 import noAvatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
+import Time from "@/components/tweet/time";
+import { storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "@/firebase";
-import Time from "@/components/tweet/time";
+import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+
 import {
-  MessageWrapper,
   AvatarWrapper,
   BodyWrapper,
+  Image,
+  MessageText,
+  MessageWrapper,
+  TimeText,
   UserInfoWrapper,
   UserName,
-  MessageText,
-  Image,
-  TimeText,
 } from "./styled";
 
 type MessageData = {
@@ -48,24 +50,23 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
     }
   };
 
-  const getImageUrl = async () => {
-    try {
-      if (image === null) return;
-      const url = await getDownloadURL(ref(storage, image));
-      return url;
-    } catch (error) {
-      return undefined;
-    }
-  };
-
   useEffect(() => {
+    const getImageUrl = async () => {
+      try {
+        if (image === null) return;
+        const url = await getDownloadURL(ref(storage, image));
+        return url;
+      } catch (error) {
+        return undefined;
+      }
+    };
     getImageUrl()
       .then((url) => setImgUrl(url))
       .catch(() => setImgUrl(undefined));
     getAdditionalUserDataByAuthorUid(authorUid).then((data) =>
       setUserData(data as UserDataType)
     );
-  }, []);
+  }, [authorUid, image]);
 
   return (
     <MessageWrapper className={user.uid === authorUid ? "messageByUser" : ""}>

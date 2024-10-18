@@ -1,26 +1,27 @@
-import { db } from "@/firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { doc,setDoc } from "firebase/firestore";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
+
+import addMedia from "@/assets/icons/add-media.svg";
+import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-import { v4 as uuidv4 } from "uuid";
-import addMedia from "@/assets/icons/add-media.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { schema } from "./form-schema";
-import { useState } from "react";
 import { uploadFile } from "@/utils/firebase/helpers";
 
+import { schema } from "./form-schema";
 import {
   CreateMessageWrapper,
+  FileInput,
+  FileInputImage,
+  FileInputPreviewImage,
+  FileInputWrapper,
   Input,
+  InputWrapper,
   Send,
   SendSVG,
-  FileInputWrapper,
-  FileInputImage,
-  FileInput,
-  InputWrapper,
-  FileInputPreviewImage,
 } from "./styled";
 
 type Data = {

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,10 +22,10 @@ import {
   ErrorWrapper,
   FileInput,
   FileInputImage,
+  FileInputPreviewImage,
   FileInputWrapper,
   FormWrapper,
   Textarea,
-  FileInputPreviewImage,
 } from "./styled";
 
 type Data = {

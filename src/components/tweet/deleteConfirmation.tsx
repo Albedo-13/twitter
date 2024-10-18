@@ -1,9 +1,10 @@
 import { SyntheticEvent } from "react";
+
 import {
-  ConfirmationText,
-  ConfirmationMainText,
-  ConfirmationButtonsWrapper,
   ConfirmationButton,
+  ConfirmationButtonsWrapper,
+  ConfirmationMainText,
+  ConfirmationText,
 } from "./styled";
 
 type DeleteConfirmationProps = {

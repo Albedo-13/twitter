@@ -1,16 +1,18 @@
 import { doc, DocumentData, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
+
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
-import {
-  InteractionCount,
-  InteractionSVGOuter,
-  InteractionSVGInner,
-  InteractionButton,
-  InteractionWrapper,
-} from "./styled";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+
+import {
+  InteractionButton,
+  InteractionCount,
+  InteractionSVGInner,
+  InteractionSVGOuter,
+  InteractionWrapper,
+} from "./styled";
 
 type LikeProps = {
   post: DocumentData;
@@ -39,7 +41,7 @@ const Like = ({ post }: LikeProps) => {
         liked: post.likedByUsers.includes(user.uid),
       };
     });
-  }, []);
+  }, [post.likedByUsers, post.likes, user.uid]);
 
   useEffect(() => {
     return () => {
@@ -51,7 +53,7 @@ const Like = ({ post }: LikeProps) => {
 
   const increment = (event: SyntheticEvent) => {
     event.stopPropagation();
-    let newCount = likeData.count! + (likeData.liked ? -1 : 1);
+    const newCount = likeData.count! + (likeData.liked ? -1 : 1);
     setLikeData((prev) => {
       return {
         ...prev,

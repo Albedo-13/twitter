@@ -1,10 +1,11 @@
-import { useRef, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
+import { useRef, useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
+import { AddUsersToChat } from "@/components/create-chat/add-users-to-chat";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -13,21 +14,18 @@ import { uploadFile } from "@/utils/firebase/helpers";
 
 import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
-
 import {
+  ButtonWrapper,
   CreateChatModalWrapper,
-  FormWrapper,
-  InformationWrapper,
   ErrorWrapper,
   FileInput,
   FileInputImage,
-  FileInputWrapper,
-  NameInput,
-  ButtonWrapper,
   FileInputLabel,
+  FileInputWrapper,
+  FormWrapper,
+  InformationWrapper,
+  NameInput,
 } from "./styled";
-
-import { AddUsersToChat } from "@/components/create-chat/add-users-to-chat";
 
 type Data = {
   name: string;

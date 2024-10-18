@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { Button } from "@/ui/buttons";
+
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { Button } from "@/ui/buttons";
+
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
-
 import { CreateChatModal } from "./create-chat-modal";
-
 import {
-  CreateChatWrapper,
-  MainText,
-  DescrText,
   CreateChatHeaderButton,
+  CreateChatWrapper,
+  DescrText,
+  MainText,
 } from "./styled";
 
 type CreateChatProps = {
@@ -22,7 +22,7 @@ export function CreateChat({ type = "independed" }: CreateChatProps) {
 
   useEffect(() => {
     handleModalClose();
-  }, [location]);
+  }, [handleModalClose]);
 
   return (
     <>

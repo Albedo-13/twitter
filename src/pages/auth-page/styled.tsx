@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import xBackground from "@/assets/imgs/back-x.webp";
 import { theme } from "@/styles/theme";
@@ -92,7 +93,7 @@ export const ButtonWrapper = styled.div`
   margin-top: 25px;
 `;
 
-export const H1 = styled.h1`
+export const Header1 = styled.h1`
   font-weight: 900;
   font-size: 84px;
   margin-top: 55px;
@@ -104,7 +105,7 @@ export const H1 = styled.h1`
   }
 `;
 
-export const H2 = styled.h2`
+export const Header2 = styled.h2`
   font-weight: 900;
   font-size: 42px;
   margin-top: 45px;

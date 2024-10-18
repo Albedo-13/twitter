@@ -1,32 +1,29 @@
 import { signInWithPopup } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-
 import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";
 import { Logo } from "@/components/logo/logo";
-
 import { ROUTES } from "@/constants/routes";
 import { auth, db, googleProvider } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
-import { setUser } from "@/redux/slices/user-slice";
-import { Button } from "@/ui/buttons";
-
-import { InlineLink } from "@/ui/links";
-import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 import { useAppSelector } from "@/hooks/redux";
 import { getThemeSelector } from "@/redux/selectors/theme-selectors";
+import { setUser } from "@/redux/slices/user-slice";
+import { Button } from "@/ui/buttons";
+import { InlineLink } from "@/ui/links";
+import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import {
-  ProfileWrapper,
   AuthWrapper,
+  Background,
   ButtonWrapper,
-  H1,
-  H2,
+  Header1,
+  Header2,
   LoginText,
   LogoWrapper,
   PolicyText,
-  Background,
+  ProfileWrapper,
   Wrapper,
 } from "./styled";
 
@@ -71,8 +68,8 @@ export function AuthPage() {
               <Logo />
             </LogoWrapper>
             <div>
-              <H1>Happening now</H1>
-              <H2>Join Twitter today</H2>
+              <Header1>Happening now</Header1>
+              <Header2>Join Twitter today</Header2>
               <ButtonWrapper>
                 <Button
                   icon={googleIcon}

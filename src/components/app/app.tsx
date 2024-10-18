@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "styled-components";
 
 import { useAppSelector } from "@/hooks/redux";
@@ -7,15 +9,13 @@ import { GlobalStyle } from "@/styles/global";
 import { themeBase } from "@/styles/theme";
 
 import { router } from "./router";
-import { ToastContainer } from "react-toastify";
-import { useEffect } from "react";
 
 export function App() {
   const theme = useAppSelector(getThemeSelector);
 
   useEffect(() => {
     document.querySelector(":root")!.className = theme.toString();
-  }, []);
+  }, [theme]);
 
   return (
     <ThemeProvider theme={themeBase}>

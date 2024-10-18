@@ -1,9 +1,9 @@
-import { Switch } from "../switch/switch";
-import { StyledHeader, Title, SwitchWrapper } from "./styled";
-import MobileNavigation from "../navigation/mobile-navigation";
-
-import { NavigationMobileWrapper } from "./styled";
 import { Fragment, ReactNode } from "react";
+
+import MobileNavigation from "../navigation/mobile-navigation";
+import { Switch } from "../switch/switch";
+import { StyledHeader, SwitchWrapper,Title } from "./styled";
+import { NavigationMobileWrapper } from "./styled";
 
 export function Header({
   title,

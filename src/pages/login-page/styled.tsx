@@ -16,7 +16,7 @@ export const FormWrapper = styled.form`
   }
 `;
 
-export const H1 = styled.h1`
+export const Header1 = styled.h1`
   @media ${theme.device.md} {
     text-align: center;
   }

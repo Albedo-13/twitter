@@ -1,15 +1,17 @@
 import { doc, DocumentData, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
+
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
-import {
-  InteractionSVGOuter,
-  InteractionSVGInner,
-  InteractionButton,
-  InteractionWrapper,
-} from "./styled";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+
+import {
+  InteractionButton,
+  InteractionSVGInner,
+  InteractionSVGOuter,
+  InteractionWrapper,
+} from "./styled";
 
 type BoomarkProps = {
   post: DocumentData;
@@ -35,7 +37,7 @@ const Bookmark = ({ post }: BoomarkProps) => {
         bookmarked: post.bookmarkedByUsers.includes(user.uid),
       };
     });
-  }, []);
+  }, [post.bookmarkedByUsers, user.uid]);
 
   useEffect(() => {
     return () => {

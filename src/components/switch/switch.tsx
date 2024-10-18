@@ -1,9 +1,10 @@
+import { useEffect, useState } from "react";
+
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 import { toggleTheme } from "@/redux/slices/theme-slice";
 
 import { StyledSwitch, SwitchInput, SwitchSpan } from "./styled";
-import { useEffect, useState } from "react";
-import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 
 export function Switch() {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export function Switch() {
     if (theme === "dark") {
       setChecked(true);
     }
-  }, []);
+  }, [theme]);
 
   const handleThemeChange = () => {
     setChecked((prev) => !prev);

@@ -3,25 +3,24 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
+import no_avatar from "@/assets/imgs/no_avatar.png";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
-import { Loader } from "@/loader/loader";
-import { searchUsers } from "@/utils/firebase/helpers";
 import { useAppSelector } from "@/hooks/redux";
+import { Loader } from "@/loader/loader";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { searchUsers } from "@/utils/firebase/helpers";
+
+import { Avatar } from "../avatar/avatar";
 import { SearchInput } from "../search-input/search-input";
 import { SearchedTweets } from "./styled";
 import {
+  AvatarWrapper,
+  Checkmark,
   UserName,
   UserTag,
   UserText,
   Wrapper,
-  AvatarWrapper,
-  Checkmark,
 } from "./styled";
-
-import no_avatar from "@/assets/imgs/no_avatar.png";
-
-import { Avatar } from "../avatar/avatar";
 
 type AddUsersToChatProps = {
   handleCollectChildData: Function;
@@ -52,7 +51,7 @@ export function AddUsersToChat({
       setList(filteredWithoutSelf || []);
       setIsLoading(false);
     });
-  }, [debouncedSearchText, pathname]);
+  }, [debouncedSearchText, pathname, user.uid]);
 
   return (
     <>

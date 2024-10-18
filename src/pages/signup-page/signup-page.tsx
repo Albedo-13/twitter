@@ -24,14 +24,14 @@ import { getDaysFromMonth } from "@/utils/get-days-from-month";
 
 import { schema } from "./form-schema";
 import {
+  Background,
   ButtonWrapper,
   FormWrapper,
-  H1,
-  H2,
+  Header1,
+  Header2,
   LogoWrapper,
   SelectWrapper,
   Text,
-  Background,
 } from "./styled";
 
 type Data = {
@@ -109,7 +109,7 @@ export function SignupPage() {
       <LogoWrapper>
         <Logo />
       </LogoWrapper>
-      <H1>Create an account</H1>
+      <Header1>Create an account</Header1>
       <Input {...register("displayName")} type="text" placeholder="Name" />
       <FormError inputFor={errors.displayName} />
       <Input {...register("phone")} type="text" placeholder="Phone number" />
@@ -119,7 +119,7 @@ export function SignupPage() {
       <Input {...register("password")} type="password" placeholder="Password" />
       <FormError inputFor={errors.password} />
       <InlineLink to={ROUTES.AUTH}>Use email</InlineLink>
-      <H2>Date of birth</H2>
+      <Header2>Date of birth</Header2>
       <Text>
         Facilisi sem pulvinar velit nunc, gravida scelerisque amet nibh sit.
         Quis bibendum ante phasellus metus, magna lacinia sed augue. Odio enim

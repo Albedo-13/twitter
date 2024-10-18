@@ -22,21 +22,20 @@ export function PostPage() {
   const location = useLocation();
   const postUid = location.pathname.split("/").at(-1);
 
-  const getPostByUid = async () => {
-    const querySnapshot = await getDocs(
-      query(collection(db, "posts"), where("uid", "==", postUid))
-    );
-    if (!querySnapshot.docs[0]) throw new Error("no post by this id");
-    const post = querySnapshot.docs[0].data();
-    setPost(post);
-  };
-
   useEffect(() => {
+    const getPostByUid = async () => {
+      const querySnapshot = await getDocs(
+        query(collection(db, "posts"), where("uid", "==", postUid))
+      );
+      if (!querySnapshot.docs[0]) throw new Error("no post by this id");
+      const post = querySnapshot.docs[0].data();
+      setPost(post);
+    };
     const q = collection(db, "posts");
     onSnapshot(q, () => {
       getPostByUid().catch(() => navigate(ROUTES.HOME));
     });
-  }, []);
+  }, [postUid, navigate]);
 
   return (
     <>

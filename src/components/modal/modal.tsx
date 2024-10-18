@@ -29,14 +29,14 @@ export function Modal({ onClose, children }: ModalProps) {
         setAddStyle(modalContentHeight >= modalHeight);
       }
     });
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    const elementRefCopy = elementRef.current;
+    if (elementRefCopy) {
+      observer.observe(elementRefCopy);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (elementRefCopy) {
+        observer.unobserve(elementRefCopy);
       }
     };
   }, []);

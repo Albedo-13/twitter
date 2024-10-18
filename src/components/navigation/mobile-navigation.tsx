@@ -1,21 +1,18 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 
 import { useModalControls } from "@/hooks/use-modal-controls";
 
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 import { Navigation } from "./navigation";
-
 import { Burger, SVGBurger } from "./styled";
 
 export default function MobileNavigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  const location = useLocation();
 
   useEffect(() => {
     handleModalClose();
-  }, [location]);
+  }, [handleModalClose]);
 
   return (
     <>

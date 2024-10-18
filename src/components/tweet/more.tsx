@@ -2,18 +2,17 @@ import { deleteDoc, doc, DocumentData } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { SyntheticEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { db, storage } from "@/firebase";
-import { ROUTES } from "@/constants/routes";
 
-import { MoreWrapper, MoreWrapperItem, SVGIcon } from "./styled";
+import { ROUTES } from "@/constants/routes";
+import { db, storage } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
-
 import DeleteConfirmation from "./deleteConfirmation";
-import { useAppSelector } from "@/hooks/redux";
-import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { MoreWrapper, MoreWrapperItem, SVGIcon } from "./styled";
 
 type MoreProps = {
   post: DocumentData;

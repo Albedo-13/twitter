@@ -1,11 +1,11 @@
-import { MessagesList } from "@/components/messages-list/messages-list";
 import { CreateMessage } from "@/components/create-message/create-message";
+import { MessagesList } from "@/components/messages-list/messages-list";
 
 import {
   ChatWrapper,
   Members,
-  MessagesListWrapper,
   MessageInput,
+  MessagesListWrapper,
 } from "./styled";
 
 type ChatsData = {
