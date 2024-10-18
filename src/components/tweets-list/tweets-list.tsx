@@ -18,7 +18,7 @@ import { Tweet } from "../tweet/tweet";
 
 export function TweetsList() {
   const [posts, setPosts] = useState<DocumentData[]>([]);
-  const user = useAppSelector(getUserSelector);
+  const { uid } = useAppSelector(getUserSelector);
   const location = useLocation();
 
   const getPosts = async () => {
@@ -32,7 +32,9 @@ export function TweetsList() {
   useEffect(() => {
     const q = collection(db, "posts");
     onSnapshot(q, () => {
-      getPosts().then((posts) => setPosts(posts));
+      getPosts().then((posts) => {
+        setPosts(posts);
+      });
     });
   }, []);
 
@@ -40,14 +42,16 @@ export function TweetsList() {
     <>
       {posts
         .filter((post) =>
-          location.pathname === ROUTES.PROFILE
-            ? post.authorUid === user.uid
-            : true
+          location.pathname === ROUTES.PROFILE ? post.authorUid === uid : true
         )
+        .filter((post) => {
+          return location.pathname === ROUTES.BOOKMARKS
+            ? post.bookmarkedByUsers.includes(uid)
+            : true;
+        })
         .map((post) => (
           <Tweet
             key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-            userUid={user.uid}
             post={post}
           />
         ))}

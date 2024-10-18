@@ -1,5 +1,6 @@
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import noBackground from "@/assets/imgs/no_background.webp";
+import { Header } from "@/components/header/header";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
@@ -18,25 +19,21 @@ import {
   ProfileBodyName,
   ProfileBodyStatus,
   ProfileBodyTag,
-  ProfileHeader,
-  ProfileHeaderName,
   ProfileWrapper,
 } from "./styled";
 
 export function Profile() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  const user = useAppSelector(getUserSelector);
+  const { photoURL, displayName, status } = useAppSelector(getUserSelector);
 
   return (
     <>
       <ProfileWrapper>
-        <ProfileHeader>
-          <ProfileHeaderName>{user.displayName}</ProfileHeaderName>
-        </ProfileHeader>
+        <Header title={displayName} />
         <ProfileBackgroundImage src={noBackground} />
         <ProfileBody>
           <AvatarWrapper>
-            <Avatar src={user.photoURL || noAvatar} />
+            <Avatar src={photoURL || noAvatar} />
           </AvatarWrapper>
           <EditButtonWrapper>
             <Button
@@ -48,9 +45,9 @@ export function Profile() {
               Edit profile
             </Button>
           </EditButtonWrapper>
-          <ProfileBodyName>{user.displayName}</ProfileBodyName>
+          <ProfileBodyName>{displayName}</ProfileBodyName>
           <ProfileBodyTag>{auth.currentUser?.email}</ProfileBodyTag>
-          <ProfileBodyStatus>{user.status}</ProfileBodyStatus>
+          <ProfileBodyStatus>{status}</ProfileBodyStatus>
         </ProfileBody>
       </ProfileWrapper>
 

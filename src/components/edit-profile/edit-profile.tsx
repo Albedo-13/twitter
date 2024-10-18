@@ -1,9 +1,12 @@
+import "react-toastify/dist/ReactToastify.css";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { GENDERS } from "@/constants/genders";
 import { ROUTES } from "@/constants/routes";
@@ -36,16 +39,16 @@ type Data = {
 export function EditProfile({ handleModalClose }: EditProfileProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const user = useAppSelector(getUserSelector);
+  const { displayName, gender, status, uid } = useAppSelector(getUserSelector);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Data>({
     defaultValues: {
-      displayName: user.displayName,
-      gender: user.gender,
-      status: user.status,
+      displayName: displayName,
+      gender: gender,
+      status: status,
       currentPassword: "",
       newPassword: "",
     },
@@ -56,7 +59,7 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
     try {
       navigate(ROUTES.LOGIN);
       await reauthUser(data.currentPassword);
-      const userSnapshot = await queryUserEqualByValue("uid", user.uid);
+      const userSnapshot = await queryUserEqualByValue("uid", uid);
       const userRef = doc(db, "users", userSnapshot.docs[0].id);
 
       dispatch(removeUser());
@@ -72,7 +75,9 @@ export function EditProfile({ handleModalClose }: EditProfileProps) {
         data.currentPassword &&
         updatePassword(auth.currentUser!, data.newPassword);
       handleModalClose();
+      toast.success("Succesfully changed!");
     } catch (error) {
+      toast.error("Something went wrong...");
       if (error instanceof FirebaseError) {
         navigate(ROUTES.PROFILE);
       }
