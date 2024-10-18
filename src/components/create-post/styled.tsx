@@ -5,7 +5,6 @@ export const FileInputPreviewImage = styled.img`
   margin-bottom: 10px;
   max-width: 100%;
   max-height: 200px;
-  /* height: 100px; */
 `;
 
 export const CreatePostWrapper = styled.div`

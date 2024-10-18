@@ -4,10 +4,9 @@ import { theme } from "@/styles/theme";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
-    /* --theme-change-time: 0.35s all; */
     --avatar-image-size: 50px;
     --header-height: 0px;
-    --footer-height: 50px;
+    --footer-height: 0px;
 
     --aside-left-width: 260px;
     --main-section-width: 600px;
@@ -18,7 +17,6 @@ export const GlobalStyle = createGlobalStyle`
     --scrollbar-bg-color: rgba(180, 180, 180, 1);
     --border-gray: 1px solid #d8d8d8;
     --link-hover-bg: rgba(0, 0, 0, 0.1);
-    /* --bg-primary- */
     
     --like-size: 20px;
     --like-inner-liked: #ff0000;
@@ -71,7 +69,6 @@ export const GlobalStyle = createGlobalStyle`
 
   #root {
     overflow-y: scroll;
-    /* background-color: var(--bg-primary-color); */
   }
   
   * {
@@ -79,10 +76,6 @@ export const GlobalStyle = createGlobalStyle`
     color-scheme: ${({ theme }) => theme.colorScheme};
     box-sizing: border-box;
     color: var(--text-primary-color);
-
-    //ебанёт? не должно
-    //ебануло
-    /* transition: var(--theme-change-time); */
   }
 
   ::-webkit-scrollbar {
@@ -91,7 +84,6 @@ export const GlobalStyle = createGlobalStyle`
     background-color: var(--scrollbar-bg-color);
 
     &-thumb {
-      /* border: 1px solid var(--bg-dark); */
       border-radius: 10px;
       background: var(--scrollbar-color);
     }
@@ -118,12 +110,10 @@ export const GlobalStyle = createGlobalStyle`
     display: grid;
     position: relative;
     height: 100vh;
-    /* width: 100%; */
     grid-template-areas:
       "header header header"
       "aside-left main-section aside-right"
       "footer footer footer";
-    /* grid-template-rows: var(--header-height) 1fr;  */
     grid-template-rows: var(--header-height) 1fr var(--footer-height);
     grid-template-columns: var(--aside-left-width) var(--main-section-width) var(--aside-right-width); 
     transition: 0.2s all;

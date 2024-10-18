@@ -1,25 +1,31 @@
 import { doc, DocumentData, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
+
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
+
 import {
-  InteractionSVGOuter,
-  InteractionSVGInner,
   InteractionButton,
+  InteractionSVGInner,
+  InteractionSVGOuter,
   InteractionWrapper,
 } from "./styled";
 
 type BoomarkProps = {
   post: DocumentData;
-  user: any;
 };
 
 type BoomarkData = {
   bookmarked: boolean | null;
 };
 
-const Bookmark = ({ post, user }: BoomarkProps) => {
-  const [timer, setTimer] = useState<any>(null);
+const Bookmark = ({ post }: BoomarkProps) => {
+  const user = useAppSelector(getUserSelector);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const [bookmarkData, setBookmarkData] = useState<BoomarkData>({
     bookmarked: null,
   });
@@ -31,7 +37,7 @@ const Bookmark = ({ post, user }: BoomarkProps) => {
         bookmarked: post.bookmarkedByUsers.includes(user.uid),
       };
     });
-  }, []);
+  }, [post.bookmarkedByUsers, user.uid]);
 
   useEffect(() => {
     return () => {
@@ -63,7 +69,7 @@ const Bookmark = ({ post, user }: BoomarkProps) => {
     const wasBookmarkedBefore = post.bookmarkedByUsers.includes(user.uid);
 
     if (user.uid && wasBookmarkedBefore !== isBookmarked) {
-      let newBookmarkedByUsers: any = [];
+      let newBookmarkedByUsers: string[] = [];
 
       if (wasBookmarkedBefore) {
         newBookmarkedByUsers = post.bookmarkedByUsers.filter(

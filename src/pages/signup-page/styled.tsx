@@ -31,7 +31,7 @@ export const SelectWrapper = styled.div`
   gap: 20px;
   select {
     color: black;
-    option{
+    option {
       color: black;
     }
   }
@@ -41,7 +41,7 @@ export const SelectWrapper = styled.div`
   }
 `;
 
-export const H1 = styled.h1`
+export const Header1 = styled.h1`
   font-weight: 700;
   font-size: 30px;
   margin-top: 45px;
@@ -52,7 +52,7 @@ export const H1 = styled.h1`
   }
 `;
 
-export const H2 = styled.h2`
+export const Header2 = styled.h2`
   font-weight: 700;
   font-size: 18px;
 `;

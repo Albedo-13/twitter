@@ -1,6 +1,7 @@
-import { LogoContainer, LogoSVG } from "./styled";
 import { useAppSelector } from "@/hooks/redux";
 import { getThemeSelector } from "@/redux/selectors/theme-selectors";
+
+import { LogoContainer, LogoSVG } from "./styled";
 
 export function Logo() {
   const theme = useAppSelector(getThemeSelector);

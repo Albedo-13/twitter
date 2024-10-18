@@ -1,12 +1,8 @@
-// import search from "@assets/icons/search.svg";
-
 import { useModalControls } from "@/hooks/use-modal-controls";
-// import { Button } from "@/ui/buttons";
 
 import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 import { SearchSidebar } from "./search-sidebar";
-
 import { SearchIcon } from "./styled";
 
 export function MobileSearchSidebar() {
@@ -14,15 +10,6 @@ export function MobileSearchSidebar() {
 
   return (
     <>
-      {/* <Button
-        variant="outlined"
-        size="extra-small"
-        type="button"
-        icon={search}
-        onClick={handleModalShow}
-      >
-        {" "}
-      </Button> */}
       <SearchIcon
         onClick={handleModalShow}
         width="24"

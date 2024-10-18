@@ -5,6 +5,7 @@ import { SearchSidebar } from "@/components/search-sidebar/search-sidebar";
 
 import { MobileSearchSidebar } from "../search-sidebar/mobile-search-sidebar";
 import {
+  Background,
   ContentWrapper,
   NavigationDesktopWrapper,
   NavigationWrapper,
@@ -12,7 +13,6 @@ import {
   SearchDesktopWrapper,
   SearchMobileWrapper,
   SearchWrapper,
-  Background,
 } from "./styled";
 
 export function Layout() {
@@ -21,9 +21,6 @@ export function Layout() {
       <ProfileWrapper>
         <div className="gridInterface">
           <NavigationWrapper>
-            {/* <NavigationMobileWrapper>
-              <MobileNavigation />
-            </NavigationMobileWrapper> */}
             <NavigationDesktopWrapper>
               <Navigation />
             </NavigationDesktopWrapper>

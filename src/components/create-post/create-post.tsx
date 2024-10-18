@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -22,10 +22,10 @@ import {
   ErrorWrapper,
   FileInput,
   FileInputImage,
+  FileInputPreviewImage,
   FileInputWrapper,
   FormWrapper,
   Textarea,
-  FileInputPreviewImage,
 } from "./styled";
 
 type Data = {
@@ -76,8 +76,10 @@ export function CreatePost() {
     setPreviewImage("");
   };
 
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function ({ target }) {
@@ -89,7 +91,7 @@ export function CreatePost() {
       };
       reader.readAsDataURL(file);
     }
-    register("image").onChange(event)
+    register("image").onChange(event);
   };
 
   return (

@@ -15,13 +15,13 @@ type ModalProps = {
 };
 
 export function Modal({ onClose, children }: ModalProps) {
-  const elementRef = useRef<any>(null);
-  const childRef = useRef<any>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
   const [addStyle, setAddStyle] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         if (!childRef.current) return;
         const modalHeight = entry.contentRect.height;
         const modalContentHeight = childRef.current.clientHeight;
@@ -29,21 +29,17 @@ export function Modal({ onClose, children }: ModalProps) {
         setAddStyle(modalContentHeight >= modalHeight);
       }
     });
-
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    const elementRefCopy = elementRef.current;
+    if (elementRefCopy) {
+      observer.observe(elementRefCopy);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (elementRefCopy) {
+        observer.unobserve(elementRefCopy);
       }
     };
   }, []);
-
-  useEffect(() => {
-    console.log(addStyle);
-  }, [addStyle]);
 
   const handleCloseClick = (e: SyntheticEvent) => {
     if (e.target === e.currentTarget) {
@@ -54,10 +50,6 @@ export function Modal({ onClose, children }: ModalProps) {
     if ((e as KeyboardEvent).key === "Escape") {
       onClose();
     }
-  };
-
-  const handleResize = (event: any) => {
-    console.log(event.target);
   };
 
   useEffect(() => {
@@ -72,10 +64,12 @@ export function Modal({ onClose, children }: ModalProps) {
       aria-modal="true"
       className="overlay"
       onMouseDown={handleCloseClick}
-      onClick={handleResize}
       ref={elementRef}
     >
-      <StyledModal className={addStyle ? "modal modal_top" : "modal"} ref={childRef}>
+      <StyledModal
+        className={addStyle ? "modal modal_top" : "modal"}
+        ref={childRef}
+      >
         <ModalClose
           className="modal__close"
           onClick={handleCloseClick}

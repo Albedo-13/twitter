@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const StyledSwitch = styled.label`
   position: relative;
   display: inline-block;
-  width:  50px;
-  height:  30px;
+  width: 50px;
+  height: 30px;
 
   &:hover {
     .switch-slider {
@@ -23,7 +23,7 @@ export const SwitchInput = styled.input`
   opacity: 0;
   width: 0;
   height: 0;
-  
+
   &:checked + .switch-slider {
     &:before {
       transform: translateX(20px);
@@ -33,7 +33,7 @@ export const SwitchInput = styled.input`
 
 export const SwitchSpan = styled.span`
   position: absolute;
-  
+
   cursor: pointer;
   top: 0;
   left: 0;

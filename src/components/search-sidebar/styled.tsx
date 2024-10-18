@@ -11,5 +11,4 @@ export const SearchIcon = styled.svg`
   border-radius: 50px;
   padding: 8px;
   background-color: var(--secondary-color);
-  /* position: absolute; */
 `;

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import twitterBackground from "@/assets/imgs/back-twitter.webp";
 import xBackground from "@/assets/imgs/back-x.webp";
 import { theme } from "@/styles/theme";
@@ -20,16 +21,12 @@ export const Wrapper = styled.section`
   display: flex;
   height: calc(100vh);
   justify-content: center;
-  /* height: auto; */
-
   @media ${theme.device.xs} {
     padding: 0 20px;
   }
 `;
 
 export const AuthFooterWrapper = styled.div`
-  /* border-radius: 5%;
-  background-color: rgba(155,155,155,0.69); */
   color: black;
   grid-area: footer;
   display: flex;
@@ -54,7 +51,6 @@ type BackgroundProps = {
 };
 
 export const Background = styled.div<BackgroundProps>`
-  /* background: url(${twitterBackground}) center center / cover no-repeat; */
   background: ${({ bgname }) => {
     switch (bgname) {
       case "light":
@@ -86,7 +82,6 @@ export const AuthWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 50px;
-  /* margin-left:  40px; */
 
   @media ${theme.device.lg} {
     margin: 0;
@@ -98,7 +93,7 @@ export const ButtonWrapper = styled.div`
   margin-top: 25px;
 `;
 
-export const H1 = styled.h1`
+export const Header1 = styled.h1`
   font-weight: 900;
   font-size: 84px;
   margin-top: 55px;
@@ -110,7 +105,7 @@ export const H1 = styled.h1`
   }
 `;
 
-export const H2 = styled.h2`
+export const Header2 = styled.h2`
   font-weight: 900;
   font-size: 42px;
   margin-top: 45px;

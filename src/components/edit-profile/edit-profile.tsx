@@ -1,9 +1,12 @@
+import "react-toastify/dist/ReactToastify.css";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { updatePassword, updateProfile } from "firebase/auth";
 import { doc, updateDoc } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { GENDERS } from "@/constants/genders";
 import { ROUTES } from "@/constants/routes";
@@ -20,9 +23,6 @@ import { ErrorsSummary } from "../errors/errors-summary";
 import { FormError } from "../errors/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
-
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 type EditProfileProps = {
   handleModalClose: VoidFunction;

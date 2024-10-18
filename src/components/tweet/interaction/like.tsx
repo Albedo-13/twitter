@@ -1,18 +1,21 @@
 import { doc, DocumentData, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
+
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
+
 import {
-  InteractionCount,
-  InteractionSVGOuter,
-  InteractionSVGInner,
   InteractionButton,
+  InteractionCount,
+  InteractionSVGInner,
+  InteractionSVGOuter,
   InteractionWrapper,
 } from "./styled";
 
 type LikeProps = {
   post: DocumentData;
-  user: any;
 };
 
 type LikeData = {
@@ -20,8 +23,11 @@ type LikeData = {
   liked: boolean | null;
 };
 
-const Like = ({ post, user }: LikeProps) => {
-  const [timer, setTimer] = useState<any>(null);
+const Like = ({ post }: LikeProps) => {
+  const user = useAppSelector(getUserSelector);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const [likeData, setLikeData] = useState<LikeData>({
     count: null,
     liked: null,
@@ -35,7 +41,7 @@ const Like = ({ post, user }: LikeProps) => {
         liked: post.likedByUsers.includes(user.uid),
       };
     });
-  }, []);
+  }, [post.likedByUsers, post.likes, user.uid]);
 
   useEffect(() => {
     return () => {
@@ -47,7 +53,7 @@ const Like = ({ post, user }: LikeProps) => {
 
   const increment = (event: SyntheticEvent) => {
     event.stopPropagation();
-    let newCount = likeData.count! + (likeData.liked ? -1 : 1);
+    const newCount = likeData.count! + (likeData.liked ? -1 : 1);
     setLikeData((prev) => {
       return {
         ...prev,
@@ -69,7 +75,7 @@ const Like = ({ post, user }: LikeProps) => {
     const wasLikedBefore = post.likedByUsers.includes(user.uid);
 
     if (user.uid && wasLikedBefore !== isLiked) {
-      let newLikedByUsers: any = [];
+      let newLikedByUsers: string[] = [];
 
       if (wasLikedBefore) {
         newLikedByUsers = post.likedByUsers.filter(

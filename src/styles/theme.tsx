@@ -20,24 +20,3 @@ export const theme = {
 export const themeBase: typeof theme = {
   ...theme,
 };
-
-// export const themeDark: typeof theme = {
-//   ...theme,
-//   colorScheme: "dark",
-//   svgFill: {
-//     ...theme.svgFill,
-//     primary: GRAY_SVG,
-//   },
-//   // color: {
-//   //   ...theme.color,
-//   //   placeholder: "#b3b8bb",
-//   //   searchInput: "#4a4a4a",
-//   //   text: "#ffffff",
-//   //   background: "#171717",
-//   // },
-// };
-
-// export const themeLight: typeof theme = {
-//   ...theme,
-//   colorScheme: "light",
-// };

@@ -1,11 +1,12 @@
 import noAvatar from "@/assets/imgs/no_avatar.png";
 import noBackground from "@/assets/imgs/no_background.webp";
+import { Header } from "@/components/header/header";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
-import { Header } from "@/components/header/header";
+
 import { Avatar } from "../avatar/avatar";
 import { EditProfile } from "../edit-profile/edit-profile";
 import { Modal } from "../modal/modal";
