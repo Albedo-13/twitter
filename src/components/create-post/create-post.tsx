@@ -1,10 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
+import { useState } from "react";
+import { ChangeEvent } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
-import noAvatar from "@/assets/imgs/no_avatar.svg";
+import noAvatar from "@/assets/imgs/no_avatar.png";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
@@ -21,6 +23,7 @@ import {
   ErrorWrapper,
   FileInput,
   FileInputImage,
+  FileInputPreviewImage,
   FileInputWrapper,
   FormWrapper,
   Textarea,
@@ -32,7 +35,9 @@ type Data = {
 };
 
 export function CreatePost() {
-  const user = useAppSelector(getUserSelector);
+  const { photoURL, uid } = useAppSelector(getUserSelector);
+
+  const [previewImage, setPreviewImage] = useState<string>();
 
   const {
     register,
@@ -59,26 +64,44 @@ export function CreatePost() {
       uid: postId,
       content: data.content,
       image: imageName,
-      displayName: user?.displayName,
-      authorUid: user?.uid,
-      email: user?.email,
+      authorUid: uid,
       createdAt: new Date(),
       likes: 0,
       likedByUsers: [],
+      bookmarkedByUsers: [],
     };
 
     await setDoc(doc(db, "posts", postId), newPost);
 
     reset();
+    setPreviewImage("");
+  };
+
+  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function ({ target }) {
+        if (target) {
+          setPreviewImage(target.result as string);
+        } else {
+          console.error("Bug perhaps, i dunno");
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+    register("image").onChange(event);
   };
 
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
-        <Avatar src={user.photoURL || noAvatar} />
+        <Avatar src={photoURL || noAvatar} />
       </AvatarWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />
+        <FileInputPreviewImage src={previewImage} />
         <BasementWrapper>
           <FileInputWrapper>
             <label htmlFor="file-input">
@@ -89,6 +112,7 @@ export function CreatePost() {
               type="file"
               id="file-input"
               accept="image/*"
+              onChange={handleFileInputChange}
             />
           </FileInputWrapper>
           <Button variant="primary" size="small" type="submit">
