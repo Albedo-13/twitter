@@ -21,9 +21,6 @@ export function Layout() {
       <ProfileWrapper>
         <div className="gridInterface">
           <NavigationWrapper>
-            {/* <NavigationMobileWrapper>
-              <MobileNavigation />
-            </NavigationMobileWrapper> */}
             <NavigationDesktopWrapper>
               <Navigation />
             </NavigationDesktopWrapper>

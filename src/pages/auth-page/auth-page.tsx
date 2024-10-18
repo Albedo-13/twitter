@@ -1,18 +1,17 @@
 import { signInWithPopup } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-// TODO насрал убери
-//@ts-ignore
+
 import { useNavigate } from "react-router-dom";
 
 import googleIcon from "@/assets/icons/google-icon.svg";
 import { Logo } from "@/components/logo/logo";
-// import { AUTH_FOOTER_LINKS } from "@/constants/footer-links";
+
 import { ROUTES } from "@/constants/routes";
 import { auth, db, googleProvider } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
-// import { BasicLink } from "@/ui/links";
+
 import { InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
 import { useAppSelector } from "@/hooks/redux";
@@ -20,7 +19,6 @@ import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 
 import {
   ProfileWrapper,
-  // AuthFooterWrapper,
   AuthWrapper,
   ButtonWrapper,
   H1,
@@ -68,7 +66,6 @@ export function AuthPage() {
     <ProfileWrapper>
       <div className="gridInterface">
         <Wrapper>
-          {/* <TwitterBackground src={twitterBackground} alt="twitter background" /> */}
           <AuthWrapper>
             <LogoWrapper>
               <Logo />
@@ -76,7 +73,6 @@ export function AuthPage() {
             <div>
               <H1>Happening now</H1>
               <H2>Join Twitter today</H2>
-
               <ButtonWrapper>
                 <Button
                   icon={googleIcon}
@@ -109,14 +105,6 @@ export function AuthPage() {
             </div>
           </AuthWrapper>
         </Wrapper>
-
-        {/* <AuthFooterWrapper>
-          {AUTH_FOOTER_LINKS.map(({ to, label }) => (
-            <BasicLink key={`${label}-${to}`} to={to}>
-              {label}
-            </BasicLink>
-          ))}
-        </AuthFooterWrapper> */}
         <Background bgname={theme} />
       </div>
     </ProfileWrapper>

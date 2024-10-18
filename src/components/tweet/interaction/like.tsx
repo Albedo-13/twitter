@@ -9,10 +9,11 @@ import {
   InteractionButton,
   InteractionWrapper,
 } from "./styled";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 type LikeProps = {
   post: DocumentData;
-  user: any;
 };
 
 type LikeData = {
@@ -20,8 +21,11 @@ type LikeData = {
   liked: boolean | null;
 };
 
-const Like = ({ post, user }: LikeProps) => {
-  const [timer, setTimer] = useState<any>(null);
+const Like = ({ post }: LikeProps) => {
+  const user = useAppSelector(getUserSelector);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const [likeData, setLikeData] = useState<LikeData>({
     count: null,
     liked: null,
@@ -69,7 +73,7 @@ const Like = ({ post, user }: LikeProps) => {
     const wasLikedBefore = post.likedByUsers.includes(user.uid);
 
     if (user.uid && wasLikedBefore !== isLiked) {
-      let newLikedByUsers: any = [];
+      let newLikedByUsers: string[] = [];
 
       if (wasLikedBefore) {
         newLikedByUsers = post.likedByUsers.filter(

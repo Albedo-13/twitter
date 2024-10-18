@@ -21,17 +21,11 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  /* margin-top: 20px; */
   margin-left: 20px;
 
   @media ${theme.device.md} {
     margin: 10px 0 0 15px;
-    /* text-align: center; */
   }
-  /* @media ${theme.device.sm} {
-    margin: 10px 0 0 0;
-    text-align: center;
-  } */
 `;
 
 export const ButtonWrapper = styled.div`
@@ -43,7 +37,26 @@ export const ButtonWrapper = styled.div`
   }
 
   @media ${theme.device.md} {
-    margin-top: 10px;
+    display: none;
+  }
+  @media ${theme.device.sm} {
+    display: block;
+  }
+`;
+
+export const ButtonForSmolScreen = styled.button`
+  display: none;
+  @media ${theme.device.md} {
+    display: block;
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    background-color: var(--primary-color);
+    border: 0;
+    border-radius: 100px;
+  }
+  @media ${theme.device.sm} {
+    display: none;
   }
 `;
 
@@ -53,7 +66,6 @@ export const NavList = styled.ul`
   margin-top: 30px;
 
   @media ${theme.device.md} {
-    /* gap: 15px; */
     margin: 15px 0;
   }
 `;
@@ -71,7 +83,6 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
   border-radius: 50px;
   transition: 0.2s all;
 
-  /* display: flex; */
   display: ${({ $isEnabled }) => ($isEnabled ? "flex" : "none")};
   color: ${({ $isEnabled }) =>
     $isEnabled ? "var(--text-primary-color)" : "var(--text-secondary-color)"};
@@ -132,7 +143,7 @@ export const NavListItemImageWrapper = styled.div`
     margin: 0;
   }
 `;
-// filter: ${({ theme }) => theme.svgFill.primary};
+
 export const UserWrapper = styled.div`
   margin-top: auto;
   padding-top: 25px;
@@ -218,13 +229,8 @@ export const Burger = styled.button`
   height: 25px;
   background-color: transparent;
   border: 0;
-  /* text-align: left;  */
-  /* padding: 10px 0 10px 10px; */
-  /* outline: none; */
+
   color: var(--text-primary-color);
-  /* &:hover {
-    background-color: var(--secondary-color);
-  } */
 `;
 
 export const SVGBurger = styled.svg`

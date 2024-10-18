@@ -31,7 +31,7 @@ export const SelectWrapper = styled.div`
   gap: 20px;
   select {
     color: black;
-    option{
+    option {
       color: black;
     }
   }

@@ -38,7 +38,6 @@ type UserDataType = {
 export function Tweet({ post }: TweetProps) {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
-  // const [photoUrl, setPhotoUrl] = useState<string | undefined>(undefined);
   const [userData, setUserData] = useState<UserDataType>({
     photoURL: null,
     displayName: null,
@@ -84,8 +83,7 @@ export function Tweet({ post }: TweetProps) {
         <BodyWrapper>
           <UserInfoWrapper>
             <UserName>{userData.displayName}</UserName>
-            <Time timestamp={post.createdAt.seconds} />
-            {/* <UserTag>{post.email}</UserTag> */}
+            <Time seconds={post.createdAt.seconds} />
             <More post={post} user={user} />
           </UserInfoWrapper>
           <TweetText onClick={handleOpenPost}>{post.content}</TweetText>

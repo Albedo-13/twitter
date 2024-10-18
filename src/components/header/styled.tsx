@@ -9,18 +9,15 @@ export const StyledHeader = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
-  /* flex-direction: row-reverse; */
 `;
 
 export const SwitchWrapper = styled.div`
   margin-left: auto;
-  /* text-align: right; */
 `;
 
 export const Title = styled.div`
   font-size: 24px;
   font-weight: 700;
-  /* text-align: right; */
 `;
 
 export const NavigationMobileWrapper = styled.div`

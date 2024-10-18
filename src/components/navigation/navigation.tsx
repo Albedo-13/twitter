@@ -20,6 +20,7 @@ import { ModalPortal } from "../modal/modal-portal";
 import {
   AvatarWrapper,
   ButtonWrapper,
+  ButtonForSmolScreen,
   LogoWrapper,
   NavList,
   NavListItemImageWrapper,
@@ -87,7 +88,7 @@ export function Navigation() {
             Tweet
           </Button>
         </ButtonWrapper>
-
+        <ButtonForSmolScreen onClick={handleModalShow}>💬</ButtonForSmolScreen>
         <UserWrapper>
           <Popup
             className="menu-popup"

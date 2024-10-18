@@ -38,9 +38,6 @@ type ChildData = {
   [key: string]: boolean;
 };
 
-//высрал говно, хранить selected в детеяи не стоит, храни на этом уровне и дриль и при
-//рендере дзеця смотри есть ли true / false | undefined понял? понял, харош
-
 type CreateChatModalProps = {
   handleModalClose: Function;
 };
@@ -102,8 +99,10 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
     handleModalClose();
   };
 
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function ({ target }) {

@@ -4,7 +4,7 @@ export const ChatWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  >:first-child{
+  > :first-child {
     flex-shrink: 0;
   }
 `;

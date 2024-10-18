@@ -15,13 +15,13 @@ type ModalProps = {
 };
 
 export function Modal({ onClose, children }: ModalProps) {
-  const elementRef = useRef<any>(null);
-  const childRef = useRef<any>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
   const [addStyle, setAddStyle] = useState<boolean>(false);
 
   useEffect(() => {
     const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
+      for (const entry of entries) {
         if (!childRef.current) return;
         const modalHeight = entry.contentRect.height;
         const modalContentHeight = childRef.current.clientHeight;

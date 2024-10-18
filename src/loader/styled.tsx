@@ -6,7 +6,7 @@ export const LoaderWrapper = styled.div`
 `;
 
 export const StyledLoader = styled.img`
-  max-width:  100px;
+  max-width: 100px;
   height: auto;
   display: flex;
 `;

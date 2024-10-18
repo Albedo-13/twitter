@@ -19,10 +19,7 @@ export default function MobileNavigation() {
 
   return (
     <>
-      <Burger
-        // icon={menu}
-        onClick={handleModalShow}
-      >
+      <Burger onClick={handleModalShow}>
         <SVGBurger viewBox="4 0 22 22" fill="none">
           <path
             d="M4 18L20 18"

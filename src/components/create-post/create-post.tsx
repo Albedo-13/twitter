@@ -76,8 +76,10 @@ export function CreatePost() {
     setPreviewImage("");
   };
 
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function ({ target }) {
@@ -89,7 +91,7 @@ export function CreatePost() {
       };
       reader.readAsDataURL(file);
     }
-    register("image").onChange(event)
+    register("image").onChange(event);
   };
 
   return (

@@ -9,14 +9,12 @@ export const ScrollWindow = styled.div`
     width: 4px;
 
     &-thumb {
-      /* border: 1px solid var(--bg-dark); */
       border-radius: 0px;
     }
     &-button {
       height: 0px;
     }
   }
-  /* height: 200px; */
 `;
 
 export const MessagesListContainer = styled.div`

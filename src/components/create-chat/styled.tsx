@@ -43,26 +43,6 @@ export const CreateChatModalWrapper = styled.div``;
 
 export const FormWrapper = styled.form``;
 
-// export const Textarea = styled.textarea`
-//   width: 100%;
-//   border: none;
-//   resize: none;
-//   height: 100px;
-//   font-size: 18px;
-//   margin-bottom: 10px;
-//   background-color: var(--bg-primary-color);
-//   &:focus {
-//     transition: 0s all;
-//     outline: none;
-//     border-bottom: 1px solid var(--accents-color);
-//   }
-
-//   &::placeholder {
-//     font-size: 22px;
-//     color: #828282;
-//   }
-// `;
-
 export const NameInput = styled.input`
   height: 100%;
   font-size: 22px;
@@ -192,7 +172,7 @@ export const Checkmark = styled.svg`
   right: -10%;
   transition: 0.15s all;
   opacity: 0;
-  &.active{
+  &.active {
     opacity: 1;
   }
 `;

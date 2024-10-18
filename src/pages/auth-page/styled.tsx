@@ -20,16 +20,12 @@ export const Wrapper = styled.section`
   display: flex;
   height: calc(100vh);
   justify-content: center;
-  /* height: auto; */
-
   @media ${theme.device.xs} {
     padding: 0 20px;
   }
 `;
 
 export const AuthFooterWrapper = styled.div`
-  /* border-radius: 5%;
-  background-color: rgba(155,155,155,0.69); */
   color: black;
   grid-area: footer;
   display: flex;
@@ -54,7 +50,6 @@ type BackgroundProps = {
 };
 
 export const Background = styled.div<BackgroundProps>`
-  /* background: url(${twitterBackground}) center center / cover no-repeat; */
   background: ${({ bgname }) => {
     switch (bgname) {
       case "light":
@@ -86,7 +81,6 @@ export const AuthWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 0 50px;
-  /* margin-left:  40px; */
 
   @media ${theme.device.lg} {
     margin: 0;

@@ -95,7 +95,7 @@ export function SignupPage() {
         navigate(ROUTES.HOME);
       });
     } catch (error) {
-      console.log(error)
+      console.log(error);
       if (error instanceof FirebaseError) {
         setError(authErrorsHandler(error.code));
       } else if (error instanceof Error && error.message === "phone-in-use") {
@@ -147,7 +147,7 @@ export function SignupPage() {
           Next
         </Button>
       </ButtonWrapper>
-      <Background/>
+      <Background />
     </FormWrapper>
   );
 }

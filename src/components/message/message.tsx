@@ -7,6 +7,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "@/firebase";
+import Time from "@/components/tweet/time";
 import {
   MessageWrapper,
   AvatarWrapper,
@@ -14,7 +15,8 @@ import {
   UserInfoWrapper,
   UserName,
   MessageText,
-  Image
+  Image,
+  TimeText,
 } from "./styled";
 
 type MessageData = {
@@ -30,7 +32,7 @@ type UserDataType = {
   displayName: string | null;
 };
 
-export const Message = ({ authorUid, text, image }: MessageData) => {
+export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | undefined>(undefined);
   const [userData, setUserData] = useState<UserDataType>({
@@ -74,10 +76,11 @@ export const Message = ({ authorUid, text, image }: MessageData) => {
         <UserInfoWrapper>
           <UserName>{userData.displayName}</UserName>
         </UserInfoWrapper>
-        <MessageText>
-          {text}
-        </MessageText>
+        <MessageText>{text}</MessageText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+        <TimeText>
+          <Time seconds={createdAt.seconds} />
+        </TimeText>
       </BodyWrapper>
     </MessageWrapper>
   );

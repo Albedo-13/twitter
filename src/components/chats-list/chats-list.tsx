@@ -5,7 +5,6 @@ import { storage } from "@/firebase";
 
 import noAvatar from "@/assets/imgs/no_avatar.png";
 
-
 import { ROUTES } from "@/constants/routes";
 
 import {

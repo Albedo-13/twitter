@@ -8,7 +8,6 @@ export const ChatWrapper = styled.div`
 `;
 
 export const Members = styled.div`
-  /* margin: 5px 0 5px 20px; */
   font-weight: 300;
   margin-left: 20px;
   position: absolute;
@@ -22,8 +21,6 @@ export const MessagesListWrapper = styled.main`
 
 export const MessageInput = styled.div`
   flex-shrink: 0;
-  /* margin-top: 10px; */
   border-top: var(--border-gray);
-  /* background-color: var(--secondary-color); */
   min-height: 56px;
 `;

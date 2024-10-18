@@ -40,7 +40,7 @@ export function PostPage() {
 
   return (
     <>
-      <Header title="Post"/>
+      <Header title="Post" />
       {post ? <Tweet post={post} /> : <Loader />}
     </>
   );

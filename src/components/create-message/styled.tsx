@@ -6,7 +6,6 @@ export const CreateMessageWrapper = styled.form`
   height: 100%;
   align-items: baseline;
   gap: 15px;
-  /* background-color: red; */
   align-items: flex-end;
 `;
 
@@ -17,6 +16,7 @@ export const Input = styled.textarea`
   min-height: 36px;
   max-height: 210px;
   overflow-y: auto;
+  width: 100%;
   border: none;
   resize: none;
   font-size: 18px;
@@ -76,17 +76,11 @@ export const FileInput = styled.input`
 `;
 
 export const FileInputPreviewImage = styled.img`
-  /* margin-top: 10px;
-  margin-bottom: 10px; */
   border-radius: 20px;
-
   max-width: 100%;
   max-height: 150px;
-  /* width: 100%; */
   height: auto;
-
   object-fit: contain;
-  /* height: 100px; */
 `;
 
 export const InputWrapper = styled.div`
@@ -94,6 +88,5 @@ export const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* background-color: var(--secondary-color); */
   border-radius: 10px;
 `;

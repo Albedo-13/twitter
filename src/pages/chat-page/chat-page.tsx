@@ -1,7 +1,5 @@
 import { Header } from "@/components/header/header";
-
 import { Chat } from "@/components/chat/chat";
-
 import {
   collection,
   getDocs,

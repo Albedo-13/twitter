@@ -38,8 +38,8 @@ export function MessagesPage() {
       return;
     }
 
-    let convertedData: any = [];
-    querySnapshot.forEach((e) => convertedData.push(e.data()));
+    let convertedData: ChatsData[] = [];
+    querySnapshot.forEach((e) => convertedData.push(e.data() as ChatsData));
     setChats(convertedData);
   };
 

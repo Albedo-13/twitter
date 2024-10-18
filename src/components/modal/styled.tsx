@@ -17,7 +17,6 @@ export const Overlay = styled.aside`
 export const StyledModal = styled.main`
   background-color: var(--bg-primary-color);
   max-width: 400px;
-  /* width: 1000px; */
   border: var(--border-gray);
   position: relative;
   top: 50%;

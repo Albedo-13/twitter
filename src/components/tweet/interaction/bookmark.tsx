@@ -8,18 +8,22 @@ import {
   InteractionButton,
   InteractionWrapper,
 } from "./styled";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 type BoomarkProps = {
   post: DocumentData;
-  user: any;
 };
 
 type BoomarkData = {
   bookmarked: boolean | null;
 };
 
-const Bookmark = ({ post, user }: BoomarkProps) => {
-  const [timer, setTimer] = useState<any>(null);
+const Bookmark = ({ post }: BoomarkProps) => {
+  const user = useAppSelector(getUserSelector);
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
+    null
+  );
   const [bookmarkData, setBookmarkData] = useState<BoomarkData>({
     bookmarked: null,
   });
@@ -63,7 +67,7 @@ const Bookmark = ({ post, user }: BoomarkProps) => {
     const wasBookmarkedBefore = post.bookmarkedByUsers.includes(user.uid);
 
     if (user.uid && wasBookmarkedBefore !== isBookmarked) {
-      let newBookmarkedByUsers: any = [];
+      let newBookmarkedByUsers: string[] = [];
 
       if (wasBookmarkedBefore) {
         newBookmarkedByUsers = post.bookmarkedByUsers.filter(

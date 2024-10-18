@@ -15,7 +15,6 @@ export function SearchInput({
 }: SearchSidebarProps) {
   return (
     <SearchbarWrapper>
-      {/* <SearchIcon src={search} /> */}
       <SearchIcon
         width="24"
         height="25"

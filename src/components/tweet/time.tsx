@@ -1,9 +1,6 @@
-import {
-  UserTime,
-} from "./styled";
+import { UserTime } from "./styled";
 
-
-const Time = ({ timestamp }: { timestamp: number }) => {
+const Time = ({ seconds }: { seconds: number }) => {
   const translateMonth = (monthIndex: number) => {
     return [
       "Jan",
@@ -21,8 +18,8 @@ const Time = ({ timestamp }: { timestamp: number }) => {
     ][monthIndex - 1];
   };
 
-  const timeDiffToText = (timestamp: number) => {
-    const startDate = new Date(timestamp * 1000);
+  const timeDiffToText = (seconds: number) => {
+    const startDate = new Date(seconds * 1000);
     const endDate = new Date();
 
     const differenceInMilliseconds = +endDate - +startDate;
@@ -56,20 +53,16 @@ const Time = ({ timestamp }: { timestamp: number }) => {
     return res;
   };
 
-  const convertTime = (timestamp: number) => {
+  const convertTime = (seconds: number) => {
     const { locale } = Intl.DateTimeFormat().resolvedOptions();
-    const moment = new Date(timestamp * 1000);
+    const moment = new Date(seconds * 1000);
     const date = moment.toLocaleDateString(locale);
     const time = moment.toLocaleTimeString(locale);
 
-    return [
-      timeDiffToText(timestamp),
-      `${time} - ${date}`,
-      moment.toISOString(),
-    ];
+    return [timeDiffToText(seconds), `${time} - ${date}`, moment.toISOString()];
   };
 
-  const [timeText, titleText, dateTimeText] = convertTime(timestamp);
+  const [timeText, titleText, dateTimeText] = convertTime(seconds);
 
   return (
     <UserTime title={titleText} dateTime={dateTimeText}>

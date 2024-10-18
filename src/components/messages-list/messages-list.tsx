@@ -18,6 +18,7 @@ type MessageData = {
   createdAt: Timestamp;
   text: string;
   uid: string;
+  image: string;
 };
 
 export const MessagesList = () => {
@@ -33,14 +34,16 @@ export const MessagesList = () => {
       )
     );
     if (!querySnapshot.docs[0]) return [];
-    const messages = querySnapshot.docs.map((doc) => doc.data());
+    const messages: MessageData[] = querySnapshot.docs.map(
+      (doc) => doc.data() as MessageData
+    );
     return messages;
   };
 
   useEffect(() => {
     const q = collection(db, "chats", id!, "messages");
     onSnapshot(q, () => {
-      getMessages().then((data: any) => {
+      getMessages().then((data: MessageData[]) => {
         setMessages(data);
       });
     });

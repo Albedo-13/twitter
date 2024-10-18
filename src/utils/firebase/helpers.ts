@@ -10,7 +10,6 @@ import {
 import { ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
-import { SEARCH_ITEMS_COUNT } from "@/constants/constants";
 import { auth, db, storage } from "@/firebase";
 import { UserType } from "@/redux/slices/user-slice";
 
@@ -89,6 +88,5 @@ export const searchUsers = async (searchText: string) => {
   const querySnapshot = await queryUserByName(searchText);
   const list = querySnapshot.docs
     .map((doc) => doc.data());
-    // .slice(0, SEARCH_ITEMS_COUNT);
   return list;
 };

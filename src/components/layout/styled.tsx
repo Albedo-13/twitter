@@ -13,11 +13,11 @@ export const ProfileWrapper = styled.main`
 export const NavigationWrapper = styled.aside`
   grid-area: aside-left;
   position: fixed;
-  
+
   height: 100vh;
   width: var(--aside-left-width);
   overflow-y: auto;
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
   @media ${theme.device.lg} {
@@ -46,7 +46,7 @@ export const SearchWrapper = styled.aside`
   height: 100vh;
   position: fixed;
   overflow-y: auto;
-  &::-webkit-scrollbar{
+  &::-webkit-scrollbar {
     display: none;
   }
   @media ${theme.device.lg} {
@@ -85,7 +85,6 @@ export const SearchMobileWrapper = styled.div`
   }
 `;
 
-
 export const NavigationDesktopWrapper = styled.div`
   @media ${theme.device.sm} {
     display: none;
@@ -94,7 +93,6 @@ export const NavigationDesktopWrapper = styled.div`
 
 export const Background = styled.div`
   background: var(--bg-primary-color) center center / cover no-repeat;
-  /* filter: blur(8px); */
   position: fixed;
   top: 0;
   left: 0;

@@ -11,10 +11,6 @@ export const Wrapper = styled.div`
   gap: 15px;
   cursor: default;
 
-  /* @media ${theme.device.sm} {
-    padding:  10}  5px;
-    gap:  5px;
-  } */
   ::-webkit-scrollbar {
     width: 5px;
   }

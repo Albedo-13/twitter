@@ -63,20 +63,24 @@ export function CreateMessage() {
       createdAt: new Date(),
     };
     await setDoc(doc(db, "chats", id!, "messages", messageId), newMessage);
-    
+
     reset();
     setPreviewImage("");
   };
 
-  const handleKeyDown = ({ key, shiftKey }: any) => {
-    console.log("temp");
+  const handleKeyDown = ({
+    key,
+    shiftKey,
+  }: React.KeyboardEvent<HTMLFormElement>) => {
     if (!shiftKey && key === "Enter") {
       handleSubmit(sendMessageDataToDB)();
     }
   };
 
-  const handleFileInputChange = (event: any) => {
-    const file = event.target.files[0];
+  const handleFileInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = function ({ target }) {
@@ -113,7 +117,7 @@ export function CreateMessage() {
         <Input
           {...register("text")}
           className={errors.text ? "error" : ""}
-          onInput={({ target }: any) => {
+          onInput={({ target }: React.ChangeEvent<HTMLTextAreaElement>) => {
             //i dont know why, but this kinda works
             target.style.height = `0px`;
             target.style.height = `${target.scrollHeight}px`;

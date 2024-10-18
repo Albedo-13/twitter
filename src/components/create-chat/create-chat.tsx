@@ -13,16 +13,11 @@ import {
   CreateChatHeaderButton,
 } from "./styled";
 
-// type Data = {
-//   content: string;
-//   image: FileList | null;
-// };
-//не забыть убирать Independed если есть хоть 1 диалог
-export function CreateChat({
-  type = "independed",
-}: {
+type CreateChatProps = {
   type?: "header" | "independed";
-}) {
+};
+
+export function CreateChat({ type = "independed" }: CreateChatProps) {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
   useEffect(() => {
@@ -57,7 +52,7 @@ export function CreateChat({
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <CreateChatModal handleModalClose={handleModalClose}/>
+              <CreateChatModal handleModalClose={handleModalClose} />
             </Modal>
           }
         />

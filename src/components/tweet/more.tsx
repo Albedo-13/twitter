@@ -12,13 +12,15 @@ import { Modal } from "../modal/modal";
 import { ModalPortal } from "../modal/modal-portal";
 
 import DeleteConfirmation from "./deleteConfirmation";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 type MoreProps = {
   post: DocumentData;
-  user: any;
 };
 
-const More = ({ post, user }: MoreProps) => {
+const More = ({ post }: MoreProps) => {
+  const user = useAppSelector(getUserSelector);
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
   const location = useLocation();

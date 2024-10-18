@@ -21,7 +21,6 @@ export const MessageText = styled.p`
   margin-top: 5px;
   width: 100%;
   max-width: 400px;
-  /* width: calc(100% - 24px); */
   overflow-wrap: break-word;
   overflow-y: auto;
 `;
@@ -39,13 +38,14 @@ export const UserName = styled.p`
 `;
 
 export const BodyWrapper = styled.div`
-  /* width: 0; */
+  display: flex;
+  flex-direction: column;
+  min-width: 85px;
   background-color: var(--secondary-color);
   border-radius: 15px;
   border-bottom-left-radius: 0;
   padding: 8px;
   position: relative;
-  /* flex-grow: 1; */
   &::before {
     content: "";
     position: absolute;
@@ -88,5 +88,14 @@ export const MessageWrapper = styled.div`
   }
   &::-webkit-scrollbar {
     display: none;
+  }
+`;
+
+export const TimeText = styled.div`
+  margin-left: auto;
+  transform: translateY(6px);
+  time {
+    font-weight: 300;
+    font-size: 14px;
   }
 `;
