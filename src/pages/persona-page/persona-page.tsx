@@ -6,7 +6,8 @@ import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 export function PersonaPage() {
-  const { photoURL, displayName, status } = useAppSelector(getUserSelector);
+  const { photoURL, displayName, status, uid } =
+    useAppSelector(getUserSelector);
 
   return (
     <>
@@ -17,7 +18,7 @@ export function PersonaPage() {
         email={auth.currentUser!.email!}
       />
       <CreatePost />
-      <TweetsList />
+      <TweetsList filterFunc={(post) => post.authorUid === uid} />
     </>
   );
 }

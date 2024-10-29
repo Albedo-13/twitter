@@ -1,12 +1,14 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const AvatarWrapper = styled.div`
+export const AvatarWrapperLink = styled(Link)`
   width: 40px;
   height: 40px;
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+  cursor: pointer;
 `;
 
 export const Image = styled.img`
@@ -25,10 +27,12 @@ export const MessageText = styled.p`
   overflow-y: auto;
 `;
 
-export const UserInfoWrapper = styled.div`
+export const UserInfoWrapperLink = styled(Link)`
   display: flex;
   gap: 10px;
   align-items: center;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 export const UserName = styled.p`
@@ -64,7 +68,7 @@ export const MessageWrapper = styled.div`
   align-items: flex-end;
   &.messageByUser {
     justify-content: flex-end;
-    ${AvatarWrapper} {
+    ${AvatarWrapperLink} {
       display: none;
     }
     ${UserName} {

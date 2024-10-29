@@ -11,13 +11,13 @@ import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import {
-  AvatarWrapper,
+  AvatarWrapperLink,
   BodyWrapper,
   Image,
   MessageText,
   MessageWrapper,
   TimeText,
-  UserInfoWrapper,
+  UserInfoWrapperLink,
   UserName,
 } from "./styled";
 
@@ -57,7 +57,6 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
         const url = await getDownloadURL(ref(storage, image));
         return url;
       } catch (error) {
-        console.log(image);
         console.error(error);
         return null;
       }
@@ -72,13 +71,13 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
 
   return (
     <MessageWrapper className={uid === authorUid ? "messageByUser" : ""}>
-      <AvatarWrapper>
+      <AvatarWrapperLink to={"/profile/" + authorUid}>
         <Avatar src={userData.photoURL || noAvatar} />
-      </AvatarWrapper>
+      </AvatarWrapperLink>
       <BodyWrapper>
-        <UserInfoWrapper>
+        <UserInfoWrapperLink to={"/profile/" + authorUid}>
           <UserName>{userData.displayName}</UserName>
-        </UserInfoWrapper>
+        </UserInfoWrapperLink>
         <MessageText>{text}</MessageText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
         <TimeText>

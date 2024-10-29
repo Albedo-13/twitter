@@ -7,19 +7,20 @@ import {
   query,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
-import { ROUTES } from "@/constants/routes";
+import { Tweet } from "@/components/tweet/tweet";
 import { db } from "@/firebase";
-import { useAppSelector } from "@/hooks/redux";
-import { getUserSelector } from "@/redux/selectors/user-selectors";
 
-import { Tweet } from "../tweet/tweet";
+type TweetsListProps = {
+  filterFunc?: (post: DocumentData) => boolean;
+};
 
-export function TweetsList() {
+export function TweetsList({
+  filterFunc = () => {
+    return true;
+  },
+}: TweetsListProps) {
   const [posts, setPosts] = useState<DocumentData[]>([]);
-  const { uid } = useAppSelector(getUserSelector);
-  const location = useLocation();
 
   const getPosts = async () => {
     const querySnapshot = await getDocs(
@@ -40,21 +41,12 @@ export function TweetsList() {
 
   return (
     <>
-      {posts
-        .filter((post) =>
-          location.pathname === ROUTES.PROFILE ? post.authorUid === uid : true
-        )
-        .filter((post) => {
-          return location.pathname === ROUTES.BOOKMARKS
-            ? post.bookmarkedByUsers.includes(uid)
-            : true;
-        })
-        .map((post) => (
-          <Tweet
-            key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-            post={post}
-          />
-        ))}
+      {posts.filter(filterFunc).map((post) => (
+        <Tweet
+          key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
+          post={post}
+        />
+      ))}
     </>
   );
 }

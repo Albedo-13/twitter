@@ -39,7 +39,7 @@ export function ProfilePage() {
       });
     };
     getAdditionalUserDataByUid();
-  }, [id, navigate]);
+  }, [id, navigate, user]);
 
   return (
     <>
@@ -49,7 +49,7 @@ export function ProfilePage() {
         status={data.status}
         email={data.email}
       />
-      <TweetsList />
+      <TweetsList filterFunc={(post) => post.authorUid === id} />
     </>
   );
 }

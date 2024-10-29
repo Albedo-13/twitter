@@ -15,7 +15,7 @@ import Bookmark from "./interaction/bookmark";
 import Like from "./interaction/like";
 import More from "./more";
 import {
-  AvatarWrapper,
+  AvatarWrapperLink,
   BodyWrapper,
   Image,
   InteractionContainer,
@@ -74,17 +74,17 @@ export function Tweet({ post }: TweetProps) {
     navigate(`${ROUTES.POST}/${post.uid}`);
   };
 
+  const link = `${ROUTES.PROFILE}${user.uid !== post.authorUid ? `/${post.authorUid}` : ""}`;
+
   return (
     <>
       <Wrapper>
-        <AvatarWrapper>
+        <AvatarWrapperLink to={link}>
           <Avatar src={userData.photoURL || noAvatar} />
-        </AvatarWrapper>
+        </AvatarWrapperLink>
         <BodyWrapper>
           <UserInfoWrapper>
-            <UserNameLink to={`${ROUTES.PROFILE}/${post.authorUid}`}>
-              {userData.displayName}
-            </UserNameLink>
+            <UserNameLink to={link}>{userData.displayName}</UserNameLink>
             <Time seconds={post.createdAt.seconds} />
             {post.authorUid === user.uid && <More post={post} />}
           </UserInfoWrapper>

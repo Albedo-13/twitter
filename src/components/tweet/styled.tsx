@@ -17,7 +17,8 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const AvatarWrapper = styled.div`
+export const AvatarWrapperLink = styled(Link)`
+  display: block;
   width: 50px;
   height: 50px;
   user-select: none;
