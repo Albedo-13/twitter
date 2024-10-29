@@ -53,10 +53,11 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
   useEffect(() => {
     const getImageUrl = async () => {
       try {
-        if (image === null) return null;
+        if (image == undefined) return null;
         const url = await getDownloadURL(ref(storage, image));
         return url;
       } catch (error) {
+        console.log(image);
         console.error(error);
         return null;
       }

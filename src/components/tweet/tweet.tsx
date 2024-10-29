@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import noAvatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
 import { ROUTES } from "@/constants/routes";
 import { storage } from "@/firebase";
+import { useAppSelector } from "@/hooks/redux";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
 import Bookmark from "./interaction/bookmark";
 import Like from "./interaction/like";
 import More from "./more";
@@ -19,7 +21,7 @@ import {
   InteractionContainer,
   TweetText,
   UserInfoWrapper,
-  UserName,
+  UserNameLink,
   Wrapper,
 } from "./styled";
 import Time from "./time";
@@ -34,6 +36,7 @@ type UserDataType = {
 };
 
 export function Tweet({ post }: TweetProps) {
+  const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserDataType>({
     photoURL: null,
@@ -79,9 +82,11 @@ export function Tweet({ post }: TweetProps) {
         </AvatarWrapper>
         <BodyWrapper>
           <UserInfoWrapper>
-            <UserName>{userData.displayName}</UserName>
+            <UserNameLink to={`${ROUTES.PROFILE}/${post.authorUid}`}>
+              {userData.displayName}
+            </UserNameLink>
             <Time seconds={post.createdAt.seconds} />
-            <More post={post} />
+            {post.authorUid === user.uid && <More post={post} />}
           </UserInfoWrapper>
           <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
           {imgUrl && <Image src={imgUrl} alt="tweet image" />}

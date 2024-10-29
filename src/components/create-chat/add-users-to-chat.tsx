@@ -4,14 +4,14 @@ import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
 import no_avatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
+import { SearchInput } from "@/components/search-input/search-input";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { useAppSelector } from "@/hooks/redux";
 import { Loader } from "@/loader/loader";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { searchUsers } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
-import { SearchInput } from "../search-input/search-input";
 import { SearchedTweets } from "./styled";
 import {
   AvatarWrapper,

@@ -3,14 +3,14 @@ import { deleteObject, ref } from "firebase/storage";
 import { SyntheticEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { ROUTES } from "@/constants/routes";
 import { db, storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 
-import { Modal } from "../modal/modal";
-import { ModalPortal } from "../modal/modal-portal";
 import DeleteConfirmation from "./deleteConfirmation";
 import { MoreWrapper, MoreWrapperItem, SVGIcon } from "./styled";
 

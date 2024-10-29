@@ -11,9 +11,13 @@ import { toast } from "react-toastify";
 
 import { Chat } from "@/components/chat/chat";
 import { Header } from "@/components/header/header";
+import { MembersModal } from "@/components/members-modal/members-modal";
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 import { ChatWrapper } from "./styled";
@@ -24,6 +28,7 @@ type ChatsData = {
   members: string[];
   name: string;
   uid: string;
+  admin: string;
 };
 
 type validReasons = "chatDoesNotExist" | "userNotInChat";
@@ -31,6 +36,7 @@ type validReasons = "chatDoesNotExist" | "userNotInChat";
 export function ChatPage() {
   const { id } = useParams();
   const { uid } = useAppSelector(getUserSelector);
+  const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const [chat, setChat] = useState<ChatsData | null>(null);
   const navigate = useNavigate();
 
@@ -74,9 +80,29 @@ export function ChatPage() {
   }, [id, uid, navigate]);
 
   return (
-    <ChatWrapper>
-      <Header title={chat ? `${chat.name}` : ""} />
-      {chat === null ? null : <Chat {...chat} />}
-    </ChatWrapper>
+    <>
+      <ChatWrapper>
+        <Header
+          title={chat ? `${chat.name}` : ""}
+          titleOnClick={handleModalShow}
+          description={chat ? `${chat.members.length} members` : ""}
+        />
+        {chat === null ? null : <Chat />}
+      </ChatWrapper>
+      {showModal && (
+        <ModalPortal
+          children={
+            <Modal onClose={handleModalClose}>
+              <MembersModal
+                members={chat!.members}
+                chatId={chat!.uid}
+                adminId={chat!.admin}
+                isAdminView={uid === chat!.admin}
+              />
+            </Modal>
+          }
+        />
+      )}
+    </>
   );
 }

@@ -1,16 +1,13 @@
 import noAvatar from "@/assets/imgs/no_avatar.png";
 import noBackground from "@/assets/imgs/no_background.webp";
+import { Avatar } from "@/components/avatar/avatar";
+import { EditProfile } from "@/components/edit-profile/edit-profile";
 import { Header } from "@/components/header/header";
-import { auth } from "@/firebase";
-import { useAppSelector } from "@/hooks/redux";
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { useModalControls } from "@/hooks/use-modal-controls";
-import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 
-import { Avatar } from "../avatar/avatar";
-import { EditProfile } from "../edit-profile/edit-profile";
-import { Modal } from "../modal/modal";
-import { ModalPortal } from "../modal/modal-portal";
 import {
   AvatarWrapper,
   EditButtonWrapper,
@@ -22,9 +19,15 @@ import {
   ProfileWrapper,
 } from "./styled";
 
-export function Profile() {
+type ProfileProps = {
+  photoURL?: string;
+  displayName: string;
+  status?: string;
+  email?: string;
+};
+
+export function Profile({ photoURL, displayName, status, email }: ProfileProps) {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-  const { photoURL, displayName, status } = useAppSelector(getUserSelector);
 
   return (
     <>
@@ -46,7 +49,7 @@ export function Profile() {
             </Button>
           </EditButtonWrapper>
           <ProfileBodyName>{displayName}</ProfileBodyName>
-          <ProfileBodyTag>{auth.currentUser?.email}</ProfileBodyTag>
+          <ProfileBodyTag>{email}</ProfileBodyTag>
           <ProfileBodyStatus>{status}</ProfileBodyStatus>
         </ProfileBody>
       </ProfileWrapper>

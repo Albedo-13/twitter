@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
@@ -36,7 +37,8 @@ export const UserInfoWrapper = styled.div`
   align-items: center;
 `;
 
-export const UserName = styled.p`
+export const UserNameLink = styled(Link)`
+  text-decoration: none;
   font-weight: 700;
   font-size: 18px;
 `;
@@ -107,7 +109,6 @@ export const MoreWrapper = styled.ul`
       scale: 1;
     }
     li:nth-child(1) {
-      transform: rotate(90deg);
       opacity: 0;
     }
     li:nth-child(2) {

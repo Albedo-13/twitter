@@ -7,14 +7,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
 import noAvatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
+import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
-import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 import {
   AvatarWrapper,
@@ -36,7 +36,6 @@ type Data = {
 
 export function CreatePost() {
   const { photoURL, uid } = useAppSelector(getUserSelector);
-
   const [previewImage, setPreviewImage] = useState<string>();
 
   const {

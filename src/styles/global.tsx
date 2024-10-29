@@ -44,6 +44,7 @@ export const GlobalStyle = createGlobalStyle`
     --bg-primary-color: #fff;
     --bg-primary-rgb: 255, 255, 255;
 
+    --success-color: #2ba520;
     --error-color: #f5222d;
   }
 

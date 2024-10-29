@@ -4,6 +4,7 @@ import { ChatPage } from "@/pages/chat-page/chat-page";
 import { FeedPage } from "@/pages/feed-page/feed-page";
 import { LoginPage } from "@/pages/login-page/login-page";
 import { MessagesPage } from "@/pages/messages-page/messages-page";
+import { PersonaPage } from "@/pages/persona-page/persona-page";
 import { PostPage } from "@/pages/post-page/post-page";
 import { ProfilePage } from "@/pages/profile-page/profile-page";
 import { SignupPage } from "@/pages/signup-page/signup-page";
@@ -19,6 +20,8 @@ export enum ROUTES {
   //eslint-disable-next-line
   CHAT = "/messages",
   BOOKMARKS = "/bookmarks",
+  PERSONA = "/profile",
+  //eslint-disable-next-line
   PROFILE = "/profile",
   POST = "/post",
 }
@@ -60,7 +63,11 @@ export const privateRoutes = [
     element: BookmarksPage,
   },
   {
-    path: ROUTES.PROFILE,
+    path: ROUTES.PERSONA,
+    element: PersonaPage,
+  },
+  {
+    path: ROUTES.PROFILE + "/:id",
     element: ProfilePage,
   },
   {

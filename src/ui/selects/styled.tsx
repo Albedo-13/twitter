@@ -9,10 +9,10 @@ export const StyledSelect = styled.select`
   cursor: pointer;
   outline: none;
   appearance: none;
-  color: var(--light-color);
+  color: rgba(116, 117, 127, 255);
   transition: all 0.2s linear;
 `;
 
 export const StyledOption = styled.option`
-  color: var(--light-color);
+  color: rgba(116, 117, 127, 255);
 `;

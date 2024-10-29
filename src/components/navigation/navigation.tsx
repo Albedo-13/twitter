@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 
 import noAvatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
+import { CreatePost } from "@/components/create-post/create-post";
+import { Logo } from "@/components/logo/logo";
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { NAVIGATION_LINKS } from "@/constants/nav-links";
 import { ROUTES } from "@/constants/routes";
 import { logOut } from "@/firebase";
@@ -13,11 +18,6 @@ import { setUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { adaptUserObj } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
-import { CreatePost } from "../create-post/create-post";
-import { Logo } from "../logo/logo";
-import { Modal } from "../modal/modal";
-import { ModalPortal } from "../modal/modal-portal";
 import {
   AvatarWrapper,
   ButtonForSmolScreen,

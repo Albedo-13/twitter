@@ -3,12 +3,12 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
+import { SearchInput } from "@/components/search-input/search-input";
+import { SearchTweet } from "@/components/search-tweet/search-tweet";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { Loader } from "@/loader/loader";
 import { searchUsers } from "@/utils/firebase/helpers";
 
-import { SearchInput } from "../search-input/search-input";
-import { SearchTweet } from "../search-tweet/search-tweet";
 import { SearchedTweets } from "./styled";
 
 export function SearchSidebar() {
@@ -46,6 +46,7 @@ export function SearchSidebar() {
               key={item.uid}
               name={item.displayName}
               email={item.email}
+              link={`/profile/${item.uid}`}
             />
           ))
         )}

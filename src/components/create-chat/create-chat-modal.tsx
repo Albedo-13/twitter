@@ -86,6 +86,7 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
 
     const newChat = {
       uid: chatId,
+      admin: uid,
       members: membersDataWithSelf,
       image: imageName,
       name: data.name,

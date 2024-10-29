@@ -102,7 +102,7 @@ export function AuthPage() {
             </div>
           </AuthWrapper>
         </Wrapper>
-        <Background bgname={theme} />
+        <Background $bgname={theme} />
       </div>
     </ProfileWrapper>
   );
