@@ -8,6 +8,8 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { ErrorsSummary } from "@/components/errors/errors-summary";
+import { FormError } from "@/components/errors/form-error";
 import { GENDERS } from "@/constants/genders";
 import { ROUTES } from "@/constants/routes";
 import { auth, db } from "@/firebase";
@@ -19,8 +21,6 @@ import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
 import { queryUserEqualByValue, reauthUser } from "@/utils/firebase/helpers";
 
-import { ErrorsSummary } from "../errors/errors-summary";
-import { FormError } from "../errors/form-error";
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
 

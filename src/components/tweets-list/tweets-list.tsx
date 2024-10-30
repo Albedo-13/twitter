@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { Tweet } from "@/components/tweet/tweet";
 import { db } from "@/firebase";
 
+import { NoPost } from "./styled";
+
 type TweetsListProps = {
   filterFunc?: (post: DocumentData) => boolean;
 };
@@ -39,14 +41,20 @@ export function TweetsList({
     });
   }, []);
 
+  const postsToShow = posts.filter(filterFunc);
+
   return (
     <>
-      {posts.filter(filterFunc).map((post) => (
-        <Tweet
-          key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-          post={post}
-        />
-      ))}
+      {postsToShow.length > 0 ? (
+        postsToShow.map((post) => (
+          <Tweet
+            key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
+            post={post}
+          />
+        ))
+      ) : (
+        <NoPost>There is no post yet...</NoPost>
+      )}
     </>
   );
 }

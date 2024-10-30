@@ -16,6 +16,7 @@ export function PersonaPage() {
         photoURL={photoURL}
         status={status}
         email={auth.currentUser!.email!}
+        editPermission
       />
       <CreatePost />
       <TweetsList filterFunc={(post) => post.authorUid === uid} />

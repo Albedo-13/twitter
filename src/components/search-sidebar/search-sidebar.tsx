@@ -6,12 +6,16 @@ import { useDebounce } from "use-debounce";
 import { SearchInput } from "@/components/search-input/search-input";
 import { SearchTweet } from "@/components/search-tweet/search-tweet";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
+import { ROUTES } from "@/constants/routes";
+import { useAppSelector } from "@/hooks/redux";
 import { Loader } from "@/loader/loader";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { searchUsers } from "@/utils/firebase/helpers";
 
 import { SearchedTweets } from "./styled";
 
 export function SearchSidebar() {
+  const user = useAppSelector(getUserSelector);
   const [list, setList] = useState<DocumentData[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
@@ -41,14 +45,17 @@ export function SearchSidebar() {
         {isLoading && searchText ? (
           <Loader />
         ) : (
-          list.map((item) => (
-            <SearchTweet
-              key={item.uid}
-              name={item.displayName}
-              email={item.email}
-              link={`/profile/${item.uid}`}
-            />
-          ))
+          list.map((item) => {
+            const link = `${ROUTES.PROFILE}${user.uid !== item.uid ? `/${item.uid}` : ""}`;
+            return (
+              <SearchTweet
+                key={item.uid}
+                name={item.displayName}
+                email={item.email}
+                link={link}
+              />
+            );
+          })
         )}
       </SearchedTweets>
     </>

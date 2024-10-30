@@ -5,4 +5,5 @@ export const StyledAvatar = styled.img`
   height: 100%;
   object-fit: cover;
   border-radius: 100%;
+  transition: 0.2s all;
 `;
