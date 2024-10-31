@@ -7,7 +7,7 @@ import {
   QuerySnapshot,
   where,
 } from "firebase/firestore";
-import { ref, uploadBytes } from "firebase/storage";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 import { auth, db, storage } from "@/firebase";
@@ -53,10 +53,11 @@ export const getLoginFromEmailOrPhone = (
 
 export const adaptUserObj = (user: DocumentData | null): UserType => {
   return {
+    avatar: user?.avatar ?? "",
+    background: user?.background ?? "",
     uid: user?.uid ?? "",
     email: user?.email ?? "",
     phone: user?.phone ?? "",
-    photoURL: user?.photoURL ?? "",
     displayName: user?.displayName ?? "",
     birthday: user?.birthday ?? "",
     gender: user?.gender ?? "",
@@ -89,4 +90,21 @@ export const searchUsers = async (searchText: string) => {
   const list = querySnapshot.docs
     .map((doc) => doc.data());
   return list;
+};
+
+export const getAdditionalUserDataByUid = async (userId: string, errorCallback?: () => void) => {
+  const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
+  if (queryUserSnapshot.empty && errorCallback) errorCallback();
+  return queryUserSnapshot.docs[0].data();
+};
+
+export const getImageUrl = async (image: string | null) => {
+  try {
+    if (image === null) return null;
+    const url = await getDownloadURL(ref(storage, image));
+    return url;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 };

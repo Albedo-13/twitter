@@ -78,7 +78,6 @@ export function SignupPage() {
           uid: userCreds.uid,
           phone: data.phone,
           email: data.email,
-          photoURL: userCreds.photoURL || "",
           displayName: data.displayName,
           birthday: new Date(
             Number(data.year),

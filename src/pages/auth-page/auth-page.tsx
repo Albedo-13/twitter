@@ -39,12 +39,11 @@ export function AuthPage() {
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
-      const { uid, phoneNumber, email, photoURL, displayName } = user;
+      const { uid, phoneNumber, email, displayName } = user;
       const newUser = {
         uid: uid,
         phone: phoneNumber || "",
         email: email,
-        photoURL: photoURL || "",
         displayName: displayName,
       };
 

@@ -27,13 +27,6 @@ export const ProfileBodyStatus = styled.p`
   margin-top: 15px;
 `;
 
-export const ProfileBackgroundImage = styled.img`
-  object-fit: cover;
-  height: 280px;
-  width: 100%;
-  transition: 0.2s all;
-`;
-
 export const ProfileBackgroundImageWrapperWithChange = styled.div`
   position: relative;
   &:hover {

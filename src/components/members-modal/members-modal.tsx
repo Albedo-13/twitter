@@ -20,7 +20,6 @@ type MembersModalProps = {
 };
 
 type UserDataType = {
-  photoURL: string | null;
   displayName: string | null;
   uid: string | null;
 };

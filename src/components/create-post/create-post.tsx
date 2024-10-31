@@ -6,7 +6,6 @@ import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
-import noAvatar from "@/assets/imgs/no_avatar.png";
 import { Avatar } from "@/components/avatar/avatar";
 import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
@@ -35,9 +34,8 @@ type Data = {
 };
 
 export function CreatePost() {
-  const { photoURL, uid } = useAppSelector(getUserSelector);
+  const { avatar, uid } = useAppSelector(getUserSelector);
   const [previewImage, setPreviewImage] = useState<string>();
-
   const {
     register,
     handleSubmit,
@@ -96,7 +94,7 @@ export function CreatePost() {
   return (
     <CreatePostWrapper>
       <AvatarWrapper>
-        <Avatar src={photoURL || noAvatar} />
+        <Avatar src={avatar} />
       </AvatarWrapper>
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />

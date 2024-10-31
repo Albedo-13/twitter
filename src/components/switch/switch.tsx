@@ -10,12 +10,19 @@ export function Switch() {
   const dispatch = useAppDispatch();
   const theme = useAppSelector(getThemeSelector);
   const [checked, setChecked] = useState<boolean>(false);
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   useEffect(() => {
-    if (theme === "dark") {
-      setChecked(true);
-    }
+    setChecked(theme === "dark");
   }, [theme]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 400);
+    return () => clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleThemeChange = () => {
     setChecked((prev) => !prev);
@@ -30,7 +37,11 @@ export function Switch() {
         checked={checked}
         onChange={handleThemeChange}
       />
-      <SwitchSpan className="switch-slider" />
+      <SwitchSpan
+        className={
+          isLoaded ? "switch-slider switch-slider_loaded" : "switch-slider"
+        }
+      />
     </StyledSwitch>
   );
 }

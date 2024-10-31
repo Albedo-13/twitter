@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ROUTES } from "@/constants/routes";
-import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
 
 import {
   KickButt,
@@ -11,7 +11,6 @@ import {
 } from "./styled";
 
 type UserDataType = {
-  photoURL: string | null;
   displayName: string | null;
   uid: string | null;
 };
@@ -30,21 +29,12 @@ export function Member({
   handleMemberKickClick,
 }: MemberProps) {
   const [userData, setUserData] = useState<UserDataType>({
-    photoURL: null,
     displayName: null,
     uid: null,
   });
 
-  const getAdditionalUserDataByAuthorUid = async (authorUid: string) => {
-    const queryUserSnapshot = await queryUserEqualByValue("uid", authorUid);
-    if (!queryUserSnapshot.empty) {
-      const { photoURL, displayName, uid } = queryUserSnapshot.docs[0].data();
-      return { photoURL, displayName, uid };
-    }
-  };
-
   useEffect(() => {
-    getAdditionalUserDataByAuthorUid(id).then((data) =>
+    getAdditionalUserDataByUid(id).then((data) =>
       setUserData(data as UserDataType)
     );
   }, [id]);

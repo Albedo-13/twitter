@@ -3,7 +3,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
 
-import no_avatar from "@/assets/imgs/no_avatar.png";
 import { Avatar } from "@/components/avatar/avatar";
 import { SearchInput } from "@/components/search-input/search-input";
 import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
@@ -64,16 +63,16 @@ export function AddUsersToChat({
         {isLoading && searchText ? (
           <Loader />
         ) : (
-          list.map((item) => {
+          list.map(({uid, displayName, avatar, email}) => {
             return (
               <SearchUsers
-                key={item.uid}
-                isActive={activeChilds.includes(item.uid)}
-                uid={item.uid}
+                key={uid}
+                isActive={activeChilds.includes(uid)}
+                uid={uid}
                 handleCollectChildData={handleCollectChildData}
-                name={item.displayName}
-                email={item.email}
-                photoURL={item.photoURL ? item.photoURL : no_avatar}
+                name={displayName}
+                email={email}
+                avatar={avatar}
               />
             );
           })
@@ -90,7 +89,7 @@ type SearchUsersProps = {
   name: string;
   email: string;
   content?: string;
-  photoURL?: string;
+  avatar?: string;
 };
 
 function SearchUsers({
@@ -100,7 +99,7 @@ function SearchUsers({
   name,
   email,
   content,
-  photoURL,
+  avatar
 }: SearchUsersProps) {
   const [selected, setSelected] = useState<boolean>(isActive);
 
@@ -112,7 +111,7 @@ function SearchUsers({
   return (
     <Wrapper onClick={handleSelect} className={selected ? "selected" : ""}>
       <AvatarWrapper>
-        <Avatar src={photoURL!} />
+        <Avatar src={avatar} />
         <Checkmark
           className={selected ? "active" : ""}
           width="24"

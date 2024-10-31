@@ -2,7 +2,6 @@ import { Fragment } from "react/jsx-runtime";
 import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 
-import noAvatar from "@/assets/imgs/no_avatar.png";
 import { Avatar } from "@/components/avatar/avatar";
 import { CreatePost } from "@/components/create-post/create-post";
 import { Logo } from "@/components/logo/logo";
@@ -40,7 +39,7 @@ export function Navigation() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { photoURL, displayName, email } = useAppSelector(getUserSelector);
+  const { avatar, displayName, email } = useAppSelector(getUserSelector);
 
   const handleLogOutClick = () => {
     logOut().then(() => {
@@ -96,7 +95,7 @@ export function Navigation() {
             trigger={
               <UserCard>
                 <AvatarWrapper>
-                  <Avatar src={photoURL || noAvatar} />
+                  <Avatar src={avatar} />
                 </AvatarWrapper>
                 <UserBlock>
                   <UserName>{displayName}</UserName>

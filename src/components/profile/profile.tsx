@@ -1,6 +1,5 @@
 import addMedia from "@/assets/icons/add-media.svg";
-import noAvatar from "@/assets/imgs/no_avatar.png";
-import noBackground from "@/assets/imgs/no_background.webp";
+import { BackgroundImage } from "@/components//background-image/background-image";
 import { Avatar } from "@/components/avatar/avatar";
 import { EditProfile } from "@/components/edit-profile/edit-profile";
 import { Header } from "@/components/header/header";
@@ -15,7 +14,6 @@ import {
   AvatarWrapperWithChange,
   EditButtonWrapper,
   ImageUpload,
-  ProfileBackgroundImage,
   ProfileBackgroundImageWrapperWithChange,
   ProfileBody,
   ProfileBodyName,
@@ -25,7 +23,8 @@ import {
 } from "./styled";
 
 type ProfileProps = {
-  photoURL?: string;
+  avatar?: string;
+  background?: string;
   displayName: string;
   status?: string;
   email?: string;
@@ -33,7 +32,8 @@ type ProfileProps = {
 };
 
 export function Profile({
-  photoURL,
+  avatar,
+  background,
   displayName,
   status,
   email,
@@ -63,22 +63,22 @@ export function Profile({
           <ProfileBackgroundImageWrapperWithChange
             onClick={handleBackgroundModalShow}
           >
-            <ProfileBackgroundImage src={noBackground} />
+            <BackgroundImage src={background} />
             <ImageUpload src={addMedia} alt="upload file" />
           </ProfileBackgroundImageWrapperWithChange>
         ) : (
-          <ProfileBackgroundImage src={noBackground} />
+          <BackgroundImage src={background} />
         )}
 
         <ProfileBody>
           {editPermission ? (
             <AvatarWrapperWithChange onClick={handleAvatarModalShow}>
-              <Avatar src={photoURL || noAvatar} />
+              <Avatar src={avatar} />
               <ImageUpload src={addMedia} alt="upload file" />
             </AvatarWrapperWithChange>
           ) : (
             <AvatarWrapper>
-              <Avatar src={photoURL || noAvatar} />
+              <Avatar src={avatar} />
             </AvatarWrapper>
           )}
           {editPermission && (

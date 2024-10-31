@@ -6,14 +6,15 @@ import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 
 export function PersonaPage() {
-  const { photoURL, displayName, status, uid } =
+  const { avatar, displayName, status, uid, background } =
     useAppSelector(getUserSelector);
 
   return (
     <>
       <Profile
         displayName={displayName}
-        photoURL={photoURL}
+        avatar={avatar}
+        background={background}
         status={status}
         email={auth.currentUser!.email!}
         editPermission

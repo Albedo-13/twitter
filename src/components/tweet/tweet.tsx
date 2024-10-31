@@ -1,15 +1,13 @@
 import { DocumentData } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import noAvatar from "@/assets/imgs/no_avatar.png";
 import { Avatar } from "@/components/avatar/avatar";
 import { ROUTES } from "@/constants/routes";
-import { storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
+import { getImageUrl } from "@/utils/firebase/helpers";
 
 import Bookmark from "./interaction/bookmark";
 import Like from "./interaction/like";
@@ -31,7 +29,7 @@ type TweetProps = {
 };
 
 type UserDataType = {
-  photoURL: string | null;
+  avatar: string;
   displayName: string | null;
 };
 
@@ -39,30 +37,13 @@ export function Tweet({ post }: TweetProps) {
   const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserDataType>({
-    photoURL: null,
+    avatar: "",
     displayName: null,
   });
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getImageUrl = async () => {
-      try {
-        const url = await getDownloadURL(ref(storage, post?.image));
-        return url;
-      } catch (error) {
-        return null;
-      }
-    };
-
-    const getAdditionalUserDataByUid = async (userId: string) => {
-      const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
-      if (!queryUserSnapshot.empty) {
-        const { photoURL, displayName } = queryUserSnapshot.docs[0].data();
-        return { photoURL, displayName };
-      }
-    };
-
-    getImageUrl()
+    getImageUrl(post?.image)
       .then((url) => setImgUrl(url))
       .catch(() => setImgUrl(null));
     getAdditionalUserDataByUid(post.authorUid).then((data) =>
@@ -80,7 +61,7 @@ export function Tweet({ post }: TweetProps) {
     <>
       <Wrapper>
         <AvatarWrapperLink to={link}>
-          <Avatar src={userData.photoURL || noAvatar} />
+          <Avatar src={userData.avatar} />
         </AvatarWrapperLink>
         <BodyWrapper>
           <UserInfoWrapper>

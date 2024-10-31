@@ -5,7 +5,8 @@ export type UserType = {
   email: string;
   phone: string;
   displayName: string;
-  photoURL?: string;
+  avatar?: string;
+  background?: string;
   birthday?: string;
   gender?: string;
   status?: string;
@@ -15,7 +16,8 @@ const initialState = {
   uid: "",
   email: "",
   phone: "",
-  photoURL: "",
+  avatar: "",
+  background: "",
   displayName: "",
   birthday: "",
   gender: "",

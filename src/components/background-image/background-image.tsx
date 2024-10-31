@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 
-import noAvatar from "@/assets/imgs/no_avatar.png";
+import noBackground from "@/assets/imgs/no_background.webp";
 import { getImageUrl } from "@/utils/firebase/helpers";
 
-import { StyledAvatar } from "./styled";
+import { ProfileBackgroundImage } from "./styled";
 
 type AvatarProps = {
   src?: string;
 };
 
-export function Avatar({ src }: AvatarProps) {
+export function BackgroundImage({ src }: AvatarProps) {
   const [image, setImage] = useState<string | null>("");
 
   useEffect(() => {
@@ -17,5 +17,5 @@ export function Avatar({ src }: AvatarProps) {
     getImageUrl(src).then(setImage);
   }, [src]);
 
-  return <StyledAvatar src={image ? image : noAvatar} />;
+  return <ProfileBackgroundImage src={image ? image : noBackground} />;
 }

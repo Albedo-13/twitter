@@ -71,9 +71,7 @@ export function UploadModal({
   };
 
   const sendData = async (formData: Data) => {
-    console.log(formData);
     const imageName = await getUploadedImageName(formData.image);
-    console.log(imageName);
     const userSnapshot = await queryUserEqualByValue("uid", uid);
     const userRef = doc(db, "users", userSnapshot.docs[0].id);
 
