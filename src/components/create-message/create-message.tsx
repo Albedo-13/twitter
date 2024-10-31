@@ -10,6 +10,7 @@ import addMedia from "@/assets/icons/add-media.svg";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostFormData } from "@/types";
 import { uploadFile } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
@@ -25,11 +26,6 @@ import {
   SendSVG,
 } from "./styled";
 
-type Data = {
-  text: string;
-  image: FileList | null;
-};
-
 export function CreateMessage() {
   const { id } = useParams();
   const { uid } = useAppSelector(getUserSelector);
@@ -42,9 +38,9 @@ export function CreateMessage() {
     reset,
     formState: { errors, isSubmitting },
     clearErrors,
-  } = useForm<Data>({
+  } = useForm<PostFormData>({
     defaultValues: {
-      text: "",
+      content: "",
       image: null,
     },
     resolver: zodResolver(schema),
@@ -54,13 +50,13 @@ export function CreateMessage() {
     return images ? await uploadFile(`chats/${id}`, images[0]) : null;
   };
 
-  const sendMessageDataToDB = async (formData: Data) => {
+  const sendMessageDataToDB = async (formData: PostFormData) => {
     const messageId = uuidv4();
     const imageName = await getUploadedImageName(formData.image);
     const newMessage = {
       uid: messageId,
       authorUid: uid,
-      text: formData.text,
+      content: formData.content,
       image: imageName,
       createdAt: new Date(),
     };
@@ -112,8 +108,8 @@ export function CreateMessage() {
       <InputWrapper>
         <FileInputPreviewImage src={previewImage} />
         <Input
-          {...register("text")}
-          className={errors.text ? "error" : ""}
+          {...register("content")}
+          className={errors.content ? "error" : ""}
           onInput={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
             //i dont know why, but this kinda works
             target.style.height = `0px`;

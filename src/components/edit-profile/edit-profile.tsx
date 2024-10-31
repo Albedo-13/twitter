@@ -16,6 +16,7 @@ import { auth, db } from "@/firebase";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { removeUser } from "@/redux/slices/user-slice";
+import { ModalComponentProps } from "@/types";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { Select } from "@/ui/selects";
@@ -23,10 +24,6 @@ import { queryUserEqualByValue, reauthUser } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
 import { StyledFormProfile, Text } from "./styled";
-
-type EditProfileProps = {
-  handleModalClose: VoidFunction;
-};
 
 type Data = {
   displayName: string;
@@ -36,7 +33,7 @@ type Data = {
   newPassword: string;
 };
 
-export function EditProfile({ handleModalClose }: EditProfileProps) {
+export function EditProfile({ handleModalClose }: ModalComponentProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { displayName, gender, status, uid } = useAppSelector(getUserSelector);

@@ -11,6 +11,7 @@ import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostFormData } from "@/types";
 import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 
@@ -28,11 +29,6 @@ import {
   Textarea,
 } from "./styled";
 
-type Data = {
-  content: string;
-  image: FileList | null;
-};
-
 export function CreatePost() {
   const { avatar, uid } = useAppSelector(getUserSelector);
   const [previewImage, setPreviewImage] = useState<string>();
@@ -41,7 +37,7 @@ export function CreatePost() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<Data>({
+  } = useForm<PostFormData>({
     defaultValues: {
       content: "",
       image: null,
@@ -53,7 +49,7 @@ export function CreatePost() {
     return images ? await uploadFile("posts", images[0]) : null;
   };
 
-  const onSubmit = async (data: Data) => {
+  const onSubmit = async (data: PostFormData) => {
     const imageName = await getUploadedImageName(data.image);
     const postId = uuidv4();
 

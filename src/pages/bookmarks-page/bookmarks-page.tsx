@@ -8,7 +8,9 @@ export function BookmarksPage() {
   return (
     <>
       <Header title="Bookmarks" />
-      <TweetsList filterFunc={(post) => post.bookmarkedByUsers.includes(uid)} />
+      <TweetsList
+        filterFunc={({ bookmarkedByUsers }) => bookmarkedByUsers.includes(uid)}
+      />
     </>
   );
 }

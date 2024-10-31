@@ -1,6 +1,5 @@
 import {
   collection,
-  DocumentData,
   getDocs,
   onSnapshot,
   orderBy,
@@ -10,11 +9,12 @@ import { useEffect, useState } from "react";
 
 import { Tweet } from "@/components/tweet/tweet";
 import { db } from "@/firebase";
+import { PostData, PostsDataList } from "@/types";
 
 import { NoPost } from "./styled";
 
 type TweetsListProps = {
-  filterFunc?: (post: DocumentData) => boolean;
+  filterFunc?: (post: PostData) => boolean;
 };
 
 export function TweetsList({
@@ -22,13 +22,13 @@ export function TweetsList({
     return true;
   },
 }: TweetsListProps) {
-  const [posts, setPosts] = useState<DocumentData[]>([]);
+  const [posts, setPosts] = useState<PostsDataList>([]);
 
   const getPosts = async () => {
     const querySnapshot = await getDocs(
       query(collection(db, "posts"), orderBy("createdAt", "desc"))
     );
-    const posts = querySnapshot.docs.map((doc) => doc.data());
+    const posts = querySnapshot.docs.map((doc) => doc.data() as PostData);
     return posts;
   };
 
@@ -49,7 +49,7 @@ export function TweetsList({
         postsToShow.map((post) => (
           <Tweet
             key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-            post={post}
+            {...post}
           />
         ))
       ) : (

@@ -7,6 +7,7 @@ import { Modal } from "@/components/modal/modal";
 import { ModalPortal } from "@/components/modal/modal-portal";
 import { UploadModal } from "@/components/upload-modal/upload-modal";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { UserType } from "@/types";
 import { Button } from "@/ui/buttons";
 
 import {
@@ -22,12 +23,7 @@ import {
   ProfileWrapper,
 } from "./styled";
 
-type ProfileProps = {
-  avatar?: string;
-  background?: string;
-  displayName: string;
-  status?: string;
-  email?: string;
+type ProfileProps = Partial<UserType> & {
   editPermission?: boolean;
 };
 
@@ -58,7 +54,7 @@ export function Profile({
   return (
     <>
       <ProfileWrapper>
-        <Header title={displayName} />
+        <Header title={displayName!} />
         {editPermission ? (
           <ProfileBackgroundImageWrapperWithChange
             onClick={handleBackgroundModalShow}

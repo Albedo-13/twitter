@@ -1,6 +1,5 @@
 import {
   collection,
-  DocumentData,
   getDocs,
   onSnapshot,
   query,
@@ -14,9 +13,10 @@ import { Tweet } from "@/components/tweet/tweet";
 import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { Loader } from "@/loader/loader";
+import { PostData } from "@/types";
 
 export function PostPage() {
-  const [post, setPost] = useState<DocumentData | null>(null);
+  const [post, setPost] = useState<PostData | null>(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,7 +28,7 @@ export function PostPage() {
         query(collection(db, "posts"), where("uid", "==", postUid))
       );
       if (!querySnapshot.docs[0]) throw new Error("no post by this id");
-      const post = querySnapshot.docs[0].data();
+      const post = querySnapshot.docs[0].data() as PostData;
       setPost(post);
     };
     const q = collection(db, "posts");
@@ -40,7 +40,7 @@ export function PostPage() {
   return (
     <>
       <Header title="Post" />
-      {post ? <Tweet post={post} /> : <Loader />}
+      {post ? <Tweet {...post} /> : <Loader />}
     </>
   );
 }

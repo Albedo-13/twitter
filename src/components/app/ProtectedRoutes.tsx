@@ -2,12 +2,12 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
+import { Layout } from "@/components/layout/layout";
 import { ROUTES } from "@/constants/routes";
 import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserIdSelector } from "@/redux/selectors/user-selectors";
 
-import { Layout } from "../layout/layout";
 
 export const ProtectedRoutes = () => {
   const userId = useAppSelector(getUserIdSelector);

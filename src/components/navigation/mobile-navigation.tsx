@@ -1,4 +1,4 @@
-import { Modal } from "@/components//modal/modal";
+import { Modal } from "@/components/modal/modal";
 import { ModalPortal } from "@/components/modal/modal-portal";
 import { useModalControls } from "@/hooks/use-modal-controls";
 

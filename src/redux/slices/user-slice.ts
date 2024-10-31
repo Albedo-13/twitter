@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type UserType = {
-  uid: string;
-  email: string;
-  phone: string;
-  displayName: string;
-  avatar?: string;
-  background?: string;
-  birthday?: string;
-  gender?: string;
-  status?: string;
-};
+import { UserType } from "@/types";
 
 const initialState = {
   uid: "",

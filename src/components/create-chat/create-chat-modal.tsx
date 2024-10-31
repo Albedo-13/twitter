@@ -7,13 +7,14 @@ import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
 import { AddUsersToChat } from "@/components/create-chat/add-users-to-chat";
+import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { ModalComponentProps } from "@/types";
 import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 
-import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 import {
   ButtonWrapper,
@@ -37,11 +38,7 @@ type ChildData = {
   [key: string]: boolean;
 };
 
-type CreateChatModalProps = {
-  handleModalClose: Function;
-};
-
-export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
+export function CreateChatModal({ handleModalClose }: ModalComponentProps) {
   const { uid } = useAppSelector(getUserSelector);
   const [currentPage, setCurrentPage] = useState<1 | 2>(1);
   const [previewImage, setPreviewImage] = useState<string>("");

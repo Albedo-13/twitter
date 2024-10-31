@@ -19,17 +19,9 @@ import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { ChatsData } from "@/types";
 
 import { ChatWrapper } from "./styled";
-
-type ChatsData = {
-  createAt: Date;
-  image: string | null;
-  members: string[];
-  name: string;
-  uid: string;
-  admin: string;
-};
 
 type validReasons = "chatDoesNotExist" | "userNotInChat";
 

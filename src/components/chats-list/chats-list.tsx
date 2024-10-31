@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-
-import noAvatar from "@/assets/imgs/no_avatar.png";
 import { Avatar } from "@/components/avatar/avatar";
 import { ROUTES } from "@/constants/routes";
-import { getImageUrl } from "@/utils/firebase/helpers";
+import { ChatData, ChatsDataList } from "@/types";
 
 import {
   AvatarWrapper,
@@ -14,15 +11,8 @@ import {
   ChatWrapper,
 } from "./styled";
 
-type ChatsData = {
-  image: string | null;
-  members: string[];
-  name: string;
-  uid: string;
-};
-
 type ChatsListProps = {
-  chats: ChatsData[];
+  chats: ChatsDataList;
 };
 
 export const ChatsList = ({ chats }: ChatsListProps) => {
@@ -35,19 +25,11 @@ export const ChatsList = ({ chats }: ChatsListProps) => {
   );
 };
 
-const Chat = ({ image, members, name, uid }: ChatsData) => {
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
-
-  useEffect(() => {
-    getImageUrl(image)
-      .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(null));
-  }, [image]);
-
+const Chat = ({ image, members, name, uid }: ChatData) => {
   return (
     <ChatWrapper to={`${ROUTES.CHAT}/${uid}`}>
       <AvatarWrapper>
-        <Avatar src={imgUrl || noAvatar} />
+        <Avatar src={image!} />
       </AvatarWrapper>
       <ChatInfoWrapper>
         <ChatName>{name}</ChatName>

@@ -11,9 +11,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
 import { auth, db, storage } from "@/firebase";
-import { UserType } from "@/redux/slices/user-slice";
-
-export type FileType = Blob | Uint8Array | ArrayBuffer | null;
+import { FileType, UsersList, UserType } from "@/types";
 
 export const queryUserEqualByValue = async (field: string, value: string) => {
   const querySnapshot = await getDocs(
@@ -51,7 +49,7 @@ export const getLoginFromEmailOrPhone = (
   return user;
 };
 
-export const adaptUserObj = (user: DocumentData | null): UserType => {
+export const adaptUserObj = (user: UserType | null): UserType => {
   return {
     avatar: user?.avatar ?? "",
     background: user?.background ?? "",
@@ -89,7 +87,7 @@ export const searchUsers = async (searchText: string) => {
   const querySnapshot = await queryUserByName(searchText);
   const list = querySnapshot.docs
     .map((doc) => doc.data());
-  return list;
+  return list as UsersList;
 };
 
 export const getAdditionalUserDataByUid = async (userId: string, errorCallback?: () => void) => {

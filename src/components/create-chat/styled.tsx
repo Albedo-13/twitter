@@ -194,7 +194,7 @@ export const UserTag = styled.p`
   text-overflow: ellipsis;
 `;
 
-export const UserText = styled.p`
+export const UserLine = styled.div`
   font-size: 18px;
   max-height: 150px;
   margin-bottom: 15px;

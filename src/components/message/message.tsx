@@ -1,10 +1,10 @@
-import { Timestamp } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
 import { Avatar } from "@/components/avatar/avatar";
 import Time from "@/components/tweet/time";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { MessageData, UserType } from "@/types";
 import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
 import { getImageUrl } from "@/utils/firebase/helpers";
 
@@ -19,33 +19,27 @@ import {
   UserName,
 } from "./styled";
 
-type MessageData = {
-  authorUid: string;
-  createdAt: Timestamp;
-  image: string;
-  text: string;
-  uid: string;
-};
-
-type UserDataType = {
-  avatar: string;
-  displayName: string | null;
-};
-
-export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
+export const Message = ({
+  authorUid,
+  content,
+  image,
+  createdAt,
+}: MessageData) => {
   const { uid } = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
-  const [userData, setUserData] = useState<UserDataType>({
+  const [userData, setUserData] = useState<Partial<UserType>>({
     avatar: "",
-    displayName: null,
+    displayName: "",
   });
 
   useEffect(() => {
-    getImageUrl(image)
-      .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(null));
+    if (image) {
+      getImageUrl(image)
+        .then((url) => setImgUrl(url))
+        .catch(() => setImgUrl(null));
+    }
     getAdditionalUserDataByUid(authorUid).then((data) =>
-      setUserData(data as UserDataType)
+      setUserData(data as UserType)
     );
   }, [authorUid, image]);
 
@@ -58,7 +52,7 @@ export const Message = ({ authorUid, text, image, createdAt }: MessageData) => {
         <UserInfoWrapperLink to={"/profile/" + authorUid}>
           <UserName>{userData.displayName}</UserName>
         </UserInfoWrapperLink>
-        <MessageText>{text}</MessageText>
+        <MessageText>{content}</MessageText>
         {imgUrl && <Image src={imgUrl} alt="tweet image" />}
         <TimeText>
           <Time seconds={createdAt.seconds} />

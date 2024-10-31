@@ -1,4 +1,4 @@
-import { deleteDoc, doc, DocumentData } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import { SyntheticEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -10,16 +10,17 @@ import { db, storage } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostData } from "@/types";
 
 import DeleteConfirmation from "./deleteConfirmation";
 import { MoreWrapper, MoreWrapperItem, SVGIcon } from "./styled";
 
-type MoreProps = {
-  post: DocumentData;
-};
-
-const More = ({ post }: MoreProps) => {
-  const { uid } = useAppSelector(getUserSelector);
+const More = ({
+  uid,
+  image,
+  authorUid,
+}: Pick<PostData, "uid" | "image" | "authorUid">) => {
+  const user = useAppSelector(getUserSelector);
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
   const location = useLocation();
@@ -29,11 +30,11 @@ const More = ({ post }: MoreProps) => {
   const handleDeleteClick = async (e: SyntheticEvent) => {
     e.stopPropagation();
     handleModalClose();
-    if (post.image) {
-      const desertRef = ref(storage, post.image);
+    if (image) {
+      const desertRef = ref(storage, image);
       await deleteObject(desertRef);
     }
-    await deleteDoc(doc(db, "posts", post.uid));
+    await deleteDoc(doc(db, "posts", uid));
     if (location.pathname.includes(ROUTES.POST)) {
       navigate(ROUTES.HOME);
     }
@@ -72,7 +73,7 @@ const More = ({ post }: MoreProps) => {
             </g>
           </SVGIcon>
         </MoreWrapperItem>
-        {uid === post.authorUid && (
+        {user.uid === authorUid && (
           <MoreWrapperItem>
             <SVGIcon viewBox="0 0 41.336 41.336" onClick={handleModalShow}>
               <g>

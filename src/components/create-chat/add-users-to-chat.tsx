@@ -1,4 +1,3 @@
-import { DocumentData } from "firebase/firestore";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useDebounce } from "use-debounce";
@@ -9,15 +8,16 @@ import { DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { useAppSelector } from "@/hooks/redux";
 import { Loader } from "@/loader/loader";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { UsersList, UserType } from "@/types";
 import { searchUsers } from "@/utils/firebase/helpers";
 
-import { SearchedTweets } from "./styled";
 import {
   AvatarWrapper,
   Checkmark,
+  SearchedTweets,
+  UserLine,
   UserName,
   UserTag,
-  UserText,
   Wrapper,
 } from "./styled";
 
@@ -31,7 +31,7 @@ export function AddUsersToChat({
   activeChilds,
 }: AddUsersToChatProps) {
   const user = useAppSelector(getUserSelector);
-  const [list, setList] = useState<DocumentData[]>([]);
+  const [list, setList] = useState<UsersList>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>("");
   const [debouncedSearchText] = useDebounce(searchText, DEBOUNCE_DELAY_MS);
@@ -63,14 +63,14 @@ export function AddUsersToChat({
         {isLoading && searchText ? (
           <Loader />
         ) : (
-          list.map(({uid, displayName, avatar, email}) => {
+          list.map(({ uid, displayName, avatar, email }) => {
             return (
               <SearchUsers
                 key={uid}
                 isActive={activeChilds.includes(uid)}
-                uid={uid}
                 handleCollectChildData={handleCollectChildData}
-                name={displayName}
+                uid={uid}
+                displayName={displayName}
                 email={email}
                 avatar={avatar}
               />
@@ -82,24 +82,18 @@ export function AddUsersToChat({
   );
 }
 
-type SearchUsersProps = {
+type SearchUsersProps = UserType & {
   handleCollectChildData: Function;
   isActive: boolean;
-  uid: string;
-  name: string;
-  email: string;
-  content?: string;
-  avatar?: string;
 };
 
 function SearchUsers({
   handleCollectChildData,
   isActive,
   uid,
-  name,
+  displayName,
   email,
-  content,
-  avatar
+  avatar,
 }: SearchUsersProps) {
   const [selected, setSelected] = useState<boolean>(isActive);
 
@@ -125,9 +119,9 @@ function SearchUsers({
         </Checkmark>
       </AvatarWrapper>
       <div>
-        <UserName>{name}</UserName>
+        <UserName>{displayName}</UserName>
         <UserTag>{email}</UserTag>
-        <UserText>{content}</UserText>
+        <UserLine />
       </div>
     </Wrapper>
   );

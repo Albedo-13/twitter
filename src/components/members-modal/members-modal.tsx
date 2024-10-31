@@ -8,6 +8,7 @@ import { Modal } from "@/components/modal/modal";
 import { ModalPortal } from "@/components/modal/modal-portal";
 import { db } from "@/firebase";
 import { useModalControls } from "@/hooks/use-modal-controls";
+import { UserBasicType } from "@/types";
 import { Button } from "@/ui/buttons";
 
 import { AddButt, AdminPanel, ButtonWrapper } from "./styled";
@@ -19,15 +20,10 @@ type MembersModalProps = {
   isAdminView: boolean;
 };
 
-type UserDataType = {
-  displayName: string | null;
-  uid: string | null;
-};
-
 type ChildData = {
   [key: string]: boolean;
 };
-//не показывать в поиске теи, кто уже в группе
+//TODO: не показывать в поиске тех, кто уже в группе
 export function MembersModal({
   members,
   adminId,
@@ -63,7 +59,7 @@ export function MembersModal({
     toast.success(`Succesfully added ${usersToAdd.length} users!`);
   };
 
-  const handleMemberKickClick = ({ uid, displayName }: UserDataType) => {
+  const handleMemberKickClick = ({ uid, displayName }: UserBasicType) => {
     if (!isAdminView) {
       console.log("YOU SHALL NOT PASS!");
       window.location.replace("https://www.youtube.com/watch?v=dQw4w9WgXcQ");

@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { useAppSelector } from "@/hooks/redux";
 import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 import { setUser } from "@/redux/slices/user-slice";
+import { UserType } from "@/types";
 import { Button } from "@/ui/buttons";
 import { InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
@@ -35,16 +36,16 @@ export function AuthPage() {
   const handleSignupClick = () => {
     navigate(ROUTES.SIGNUP);
   };
-
+  //TODO: брать фотку из гугла и заливать ее в бд, и кидать сюда ссылку на неё
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
       const { uid, phoneNumber, email, displayName } = user;
-      const newUser = {
+      const newUser : UserType = {  
         uid: uid,
         phone: phoneNumber || "",
-        email: email,
-        displayName: displayName,
+        email: email!,
+        displayName: displayName!,
       };
 
       const queryUserSnapshot = await queryUserEqualByValue("uid", uid);
@@ -52,7 +53,7 @@ export function AuthPage() {
       if (queryUserSnapshot.empty) {
         await addDoc(collection(db, "users"), newUser);
       }
-      dispatch(setUser(adaptUserObj(user)));
+      dispatch(setUser(adaptUserObj(newUser)));
     });
 
     navigate(ROUTES.HOME);
@@ -90,13 +91,13 @@ export function AuthPage() {
               </ButtonWrapper>
               <PolicyText>
                 By singing up you agree to the
-                <InlineLink to="#">Terms of Service</InlineLink> and
-                <InlineLink to="#">Privacy Policy</InlineLink>, including
-                <InlineLink to="#">Cookie Use</InlineLink>.
+                <InlineLink to="#"> Terms of Service</InlineLink> and
+                <InlineLink to="#"> Privacy Policy</InlineLink>, including
+                <InlineLink to="#"> Cookie Use</InlineLink>.
               </PolicyText>
               <LoginText>
                 Already have an account?
-                <InlineLink to={ROUTES.LOGIN}>Log in</InlineLink>
+                <InlineLink to={ROUTES.LOGIN}> Log in</InlineLink>
               </LoginText>
             </div>
           </AuthWrapper>

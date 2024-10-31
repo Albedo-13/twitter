@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { ROUTES } from "@/constants/routes";
+import { UserBasicType } from "@/types";
 import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
 
 import {
@@ -10,16 +11,11 @@ import {
   Wrapper,
 } from "./styled";
 
-type UserDataType = {
-  displayName: string | null;
-  uid: string | null;
-};
-
 type MemberProps = {
   id: string;
   adminId: string;
   isAdminView: boolean;
-  handleMemberKickClick: (userData: UserDataType) => void;
+  handleMemberKickClick: (userData: UserBasicType) => void;
 };
 
 export function Member({
@@ -28,14 +24,14 @@ export function Member({
   isAdminView,
   handleMemberKickClick,
 }: MemberProps) {
-  const [userData, setUserData] = useState<UserDataType>({
-    displayName: null,
-    uid: null,
+  const [userData, setUserData] = useState<UserBasicType>({
+    uid: "",
+    displayName: "",
   });
 
   useEffect(() => {
     getAdditionalUserDataByUid(id).then((data) =>
-      setUserData(data as UserDataType)
+      setUserData(data as UserBasicType)
     );
   }, [id]);
 

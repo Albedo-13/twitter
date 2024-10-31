@@ -1,7 +1,8 @@
 import { Fragment, ReactNode } from "react";
 
-import MobileNavigation from "../navigation/mobile-navigation";
-import { Switch } from "../switch/switch";
+import MobileNavigation from "@/components/navigation/mobile-navigation";
+import { Switch } from "@/components/switch/switch";
+
 import {
   Description,
   NavigationMobileWrapper,

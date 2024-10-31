@@ -1,15 +1,12 @@
 import { useEffect, useState } from "react";
 
 import noBackground from "@/assets/imgs/no_background.webp";
+import { ImageProps } from "@/types";
 import { getImageUrl } from "@/utils/firebase/helpers";
 
 import { ProfileBackgroundImage } from "./styled";
 
-type AvatarProps = {
-  src?: string;
-};
-
-export function BackgroundImage({ src }: AvatarProps) {
+export function BackgroundImage({ src }: ImageProps) {
   const [image, setImage] = useState<string | null>("");
 
   useEffect(() => {
