@@ -28,15 +28,15 @@ export function TweetsList({
     const querySnapshot = await getDocs(
       query(collection(db, "posts"), orderBy("createdAt", "desc"))
     );
-    const posts = querySnapshot.docs.map((doc) => doc.data() as PostData);
-    return posts;
+    const data = querySnapshot.docs.map((doc) => doc.data() as PostData);
+    return data;
   };
 
   useEffect(() => {
     const q = collection(db, "posts");
     onSnapshot(q, () => {
-      getPosts().then((posts) => {
-        setPosts(posts);
+      getPosts().then((newPosts) => {
+        setPosts(newPosts);
       });
     });
   }, []);
@@ -46,12 +46,7 @@ export function TweetsList({
   return (
     <>
       {postsToShow.length > 0 ? (
-        postsToShow.map((post) => (
-          <Tweet
-            key={`${post.authorUid + post.createdAt.seconds + post.createdAt.nanoseconds}`}
-            {...post}
-          />
-        ))
+        postsToShow.map((post) => <Tweet key={`${post.uid}`} {...post} />)
       ) : (
         <NoPost>There is no post yet...</NoPost>
       )}

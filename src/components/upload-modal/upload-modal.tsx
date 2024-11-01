@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, updateDoc } from "firebase/firestore";
-import { useState } from "react";
-import { ChangeEvent } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { db } from "@/firebase";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { updateUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
 import { uploadFile } from "@/utils/firebase/helpers";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
@@ -22,11 +22,13 @@ import {
   Wrapper,
 } from "./styled";
 
+type UploadTypes = "background" | "avatar";
+
 type UploadModalProps = {
   handleModalClose: () => void;
   placeholder?: string;
   toastMessage?: string;
-  uploadType: string;
+  uploadType: UploadTypes;
 };
 
 type Data = {
@@ -39,8 +41,9 @@ export function UploadModal({
   toastMessage,
   uploadType,
 }: UploadModalProps) {
-  const { uid } = useAppSelector(getUserSelector);
-  const [previewImage, setPreviewImage] = useState<string>();
+  const test = useAppSelector(getUserSelector);
+  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
+  const dispatch = useAppDispatch();
 
   const { register, handleSubmit, reset } = useForm<Data>({
     defaultValues: {
@@ -49,42 +52,26 @@ export function UploadModal({
     resolver: zodResolver(schema),
   });
 
-  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function ({ target }) {
-        if (target) {
-          setPreviewImage(target.result as string);
-        } else {
-          console.error("Bug perhaps, i dunno");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-    register("image").onChange(event);
-  };
-
   const getUploadedImageName = async (images: FileList | null) => {
     return images ? await uploadFile("users", images[0]) : null;
   };
 
   const sendData = async (formData: Data) => {
     const imageName = await getUploadedImageName(formData.image);
-    const userSnapshot = await queryUserEqualByValue("uid", uid);
+    if (!imageName) {
+      toast.error("Something went wrong");
+      return;
+    }
+    const userSnapshot = await queryUserEqualByValue("uid", test.uid);
     const userRef = doc(db, "users", userSnapshot.docs[0].id);
 
+    dispatch(updateUser({ [uploadType]: imageName }));
     updateDoc(userRef, {
       [uploadType]: imageName,
     });
     reset();
     toast.success(toastMessage);
     handleModalClose();
-  };
-
-  const handleCancel = () => {
-    setPreviewImage("");
   };
 
   return (
@@ -96,7 +83,7 @@ export function UploadModal({
             <Button variant="primary" size="medium" type="submit">
               Submit
             </Button>
-            <Button variant="secondary" size="medium" onClick={handleCancel}>
+            <Button variant="secondary" size="medium" onClick={clearPreview}>
               Cancel
             </Button>
           </ConfirmationButtonsWrapper>
@@ -106,16 +93,15 @@ export function UploadModal({
           <PlaceholderText>{placeholder}</PlaceholderText>
           <UploadButton htmlFor="uploadInput">Upload</UploadButton>
           <UploadInput
-            {...register("image")}
+            {...register("image", {
+              onChange: handleFileInputChange,
+            })}
             type="file"
             id="uploadInput"
             accept="image/*"
-            onChange={handleFileInputChange}
           />
         </>
       )}
-
-      {/* <input type="file" accept="image/*" onChange={handleFileInputChange} /> */}
     </Wrapper>
   );
 }

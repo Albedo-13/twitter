@@ -115,7 +115,6 @@ export function Profile({
                 placeholder="You can change your background image here."
                 toastMessage="Background image updated"
               />
-              {/* <EditProfile handleModalClose={handleBackgroundModalClose} /> */}
             </Modal>
           }
         />
@@ -130,7 +129,6 @@ export function Profile({
                 placeholder="It will be easier for friends to get to know you if you upload your real photo."
                 toastMessage="Avatar updated"
               />
-              {/* <EditProfile  */}
             </Modal>
           }
         />

@@ -76,6 +76,8 @@ export function SignupPage() {
 
         const newUser = {
           uid: userCreds.uid,
+          avatar: "",
+          background: "",
           phone: data.phone,
           email: data.email,
           displayName: data.displayName,

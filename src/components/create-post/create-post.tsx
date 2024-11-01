@@ -1,7 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
-import { ChangeEvent } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
@@ -10,6 +8,7 @@ import { Avatar } from "@/components/avatar/avatar";
 import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostFormData } from "@/types";
 import { Button } from "@/ui/buttons";
@@ -31,7 +30,7 @@ import {
 
 export function CreatePost() {
   const { avatar, uid } = useAppSelector(getUserSelector);
-  const [previewImage, setPreviewImage] = useState<string>();
+  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
   const {
     register,
     handleSubmit,
@@ -67,24 +66,7 @@ export function CreatePost() {
     await setDoc(doc(db, "posts", postId), newPost);
 
     reset();
-    setPreviewImage("");
-  };
-
-  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function ({ target }) {
-        if (target) {
-          setPreviewImage(target.result as string);
-        } else {
-          console.error("Bug perhaps, i dunno");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-    register("image").onChange(event);
+    clearPreview();
   };
 
   return (
@@ -101,11 +83,12 @@ export function CreatePost() {
               <FileInputImage src={addMedia} alt="upload file" />
             </label>
             <FileInput
-              {...register("image")}
+              {...register("image", {
+                onChange: handleFileInputChange,
+              })}
               type="file"
               id="file-input"
               accept="image/*"
-              onChange={handleFileInputChange}
             />
           </FileInputWrapper>
           <Button variant="primary" size="small" type="submit">

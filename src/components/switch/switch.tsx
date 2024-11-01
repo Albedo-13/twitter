@@ -21,7 +21,6 @@ export function Switch() {
       setIsLoaded(true);
     }, 400);
     return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleThemeChange = () => {

@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -9,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import addMedia from "@/assets/icons/add-media.svg";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostFormData } from "@/types";
 import { uploadFile } from "@/utils/firebase/helpers";
@@ -28,9 +28,8 @@ import {
 
 export function CreateMessage() {
   const { id } = useParams();
-  const { uid } = useAppSelector(getUserSelector);
-
-  const [previewImage, setPreviewImage] = useState<string>();
+  const user = useAppSelector(getUserSelector);
+  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
 
   const {
     register,
@@ -51,11 +50,13 @@ export function CreateMessage() {
   };
 
   const sendMessageDataToDB = async (formData: PostFormData) => {
+    if (!formData.content.trim().length) return;
+    console.log("temp")
     const messageId = uuidv4();
     const imageName = await getUploadedImageName(formData.image);
     const newMessage = {
       uid: messageId,
-      authorUid: uid,
+      authorUid: user.uid,
       content: formData.content,
       image: imageName,
       createdAt: new Date(),
@@ -63,29 +64,13 @@ export function CreateMessage() {
     await setDoc(doc(db, "chats", id!, "messages", messageId), newMessage);
 
     reset();
-    setPreviewImage("");
+    clearPreview();
   };
 
   const handleKeyDown = ({ key, shiftKey }: KeyboardEvent<HTMLFormElement>) => {
     if (!shiftKey && key === "Enter") {
       handleSubmit(sendMessageDataToDB)();
     }
-  };
-
-  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function ({ target }) {
-        if (target) {
-          setPreviewImage(target.result as string);
-        } else {
-          console.error("Bug perhaps, i dunno");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-    register("image").onChange(event);
   };
 
   return (
@@ -98,11 +83,12 @@ export function CreateMessage() {
           <FileInputImage src={addMedia} alt="upload file" />
         </label>
         <FileInput
-          {...register("image")}
+          {...register("image", {
+            onChange: handleFileInputChange,
+          })}
           type="file"
           id="file-input"
           accept="image/*"
-          onChange={handleFileInputChange}
         />
       </FileInputWrapper>
       <InputWrapper>

@@ -43,6 +43,8 @@ export function AuthPage() {
       const { uid, phoneNumber, email, displayName } = user;
       const newUser : UserType = {  
         uid: uid,
+        avatar: "",
+        background: "",
         phone: phoneNumber || "",
         email: email!,
         displayName: displayName!,
