@@ -4,7 +4,7 @@ import { Image, StyledButton } from "./styled";
 
 type ButtonProps = {
   icon?: string;
-  children: ReactNode;
+  children?: ReactNode;
   type?: "submit" | "button" | "reset";
   variant: "primary" | "outlined" | "secondary";
   size: "extra-small" | "small" | "medium" | "large";

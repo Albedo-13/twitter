@@ -15,7 +15,7 @@ import {
 } from "./styled";
 
 type UserProps = UserType & {
-  handleCollectChildData: Function;
+  handleCollectChildData?: Function;
   isActive: boolean;
   isAdmin: boolean;
   clickable: boolean;
@@ -34,7 +34,7 @@ export function User({
   const [selected, setSelected] = useState<boolean>(isActive);
 
   const handleSelect = () => {
-    if (!clickable) return;
+    if (!clickable || !handleCollectChildData) return;
     handleCollectChildData(uid, !selected);
     setSelected((prev) => !prev);
   };

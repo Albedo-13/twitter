@@ -35,7 +35,7 @@ export function PostPage() {
     onSnapshot(q, () => {
       getPostByUid().catch(() => navigate(ROUTES.HOME));
     });
-  }, [postUid, navigate]);
+  }, [postUid]);
 
   return (
     <>

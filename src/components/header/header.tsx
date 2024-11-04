@@ -13,7 +13,7 @@ import {
 } from "./styled";
 
 type HeaderProps = {
-  title: string;
+  title?: string;
   description?: string;
   titleOnClick?: () => void;
   childrens?: ReactNode[];

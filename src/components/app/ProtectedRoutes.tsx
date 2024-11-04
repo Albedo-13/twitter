@@ -8,7 +8,6 @@ import { auth } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserIdSelector } from "@/redux/selectors/user-selectors";
 
-
 export const ProtectedRoutes = () => {
   const userId = useAppSelector(getUserIdSelector);
   const [isUserAuthed, setIsUserAuthed] = useState(false);

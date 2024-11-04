@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { Avatar } from "@/components/avatar/avatar";
-import Time from "@/components/tweet/time";
+import { Time } from "@/components/tweet/time";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { MessageData, UserType } from "@/types";

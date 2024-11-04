@@ -15,13 +15,14 @@ import { searchUsers } from "@/utils/firebase/helpers";
 import { SearchedUsers } from "./styled";
 
 type AddUsersProps = {
-  handleCollectChildData: Function;
+  handleCollectChildData?: Function;
   showOnly?: string[];
   activeChilds?: string[];
   usersFilter?: (user: UserType) => boolean;
   adminId?: string;
   ignoreAuthor?: boolean;
   clickable?: boolean;
+  style?: Object;
 };
 
 export function AddUsers({
@@ -32,6 +33,7 @@ export function AddUsers({
   adminId,
   ignoreAuthor = false,
   clickable = false,
+  style,
 }: AddUsersProps) {
   const user = useAppSelector(getUserSelector);
   const [list, setList] = useState<UsersList>([]);
@@ -59,7 +61,7 @@ export function AddUsers({
         onChange={handleSearchTextChange}
         placeholder={"Search users"}
       />
-      <SearchedUsers>
+      <SearchedUsers style={style}>
         {isLoading && searchText ? (
           <Loader />
         ) : (
@@ -69,7 +71,7 @@ export function AddUsers({
               showOnly ? (elem) => showOnly.includes(elem.uid) : () => true
             )
             .filter(usersFilter)
-            .sort((a) => adminId && a.uid === adminId? -1 : 1)
+            .sort((a) => (adminId && a.uid === adminId ? -1 : 1))
             .slice(0, MAX_ADD_USER_SHOW)
             .map(({ uid, displayName, avatar, email }) => {
               return (

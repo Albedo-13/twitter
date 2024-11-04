@@ -59,7 +59,7 @@ export type PostFormData = {
 };
 
 export type ChatsData = {
-  createAt: Date;
+  createdAt: Timestamp;
   image: string | null;
   members: string[];
   name: string;

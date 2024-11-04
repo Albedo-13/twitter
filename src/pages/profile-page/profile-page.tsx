@@ -48,7 +48,7 @@ export function ProfilePage() {
     getAdditionalUserDataByUid(id!, errorCallback).then((data) => {
       setData(data as UserType);
     });
-  }, [id, navigate, user]);
+  }, [id, user]);
 
   return (
     <>

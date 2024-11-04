@@ -22,7 +22,7 @@ import {
   UserNameLink,
   Wrapper,
 } from "./styled";
-import Time from "./time";
+import { Time } from "./time";
 
 type UserDataType = {
   avatar: string;
