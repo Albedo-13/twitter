@@ -48,6 +48,7 @@ export const AddButtonAvatar = styled.div`
   align-items: center;
   justify-content: center;
   font-size: 42px;
+  font-weight: 300;
   transition: 0.05s all;
 `;
 

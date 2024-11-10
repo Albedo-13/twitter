@@ -71,6 +71,10 @@ export const UserLine = styled.div`
 export const SearchedUsers = styled.div`
   margin: 20px 0;
   white-space: nowrap;
+  &.freeze {
+    pointer-events: none;
+    filter: brightness(0.69);
+  }
 `;
 
 export const Wrapper = styled.div`
@@ -99,5 +103,32 @@ export const Wrapper = styled.div`
     &:hover {
       background-color: var(--secondary-color);
     }
+  }
+`;
+
+export const RemoveButton = styled.button`
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 0;
+  cursor: pointer;
+  margin-left: auto;
+  background-color: transparent;
+  transition: 0.05s all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42px;
+  font-weight: 300;
+  rotate: 45deg;
+  opacity: 0.3;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  &:hover {
+    opacity: 1;
+    background-color: var(--primary-color);
   }
 `;

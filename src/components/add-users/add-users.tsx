@@ -17,23 +17,31 @@ import { SearchedUsers } from "./styled";
 type AddUsersProps = {
   handleCollectChildData?: Function;
   showOnly?: string[];
+  exclude?: string[];
   activeChilds?: string[];
   usersFilter?: (user: UserType) => boolean;
   adminId?: string;
   ignoreAuthor?: boolean;
   clickable?: boolean;
+  freeze?: boolean;
+  remove?: (uid: string, displayname: string) => void;
   style?: Object;
+  onUserClick?: (uid: string, displayname: string) => void;
 };
 
 export function AddUsers({
   handleCollectChildData,
   showOnly,
+  exclude,
   activeChilds,
   usersFilter = () => true,
+  remove = () => {},
   adminId,
   ignoreAuthor = false,
   clickable = false,
+  freeze = false,
   style,
+  onUserClick,
 }: AddUsersProps) {
   const user = useAppSelector(getUserSelector);
   const [list, setList] = useState<UsersList>([]);
@@ -61,7 +69,7 @@ export function AddUsers({
         onChange={handleSearchTextChange}
         placeholder={"Search users"}
       />
-      <SearchedUsers style={style}>
+      <SearchedUsers style={style} className={freeze ? "freeze" : ""}>
         {isLoading && searchText ? (
           <Loader />
         ) : (
@@ -69,6 +77,9 @@ export function AddUsers({
             .filter((elem) => !ignoreAuthor || elem.uid !== user.uid)
             .filter(
               showOnly ? (elem) => showOnly.includes(elem.uid) : () => true
+            )
+            .filter(
+              exclude ? (elem) => !exclude.includes(elem.uid) : () => true
             )
             .filter(usersFilter)
             .sort((a) => (adminId && a.uid === adminId ? -1 : 1))
@@ -78,6 +89,8 @@ export function AddUsers({
                 <User
                   key={uid}
                   clickable={clickable}
+                  removable={adminId ? uid !== adminId : false}
+                  remove={remove}
                   isAdmin={adminId ? uid === adminId : false}
                   isActive={!!activeChilds && activeChilds.includes(uid)}
                   handleCollectChildData={handleCollectChildData}
@@ -85,6 +98,7 @@ export function AddUsers({
                   displayName={displayName}
                   email={email}
                   avatar={avatar}
+                  onUserClick={onUserClick}
                 />
               );
             })

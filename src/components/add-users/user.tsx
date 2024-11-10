@@ -7,6 +7,7 @@ import {
   AdminText,
   AvatarWrapper,
   Checkmark,
+  RemoveButton,
   UserLine,
   UserName,
   UserNameWrapper,
@@ -16,25 +17,33 @@ import {
 
 type UserProps = UserType & {
   handleCollectChildData?: Function;
+  remove?: (uid: string, displayname: string) => void;
   isActive: boolean;
   isAdmin: boolean;
   clickable: boolean;
+  removable: boolean;
+  onUserClick?: (uid: string, displayname: string) => void;
 };
 
 export function User({
   clickable,
+  removable,
   handleCollectChildData,
   isActive,
   isAdmin,
+  remove,
   uid,
   displayName,
   email,
   avatar,
+  onUserClick,
 }: UserProps) {
   const [selected, setSelected] = useState<boolean>(isActive);
 
   const handleSelect = () => {
-    if (!clickable || !handleCollectChildData) return;
+    if (!clickable) return;
+    onUserClick && onUserClick(uid, displayName);
+    if (!handleCollectChildData) return;
     handleCollectChildData(uid, !selected);
     setSelected((prev) => !prev);
   };
@@ -71,6 +80,9 @@ export function User({
         <UserTag>{email}</UserTag>
         <UserLine />
       </div>
+      {removable && remove && (
+        <RemoveButton onClick={() => remove(uid, displayName)}>+</RemoveButton>
+      )}
     </Wrapper>
   );
 }

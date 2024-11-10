@@ -24,12 +24,13 @@ export const ChatsList = ({ chats }: ChatsListProps) => {
     </ChatsContainer>
   );
 };
+  
 
 const Chat = ({ image, members, name, uid }: ChatData) => {
   return (
     <ChatWrapper to={`${ROUTES.CHAT}/${uid}`}>
       <AvatarWrapper>
-        <Avatar src={image!} />
+        <Avatar src={image} />
       </AvatarWrapper>
       <ChatInfoWrapper>
         <ChatName>{name}</ChatName>

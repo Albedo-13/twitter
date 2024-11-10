@@ -5,8 +5,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import { AddUsers } from "@/components/add-users/add-users";
 import { Avatar } from "@/components/avatar/avatar";
@@ -38,11 +40,11 @@ import {
 export function ChatAdminPage() {
   const { id } = useParams();
   const user = useAppSelector(getUserSelector);
-  const { getUsersIDs, clearUsers, handleCollectChildData } =
-    useAddUsersControls();
+  const { handleCollectChildData } = useAddUsersControls();
   const purge = usePurge();
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const [chat, setChat] = useState<ChatsData | null>(null);
+  const [freeze, setFreeze] = useState<boolean>(false);
 
   useEffect(() => {
     const getChatByUid = async () => {
@@ -67,11 +69,49 @@ export function ChatAdminPage() {
     });
   }, [id, user.uid]);
 
+  const handleRemove = async (uid: string, displayname: string) => {
+    try {
+      if (!chat) return;
+      setFreeze(true);
+      const newMembers = chat.members.filter((member) => member !== uid);
+
+      const chatRef = doc(db, "chats", chat.uid);
+      await updateDoc(chatRef, {
+        members: newMembers,
+      });
+      toast.success(`${displayname} kicked!`);
+      setFreeze(false);
+    } catch (error) {
+      toast.error(`Something went wrong!`);
+      setFreeze(false);
+    }
+  };
+
+  const handleAdd = async (uid: string, displayname: string) => {
+    try {
+      if (!chat) return;
+      setFreeze(true);
+      const newMembers = [...chat.members, uid];
+
+      const chatRef = doc(db, "chats", chat.uid);
+      await updateDoc(chatRef, {
+        members: newMembers,
+      });
+      toast.success(`${displayname} added!`);
+
+      setFreeze(false);
+      handleModalClose();
+    } catch (error) {
+      toast.error(`Something went wrong!`);
+      setFreeze(false);
+      handleModalClose();
+    }
+  };
+
   return (
     <>
       <ChatWrapper>
         <Header
-          // title={chat ? `${chat.name}` : ""}
           titleOnClick={handleModalShow}
           description={chat ? `Admin Panel` : ""}
         />
@@ -99,7 +139,8 @@ export function ChatAdminPage() {
                 style={{
                   marginBottom: "0",
                 }}
-                clickable
+                remove={handleRemove}
+                freeze={freeze}
               />
               <AddUserButtonWrapper onClick={handleModalShow}>
                 <AddButtonAvatar>+</AddButtonAvatar>
@@ -109,11 +150,19 @@ export function ChatAdminPage() {
           </>
         )}
       </ChatWrapper>
-      {showModal && (
+      {showModal && chat && (
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <></>
+              <AddUsers
+                exclude={chat.members}
+                onUserClick={handleAdd}
+                style={{
+                  marginBottom: "0",
+                }}
+                freeze={freeze}
+                clickable
+              />
             </Modal>
           }
         />
