@@ -32,7 +32,7 @@ import {
 } from "./styled";
 
 type CreatePostProps = {
-  uid: string;
+  uid?: string;
   type?: "create" | "edit";
   hideAvatar?: boolean;
   defaultContent?: string;
