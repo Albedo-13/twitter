@@ -50,7 +50,7 @@ export function CreateMessage() {
   };
 
   const sendMessageDataToDB = async (formData: PostFormData) => {
-    if (!formData.content.trim().length) return;
+    if (!formData.content.trim().length && !formData.image) return;
     const messageId = uuidv4();
     const imageName = await getUploadedImageName(formData.image);
     const newMessage = {

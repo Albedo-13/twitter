@@ -1,9 +1,11 @@
 import { memo, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { Avatar } from "@/components/avatar/avatar";
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { ROUTES } from "@/constants/routes";
 import { useAppSelector } from "@/hooks/redux";
+import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostData } from "@/types";
 import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
@@ -40,13 +42,14 @@ export const Tweet = memo(
     likes,
     uid,
   }: PostData) => {
+    const { showModal, handleModalShow, handleModalClose } = useModalControls();
+
     const user = useAppSelector(getUserSelector);
     const [imgUrl, setImgUrl] = useState<string | null>(null);
     const [userData, setUserData] = useState<UserDataType>({
       avatar: "",
       displayName: null,
     });
-    const navigate = useNavigate();
 
     useEffect(() => {
       if (image) {
@@ -59,39 +62,46 @@ export const Tweet = memo(
       );
     }, [authorUid, image, user.avatar]);
 
-    const handleOpenPost = () => {
-      navigate(`${ROUTES.POST}/${uid}`);
-    };
-
     const link = `${ROUTES.PROFILE}${user.uid !== authorUid ? `/${authorUid}` : ""}`;
+
+    const toRender = (
+      <Wrapper>
+        <AvatarWrapperLink to={link}>
+          <Avatar src={userData.avatar} />
+        </AvatarWrapperLink>
+        <BodyWrapper>
+          <UserInfoWrapper>
+            <UserNameLink to={link}>{userData.displayName}</UserNameLink>
+            <Time seconds={createdAt.seconds} />
+            {authorUid === user.uid && (
+              <More
+                uid={uid}
+                image={image}
+                authorUid={authorUid}
+                content={content}
+              />
+            )}
+          </UserInfoWrapper>
+          <div onClick={handleModalShow}>
+            <TweetText>{content}</TweetText>
+            {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+          </div>
+          <InteractionContainer>
+            <Like uid={uid} likes={likes} likedByUsers={likedByUsers} />
+            <Bookmark uid={uid} bookmarkedByUsers={bookmarkedByUsers} />
+          </InteractionContainer>
+        </BodyWrapper>
+      </Wrapper>
+    );
 
     return (
       <>
-        <Wrapper>
-          <AvatarWrapperLink to={link}>
-            <Avatar src={userData.avatar} />
-          </AvatarWrapperLink>
-          <BodyWrapper>
-            <UserInfoWrapper>
-              <UserNameLink to={link}>{userData.displayName}</UserNameLink>
-              <Time seconds={createdAt.seconds} />
-              {authorUid === user.uid && (
-                <More
-                  uid={uid}
-                  image={image}
-                  authorUid={authorUid}
-                  content={content}
-                />
-              )}
-            </UserInfoWrapper>
-            <TweetText onClick={handleOpenPost}>{content}</TweetText>
-            {imgUrl && <Image src={imgUrl} alt="tweet image" />}
-            <InteractionContainer>
-              <Like uid={uid} likes={likes} likedByUsers={likedByUsers} />
-              <Bookmark uid={uid} bookmarkedByUsers={bookmarkedByUsers} />
-            </InteractionContainer>
-          </BodyWrapper>
-        </Wrapper>
+        {toRender}
+        {showModal && (
+          <ModalPortal
+            children={<Modal onClose={handleModalClose} className="big">{toRender}</Modal>}
+          />
+        )}
       </>
     );
   }

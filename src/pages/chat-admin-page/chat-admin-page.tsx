@@ -141,7 +141,7 @@ export function ChatAdminPage() {
       <ChatWrapper>
         <Header
           titleOnClick={handleModalShow}
-          description={chat ? `Admin Panel` : ""}
+          title={chat ? `Admin Panel` : ""}
         />
 
         {chat && (

@@ -117,7 +117,7 @@ export function Navigation() {
         <ModalPortal
           children={
             <Modal onClose={handleModalClose}>
-              <CreatePost />
+              <CreatePost uid="sidebar"/>
             </Modal>
           }
         />

@@ -12,9 +12,10 @@ import { ModalClose, Overlay, StyledModal } from "./styled";
 type ModalProps = {
   onClose: VoidFunction;
   children: PropsWithChildren<ReactNode>;
+  className?: "big";
 };
 
-export function Modal({ onClose, children }: ModalProps) {
+export function Modal({ onClose, children, className }: ModalProps) {
   const elementRef = useRef<HTMLDivElement>(null);
   const childRef = useRef<HTMLDivElement>(null);
   const [addStyle, setAddStyle] = useState<boolean>(false);
@@ -67,7 +68,7 @@ export function Modal({ onClose, children }: ModalProps) {
       ref={elementRef}
     >
       <StyledModal
-        className={addStyle ? "modal modal_top" : "modal"}
+        className={addStyle ? `modal modal_top ${className}` : `modal ${className}`}
         ref={childRef}
       >
         <ModalClose

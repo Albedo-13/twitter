@@ -5,10 +5,11 @@ export const InteractionWrapper = styled.div`
   cursor: pointer;
   gap: 10px;
   &.like {
-    flex-grow: 1;
+    margin-right: auto;
+    padding: 0 40px 0 2px;
   }
   &.bookmark {
-    padding: 0 2px 0 20px;
+    padding: 0 2px 0 40px;
   }
   &:hover {
     svg > g > path {

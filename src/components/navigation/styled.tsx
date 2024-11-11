@@ -185,6 +185,7 @@ export const UserBlock = styled.div`
   width: 100px;
   gap: 5px;
   overflow: hidden;
+  padding: 0 18px 0 0;
   @media ${theme.device.md} {
     display: none;
   }

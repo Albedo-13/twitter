@@ -6,6 +6,7 @@ import { theme } from "@/styles/theme";
 export const Wrapper = styled.div`
   position: relative;
   padding: 20px;
+  width: 100%;
   border-bottom: var(--border-gray);
 
   display: flex;

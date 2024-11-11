@@ -32,6 +32,7 @@ export const CreateChatHeaderButton = styled.button`
   background-color: var(--secondary-color);
   border-radius: 100px;
   transition: 0.25s all;
+  cursor: pointer;
   &:hover {
     background-color: var(--accents-color);
   }

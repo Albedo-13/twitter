@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from "react";
 
 import { Tweet } from "@/components/tweet/tweet";
+import { ROUTES } from "@/constants/routes";
 import { db } from "@/firebase";
 import { PostData, PostsDataList } from "@/types";
 
@@ -22,7 +23,7 @@ export function TweetsList({
     return true;
   },
 }: TweetsListProps) {
-  const [posts, setPosts] = useState<PostsDataList>([]);
+  const [posts, setPosts] = useState<PostsDataList | null>(null);
 
   const getPosts = async () => {
     const querySnapshot = await getDocs(
@@ -41,6 +42,10 @@ export function TweetsList({
     });
   }, []);
 
+  if (posts === null) {
+    return <></>;
+  }
+
   const postsToShow = posts.filter(filterFunc);
 
   return (
@@ -48,7 +53,35 @@ export function TweetsList({
       {postsToShow.length > 0 ? (
         postsToShow.map((post) => <Tweet key={`${post.uid}`} {...post} />)
       ) : (
-        <NoPost>There is no post yet...</NoPost>
+        <NoPost>
+          {(function () {
+            switch (window.location.pathname) {
+              case ROUTES.HOME:
+                return (
+                  <>
+                    <p>There is no posts yet.</p>
+                    <p>You can write first post on this site!</p>
+                  </>
+                );
+              case ROUTES.BOOKMARKS:
+                return (
+                  <>
+                    <p>There is no bookmarks yet.</p>
+                    <p>You can add it by pressing bookmark button on posts.</p>
+                  </>
+                );
+              case ROUTES.PERSONA:
+                return (
+                  <>
+                    <p>There is no posts yet.</p>
+                    <p>You can write first post here.</p>
+                  </>
+                );
+              default:
+                return "No posts yet";
+            }
+          })()}
+        </NoPost>
       )}
     </>
   );
