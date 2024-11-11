@@ -10,12 +10,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import addMedia from "@/assets/icons/add-media.svg";
 import { AddUsers } from "@/components/add-users/add-users";
 import { Avatar } from "@/components/avatar/avatar";
 import { Header } from "@/components/header/header";
 import { Modal } from "@/components/modal/modal";
 import { ModalPortal } from "@/components/modal/modal-portal";
 import { Time } from "@/components/tweet/time";
+import { UploadModal } from "@/components/upload-modal/upload-modal";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { useAddUsersControls } from "@/hooks/use-add-users-controls";
@@ -23,14 +25,17 @@ import { useModalControls } from "@/hooks/use-modal-controls";
 import { usePurge } from "@/hooks/use-purge";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { ChatsData } from "@/types";
+import { Button } from "@/ui/buttons";
 
 import {
   AddButtonAvatar,
   AddButtonText,
   AddUserButtonWrapper,
   AvatarWrapper,
+  AvatarWrapperWithChange,
   ChatWrapper,
   CreatedAt,
+  ImageUpload,
   InformationWrapper,
   MembersCount,
   MembersWrapper,
@@ -45,6 +50,13 @@ export function ChatAdminPage() {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
   const [chat, setChat] = useState<ChatsData | null>(null);
   const [freeze, setFreeze] = useState<boolean>(false);
+  const {
+    showModal: showAvatarModal,
+    handleModalShow: handleAvatarModalShow,
+    handleModalClose: handleAvatarModalClose,
+  } = useModalControls();
+
+  const [chatName, setChatName] = useState("");
 
   useEffect(() => {
     const getChatByUid = async () => {
@@ -61,6 +73,7 @@ export function ChatAdminPage() {
       if (user.uid !== chatData.admin) purge("notAnAdmin");
 
       setChat(chatData);
+      setChatName(chatData.name);
     };
 
     const q = collection(db, "chats");
@@ -108,6 +121,21 @@ export function ChatAdminPage() {
     }
   };
 
+  const handleChatNameChange = () => {
+    {
+      try {
+        if (!chat) return;
+        const chatRef = doc(db, "chats", chat.uid);
+        updateDoc(chatRef, {
+          name: chatName,
+        });
+        toast.success(`Chat name changed!`);
+      } catch (error) {
+        toast.error(`Something went wrong!`);
+      }
+    }
+  };
+
   return (
     <>
       <ChatWrapper>
@@ -119,10 +147,20 @@ export function ChatAdminPage() {
         {chat && (
           <>
             <InformationWrapper>
-              <AvatarWrapper>
-                <Avatar src={chat.image!} />
-              </AvatarWrapper>
-              <Name>{chat.name}</Name>
+              <AvatarWrapperWithChange onClick={handleAvatarModalShow}>
+                <AvatarWrapper>
+                  <Avatar src={chat.image!} />
+                </AvatarWrapper>
+                <ImageUpload src={addMedia} alt="upload file" />
+              </AvatarWrapperWithChange>
+
+              <Name
+                type="text"
+                value={chatName}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setChatName(e.target.value)
+                }
+              ></Name>
               <CreatedAt>
                 <Time
                   seconds={chat.createdAt.seconds}
@@ -130,6 +168,21 @@ export function ChatAdminPage() {
                 />
               </CreatedAt>
               <MembersCount>{`${chat.members.length} members`}</MembersCount>
+              <Button
+                type="button"
+                variant="primary"
+                size="small"
+                style={
+                  chatName === chat.name
+                    ? {
+                        display: "none",
+                      }
+                    : {}
+                }
+                onClick={handleChatNameChange}
+              >
+                Save
+              </Button>
             </InformationWrapper>
             <MembersWrapper>
               <AddUsers
@@ -162,6 +215,22 @@ export function ChatAdminPage() {
                 }}
                 freeze={freeze}
                 clickable
+              />
+            </Modal>
+          }
+        />
+      )}
+      {showAvatarModal && (
+        <ModalPortal
+          children={
+            <Modal onClose={handleAvatarModalClose}>
+              <UploadModal
+                handleModalClose={handleAvatarModalClose}
+                uploadType="image"
+                table="chats"
+                id={id!}
+                placeholder="You can change group avatar here."
+                toastMessage="Avatar updated"
               />
             </Modal>
           }

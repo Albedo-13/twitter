@@ -85,7 +85,7 @@ export const MoreWrapper = styled.ul`
   margin-left: auto;
   display: flex;
   flex-direction: row-reverse;
-  gap: 3px;
+  gap: 6px;
   width: 24px;
   transition: 1s all;
 

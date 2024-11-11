@@ -1,10 +1,19 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { MAX_UPLOAD_IMAGE_SIZE_BYTES } from "@/constants/constants";
+import { getImageUrl } from "@/utils/firebase/helpers";
 
-export const useImageInput = () => {
+export const useImageInput = (defaultImage?: string) => {
   const [previewImage, __setPreviewImage] = useState<string>("");
+
+  useEffect(() => {
+    if (defaultImage) {
+      getImageUrl(defaultImage)
+        .then((url) => __setPreviewImage(url ?? ""))
+        .catch(() => __setPreviewImage(""));
+    }
+  }, []);
 
   const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];

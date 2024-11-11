@@ -1,6 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { FieldErrors, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
@@ -28,9 +31,31 @@ import {
   Textarea,
 } from "./styled";
 
-export function CreatePost() {
-  const { avatar, uid } = useAppSelector(getUserSelector);
-  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
+type CreatePostProps = {
+  uid: string;
+  type?: "create" | "edit";
+  hideAvatar?: boolean;
+  defaultContent?: string;
+  defaultImage?: string;
+  handleModalClose?: () => void;
+};
+
+type PostUpdateData = {
+  content: string;
+  image?: string | null;
+};
+
+export function CreatePost({
+  uid,
+  type = "create",
+  hideAvatar = false,
+  defaultContent = "",
+  defaultImage,
+  handleModalClose,
+}: CreatePostProps) {
+  const user = useAppSelector(getUserSelector);
+  const { previewImage, clearPreview, handleFileInputChange } =
+    useImageInput(defaultImage);
   const {
     register,
     handleSubmit,
@@ -38,7 +63,7 @@ export function CreatePost() {
     formState: { errors },
   } = useForm<PostFormData>({
     defaultValues: {
-      content: "",
+      content: defaultContent,
       image: null,
     },
     resolver: zodResolver(schema),
@@ -48,7 +73,7 @@ export function CreatePost() {
     return images ? await uploadFile("posts", images[0]) : null;
   };
 
-  const onSubmit = async (data: PostFormData) => {
+  const createPost = async (data: PostFormData) => {
     const imageName = await getUploadedImageName(data.image);
     const postId = uuidv4();
 
@@ -56,7 +81,7 @@ export function CreatePost() {
       uid: postId,
       content: data.content,
       image: imageName,
-      authorUid: uid,
+      authorUid: user.uid,
       createdAt: new Date(),
       likes: 0,
       likedByUsers: [],
@@ -69,17 +94,65 @@ export function CreatePost() {
     clearPreview();
   };
 
+  const editPost = async (data: PostFormData) => {
+    try {
+      if (!uid) return;
+
+      const updatedData: PostUpdateData = {
+        content: data.content,
+      };
+
+      if (data.image) {
+        updatedData["image"] = await getUploadedImageName(data.image);
+      }
+
+      const snapshot = await getDocs(
+        query(collection(db, "posts"), where("uid", "==", uid))
+      );
+      const ref = doc(db, "posts", snapshot.docs[0].id);
+
+      updateDoc(ref, updatedData);
+
+      reset();
+      clearPreview();
+      toast.success("Post updated");
+      if (handleModalClose) handleModalClose();
+    } catch (error) {
+      toast.error("Something went wrong...");
+      reset();
+      clearPreview();
+      if (handleModalClose) handleModalClose();
+    }
+  };
+
+  const onSubmit = async (data: PostFormData) => {
+    switch (type) {
+      case "create":
+        createPost(data);
+        break;
+      case "edit":
+        editPost(data);
+        break;
+      default:
+        console.error("Unknown type of component");
+        break;
+    }
+  };
+
   return (
     <CreatePostWrapper>
-      <AvatarWrapper>
-        <Avatar src={avatar} />
-      </AvatarWrapper>
+      {!hideAvatar && (
+        <AvatarWrapper>
+          <Avatar src={user.avatar} />
+        </AvatarWrapper>
+      )}
+
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
         <Textarea {...register("content")} placeholder="What's happening?" />
         <FileInputPreviewImage src={previewImage} />
         <BasementWrapper>
           <FileInputWrapper>
-            <label htmlFor="file-input">
+            <label htmlFor={"file-input" + (`_${uid}` || "_base")}>
               <FileInputImage src={addMedia} alt="upload file" />
             </label>
             <FileInput
@@ -87,7 +160,7 @@ export function CreatePost() {
                 onChange: handleFileInputChange,
               })}
               type="file"
-              id="file-input"
+              id={"file-input" + (`_${uid}` || "_base")}
               accept="image/*"
             />
           </FileInputWrapper>

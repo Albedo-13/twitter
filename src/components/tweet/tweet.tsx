@@ -76,7 +76,12 @@ export const Tweet = memo(
               <UserNameLink to={link}>{userData.displayName}</UserNameLink>
               <Time seconds={createdAt.seconds} />
               {authorUid === user.uid && (
-                <More uid={uid} image={image} authorUid={authorUid} />
+                <More
+                  uid={uid}
+                  image={image}
+                  authorUid={authorUid}
+                  content={content}
+                />
               )}
             </UserInfoWrapper>
             <TweetText onClick={handleOpenPost}>{content}</TweetText>

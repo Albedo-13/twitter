@@ -22,10 +22,16 @@ export const AvatarWrapper = styled.div`
   width: 65px;
 `;
 
-export const Name = styled.div`
+export const Name = styled.input`
   font-weight: 700;
   font-size: 22px;
+  background-color: transparent;
+  border: 0;
+  & {
+    text-align: center;
+  }
 `;
+
 export const MembersCount = styled.div`
   color: var(--text-secondary-color);
 `;
@@ -81,4 +87,28 @@ export const AddButtonText = styled.div`
   align-items: center;
   font-weight: 700;
   font-size: 18px;
+`;
+
+export const AvatarWrapperWithChange = styled.div`
+  cursor: pointer;
+  position: relative;
+  &:hover {
+    :first-child {
+      filter: brightness(0.69);
+    }
+    :last-child {
+      opacity: 1;
+    }
+  }
+`;
+
+export const ImageUpload = styled.img`
+  position: absolute;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25px;
+  height: 25px;
+  transition: 0.2s all;
 `;

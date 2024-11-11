@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, updateDoc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -22,13 +23,16 @@ import {
   Wrapper,
 } from "./styled";
 
-type UploadTypes = "background" | "avatar";
+type UploadTypes = "background" | "avatar" | "image";
+type TableTypes = "chats" | "posts" | "users";
 
 type UploadModalProps = {
   handleModalClose: () => void;
   placeholder?: string;
   toastMessage?: string;
   uploadType: UploadTypes;
+  table?: TableTypes;
+  id?: string;
 };
 
 type Data = {
@@ -40,8 +44,10 @@ export function UploadModal({
   placeholder,
   toastMessage,
   uploadType,
+  table = "users",
+  id,
 }: UploadModalProps) {
-  const test = useAppSelector(getUserSelector);
+  const user = useAppSelector(getUserSelector);
   const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
   const dispatch = useAppDispatch();
 
@@ -62,11 +68,32 @@ export function UploadModal({
       toast.error("Something went wrong");
       return;
     }
-    const userSnapshot = await queryUserEqualByValue("uid", test.uid);
-    const userRef = doc(db, "users", userSnapshot.docs[0].id);
+    let snapshot, ref;
 
-    dispatch(updateUser({ [uploadType]: imageName }));
-    updateDoc(userRef, {
+    switch (table) {
+      case "users": {
+        snapshot = await queryUserEqualByValue("uid", user.uid);
+        ref = doc(db, "users", snapshot.docs[0].id);
+        dispatch(updateUser({ [uploadType]: imageName }));
+        break;
+      }
+      case "chats": {
+        if (!id) {
+          console.error("You dont provide chatID!");
+          return;
+        }
+        snapshot = await getDocs(
+          query(collection(db, "chats"), where("uid", "==", id))
+        );
+        ref = doc(db, "chats", snapshot.docs[0].id);
+        break;
+      }
+      default:
+        toast.error("Something went wrong");
+        return;
+    }
+
+    updateDoc(ref, {
       [uploadType]: imageName,
     });
     reset();
