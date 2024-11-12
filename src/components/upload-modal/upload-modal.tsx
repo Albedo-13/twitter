@@ -10,7 +10,6 @@ import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { updateUser } from "@/redux/slices/user-slice";
 import { Button } from "@/ui/buttons";
-import { uploadFile } from "@/utils/firebase/helpers";
 import { queryUserEqualByValue } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
@@ -48,7 +47,12 @@ export function UploadModal({
   id,
 }: UploadModalProps) {
   const user = useAppSelector(getUserSelector);
-  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput();
   const dispatch = useAppDispatch();
 
   const { register, handleSubmit, reset } = useForm<Data>({
@@ -58,12 +62,8 @@ export function UploadModal({
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile("users", images[0]) : null;
-  };
-
   const sendData = async (formData: Data) => {
-    const imageName = await getUploadedImageName(formData.image);
+    const imageName = await getUploadedImageName(formData.image, "users");
     if (!imageName) {
       toast.error("Something went wrong");
       return;
@@ -105,7 +105,11 @@ export function UploadModal({
     <Wrapper onSubmit={handleSubmit(sendData)}>
       {previewImage ? (
         <>
-          <PreviewImage src={previewImage} alt="preview" className={uploadType} />
+          <PreviewImage
+            src={previewImage}
+            alt="preview"
+            className={uploadType}
+          />
           <ConfirmationButtonsWrapper>
             <Button variant="primary" size="medium" type="submit">
               Submit

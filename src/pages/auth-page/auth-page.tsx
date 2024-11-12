@@ -36,7 +36,7 @@ export function AuthPage() {
   const handleSignupClick = () => {
     navigate(ROUTES.SIGNUP);
   };
-  //TODO: брать фотку из гугла и заливать ее в бд, и кидать сюда ссылку на неё
+
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;

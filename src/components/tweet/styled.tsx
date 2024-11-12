@@ -50,11 +50,6 @@ export const UserTag = styled.p`
   opacity: ${theme.opacity};
 `;
 
-export const UserTime = styled.time`
-  font-size: 16px;
-  opacity: ${theme.opacity};
-`;
-
 export const TweetText = styled.p`
   font-size: 16px;
   margin-top: 5px;

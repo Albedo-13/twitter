@@ -8,6 +8,7 @@ import { useAppSelector } from "@/hooks/redux";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostData } from "@/types";
+import { Time } from "@/ui/time";
 import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
 import { getImageUrl } from "@/utils/firebase/helpers";
 
@@ -24,7 +25,6 @@ import {
   UserNameLink,
   Wrapper,
 } from "./styled";
-import { Time } from "./time";
 
 type UserDataType = {
   avatar: string;
@@ -99,7 +99,11 @@ export const Tweet = memo(
         {toRender}
         {showModal && (
           <ModalPortal
-            children={<Modal onClose={handleModalClose} className="big">{toRender}</Modal>}
+            children={
+              <Modal onClose={handleModalClose} className="big">
+                {toRender}
+              </Modal>
+            }
           />
         )}
       </>

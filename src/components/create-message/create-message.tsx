@@ -11,7 +11,6 @@ import { useAppSelector } from "@/hooks/redux";
 import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostFormData } from "@/types";
-import { uploadFile } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
 import {
@@ -29,7 +28,12 @@ import {
 export function CreateMessage() {
   const { id } = useParams();
   const user = useAppSelector(getUserSelector);
-  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput();
 
   const {
     register,
@@ -45,14 +49,10 @@ export function CreateMessage() {
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile(`chats/${id}`, images[0]) : null;
-  };
-
   const sendMessageDataToDB = async (formData: PostFormData) => {
     if (!formData.content.trim().length && !formData.image) return;
     const messageId = uuidv4();
-    const imageName = await getUploadedImageName(formData.image);
+    const imageName = await getUploadedImageName(formData.image, `chats/${id}`);
     const newMessage = {
       uid: messageId,
       authorUid: user.uid,

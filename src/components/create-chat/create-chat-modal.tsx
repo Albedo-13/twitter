@@ -15,7 +15,6 @@ import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { ModalComponentProps } from "@/types";
 import { Button } from "@/ui/buttons";
-import { uploadFile } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
 import {
@@ -41,7 +40,12 @@ export function CreateChatModal({ handleModalClose }: ModalComponentProps) {
   const [currentPage, setCurrentPage] = useState<1 | 2>(1);
   const { getUsersIDs, clearUsers, handleCollectChildData } =
     useAddUsersControls();
-  const { previewImage, clearPreview, handleFileInputChange } = useImageInput();
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput();
 
   const {
     register,
@@ -57,15 +61,11 @@ export function CreateChatModal({ handleModalClose }: ModalComponentProps) {
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile("chats", images[0]) : null;
-  };
-
   const onSubmit = async (data: Data) => {
     try {
       const membersData = getUsersIDs();
       const membersDataWithSelf = [...membersData, uid];
-      const imageName = await getUploadedImageName(data.image);
+      const imageName = await getUploadedImageName(data.image, "chats");
       const chatId = uuidv4();
 
       const newChat = {

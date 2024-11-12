@@ -15,7 +15,6 @@ import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { PostFormData } from "@/types";
 import { Button } from "@/ui/buttons";
-import { uploadFile } from "@/utils/firebase/helpers";
 
 import { schema } from "./form-schema";
 import {
@@ -55,8 +54,12 @@ export function CreatePost({
   handleModalClose,
 }: CreatePostProps) {
   const user = useAppSelector(getUserSelector);
-  const { previewImage, clearPreview, handleFileInputChange } =
-    useImageInput(defaultImage);
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput(defaultImage);
   const {
     register,
     handleSubmit,
@@ -70,12 +73,8 @@ export function CreatePost({
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile("posts", images[0]) : null;
-  };
-
   const createPost = async (data: PostFormData) => {
-    const imageName = await getUploadedImageName(data.image);
+    const imageName = await getUploadedImageName(data.image, "posts");
     const postId = uuidv4();
 
     const newPost = {
@@ -104,7 +103,7 @@ export function CreatePost({
       };
 
       if (data.image) {
-        updatedData["image"] = await getUploadedImageName(data.image);
+        updatedData["image"] = await getUploadedImageName(data.image, "posts");
       }
 
       const snapshot = await getDocs(

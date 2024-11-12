@@ -22,10 +22,6 @@ export function SearchSidebar() {
   const [debouncedSearchText] = useDebounce(searchText, DEBOUNCE_DELAY_MS);
   const { pathname } = useLocation();
 
-  const handleSearchTextChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
-
   useEffect(() => {
     setIsLoading(true);
     searchUsers(debouncedSearchText).then((searchResults) => {
@@ -38,7 +34,9 @@ export function SearchSidebar() {
     <>
       <SearchInput
         value={searchText}
-        onChange={handleSearchTextChange}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          setSearchText(e.target.value)
+        }
         placeholder={"Search users"}
       />
       <SearchedTweets>

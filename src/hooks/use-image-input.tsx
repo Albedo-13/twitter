@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 import { MAX_UPLOAD_IMAGE_SIZE_BYTES } from "@/constants/constants";
 import { getImageUrl } from "@/utils/firebase/helpers";
+import { uploadFile } from "@/utils/firebase/helpers";
 
 export const useImageInput = (defaultImage?: string) => {
   const [previewImage, __setPreviewImage] = useState<string>("");
@@ -47,5 +48,9 @@ export const useImageInput = (defaultImage?: string) => {
     __setPreviewImage("");
   };
 
-  return { previewImage, clearPreview, handleFileInputChange };
+  const getUploadedImageName = async (images: FileList | null, address: string) => {
+    return images ? await uploadFile(address, images[0]) : null;
+  };
+
+  return { previewImage, clearPreview, handleFileInputChange, getUploadedImageName };
 };

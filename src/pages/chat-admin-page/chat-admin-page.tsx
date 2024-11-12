@@ -16,7 +16,6 @@ import { Avatar } from "@/components/avatar/avatar";
 import { Header } from "@/components/header/header";
 import { Modal } from "@/components/modal/modal";
 import { ModalPortal } from "@/components/modal/modal-portal";
-import { Time } from "@/components/tweet/time";
 import { UploadModal } from "@/components/upload-modal/upload-modal";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
@@ -26,6 +25,7 @@ import { usePurge } from "@/hooks/use-purge";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
 import { ChatsData } from "@/types";
 import { Button } from "@/ui/buttons";
+import { Time } from "@/ui/time";
 
 import {
   AddButtonAvatar,

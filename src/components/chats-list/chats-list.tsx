@@ -18,24 +18,19 @@ type ChatsListProps = {
 export const ChatsList = ({ chats }: ChatsListProps) => {
   return (
     <ChatsContainer>
-      {chats.map((data, i) => (
-        <Chat key={i} {...data} />
+      {chats.map(({ image, members, name, uid }: ChatData, i) => (
+        <ChatWrapper key={i} to={`${ROUTES.CHAT}/${uid}`}>
+          <AvatarWrapper>
+            <Avatar src={image} />
+          </AvatarWrapper>
+          <ChatInfoWrapper>
+            <ChatName>{name}</ChatName>
+            <ChatTag>
+              {members.length} {members.length > 1 ? "members" : "member"}
+            </ChatTag>
+          </ChatInfoWrapper>
+        </ChatWrapper>
       ))}
     </ChatsContainer>
-  );
-};
-  
-
-const Chat = ({ image, members, name, uid }: ChatData) => {
-  return (
-    <ChatWrapper to={`${ROUTES.CHAT}/${uid}`}>
-      <AvatarWrapper>
-        <Avatar src={image} />
-      </AvatarWrapper>
-      <ChatInfoWrapper>
-        <ChatName>{name}</ChatName>
-        <ChatTag>{members.length} members</ChatTag>
-      </ChatInfoWrapper>
-    </ChatWrapper>
   );
 };

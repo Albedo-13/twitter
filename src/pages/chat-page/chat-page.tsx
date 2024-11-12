@@ -64,7 +64,11 @@ export function ChatPage() {
         <Header
           title={chat ? `${chat.name}` : ""}
           titleOnClick={handleTitleClick}
-          description={chat ? `${chat.members.length} members` : ""}
+          description={
+            chat
+              ? `${chat.members.length} ${chat.members.length > 1 ? "members" : "member"}`
+              : ""
+          }
         />
         {chat === null ? null : <Chat />}
       </ChatWrapper>
