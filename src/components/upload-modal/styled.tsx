@@ -19,7 +19,12 @@ export const PreviewImage = styled.img`
   margin-top: 10px;
   margin-bottom: 10px;
   max-width: 100%;
-  max-height: 200px;
+  /* max-height: 200px; */
+  object-fit: cover;
+  &.avatar {
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+  }
 `;
 
 export const PlaceholderText = styled.div`

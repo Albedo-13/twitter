@@ -41,20 +41,26 @@ export function AuthPage() {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
       const { uid, phoneNumber, email, displayName } = user;
-      const newUser : UserType = {  
+
+      let newUser: UserType = {
         uid: uid,
         avatar: "",
         background: "",
         phone: phoneNumber || "",
         email: email!,
         displayName: displayName!,
+        accountType: "google",
       };
 
       const queryUserSnapshot = await queryUserEqualByValue("uid", uid);
 
       if (queryUserSnapshot.empty) {
         await addDoc(collection(db, "users"), newUser);
+      } else {
+        const additionalData = queryUserSnapshot.docs[0].data();
+        newUser = { ...newUser, ...additionalData };
       }
+
       dispatch(setUser(adaptUserObj(newUser)));
     });
 

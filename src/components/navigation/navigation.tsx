@@ -116,7 +116,7 @@ export function Navigation() {
       {showModal && (
         <ModalPortal
           children={
-            <Modal onClose={handleModalClose}>
+            <Modal onClose={handleModalClose} className="big">
               <CreatePost uid="sidebar"/>
             </Modal>
           }

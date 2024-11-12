@@ -8,7 +8,7 @@ import { getUserSelector } from "@/redux/selectors/user-selectors";
 export function PersonaPage() {
   const { avatar, displayName, status, uid, background } =
     useAppSelector(getUserSelector);
-
+  
   return (
     <>
       <Profile

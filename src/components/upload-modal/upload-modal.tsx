@@ -105,7 +105,7 @@ export function UploadModal({
     <Wrapper onSubmit={handleSubmit(sendData)}>
       {previewImage ? (
         <>
-          <PreviewImage src={previewImage} alt="preview" />
+          <PreviewImage src={previewImage} alt="preview" className={uploadType} />
           <ConfirmationButtonsWrapper>
             <Button variant="primary" size="medium" type="submit">
               Submit

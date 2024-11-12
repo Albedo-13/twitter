@@ -86,6 +86,7 @@ export function SignupPage() {
             Number(MONTHS.indexOf(data.month)),
             Number(data.day)
           ).toString(),
+          accountType: "firebase" as const,
         };
 
         Promise.all([

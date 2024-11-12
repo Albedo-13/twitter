@@ -42,7 +42,10 @@ export const ModalClose = styled.div`
   font-size: 36px;
   cursor: pointer;
   transition: 0.3s;
-
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   &:hover {
     transform: scale(1.2);
     transition: 0.3s;

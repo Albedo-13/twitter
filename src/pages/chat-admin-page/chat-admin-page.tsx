@@ -125,6 +125,14 @@ export function ChatAdminPage() {
     {
       try {
         if (!chat) return;
+        if (chatName.length > 30) {
+          toast.error("Chat name is longer than 30 characters!");
+          return;
+        }
+        if (chatName.trim().length === 0 || chatName.length < 3) {
+          toast.error("Chat name must contain at least three characters!");
+          return;
+        }
         const chatRef = doc(db, "chats", chat.uid);
         updateDoc(chatRef, {
           name: chatName,
@@ -157,9 +165,9 @@ export function ChatAdminPage() {
               <Name
                 type="text"
                 value={chatName}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setChatName(e.target.value)
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  setChatName(e.target.value);
+                }}
               ></Name>
               <CreatedAt>
                 <Time

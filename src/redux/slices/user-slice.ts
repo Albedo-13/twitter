@@ -20,6 +20,7 @@ export const userSlice = createSlice({
   reducers: {
     setUser: (state, action: PayloadAction<Partial<UserType> | null>) => ({
       ...state,
+      ...initialState,
       ...action.payload,
     }),
     removeUser: () => ({

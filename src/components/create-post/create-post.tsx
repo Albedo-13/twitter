@@ -29,6 +29,7 @@ import {
   FileInputWrapper,
   FormWrapper,
   Textarea,
+  TextareaWrapper,
 } from "./styled";
 
 type CreatePostProps = {
@@ -148,7 +149,12 @@ export function CreatePost({
       )}
 
       <FormWrapper onSubmit={handleSubmit(onSubmit)}>
-        <Textarea {...register("content")} placeholder="What's happening?" />
+        <TextareaWrapper>
+          <Textarea {...register("content")} placeholder="What's happening?" />
+          <ErrorWrapper>
+            <ErrorsSummary errors={errors as FieldErrors} />
+          </ErrorWrapper>
+        </TextareaWrapper>
         <FileInputPreviewImage src={previewImage} />
         <BasementWrapper>
           <FileInputWrapper>
@@ -168,9 +174,6 @@ export function CreatePost({
             Tweet
           </Button>
         </BasementWrapper>
-        <ErrorWrapper>
-          <ErrorsSummary errors={errors as FieldErrors} />
-        </ErrorWrapper>
       </FormWrapper>
     </CreatePostWrapper>
   );

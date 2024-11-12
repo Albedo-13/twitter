@@ -60,6 +60,7 @@ export const adaptUserObj = (user: UserType | null): UserType => {
     birthday: user?.birthday ?? "",
     gender: user?.gender ?? "",
     status: user?.status ?? "",
+    accountType: user?.accountType ?? "firebase",
   };
 };
 

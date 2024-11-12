@@ -36,7 +36,8 @@ type Data = {
 export function EditProfile({ handleModalClose }: ModalComponentProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { displayName, gender, status, uid } = useAppSelector(getUserSelector);
+  const { displayName, gender, status, uid, accountType } =
+    useAppSelector(getUserSelector);
   const {
     register,
     handleSubmit,
@@ -54,7 +55,11 @@ export function EditProfile({ handleModalClose }: ModalComponentProps) {
 
   const onSubmit = async (data: Data) => {
     try {
-      navigate(ROUTES.LOGIN);
+      if (accountType && accountType === "google") {
+        navigate(ROUTES.AUTH);
+      } else {
+        navigate(ROUTES.LOGIN);
+      }
       await reauthUser(data.currentPassword);
       const userSnapshot = await queryUserEqualByValue("uid", uid);
       const userRef = doc(db, "users", userSnapshot.docs[0].id);
@@ -75,6 +80,7 @@ export function EditProfile({ handleModalClose }: ModalComponentProps) {
       toast.success("Succesfully changed!");
     } catch (error) {
       toast.error("Something went wrong...");
+      if (accountType && accountType === "google") return;
       if (error instanceof FirebaseError) {
         navigate(ROUTES.PROFILE);
       }
@@ -85,19 +91,24 @@ export function EditProfile({ handleModalClose }: ModalComponentProps) {
     <StyledFormProfile onSubmit={handleSubmit(onSubmit)}>
       <Text>Edit your profile</Text>
       <Input {...register("displayName")} type="text" placeholder="Name" />
-      <FormError inputFor={errors.displayName} />
-      <Input
-        {...register("currentPassword")}
-        type="password"
-        placeholder="Current password"
-      />
-      <FormError inputFor={errors.currentPassword} />
-      <Input
-        {...register("newPassword")}
-        type="password"
-        placeholder="New password"
-      />
-      <FormError inputFor={errors.newPassword} />
+      {accountType && accountType !== "google" && (
+        <>
+          <FormError inputFor={errors.displayName} />
+          <Input
+            {...register("currentPassword")}
+            type="password"
+            placeholder="Current password"
+          />
+          <FormError inputFor={errors.currentPassword} />
+          <Input
+            {...register("newPassword")}
+            type="password"
+            placeholder="New password"
+          />
+          <FormError inputFor={errors.newPassword} />
+        </>
+      )}
+
       <Select {...register("gender")} options={GENDERS} />
       <FormError inputFor={errors.gender} />
       <Input {...register("status")} type="text" placeholder="Status" />

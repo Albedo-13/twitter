@@ -38,6 +38,9 @@ export const Textarea = styled.textarea`
   font-size: 18px;
   margin-bottom: 10px;
   background-color: var(--bg-primary-color);
+
+
+
   &:focus {
     transition: 0s all;
     outline: none;
@@ -45,9 +48,16 @@ export const Textarea = styled.textarea`
   }
 
   &::placeholder {
+
     font-size: 22px;
     color: #828282;
   }
+`;
+
+export const TextareaWrapper = styled.div`
+`;
+
+export const ErrorWrapper = styled.div`
 `;
 
 export const FileInputWrapper = styled.div`
@@ -71,8 +81,4 @@ export const BasementWrapper = styled.div`
   width: 100%;
 `;
 
-export const ErrorWrapper = styled.div`
-  position: absolute;
-  bottom: 25px;
-  left: 50px;
-`;
+

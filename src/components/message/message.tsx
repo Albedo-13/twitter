@@ -25,7 +25,7 @@ export const Message = ({
   image,
   createdAt,
 }: MessageData) => {
-  const { uid } = useAppSelector(getUserSelector);
+  const user = useAppSelector(getUserSelector);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [userData, setUserData] = useState<Partial<UserType>>({
     avatar: "",
@@ -44,7 +44,7 @@ export const Message = ({
   }, [authorUid, image]);
 
   return (
-    <MessageWrapper className={uid === authorUid ? "messageByUser" : ""}>
+    <MessageWrapper className={user.uid === authorUid ? "messageByUser" : ""}>
       <AvatarWrapperLink to={"/profile/" + authorUid}>
         <Avatar src={userData.avatar} />
       </AvatarWrapperLink>

@@ -16,6 +16,7 @@ export type UserType = UserBasicType & {
   birthday?: string;
   gender?: string;
   status?: string;
+  accountType?: "firebase" | "google";
 };
 
 export type UsersList = UserType[];
