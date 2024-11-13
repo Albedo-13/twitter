@@ -20,9 +20,23 @@ export const Title = styled.div`
   font-weight: 700;
 `;
 
+export const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  &.pointerTitle{
+    cursor: pointer;
+  }
+`;
+
 export const NavigationMobileWrapper = styled.div`
   display: none;
   @media ${theme.device.sm} {
     display: block;
   }
+`;
+
+export const Description = styled.div`
+  font-weight: 300;
+  color: var(--text-secondary-color);
 `;

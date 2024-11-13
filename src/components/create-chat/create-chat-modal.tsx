@@ -1,19 +1,21 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
-import { useRef, useState } from "react";
-import { ChangeEvent } from "react";
+import { useState } from "react";
 import { FieldErrors, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 
 import addMedia from "@/assets/icons/add-media.svg";
-import { AddUsersToChat } from "@/components/create-chat/add-users-to-chat";
+import { AddUsers } from "@/components/add-users/add-users";
+import { ErrorsSummary } from "@/components/errors/errors-summary";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { useAddUsersControls } from "@/hooks/use-add-users-controls";
+import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { ModalComponentProps } from "@/types";
 import { Button } from "@/ui/buttons";
-import { uploadFile } from "@/utils/firebase/helpers";
 
-import { ErrorsSummary } from "../errors/errors-summary";
 import { schema } from "./form-schema";
 import {
   ButtonWrapper,
@@ -33,32 +35,17 @@ type Data = {
   image: FileList | null;
 };
 
-type ChildData = {
-  [key: string]: boolean;
-};
-
-type CreateChatModalProps = {
-  handleModalClose: Function;
-};
-
-export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
+export function CreateChatModal({ handleModalClose }: ModalComponentProps) {
   const { uid } = useAppSelector(getUserSelector);
   const [currentPage, setCurrentPage] = useState<1 | 2>(1);
-  const [previewImage, setPreviewImage] = useState<string>("");
-
-  const childData = useRef<ChildData>({});
-
-  const handleCollectChildData = (id: string, state: boolean) => {
-    childData.current[id] = state;
-  };
-
-  const convertCollectedChildData = (data: {}) => {
-    const res: string[] = [];
-    for (const [key, value] of Object.entries(data)) {
-      if (value) res.push(key);
-    }
-    return res;
-  };
+  const { getUsersIDs, clearUsers, handleCollectChildData } =
+    useAddUsersControls();
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput();
 
   const {
     register,
@@ -74,44 +61,31 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile("chats", images[0]) : null;
-  };
-
   const onSubmit = async (data: Data) => {
-    const membersData = convertCollectedChildData(childData.current);
-    const membersDataWithSelf = [...membersData, uid];
-    const imageName = await getUploadedImageName(data.image);
-    const chatId = uuidv4();
+    try {
+      const membersData = getUsersIDs();
+      const membersDataWithSelf = [...membersData, uid];
+      const imageName = await getUploadedImageName(data.image, "chats");
+      const chatId = uuidv4();
 
-    const newChat = {
-      uid: chatId,
-      members: membersDataWithSelf,
-      image: imageName,
-      name: data.name,
-      createdAt: new Date(),
-    };
-
-    await setDoc(doc(db, "chats", chatId), newChat);
-    reset();
-    setPreviewImage("");
-    handleModalClose();
-  };
-
-  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function ({ target }) {
-        if (target) {
-          setPreviewImage(target.result as string);
-        } else {
-          console.error("Bug perhaps, i dunno");
-        }
+      const newChat = {
+        uid: chatId,
+        admin: uid,
+        members: membersDataWithSelf,
+        image: imageName,
+        name: data.name,
+        createdAt: new Date(),
       };
-      reader.readAsDataURL(file);
+
+      await setDoc(doc(db, "chats", chatId), newChat);
+      toast.success("Chat created!");
+      reset();
+      clearUsers();
+      clearPreview();
+      handleModalClose();
+    } catch (error) {
+      toast.error("Something went wrong...");
     }
-    register("image").onChange(event);
   };
 
   return (
@@ -139,11 +113,12 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
                         />
                       </FileInputLabel>
                       <FileInput
-                        {...register("image")}
+                        {...register("image", {
+                          onChange: handleFileInputChange,
+                        })}
                         type="file"
                         id="file-input"
                         accept="image/*"
-                        onChange={handleFileInputChange}
                       />
                     </FileInputWrapper>
                     <NameInput
@@ -170,9 +145,11 @@ export function CreateChatModal({ handleModalClose }: CreateChatModalProps) {
               ),
               "2": (
                 <>
-                  <AddUsersToChat
+                  <AddUsers
                     handleCollectChildData={handleCollectChildData}
-                    activeChilds={convertCollectedChildData(childData.current)}
+                    activeChilds={getUsersIDs()}
+                    ignoreAuthor
+                    clickable
                   />
                   <ButtonWrapper>
                     <Button variant="primary" size="small" type="submit">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { theme } from "@/styles/theme";
@@ -5,6 +6,7 @@ import { theme } from "@/styles/theme";
 export const Wrapper = styled.div`
   position: relative;
   padding: 20px;
+  width: 100%;
   border-bottom: var(--border-gray);
 
   display: flex;
@@ -16,7 +18,8 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const AvatarWrapper = styled.div`
+export const AvatarWrapperLink = styled(Link)`
+  display: block;
   width: 50px;
   height: 50px;
   user-select: none;
@@ -36,17 +39,13 @@ export const UserInfoWrapper = styled.div`
   align-items: center;
 `;
 
-export const UserName = styled.p`
+export const UserNameLink = styled(Link)`
+  text-decoration: none;
   font-weight: 700;
   font-size: 18px;
 `;
 
 export const UserTag = styled.p`
-  font-size: 16px;
-  opacity: ${theme.opacity};
-`;
-
-export const UserTime = styled.time`
   font-size: 16px;
   opacity: ${theme.opacity};
 `;
@@ -82,7 +81,7 @@ export const MoreWrapper = styled.ul`
   margin-left: auto;
   display: flex;
   flex-direction: row-reverse;
-  gap: 3px;
+  gap: 6px;
   width: 24px;
   transition: 1s all;
 
@@ -107,7 +106,6 @@ export const MoreWrapper = styled.ul`
       scale: 1;
     }
     li:nth-child(1) {
-      transform: rotate(90deg);
       opacity: 0;
     }
     li:nth-child(2) {

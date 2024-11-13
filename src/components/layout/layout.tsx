@@ -1,9 +1,9 @@
 import { Outlet } from "react-router-dom";
 
 import { Navigation } from "@/components/navigation/navigation";
+import { MobileSearchSidebar } from "@/components/search-sidebar/mobile-search-sidebar";
 import { SearchSidebar } from "@/components/search-sidebar/search-sidebar";
 
-import { MobileSearchSidebar } from "../search-sidebar/mobile-search-sidebar";
 import {
   Background,
   ContentWrapper,

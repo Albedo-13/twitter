@@ -4,27 +4,19 @@ import {
   onSnapshot,
   orderBy,
   query,
-  Timestamp,
 } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Message } from "@/components/message/message";
 import { db } from "@/firebase";
+import { MessageData, MessagesDataList } from "@/types";
 
 import { MessagesListContainer, ScrollWindow } from "./styled";
 
-type MessageData = {
-  authorUid: string;
-  createdAt: Timestamp;
-  text: string;
-  uid: string;
-  image: string;
-};
-
 export const MessagesList = () => {
   const { id } = useParams();
-  const [messages, setMessages] = useState<MessageData[] | null>(null);
+  const [messages, setMessages] = useState<MessagesDataList | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,12 +30,12 @@ export const MessagesList = () => {
           )
         );
         if (!querySnapshot.docs[0]) return [];
-        const messages: MessageData[] = querySnapshot.docs.map(
+        const messages: MessagesDataList = querySnapshot.docs.map(
           (doc) => doc.data() as MessageData
         );
         return messages;
       };
-      getMessages().then((data: MessageData[]) => {
+      getMessages().then((data: MessagesDataList) => {
         setMessages(data);
       });
     });

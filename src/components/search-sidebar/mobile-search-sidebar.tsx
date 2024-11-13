@@ -1,7 +1,7 @@
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { useModalControls } from "@/hooks/use-modal-controls";
 
-import { Modal } from "../modal/modal";
-import { ModalPortal } from "../modal/modal-portal";
 import { SearchSidebar } from "./search-sidebar";
 import { SearchIcon } from "./styled";
 

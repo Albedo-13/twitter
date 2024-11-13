@@ -9,7 +9,9 @@ export const Wrapper = styled.div`
   max-width: 100%;
   min-height: 100vh;
   padding: 10px;
+  --circle-md-size: 55px;
   @media ${theme.device.md} {
+    align-items: center;
     padding-top: 0;
   }
 `;
@@ -21,10 +23,9 @@ export const AvatarWrapper = styled.div`
 `;
 
 export const LogoWrapper = styled.div`
-  margin-left: 20px;
-
+  margin-left: 6px;
   @media ${theme.device.md} {
-    margin: 10px 0 0 15px;
+    margin-left: 0;
   }
 `;
 
@@ -48,12 +49,13 @@ export const ButtonForSmolScreen = styled.button`
   display: none;
   @media ${theme.device.md} {
     display: block;
-    width: 45px;
-    height: 45px;
+    width: var(--circle-md-size);
+    height: var(--circle-md-size);
     margin: 0 auto;
     background-color: var(--primary-color);
     border: 0;
     border-radius: 100px;
+    font-size: 28px;
   }
   @media ${theme.device.sm} {
     display: none;
@@ -63,9 +65,11 @@ export const ButtonForSmolScreen = styled.button`
 export const NavList = styled.ul`
   display: flex;
   flex-direction: column;
+
   margin-top: 30px;
 
   @media ${theme.device.md} {
+    align-items: center;
     margin: 15px 0;
   }
 `;
@@ -75,10 +79,11 @@ type NavListItemLinkType = {
 };
 
 export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
+  box-sizing: border-box;
   text-decoration: none;
-
   font-size: 18px;
-  padding: 15px 0 15px 20px;
+  padding: 15px 10px;
+  /* padding: 15px 0 15px 20px; */
   align-items: center;
   border-radius: 50px;
   transition: 0.2s all;
@@ -122,7 +127,11 @@ export const NavListItemLink = styled(NavLink)<NavListItemLinkType>`
   }
 
   @media ${theme.device.md} {
+    width: var(--circle-md-size);
+    height: var(--circle-md-size);
+    padding: 20px 12px;
     font-size: 0;
+    /* background-color: red; */
   }
 
   @media ${theme.device.sm} {
@@ -176,6 +185,7 @@ export const UserBlock = styled.div`
   width: 100px;
   gap: 5px;
   overflow: hidden;
+  padding: 0 18px 0 0;
   @media ${theme.device.md} {
     display: none;
   }

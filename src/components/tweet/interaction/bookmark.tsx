@@ -1,10 +1,11 @@
-import { doc, DocumentData, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
 
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostData } from "@/types";
 
 import {
   InteractionButton,
@@ -13,16 +14,15 @@ import {
   InteractionWrapper,
 } from "./styled";
 
-type BoomarkProps = {
-  post: DocumentData;
-};
-
 type BoomarkData = {
   bookmarked: boolean | null;
 };
 
-const Bookmark = ({ post }: BoomarkProps) => {
-  const { uid } = useAppSelector(getUserSelector);
+const Bookmark = ({
+  uid,
+  bookmarkedByUsers,
+}: Pick<PostData, "uid" | "bookmarkedByUsers">) => {
+  const user = useAppSelector(getUserSelector);
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
@@ -34,10 +34,10 @@ const Bookmark = ({ post }: BoomarkProps) => {
     setBookmarkData((prev) => {
       return {
         ...prev,
-        bookmarked: post.bookmarkedByUsers.includes(uid),
+        bookmarked: bookmarkedByUsers.includes(user.uid),
       };
     });
-  }, [post.bookmarkedByUsers, uid]);
+  }, [bookmarkedByUsers, user.uid]);
 
   useEffect(() => {
     return () => {
@@ -66,20 +66,20 @@ const Bookmark = ({ post }: BoomarkProps) => {
   };
 
   const sendToServer = async (isBookmarked: boolean) => {
-    const wasBookmarkedBefore = post.bookmarkedByUsers.includes(uid);
+    const wasBookmarkedBefore = bookmarkedByUsers.includes(user.uid);
 
-    if (uid && wasBookmarkedBefore !== isBookmarked) {
+    if (user.uid && wasBookmarkedBefore !== isBookmarked) {
       let newBookmarkedByUsers: string[] = [];
 
       if (wasBookmarkedBefore) {
-        newBookmarkedByUsers = post.bookmarkedByUsers.filter(
+        newBookmarkedByUsers = bookmarkedByUsers.filter(
           (uid: string) => uid !== uid
         );
       } else {
-        newBookmarkedByUsers = [...post.bookmarkedByUsers, uid];
+        newBookmarkedByUsers = [...bookmarkedByUsers, user.uid];
       }
 
-      const postRef = doc(db, "posts", post.uid);
+      const postRef = doc(db, "posts", uid!);
       updateDoc(postRef, {
         bookmarkedByUsers: newBookmarkedByUsers,
       });

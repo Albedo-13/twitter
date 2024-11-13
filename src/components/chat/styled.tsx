@@ -7,14 +7,6 @@ export const ChatWrapper = styled.div`
   position: relative;
 `;
 
-export const Members = styled.div`
-  font-weight: 300;
-  margin-left: 20px;
-  position: absolute;
-  top: -20px;
-  color: var(--text-secondary-color);
-`;
-
 export const MessagesListWrapper = styled.main`
   height: 100%;
 `;
