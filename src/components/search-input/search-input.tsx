@@ -2,7 +2,7 @@ import { ChangeEvent } from "react";
 
 import { SearchbarWrapper, SearchIcon, SearchText } from "./styled";
 
-type SearchSidebarProps = {
+type SearchInputProps = {
   placeholder: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -12,7 +12,7 @@ export function SearchInput({
   placeholder,
   value,
   onChange,
-}: SearchSidebarProps) {
+}: SearchInputProps) {
   return (
     <SearchbarWrapper>
       <SearchIcon
@@ -28,7 +28,6 @@ export function SearchInput({
           />
         </g>
       </SearchIcon>
-
       <SearchText value={value} onChange={onChange} placeholder={placeholder} />
     </SearchbarWrapper>
   );

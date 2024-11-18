@@ -13,17 +13,11 @@ import { Header } from "@/components/header/header";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-
-type ChatsData = {
-  image: string | null;
-  members: string[];
-  name: string;
-  uid: string;
-};
+import { ChatData } from "@/types";
 
 export function MessagesPage() {
   const { uid } = useAppSelector(getUserSelector);
-  const [chats, setChats] = useState<ChatsData[] | null>(null);
+  const [chats, setChats] = useState<ChatData[] | null>(null);
 
   useEffect(() => {
     const q = collection(db, "chats");
@@ -41,8 +35,10 @@ export function MessagesPage() {
           return;
         }
 
-        const convertedData: ChatsData[] = [];
-        querySnapshot.forEach((e) => convertedData.push(e.data() as ChatsData));
+        const convertedData: ChatData[] = [];
+        querySnapshot.forEach((chat) =>
+          convertedData.push(chat.data() as ChatData)
+        );
         setChats(convertedData);
       };
       getPostByUid();

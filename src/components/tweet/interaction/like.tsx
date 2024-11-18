@@ -1,10 +1,11 @@
-import { doc, DocumentData, updateDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import { SyntheticEvent, useEffect, useState } from "react";
 
 import { LIKE_DEBOUNCE_DELAY_MS } from "@/constants/constants";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostData } from "@/types";
 
 import {
   InteractionButton,
@@ -14,17 +15,17 @@ import {
   InteractionWrapper,
 } from "./styled";
 
-type LikeProps = {
-  post: DocumentData;
-};
-
 type LikeData = {
   count: number | null;
   liked: boolean | null;
 };
 
-const Like = ({ post }: LikeProps) => {
-  const { uid } = useAppSelector(getUserSelector);
+const Like = ({
+  uid,
+  likes,
+  likedByUsers,
+}: Pick<PostData, "uid" | "likes" | "likedByUsers">) => {
+  const user = useAppSelector(getUserSelector);
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
   );
@@ -38,11 +39,11 @@ const Like = ({ post }: LikeProps) => {
     setLikeData((prev) => {
       return {
         ...prev,
-        count: post.likes,
-        liked: post.likedByUsers.includes(uid),
+        count: likes,
+        liked: likedByUsers.includes(user.uid),
       };
     });
-  }, [post.likedByUsers, post.likes, uid]);
+  }, [likedByUsers, likes, user.uid]);
 
   useEffect(() => {
     return () => {
@@ -75,20 +76,20 @@ const Like = ({ post }: LikeProps) => {
   };
 
   const sendToServer = async (likesCount: number, isLiked: boolean) => {
-    const wasLikedBefore = post.likedByUsers.includes(uid);
+    const wasLikedBefore = likedByUsers.includes(user.uid);
 
-    if (uid && wasLikedBefore !== isLiked) {
+    if (user.uid && wasLikedBefore !== isLiked) {
       let newLikedByUsers: string[] = [];
 
       if (wasLikedBefore) {
-        newLikedByUsers = post.likedByUsers.filter(
-          (authorUid: string) => authorUid !== uid
+        newLikedByUsers = likedByUsers.filter(
+          (authorUid: string) => authorUid !== user.uid
         );
       } else {
-        newLikedByUsers = [...post.likedByUsers, uid];
+        newLikedByUsers = [...likedByUsers, user.uid];
       }
 
-      const postRef = doc(db, "posts", post.uid);
+      const postRef = doc(db, "posts", uid);
       updateDoc(postRef, {
         likes: likesCount,
         likedByUsers: newLikedByUsers,

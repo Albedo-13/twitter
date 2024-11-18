@@ -1,96 +1,112 @@
-import { DocumentData } from "firebase/firestore";
-import { getDownloadURL, ref } from "firebase/storage";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { memo, useEffect, useState } from "react";
 
-import noAvatar from "@/assets/imgs/no_avatar.png";
+import { Avatar } from "@/components/avatar/avatar";
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { ROUTES } from "@/constants/routes";
-import { storage } from "@/firebase";
-import { queryUserEqualByValue } from "@/utils/firebase/helpers";
+import { useAppSelector } from "@/hooks/redux";
+import { useModalControls } from "@/hooks/use-modal-controls";
+import { getUserSelector } from "@/redux/selectors/user-selectors";
+import { PostData } from "@/types";
+import { Time } from "@/ui/time";
+import { getAdditionalUserDataByUid } from "@/utils/firebase/helpers";
+import { getImageUrl } from "@/utils/firebase/helpers";
 
-import { Avatar } from "../avatar/avatar";
 import Bookmark from "./interaction/bookmark";
 import Like from "./interaction/like";
 import More from "./more";
 import {
-  AvatarWrapper,
+  AvatarWrapperLink,
   BodyWrapper,
   Image,
   InteractionContainer,
   TweetText,
   UserInfoWrapper,
-  UserName,
+  UserNameLink,
   Wrapper,
 } from "./styled";
-import Time from "./time";
-
-type TweetProps = {
-  post: DocumentData;
-};
 
 type UserDataType = {
-  photoURL: string | null;
+  avatar: string;
   displayName: string | null;
 };
 
-export function Tweet({ post }: TweetProps) {
-  const [imgUrl, setImgUrl] = useState<string | null>(null);
-  const [userData, setUserData] = useState<UserDataType>({
-    photoURL: null,
-    displayName: null,
-  });
-  const navigate = useNavigate();
+export const Tweet = memo(
+  ({
+    authorUid,
+    bookmarkedByUsers,
+    content,
+    createdAt,
+    image,
+    likedByUsers,
+    likes,
+    uid,
+  }: PostData) => {
+    const { showModal, handleModalShow, handleModalClose } = useModalControls();
 
-  useEffect(() => {
-    const getImageUrl = async () => {
-      try {
-        const url = await getDownloadURL(ref(storage, post?.image));
-        return url;
-      } catch (error) {
-        return null;
+    const user = useAppSelector(getUserSelector);
+    const [imgUrl, setImgUrl] = useState<string | null>(null);
+    const [userData, setUserData] = useState<UserDataType>({
+      avatar: "",
+      displayName: null,
+    });
+
+    useEffect(() => {
+      if (image) {
+        getImageUrl(image)
+          .then((url) => setImgUrl(url))
+          .catch(() => setImgUrl(null));
       }
-    };
+      getAdditionalUserDataByUid(authorUid).then((data) =>
+        setUserData(data as UserDataType)
+      );
+    }, [authorUid, image, user.avatar]);
 
-    const getAdditionalUserDataByUid = async (userId: string) => {
-      const queryUserSnapshot = await queryUserEqualByValue("uid", userId);
-      if (!queryUserSnapshot.empty) {
-        const { photoURL, displayName } = queryUserSnapshot.docs[0].data();
-        return { photoURL, displayName };
-      }
-    };
+    const link = `${ROUTES.PROFILE}${user.uid !== authorUid ? `/${authorUid}` : ""}`;
 
-    getImageUrl()
-      .then((url) => setImgUrl(url))
-      .catch(() => setImgUrl(null));
-    getAdditionalUserDataByUid(post.authorUid).then((data) =>
-      setUserData(data as UserDataType)
-    );
-  }, [post.authorUid, post?.image]);
-
-  const handleOpenPost = () => {
-    navigate(`${ROUTES.POST}/${post.uid}`);
-  };
-
-  return (
-    <>
+    const toRender = (
       <Wrapper>
-        <AvatarWrapper>
-          <Avatar src={userData.photoURL || noAvatar} />
-        </AvatarWrapper>
+        <AvatarWrapperLink to={link}>
+          <Avatar src={userData.avatar} />
+        </AvatarWrapperLink>
         <BodyWrapper>
           <UserInfoWrapper>
-            <UserName>{userData.displayName}</UserName>
-            <Time seconds={post.createdAt.seconds} />
-            <More post={post} />
+            <UserNameLink to={link}>{userData.displayName}</UserNameLink>
+            <Time seconds={createdAt.seconds} />
+            {authorUid === user.uid && (
+              <More
+                uid={uid}
+                image={image}
+                authorUid={authorUid}
+                content={content}
+              />
+            )}
           </UserInfoWrapper>
-          <TweetText onClick={handleOpenPost}>{post.content}</TweetText>
-          {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+          <div onClick={handleModalShow}>
+            <TweetText>{content}</TweetText>
+            {imgUrl && <Image src={imgUrl} alt="tweet image" />}
+          </div>
           <InteractionContainer>
-            <Like post={post} />
-            <Bookmark post={post} />
+            <Like uid={uid} likes={likes} likedByUsers={likedByUsers} />
+            <Bookmark uid={uid} bookmarkedByUsers={bookmarkedByUsers} />
           </InteractionContainer>
         </BodyWrapper>
       </Wrapper>
-    </>
-  );
-}
+    );
+
+    return (
+      <>
+        {toRender}
+        {showModal && (
+          <ModalPortal
+            children={
+              <Modal onClose={handleModalClose} className="big">
+                {toRender}
+              </Modal>
+            }
+          />
+        )}
+      </>
+    );
+  }
+);

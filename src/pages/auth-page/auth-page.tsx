@@ -10,6 +10,7 @@ import { useAppDispatch } from "@/hooks/redux";
 import { useAppSelector } from "@/hooks/redux";
 import { getThemeSelector } from "@/redux/selectors/theme-selectors";
 import { setUser } from "@/redux/slices/user-slice";
+import { UserType } from "@/types";
 import { Button } from "@/ui/buttons";
 import { InlineLink } from "@/ui/links";
 import { adaptUserObj, queryUserEqualByValue } from "@/utils/firebase/helpers";
@@ -39,21 +40,28 @@ export function AuthPage() {
   const handleSignupWithGoogleClick = async () => {
     await signInWithPopup(auth, googleProvider).then(async (userCredential) => {
       const user = userCredential.user;
-      const { uid, phoneNumber, email, photoURL, displayName } = user;
-      const newUser = {
+      const { uid, phoneNumber, email, displayName } = user;
+
+      let newUser: UserType = {
         uid: uid,
+        avatar: "",
+        background: "",
         phone: phoneNumber || "",
-        email: email,
-        photoURL: photoURL || "",
-        displayName: displayName,
+        email: email!,
+        displayName: displayName!,
+        accountType: "google",
       };
 
       const queryUserSnapshot = await queryUserEqualByValue("uid", uid);
 
       if (queryUserSnapshot.empty) {
         await addDoc(collection(db, "users"), newUser);
+      } else {
+        const additionalData = queryUserSnapshot.docs[0].data();
+        newUser = { ...newUser, ...additionalData };
       }
-      dispatch(setUser(adaptUserObj(user)));
+
+      dispatch(setUser(adaptUserObj(newUser)));
     });
 
     navigate(ROUTES.HOME);
@@ -91,18 +99,18 @@ export function AuthPage() {
               </ButtonWrapper>
               <PolicyText>
                 By singing up you agree to the
-                <InlineLink to="#">Terms of Service</InlineLink> and
-                <InlineLink to="#">Privacy Policy</InlineLink>, including
-                <InlineLink to="#">Cookie Use</InlineLink>.
+                <InlineLink to="#"> Terms of Service</InlineLink> and
+                <InlineLink to="#"> Privacy Policy</InlineLink>, including
+                <InlineLink to="#"> Cookie Use</InlineLink>.
               </PolicyText>
               <LoginText>
                 Already have an account?
-                <InlineLink to={ROUTES.LOGIN}>Log in</InlineLink>
+                <InlineLink to={ROUTES.LOGIN}> Log in</InlineLink>
               </LoginText>
             </div>
           </AuthWrapper>
         </Wrapper>
-        <Background bgname={theme} />
+        <Background $bgname={theme} />
       </div>
     </ProfileWrapper>
   );

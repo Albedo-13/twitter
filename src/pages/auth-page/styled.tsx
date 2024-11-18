@@ -47,12 +47,12 @@ export const AuthFooterWrapper = styled.div`
 `;
 
 type BackgroundProps = {
-  bgname: string;
+  $bgname: string;
 };
 
 export const Background = styled.div<BackgroundProps>`
-  background: ${({ bgname }) => {
-    switch (bgname) {
+  background: ${({ $bgname }) => {
+    switch ($bgname) {
       case "light":
         return `url(${twitterBackground}) center center / cover no-repeat`;
       case "dark":
