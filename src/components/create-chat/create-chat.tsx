@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-
+import { Modal } from "@/components/modal/modal";
+import { ModalPortal } from "@/components/modal/modal-portal";
 import { useModalControls } from "@/hooks/use-modal-controls";
 import { Button } from "@/ui/buttons";
 
-import { Modal } from "../modal/modal";
-import { ModalPortal } from "../modal/modal-portal";
 import { CreateChatModal } from "./create-chat-modal";
 import {
   CreateChatHeaderButton,
@@ -19,10 +17,6 @@ type CreateChatProps = {
 
 export function CreateChat({ type = "independed" }: CreateChatProps) {
   const { showModal, handleModalShow, handleModalClose } = useModalControls();
-
-  useEffect(() => {
-    handleModalClose();
-  }, [handleModalClose]);
 
   return (
     <>

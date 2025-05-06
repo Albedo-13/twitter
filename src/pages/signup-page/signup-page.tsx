@@ -76,15 +76,17 @@ export function SignupPage() {
 
         const newUser = {
           uid: userCreds.uid,
+          avatar: "",
+          background: "",
           phone: data.phone,
           email: data.email,
-          photoURL: userCreds.photoURL || "",
           displayName: data.displayName,
           birthday: new Date(
             Number(data.year),
             Number(MONTHS.indexOf(data.month)),
             Number(data.day)
           ).toString(),
+          accountType: "firebase" as const,
         };
 
         Promise.all([

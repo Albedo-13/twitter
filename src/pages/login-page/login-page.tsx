@@ -9,6 +9,7 @@ import { ROUTES } from "@/constants/routes";
 import { auth } from "@/firebase";
 import { useAppDispatch } from "@/hooks/redux";
 import { setUser } from "@/redux/slices/user-slice";
+import { UserType } from "@/types";
 import { Button } from "@/ui/buttons";
 import { Input } from "@/ui/inputs";
 import { InlineLink } from "@/ui/links";
@@ -43,10 +44,10 @@ export function LoginPage() {
     const queryEmailSnapshot = await queryUserEqualByValue("email", login);
     const queryPhoneSnapshot = await queryUserEqualByValue("phone", login);
 
-    const user = getLoginFromEmailOrPhone(
+    const user: UserType = getLoginFromEmailOrPhone(
       queryEmailSnapshot,
       queryPhoneSnapshot
-    );
+    )! as UserType;
 
     if (user) {
       try {

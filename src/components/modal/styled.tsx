@@ -25,9 +25,13 @@ export const StyledModal = styled.main`
   padding: 20px;
   padding-top: 30px;
   border-radius: 10px;
+  
   &.modal_top {
     top: 0;
     transform: translate(-50%, 0);
+  }
+  &.big{
+    max-width: 600px;
   }
 `;
 
@@ -35,10 +39,13 @@ export const ModalClose = styled.div`
   position: absolute;
   top: 0px;
   right: 7px;
-  font-size: 30px;
+  font-size: 36px;
   cursor: pointer;
   transition: 0.3s;
-
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   &:hover {
     transform: scale(1.2);
     transition: 0.3s;

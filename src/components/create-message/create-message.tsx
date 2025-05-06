@@ -1,6 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { doc, setDoc } from "firebase/firestore";
-import { useState } from "react";
 import { ChangeEvent, KeyboardEvent } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -9,8 +8,9 @@ import { v4 as uuidv4 } from "uuid";
 import addMedia from "@/assets/icons/add-media.svg";
 import { db } from "@/firebase";
 import { useAppSelector } from "@/hooks/redux";
+import { useImageInput } from "@/hooks/use-image-input";
 import { getUserSelector } from "@/redux/selectors/user-selectors";
-import { uploadFile } from "@/utils/firebase/helpers";
+import { PostFormData } from "@/types";
 
 import { schema } from "./form-schema";
 import {
@@ -25,16 +25,15 @@ import {
   SendSVG,
 } from "./styled";
 
-type Data = {
-  text: string;
-  image: FileList | null;
-};
-
 export function CreateMessage() {
   const { id } = useParams();
-  const { uid } = useAppSelector(getUserSelector);
-
-  const [previewImage, setPreviewImage] = useState<string>();
+  const user = useAppSelector(getUserSelector);
+  const {
+    previewImage,
+    clearPreview,
+    handleFileInputChange,
+    getUploadedImageName,
+  } = useImageInput();
 
   const {
     register,
@@ -42,54 +41,35 @@ export function CreateMessage() {
     reset,
     formState: { errors, isSubmitting },
     clearErrors,
-  } = useForm<Data>({
+  } = useForm<PostFormData>({
     defaultValues: {
-      text: "",
+      content: "",
       image: null,
     },
     resolver: zodResolver(schema),
   });
 
-  const getUploadedImageName = async (images: FileList | null) => {
-    return images ? await uploadFile(`chats/${id}`, images[0]) : null;
-  };
-
-  const sendMessageDataToDB = async (formData: Data) => {
+  const sendMessageDataToDB = async (formData: PostFormData) => {
+    if (!formData.content.trim().length && !formData.image) return;
     const messageId = uuidv4();
-    const imageName = await getUploadedImageName(formData.image);
+    const imageName = await getUploadedImageName(formData.image, `chats/${id}`);
     const newMessage = {
       uid: messageId,
-      authorUid: uid,
-      text: formData.text,
+      authorUid: user.uid,
+      content: formData.content,
       image: imageName,
       createdAt: new Date(),
     };
     await setDoc(doc(db, "chats", id!, "messages", messageId), newMessage);
 
     reset();
-    setPreviewImage("");
+    clearPreview();
   };
 
   const handleKeyDown = ({ key, shiftKey }: KeyboardEvent<HTMLFormElement>) => {
     if (!shiftKey && key === "Enter") {
       handleSubmit(sendMessageDataToDB)();
     }
-  };
-
-  const handleFileInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = function ({ target }) {
-        if (target) {
-          setPreviewImage(target.result as string);
-        } else {
-          console.error("Bug perhaps, i dunno");
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-    register("image").onChange(event);
   };
 
   return (
@@ -102,18 +82,19 @@ export function CreateMessage() {
           <FileInputImage src={addMedia} alt="upload file" />
         </label>
         <FileInput
-          {...register("image")}
+          {...register("image", {
+            onChange: handleFileInputChange,
+          })}
           type="file"
           id="file-input"
           accept="image/*"
-          onChange={handleFileInputChange}
         />
       </FileInputWrapper>
       <InputWrapper>
         <FileInputPreviewImage src={previewImage} />
         <Input
-          {...register("text")}
-          className={errors.text ? "error" : ""}
+          {...register("content")}
+          className={errors.content ? "error" : ""}
           onInput={({ target }: ChangeEvent<HTMLTextAreaElement>) => {
             //i dont know why, but this kinda works
             target.style.height = `0px`;

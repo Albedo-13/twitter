@@ -44,6 +44,7 @@ export const GlobalStyle = createGlobalStyle`
     --bg-primary-color: #fff;
     --bg-primary-rgb: 255, 255, 255;
 
+    --success-color: #2ba520;
     --error-color: #f5222d;
   }
 
@@ -90,6 +91,13 @@ export const GlobalStyle = createGlobalStyle`
     &-button {
       height: 2px;
     }
+  }
+
+  ::placeholder{
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
   }
 
   p {

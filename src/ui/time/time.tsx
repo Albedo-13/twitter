@@ -1,6 +1,11 @@
 import { UserTime } from "./styled";
 
-const Time = ({ seconds }: { seconds: number }) => {
+type TimeProps = {
+  seconds: number;
+  textBefore?: string;
+};
+
+export const Time = ({ seconds, textBefore }: TimeProps) => {
   const translateMonth = (monthIndex: number) => {
     return [
       "Jan",
@@ -23,22 +28,19 @@ const Time = ({ seconds }: { seconds: number }) => {
     const endDate = new Date();
 
     const differenceInMilliseconds = +endDate - +startDate;
-
     const differenceInSeconds = Math.floor(differenceInMilliseconds / 1000);
 
     let res: string = ``;
 
     if (startDate.getFullYear() !== endDate.getFullYear()) {
-      const day = startDate.getDay();
-      const monthText = translateMonth(startDate.getMonth());
+      const month = translateMonth(startDate.getMonth() + 1);
+      const day = startDate.getDate();
       const year = startDate.getFullYear();
-
-      return `${monthText} ${day}, ${year}`;
-    }
-    if (differenceInSeconds > 86400) {
-      const day = startDate.getDay();
-      const monthText = translateMonth(startDate.getMonth());
-      res = `${monthText} ${day}`;
+      return `${month} ${day}, ${year}`;
+    } else if (differenceInSeconds > 86400) {
+      const day = startDate.getDate();
+      const month = translateMonth(startDate.getMonth() + 1);
+      res = `${month} ${day}`;
     } else if (differenceInSeconds > 3600) {
       const hours = Math.floor(differenceInSeconds / 3600);
       res = `${hours}h`;
@@ -66,9 +68,8 @@ const Time = ({ seconds }: { seconds: number }) => {
 
   return (
     <UserTime title={titleText} dateTime={dateTimeText}>
+      {textBefore}
       {timeText}
     </UserTime>
   );
 };
-
-export default Time;

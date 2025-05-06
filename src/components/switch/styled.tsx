@@ -43,7 +43,6 @@ export const SwitchSpan = styled.span`
   border: var(--border-gray);
   border-width: 2px;
   border-radius: 34px;
-  transition: 0.4s;
 
   &:before {
     position: absolute;
@@ -54,8 +53,13 @@ export const SwitchSpan = styled.span`
     bottom: -2px;
     border: var(--border-gray);
     border-width: 2px;
-    transition: 0.4s;
     border-radius: 50%;
     background-color: var(--secondary-color);
+  }
+  &.switch-slider_loaded {
+    transition: 0.4s;
+    &:before {
+      transition: 0.4s;
+    }
   }
 `;
